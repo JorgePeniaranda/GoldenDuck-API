@@ -1,4 +1,4 @@
-import { ValidationDictionary } from '@/const/messages'
+import { ValidationDictionary } from '@/messages/errors'
 import {
   checkAlphanumeric,
   checkOnlyLetters,

@@ -1,5 +1,5 @@
-import { ErrorsDictionary } from '@/const/messages'
-import { type ErrorInfo } from '@/types'
+import { ErrorsDictionary } from '@/messages/errors'
+import { type ErrorInfo } from '@/types/entities'
 import { StatusCodes, getReasonPhrase } from 'http-status-codes'
 import { NextResponse } from 'next/server'
 
