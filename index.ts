@@ -5,6 +5,7 @@ import helmet from 'helmet'
 import hpp from 'hpp'
 import { AccountsRouter, AuthRouter, CardsRouter, CategoriesRouter, ErrorsRouter, InvestmentsRouter, LoansRouter, MessagesRouter, NotificationsRouter, SessionsRouter, TransactionsRouter } from './src/routes'
 import UserRouter from './src/core/user/infraestructure/route/user.route'
+import ErrorHandler from './src/middlewares/ErrorHandler'
 
 const app = express()
 app.disabled('x-powered-by')
@@ -17,9 +18,6 @@ app.use(helmet()) // Helmet helps you secure your Express apps by setting variou
 app.use(hpp()) // HPP middleware to protect against HTTP Parameter Pollution attacks
 
 /* --- Routes --- */
-app.get('/', (_req, res) => {
-  return res.send('hola')
-})
 app.use('/auth', AuthRouter)
 app.use('/user', UserRouter)
 app.use('/accounts', AccountsRouter)
@@ -34,6 +32,7 @@ app.use('/transactions', TransactionsRouter)
 app.use('/loans', LoansRouter)
 
 app.use((_req, res) => res.status(404).send()) // 404 Not Found
+app.use(ErrorHandler) // Error handler
 
 // Start the server
 app.listen(3000, () => {
