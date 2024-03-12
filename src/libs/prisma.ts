@@ -1,7 +1,7 @@
-import { ErrorsDictionary } from '@/const/messages'
+import { ErrorsDictionary } from '@/messages/errors'
 import { AuthorizationError } from '@/services/errorService'
 import JWT from '@/services/jwtService'
-import { type RegisterForm } from '@/types'
+import { type RegisterForm } from '@/types/entities'
 import { PrismaClient, type role } from '@prisma/client'
 
 const jwt = new JWT()

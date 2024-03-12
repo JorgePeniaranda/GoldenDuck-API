@@ -17,7 +17,7 @@ export const checkPasswordStrong = (value: string): boolean =>
 
 export const BigIntToJson = (param: any): any => {
   return JSON.parse(
-    JSON.stringify(param, (key, value) =>
+    JSON.stringify(param, (_key, value) =>
       typeof value === 'bigint' ? value.toString() : value
     )
   )
