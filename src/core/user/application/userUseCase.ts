@@ -7,7 +7,26 @@ export default class UseruUseCase {
   }
 
   public async create (user: UserEntity): Promise<UserEntity> {
-    await this.userRepository.findUserByID(1)
+    const createdUser = await this.userRepository.saveUser(user)
+
+    return createdUser
+  }
+
+  public async update (user: UserEntity): Promise<UserEntity> {
+    const updatedUser = await this.userRepository.saveUser(user)
+
+    return updatedUser
+  }
+
+  public async delete (user: UserEntity): Promise<UserEntity> {
+    user.deleted = true
+    const updatedUser = await this.userRepository.saveUser(user)
+
+    return updatedUser
+  }
+
+  public async findUser (searchParams: { id?: number, email?: string, phoneNumber?: number }): Promise<UserEntity | null> {
+    const user = await this.userRepository.findUser(searchParams)
 
     return user
   }

@@ -6,5 +6,5 @@
 @host = {{hostname}}:{{port}}
 @contentType = application/json
 
-GET {{protocol}}://{{host}}/?name=Jose
+GET {{protocol}}://{{host}}/user?id=s1&phoneNumber=1234567890
 Content-Type: {{contentType}}
