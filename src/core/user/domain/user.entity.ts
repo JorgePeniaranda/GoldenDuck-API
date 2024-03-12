@@ -1,10 +1,10 @@
-export default interface UserEntity {
+export interface UserEntity {
   id: number
   name: string
   lastName: string
-  dni: bigint
+  dni: number | bigint
   email: string
-  phoneNumber: bigint
+  phoneNumber: number | bigint
   password: string
   address: string
   birthDate: Date

@@ -1,20 +1,20 @@
-import type UserEntity from './user.entity'
+import { type UserEntity } from './user.entity'
 
-export default class User implements UserEntity {
-  public id: number
-  public name: string
-  public lastName: string
-  public dni: bigint
-  public email: string
-  public phoneNumber: bigint
-  public password: string
-  public address: string
-  public birthDate: Date
-  public sex: 'MALE' | 'FEMALE'
-  public updatedAt: Date
-  public createdAt: Date
-  public deleted: boolean
-  public role: 'ADMIN' | 'SUPPORT' | 'USER'
+export class User implements UserEntity {
+  public readonly id: UserEntity['id']
+  public name: UserEntity['name']
+  public lastName: UserEntity['lastName']
+  public dni: UserEntity['dni']
+  public email: UserEntity['email']
+  public phoneNumber: UserEntity['phoneNumber']
+  public password: UserEntity['password']
+  public address: UserEntity['address']
+  public birthDate: UserEntity['birthDate']
+  public sex: UserEntity['sex']
+  public updatedAt: UserEntity['updatedAt']
+  public createdAt: UserEntity['createdAt']
+  public deleted: UserEntity['deleted']
+  public role: UserEntity['role']
 
   constructor (user: UserEntity) {
     this.id = user.id

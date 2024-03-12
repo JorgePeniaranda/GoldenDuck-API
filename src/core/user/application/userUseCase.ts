@@ -1,7 +1,7 @@
-import type UserEntity from '../domain/user.entity'
-import type UserRepository from '../domain/user.repository'
+import { type UserEntity } from '../domain/user.entity'
+import { type UserRepository } from '../domain/user.repository'
 
-export default class UseruUseCase {
+export class UserUseCase {
   constructor (private readonly userRepository: UserRepository) {
     this.userRepository = userRepository
   }
@@ -25,7 +25,7 @@ export default class UseruUseCase {
     return updatedUser
   }
 
-  public async findUser (searchParams: { id?: number, email?: string, phoneNumber?: number }): Promise<UserEntity | null> {
+  public async findUser (searchParams: { id?: UserEntity['id'], dni?: UserEntity['dni'], email?: UserEntity['email'], phoneNumber?: UserEntity['phoneNumber'] }): Promise<UserEntity | null> {
     const user = await this.userRepository.findUser(searchParams)
 
     return user

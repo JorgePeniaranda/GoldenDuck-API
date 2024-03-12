@@ -1,6 +1,6 @@
-import type UserEntity from './user.entity'
+import { type UserEntity } from './user.entity'
 
-export default interface UserRepository {
+export interface UserRepository {
   saveUser: (user: UserEntity) => Promise<UserEntity>
-  findUser: ({ id, email, phoneNumber }: { id?: number, email?: string, phoneNumber?: number }) => Promise<UserEntity | null>
+  findUser: ({ id, dni, email, phoneNumber }: { id?: UserEntity['id'], dni?: UserEntity['dni'], email?: UserEntity['email'], phoneNumber?: UserEntity['phoneNumber'] }) => Promise<UserEntity | null>
 }
