@@ -17,15 +17,20 @@ export default class PrismaRepository implements UserRepository {
     return createdUser
   }
 
-  public async findUser ({ id, dni, email, phoneNumber }: { id?: UserEntity['id'], dni?: UserEntity['dni'], email?: UserEntity['email'], phoneNumber?: UserEntity['phoneNumber'] }): Promise<UserEntity | null> {
+  public async findUser ({
+    id,
+    dni,
+    email,
+    phoneNumber
+  }: {
+    id?: UserEntity['id']
+    dni?: UserEntity['dni']
+    email?: UserEntity['email']
+    phoneNumber?: UserEntity['phoneNumber']
+  }): Promise<UserEntity | null> {
     const user = await prisma.user.findFirst({
       where: {
-        OR: [
-          { id },
-          { dni },
-          { email },
-          { phoneNumber }
-        ],
+        OR: [{ id }, { dni }, { email }, { phoneNumber }],
         deleted: false
       }
     })

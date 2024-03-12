@@ -3,7 +3,19 @@ import express from 'express'
 import 'express-async-errors' // This module monkey patches the built-in express error handler to support async/await
 import helmet from 'helmet'
 import hpp from 'hpp'
-import { AccountsRouter, AuthRouter, CardsRouter, CategoriesRouter, ErrorsRouter, InvestmentsRouter, LoansRouter, MessagesRouter, NotificationsRouter, SessionsRouter, TransactionsRouter } from './src/routes'
+import {
+  AccountsRouter,
+  AuthRouter,
+  CardsRouter,
+  CategoriesRouter,
+  ErrorsRouter,
+  InvestmentsRouter,
+  LoansRouter,
+  MessagesRouter,
+  NotificationsRouter,
+  SessionsRouter,
+  TransactionsRouter
+} from './src/routes'
 import UserRouter from './src/core/user/infraestructure/route/user.route'
 import ErrorHandler from './src/middlewares/ErrorHandler'
 

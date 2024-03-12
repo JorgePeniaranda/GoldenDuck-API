@@ -2,7 +2,12 @@ import ErrorsDictionary from '../messages/errors'
 import { type Request, type Response, type NextFunction } from 'express'
 import { StatusCodes } from 'http-status-codes'
 
-export default function ErrorHandler (error: any, _request: Request, response: Response, _next: NextFunction): Response {
+export default function ErrorHandler (
+  error: any,
+  _request: Request,
+  response: Response,
+  _next: NextFunction
+): Response {
   switch (error.name) {
     // Prisma ORM errors
     case 'PrismaClientInitializationError':
