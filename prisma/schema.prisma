@@ -93,6 +93,7 @@ model Card {
   number            String
   cvv               String
   expiration        DateTime
+  date              DateTime          @default(now())
   updatedDate       DateTime          @default(now())
   deleted           Boolean           @default(false)
   account           Account           @relation(fields: [idAccount], references: [id])

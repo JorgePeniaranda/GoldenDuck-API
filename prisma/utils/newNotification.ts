@@ -7,7 +7,8 @@ export const newNotification = async (idAccount: number, amount: number): Promis
     const id = await prisma.notification.create({
       data: {
         idAccount,
-        message: faker.lorem.text()
+        message: faker.lorem.text(),
+        date: faker.date.past()
       },
       select: {
         id: true

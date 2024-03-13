@@ -4,6 +4,8 @@ import { prisma } from '../../src/libs/prisma'
 export const newLoan = async (idAccount: number, amount: number): Promise<Array<{ id: number }>> => {
   const listID = []
   for (let i = 0; i < amount; i++) {
+    const randomDate = faker.date.past()
+
     const id = await prisma.loan.create({
       data: {
         idAccount,
@@ -15,6 +17,7 @@ export const newLoan = async (idAccount: number, amount: number): Promise<Array<
           min: 1.3,
           max: 10
         }),
+        date: randomDate,
         dateEnd: faker.date.future()
       },
       select: {

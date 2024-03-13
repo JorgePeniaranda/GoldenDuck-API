@@ -8,7 +8,8 @@ export const newSession = async (idUser: number, amount: number): Promise<Array<
       data: {
         idUser,
         ip: faker.internet.ip(),
-        userAgent: faker.internet.userAgent()
+        userAgent: faker.internet.userAgent(),
+        date: faker.date.past()
       },
       select: {
         id: true
