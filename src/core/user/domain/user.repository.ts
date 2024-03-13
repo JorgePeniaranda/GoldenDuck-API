@@ -1,7 +1,8 @@
 import { type UserEntity } from './user.entity'
+import { type User } from './user.value'
 
 export interface UserRepository {
-  saveUser: (user: UserEntity) => Promise<UserEntity>
+  saveUser: (user: User) => Promise<User>
   findUser: ({
     id,
     dni,
@@ -12,5 +13,5 @@ export interface UserRepository {
     dni?: UserEntity['dni']
     email?: UserEntity['email']
     phoneNumber?: UserEntity['phoneNumber']
-  }) => Promise<UserEntity | null>
+  }) => Promise<User | null>
 }
