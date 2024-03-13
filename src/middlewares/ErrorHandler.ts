@@ -51,6 +51,12 @@ export default function ErrorHandler (
         type: 'TokenError',
         message: ErrorsDictionary.InvalidToken
       })
+    // Zod errors
+    case 'ZodError':
+      return response.status(StatusCodes.BAD_REQUEST).json({
+        type: 'ValidationError',
+        errors: error.errors
+      })
     // Custom errors
     case 'ConfigError':
       return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -89,6 +95,7 @@ export default function ErrorHandler (
       })
     // Default error
     default:
+      console.log(error)
       return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         type: 'UnknownError',
         message: ErrorsDictionary.UnknownError
