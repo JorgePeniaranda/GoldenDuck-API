@@ -8,7 +8,10 @@ export const newTransaction = async (idUser: number, amount: number): Promise<Ar
       data: {
         from: idUser,
         to: idUser,
-        amount: faker.number.int()
+        amount: faker.number.int({
+          min: 0,
+          max: 100000
+        })
       },
       select: {
         id: true

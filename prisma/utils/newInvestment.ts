@@ -9,10 +9,13 @@ export const newInvestment = async (idAccount: number, amount: number): Promise<
     const id = await prisma.investment.create({
       data: {
         idAccount,
-        amount: faker.number.int(),
-        interest: faker.number.int({
+        amount: faker.number.int({
           min: 0,
           max: 100000
+        }),
+        interest: faker.number.float({
+          min: 1.3,
+          max: 10
         }),
         date: randomDate,
         dateEnd: faker.date.future()
