@@ -1,4 +1,9 @@
 const ValidationDictionary = {
+  id: {
+    required: 'La ID es requerido',
+    invalidType: 'La ID debe contener solo numeros',
+    nonNegative: 'La ID debe ser positiva'
+  },
   name: {
     required: 'El nombre es requerido',
     onlyLetters: 'El nombre debe contener solo letras',
@@ -11,7 +16,7 @@ const ValidationDictionary = {
   },
   dni: {
     required: 'El DNI es requerido',
-    invalidType: 'El DNI debe ser un número',
+    invalidType: 'El DNI debe contener solo numeros',
     length: 'El DNI debe contener 8 dígitos'
   },
   email: {
@@ -21,7 +26,7 @@ const ValidationDictionary = {
   },
   phoneNumber: {
     required: 'El número telefónico es requerido',
-    invalidType: 'El número telefónico debe ser un número',
+    invalidType: 'El número telefónico debe contener solo numeros',
     length: 'El número telefónico debe contener 10 dígitos'
   },
   password: {
@@ -47,8 +52,17 @@ const ValidationDictionary = {
     invalidType: 'Debe ingresar una fecha válida',
     invalidAge: 'Debe ser mayor de 18 años'
   },
+  validDate: {
+    required: 'La fecha es requerida',
+    invalidType: 'Debe ingresar una fecha válida',
+    invalidDate: 'Debe ser anterior a la fecha actual'
+  },
   sex: {
     required: 'El sexo es requerido',
+    invalidType: 'Debe ingresar una opción válida'
+  },
+  role: {
+    required: 'El rol es requerido',
     invalidType: 'Debe ingresar una opción válida'
   }
 }
