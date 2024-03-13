@@ -1,7 +1,7 @@
 import { Resend } from 'resend'
-import { ConfigError, EmailError } from '../errorService'
 import TemplateCodeEmail from '@/components/templates/email/TemplateCodeEmail'
-import { ErrorsDictionary } from '@/messages/errors'
+import { ConfigError, EmailError } from '../customErrors'
+import ErrorsDictionary from '../../messages/errors'
 
 export default class Email {
   private readonly resend: Resend

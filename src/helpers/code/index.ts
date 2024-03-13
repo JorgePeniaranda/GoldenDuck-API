@@ -1,8 +1,8 @@
 import bcrypt from 'bcryptjs'
-import { randomAlphanumeric } from '@/utils'
 import { validations } from '../validationService'
-import { EmailError, ErrorsHandler, ValidationError } from '../errorService'
-import Email from '../emailService'
+import Email from '../email'
+import { EmailError, ValidationError } from '../customErrors'
+import { randomAlphanumeric } from '../../utils'
 
 const EmailService = new Email()
 
