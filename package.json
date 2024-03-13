@@ -12,6 +12,7 @@
     "format": "prettier --write . && eslint . --ext .ts --fix",
     "db:generate": "npx prisma generate",
     "db:migrate": "npx prisma migrate dev",
+    "db:seed": "npx prisma db seed",
     "db:deploy": "npx prisma migrate deploy",
     "db:push": "npx prisma db push",
     "test": "jest",
@@ -38,6 +39,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@types/bcryptjs": "^2.4.6",
     "@types/debug": "4.1.12",
     "@types/express": "4.17.21",
@@ -54,5 +56,8 @@
     "prisma": "5.11.0",
     "ts-node": "10.9.2",
     "typescript": "^5.4.2"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   }
 }

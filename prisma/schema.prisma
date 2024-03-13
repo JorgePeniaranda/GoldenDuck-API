@@ -90,8 +90,8 @@ model Notification {
 model Card {
   id                Int               @id @default(autoincrement())
   idAccount         Int
-  number            BigInt
-  cvv               Int
+  number            String
+  cvv               String
   expiration        DateTime
   updatedDate       DateTime          @default(now())
   deleted           Boolean           @default(false)
