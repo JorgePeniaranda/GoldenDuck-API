@@ -1,9 +1,7 @@
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '../../../../libs/prisma'
 import { type UserEntity } from '../../domain/user.entity'
 import { type UserRepository } from '../../domain/user.repository'
 import { User } from '../../domain/user.value'
-
-const prisma = new PrismaClient()
 
 export default class PrismaRepository implements UserRepository {
   public async saveUser (user: User): Promise<User> {
