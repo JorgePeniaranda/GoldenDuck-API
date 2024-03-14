@@ -1,7 +1,24 @@
 {
   "name": "goldenduck-api",
-  "version": "1.0.0",
-  "description": "",
+  "version": "2.0.0",
+  "description": "The REST API powers seamless banking and wallet transactions.",
+  "private": true,
+  "author": "Lycokat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Lycokat/GoldenDuck-API/issues"
+  },
+  "homepage": "https://github.com/Lycokat/GoldenDuck-API#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lycokat/GoldenDuck-API.git"
+  },
+  "keywords": [
+    "nodejs",
+    "typescript",
+    "express",
+    "prisma"
+  ],
   "main": "index.ts",
   "scripts": {
     "dev": "nodemon index.ts",
@@ -19,8 +36,6 @@
     "test:watch": "jest --watch",
     "postinstall": "prisma generate"
   },
-  "author": "Lycokat",
-  "license": "ISC",
   "dependencies": {
     "@prisma/client": "5.11.0",
     "bcryptjs": "2.4.3",
