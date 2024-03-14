@@ -62,17 +62,6 @@ export default function ErrorHandler (
           message: ErrorsDictionary.InvalidToken
         }
       })
-    // Jose Web Token errors
-    case 'JWTClaimValidationFailed':
-    case 'JWTExpired':
-    case 'JWTInvalid':
-      return response.status(StatusCodes.UNAUTHORIZED).json({
-        status: ReasonPhrases.UNAUTHORIZED,
-        error: {
-          type: 'TokenError',
-          message: ErrorsDictionary.InvalidToken
-        }
-      })
     // Zod errors
     case 'ZodError':
       return response.status(StatusCodes.BAD_REQUEST).json({
@@ -141,6 +130,7 @@ export default function ErrorHandler (
       })
     // Default error
     default:
+      console.log(error)
       return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         status: ReasonPhrases.INTERNAL_SERVER_ERROR,
         error: {
