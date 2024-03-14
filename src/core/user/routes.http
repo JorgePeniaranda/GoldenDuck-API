@@ -1,9 +1,9 @@
 @token = 1234567890
 @protocol = http
 @hostname = localhost
-@port = 3000
+@port = 3037
 @host = {{hostname}}:{{port}}
 @contentType = application/json
 
-GET {{protocol}}://{{host}}/user?id=s1&phoneNumber=1234567890
+POST {{protocol}}://{{host}}/?name=1&name=2&name=3&name=45
 Content-Type: {{contentType}}

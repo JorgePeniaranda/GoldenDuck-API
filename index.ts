@@ -1,6 +1,7 @@
 import 'dotenv/config' // Load environment variables from a .env file into process.env
 import express from 'express'
 import 'express-async-errors' // This module monkey patches the built-in express error handler to support async/await
+import morgan from 'morgan'
 import helmet from 'helmet'
 import hpp from 'hpp'
 import UserRouter from './src/core/user/infraestructure/route/user.route'
@@ -13,10 +14,18 @@ app.disabled('x-powered-by')
 const port = process.env.PORT ?? 0
 
 /* --- Middlewares --- */
+app.use(morgan('dev')) // HTTP request logger middleware for node.js
 app.use(helmet()) // Helmet helps you secure your Express apps by setting various HTTP headers
+app.use(express.urlencoded({ extended: false })) // Used to parse URL-encoded bodies
+app.use(express.json()) // Used to parse JSON bodies
 app.use(hpp()) // HPP middleware to protect against HTTP Parameter Pollution attacks
 
 /* --- Routes --- */
+app.post('/', (req, res) => {
+  const queries = req.query
+
+  res.send('Hello ' + queries.name?.toString())
+})
 // app.use('/auth', AuthRouter)
 app.use('/user', UserRouter)
 // app.use('/accounts', AccountsRouter)
