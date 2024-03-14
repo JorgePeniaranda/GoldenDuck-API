@@ -19,7 +19,8 @@ const ErrorsDictionary = {
   UnknownRequestError: 'Error desconocido',
   UserAlreadyExists: 'El usuario ya existe',
   UserNotFound: 'Usuario no encontrado',
-  ValidationError: 'Error de validación'
+  ValidationError: 'Error de validación',
+  NoParams: 'No se han enviado los parametros necesarios'
 }
 
 export default ErrorsDictionary

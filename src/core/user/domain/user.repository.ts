@@ -2,7 +2,9 @@ import { type UserEntity } from './user.entity'
 import { type User } from './user.value'
 
 export interface UserRepository {
-  saveUser: (user: User) => Promise<User>
+  createUser: (user: User) => Promise<User>
+  updateUser: (user: User) => Promise<User>
+  deleteUser: (user: User) => Promise<void>
   findUser: ({
     id,
     dni,

@@ -4,16 +4,34 @@ import { type UserRepository } from '../../domain/user.repository'
 import { User } from '../../domain/user.value'
 
 export default class PrismaRepository implements UserRepository {
-  public async saveUser (user: User): Promise<User> {
-    await prisma.user.upsert({
-      where: {
-        id: user.id.value()
-      },
-      create: user.toJSON(),
-      update: user.toJSON()
+  public async createUser (user: User): Promise<User> {
+    await prisma.user.create({
+      data: user.toJSON()
     })
 
     return user
+  }
+
+  public async updateUser (user: User): Promise<User> {
+    await prisma.user.update({
+      where: {
+        id: user.id.value()
+      },
+      data: user.toJSON()
+    })
+
+    return user
+  }
+
+  public async deleteUser (user: User): Promise<void> {
+    await prisma.user.update({
+      where: {
+        id: user.id.value()
+      },
+      data: {
+        deleted: true
+      }
+    })
   }
 
   public async findUser ({

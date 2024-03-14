@@ -6,13 +6,17 @@ export class UserPassword {
     this.validate(this.password)
   }
 
-  private validate (copy: UserPrimitiveEntity['password']): UserPrimitiveEntity['password'] {
-    const validatedPassword = PasswordValidation.parse(copy)
+  private validate (password: UserPrimitiveEntity['password']): UserPrimitiveEntity['password'] {
+    const validatedPassword = PasswordValidation.parse(password)
 
     return validatedPassword
   }
 
   public value (): UserPrimitiveEntity['password'] {
     return this.password
+  }
+
+  public equals (password: UserPassword): boolean {
+    return this.password === password.value()
   }
 }

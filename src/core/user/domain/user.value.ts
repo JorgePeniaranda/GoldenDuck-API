@@ -24,7 +24,7 @@ export class User implements UserEntity {
   public birthDate: UserEntity['birthDate']
   public sex: UserEntity['sex']
   public updatedAt: UserEntity['updatedAt']
-  public createdAt: UserEntity['createdAt']
+  public readonly createdAt: UserEntity['createdAt']
   public deleted: UserEntity['deleted']
   public role: UserEntity['role']
 
