@@ -1,4 +1,4 @@
-const ValidationDictionary = {
+export const ValidationDictionary = {
   id: {
     required: 'La ID es requerido',
     invalidType: 'La ID debe contener solo numeros',
@@ -64,7 +64,15 @@ const ValidationDictionary = {
   role: {
     required: 'El rol es requerido',
     invalidType: 'Debe ingresar una opción válida'
+  },
+  balance: {
+    required: 'El balance es requerido',
+    invalidType: 'El balance debe ser un número',
+    negative: 'El balance debe ser positivo'
+  },
+  url: {
+    required: 'La URL es requerida',
+    invalidType: 'La URL debe ser un texto',
+    invalidURL: 'La URL debe ser válida'
   }
 }
-
-export default ValidationDictionary

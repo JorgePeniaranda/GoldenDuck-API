@@ -1,4 +1,4 @@
-import ValidationDictionary from '../../../../../messages/validations'
+import { ValidationDictionary } from '../../../../../messages/validations'
 import { checkPasswordStrong } from '../../../../../utils'
 import { z } from 'zod'
 

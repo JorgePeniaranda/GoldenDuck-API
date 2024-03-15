@@ -1,9 +1,9 @@
-import ErrorsDictionary from '../messages/errors'
+import { ErrorsDictionary } from '../messages/errors'
 import { type Request, type NextFunction } from 'express'
 import { ReasonPhrases, StatusCodes } from 'http-status-codes'
 import { type CustomResponse, type ErrorResponse } from '..'
 
-export default function ErrorHandler (
+export function ErrorHandler (
   error: any,
   _request: Request,
   response: CustomResponse<ErrorResponse>,

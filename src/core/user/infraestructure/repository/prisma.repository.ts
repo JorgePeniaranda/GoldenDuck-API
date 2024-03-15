@@ -3,7 +3,7 @@ import { type UserEntity } from '../../domain/user.entity'
 import { type UserRepository } from '../../domain/user.repository'
 import { User } from '../../domain/user.value'
 
-export default class PrismaRepository implements UserRepository {
+export class PrismaRepository implements UserRepository {
   public async createUser (user: User): Promise<User> {
     await prisma.user.create({
       data: user.toJSON()

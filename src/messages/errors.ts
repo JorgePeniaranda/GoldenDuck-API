@@ -1,4 +1,4 @@
-const ErrorsDictionary = {
+export const ErrorsDictionary = {
   CategoryNotFount: 'La categoría ya existe',
   DatabaseConnectionError: 'Error al conectar con la base de datos',
   FailedValidationToken: 'El token es invalido',
@@ -22,5 +22,3 @@ const ErrorsDictionary = {
   ValidationError: 'Error de validación',
   NoParams: 'No se han enviado los parametros necesarios'
 }
-
-export default ErrorsDictionary

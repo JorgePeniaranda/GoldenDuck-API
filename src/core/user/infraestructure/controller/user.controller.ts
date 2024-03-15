@@ -5,7 +5,7 @@ import { ID } from '../../../../valueObjects/id/id.value'
 import { UserDNI } from '../../domain/valueObjects/dni/dni.value'
 import { UserEmail } from '../../domain/valueObjects/email/email.value'
 
-export default class UserController {
+export class UserController {
   constructor (private readonly userUseCase: UserUseCase) {}
 
   public getUser = async (
