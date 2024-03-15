@@ -5,8 +5,8 @@ export class ID {
     this.validate(this.id)
   }
 
-  private validate (birthDate: number): number {
-    const validatedID = ValidatedID.parse(birthDate)
+  private validate (id: number): number {
+    const validatedID = ValidatedID.parse(id)
 
     return validatedID
   }
