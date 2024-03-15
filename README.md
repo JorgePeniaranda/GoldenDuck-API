@@ -11,6 +11,8 @@ This project is intended for educational and illustrative purposes only and is n
 ## Technology Stack
 
 <div align="center">
+  <img src="https://www.mysql.com/common/logos/logo-mysql-170x115.png" height="40" alt="mysql logo"  />
+  <img width="12" />
   <img src="https://www.prisma.io/images/favicon-32x32.png" height="40" alt="prisma logo"  />
   <img width="12" />
   <img src="https://nodejs.org/static/images/favicons/favicon.png" height="40" alt="nodejs logo"  />
@@ -30,6 +32,7 @@ This project is intended for educational and illustrative purposes only and is n
 
 - [Git](https://www.git-scm.com/downloads)
 - [Node.JS](https://nodejs.org/es/download/)
+- [MySQL](https://dev.mysql.com/downloads/)
 
 ## How to Start GoldenDuck?
 
@@ -57,7 +60,23 @@ npm install
 
 <br/>
 
-4. Start Golden-Duck
+4. Create .env and configure
+
+```bash
+cp .env.example .env
+```
+
+<br/>
+
+5. Run script to generate migrations
+
+```bash
+npm run db:migrate
+```
+
+<br/>
+
+6. Start GoldenDuck-Api
 
 ```bash
 npm run dev
