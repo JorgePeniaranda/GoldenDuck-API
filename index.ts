@@ -4,8 +4,9 @@ import 'express-async-errors' // This module monkey patches the built-in express
 import morgan from 'morgan'
 import helmet from 'helmet'
 import hpp from 'hpp'
-import UserRouter from './src/core/user/infraestructure/route/user.route'
+import { UserRouter } from './src/core/user/infraestructure/route/user.route'
 import { ErrorHandler } from './src/middlewares/ErrorHandler'
+import { AccountRouter } from '@/core/account/infraestructure/route/account.route'
 
 const app = express()
 app.disabled('x-powered-by')
@@ -23,7 +24,7 @@ app.use(hpp()) // HPP middleware to protect against HTTP Parameter Pollution att
 /* --- Routes --- */
 // app.use('/auth', AuthRouter)
 app.use('/user', UserRouter)
-// app.use('/accounts', AccountsRouter)
+app.use('/accounts', AccountRouter)
 // app.use('/errors', ErrorsRouter)
 // app.use('/categories', CategoriesRouter)
 // app.use('/notifications', NotificationsRouter)
