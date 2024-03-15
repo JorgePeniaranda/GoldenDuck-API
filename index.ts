@@ -5,7 +5,7 @@ import morgan from 'morgan'
 import helmet from 'helmet'
 import hpp from 'hpp'
 import UserRouter from './src/core/user/infraestructure/route/user.route'
-import ErrorHandler from './src/middlewares/ErrorHandler'
+import { ErrorHandler } from './src/middlewares/ErrorHandler'
 
 const app = express()
 app.disabled('x-powered-by')
@@ -21,11 +21,6 @@ app.use(express.json()) // Used to parse JSON bodies
 app.use(hpp()) // HPP middleware to protect against HTTP Parameter Pollution attacks
 
 /* --- Routes --- */
-app.post('/', (req, res) => {
-  const queries = req.query
-
-  res.send('Hello ' + queries.name?.toString())
-})
 // app.use('/auth', AuthRouter)
 app.use('/user', UserRouter)
 // app.use('/accounts', AccountsRouter)
@@ -44,6 +39,19 @@ app.use(ErrorHandler) // Error handler
 
 // Start the server
 app.listen(port, () => {
+  console.log('\n')
+  console.log('        =-.                .--        ')
+  console.log('       *+:=*+.    .     .+*=:*=       ')
+  console.log('      .@    .** .%##* .*+.    @       ')
+  console.log('      -#      :%##-=%*%:      @.      ')
+  console.log('      .%        .#-=*         @       ')
+  console.log('       .          ..          .       ')
+  console.log('                                      ')
+  console.log('      =:                      --      ')
+  console.log(' :=--=@          #%%+         .@---=- ')
+  console.log(':. .:=@          :@%.         .@--. .:')
+  console.log(' ++:. =#:      :**.:*+.      -%- .:=+ ')
+  console.log(' .      =*++++*=     .=*++++*-        ')
   console.log('\n')
   console.log('» Golden-Duck-API is running')
   console.log('» PORT: ' + port)

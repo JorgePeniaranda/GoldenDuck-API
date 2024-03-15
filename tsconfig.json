@@ -107,5 +107,18 @@
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+  },
+  "compileOnSave": true,
+  "include": [
+    "index.ts",
+    "./src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "buildOptions": {
+    "outdir": "./dist",
+    "rootDir": "./src",
+    "incremental": true
   }
 }
