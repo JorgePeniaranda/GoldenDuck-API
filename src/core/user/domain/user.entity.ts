@@ -7,9 +7,9 @@ import { type UserLastName } from './valueObjects/lastName/lastName.value'
 import { type UserName } from './valueObjects/name/name.value'
 import { type UserPassword } from './valueObjects/password/password.value'
 import { type UserPhoneNumber } from './valueObjects/phoneNumber/phoneNumber.value'
-import { type UserRole } from '../../../valueObjects/role/role.value'
 import { type UserSex } from './valueObjects/sex/sex.value'
 import { type ID } from '../../../valueObjects/id/id.value'
+import { type Role } from '@/valueObjects/role/role.value'
 
 export interface UserEntity {
   id: ID
@@ -25,7 +25,7 @@ export interface UserEntity {
   updatedAt: ValidDate
   createdAt: ValidDate
   deleted: boolean
-  role: UserRole
+  role: Role
 }
 
 export interface UserPrimitiveEntity {

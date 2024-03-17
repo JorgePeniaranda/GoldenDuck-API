@@ -10,3 +10,4 @@ const UseCase = new AuthUseCase(Repository)
 const Controller = new AuthController(UseCase)
 
 AuthRouter.get('/login', Controller.login)
+AuthRouter.get('/check', Controller.checkAuthentication)

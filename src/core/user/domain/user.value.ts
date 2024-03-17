@@ -8,9 +8,9 @@ import { UserLastName } from './valueObjects/lastName/lastName.value'
 import { UserName } from './valueObjects/name/name.value'
 import { UserPassword } from './valueObjects/password/password.value'
 import { UserPhoneNumber } from './valueObjects/phoneNumber/phoneNumber.value'
-import { UserRole } from '../../../valueObjects/role/role.value'
 import { UserSex } from './valueObjects/sex/sex.value'
 import { ID } from '.././../../valueObjects/id/id.value'
+import { Role } from '@/valueObjects/role/role.value'
 
 export class User implements UserEntity {
   public readonly id: UserEntity['id']
@@ -60,7 +60,7 @@ export class User implements UserEntity {
       updatedAt: new ValidDate(user.updatedAt),
       createdAt: new ValidDate(user.createdAt),
       deleted: user.deleted,
-      role: new UserRole(user.role)
+      role: new Role(user.role)
     })
 
     return createdUser

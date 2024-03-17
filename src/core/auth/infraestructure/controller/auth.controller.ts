@@ -19,4 +19,15 @@ export class AuthController {
 
     return response.status(200).header('Authorization', token.key).send()
   }
+
+  public checkAuthentication = async (
+    request: Request,
+    response: Response
+  ): Promise<Response> => {
+    const token = request.headers.authorization
+
+    const isAuthorized = await this.authUseCase.checkAuthentication(String(token))
+
+    return response.status(200).send({ authorized: isAuthorized })
+  }
 }
