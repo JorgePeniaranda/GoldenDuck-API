@@ -1,3 +1,0 @@
--- AlterTable
-ALTER TABLE `card` MODIFY `number` VARCHAR(191) NOT NULL,
-    MODIFY `cvv` VARCHAR(191) NOT NULL;

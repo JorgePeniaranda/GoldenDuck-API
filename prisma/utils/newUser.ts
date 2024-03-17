@@ -1,13 +1,27 @@
 import { faker } from '@faker-js/faker'
 import { prisma } from '../../src/libs/prisma'
-import { $Enums } from '@prisma/client'
+// import { $Enums } from '@prisma/client'
 
-export const newUser = async (
-  amount: number,
-): Promise<Array<{ id: number }>> => {
-  const listID = []
+enum sex {
+  MALE = "MALE",
+  FELAME = "FELAME"
+}
+
+enum role{
+  ADMIN = "ADMIN",
+  USER = "USER",
+  SUPPORT = "SUPPORT"
+}
+
+const $Enums = {
+  sex,
+  role
+}
+
+export const newUser = async (amount: number): Promise<Array<number>> => {
+  const listID = [] as Array<number>
   for (let i = 0; i < amount; i++) {
-    const id = await prisma.user.create({
+    const { id } = await prisma.user.create({
       data: {
         name: faker.person.firstName(),
         dni: faker.number.bigInt({

@@ -4,12 +4,12 @@ import { prisma } from '../../src/libs/prisma'
 export const newMessage = async (
   idAccount: number,
   amount: number,
-): Promise<Array<{ id: number }>> => {
-  const listID = []
+): Promise<Array<number>> => {
+  const listID = [] as Array<number>
   for (let i = 0; i < amount; i++) {
     const randomDate = faker.date.past()
 
-    const id = await prisma.message.create({
+    const { id } = await prisma.message.create({
       data: {
         from: idAccount,
         to: idAccount,

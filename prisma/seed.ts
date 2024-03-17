@@ -17,12 +17,12 @@ async function main(amount: number): Promise<void> {
   const users = await newUser(amount) // (#) -> number of users
 
   // create data for user
-  const dataUser = users.map(async ({ id: idUser }) => {
+  const dataUser = users.map(async idUser => {
     await newSession(idUser, 5) // (idUser, #) -> number of sessions per user
     const accounts = await newAccount(idUser, 2) // (idUser, #) -> number of accounts per user
 
     // create data for each account from user
-    const dataAccount = accounts.map(async ({ id: idAccount }) => {
+    const dataAccount = accounts.map(async idAccount => {
       await newMessage(idAccount, 5) // (idAccount, #) -> number of messages per account
       await newNotification(idAccount, 5) // (idAccount, #) -> number of messages per account
       await newCard(idAccount, 5) // (idAccount, #) -> number of cards per account

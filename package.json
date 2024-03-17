@@ -33,6 +33,7 @@
     "db:generate": "npx prisma generate",
     "db:migrate": "npx prisma migrate dev",
     "db:seed": "npx prisma db seed",
+    "db:studio": "npx prisma studio",
     "db:deploy": "npx prisma migrate deploy",
     "db:push": "npx prisma db push",
     "test": "jest",

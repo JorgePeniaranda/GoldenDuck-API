@@ -4,12 +4,12 @@ import { prisma } from '../../src/libs/prisma'
 export const newCard = async (
   idAccount: number,
   amount: number,
-): Promise<Array<{ id: number }>> => {
-  const listID = []
+): Promise<Array<number>> => {
+  const listID = [] as Array<number>
   for (let i = 0; i < amount; i++) {
     const randomDate = faker.date.past()
 
-    const id = await prisma.card.create({
+    const { id } = await prisma.card.create({
       data: {
         idAccount,
         number: faker.finance.creditCardNumber({ issuer: 'visa' }),

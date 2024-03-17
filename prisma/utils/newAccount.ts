@@ -4,10 +4,10 @@ import { prisma } from '../../src/libs/prisma'
 export const newAccount = async (
   idUser: number,
   amount: number,
-): Promise<Array<{ id: number }>> => {
-  const listID = []
+): Promise<Array<number>> => {
+  const listID = [] as Array<number>
   for (let i = 0; i < amount; i++) {
-    const id = await prisma.account.create({
+    const { id } = await prisma.account.create({
       data: {
         idUser,
         imgUrl: faker.image.url(),
