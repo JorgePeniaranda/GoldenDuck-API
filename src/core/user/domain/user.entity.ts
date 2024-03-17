@@ -1,27 +1,27 @@
-import { type ValidDate } from '../../../valueObjects/date/validDate.value'
-import { type UserAddress } from './valueObjects/address/address.value'
-import { type UserBirthDate } from './valueObjects/birthDate/birthDate.value'
-import { type UserDNI } from './valueObjects/dni/dni.value'
-import { type UserEmail } from './valueObjects/email/email.value'
-import { type UserLastName } from './valueObjects/lastName/lastName.value'
-import { type UserName } from './valueObjects/name/name.value'
-import { type UserPassword } from './valueObjects/password/password.value'
-import { type UserPhoneNumber } from './valueObjects/phoneNumber/phoneNumber.value'
-import { type UserSex } from './valueObjects/sex/sex.value'
-import { type ID } from '../../../valueObjects/id/id.value'
+import { type Sex } from '@/valueObjects/sex/sex.value'
 import { type Role } from '@/valueObjects/role/role.value'
+import { type BirthDate } from '@/valueObjects/birthDate/birthDate.value'
+import { type Address } from '@/valueObjects/address/address.value'
+import { type Password } from '@/valueObjects/password/password.value'
+import { type PhoneNumber } from '@/valueObjects/phoneNumber/phoneNumber.value'
+import { type Email } from '@/valueObjects/email/email.value'
+import { type DNI } from '@/valueObjects/dni/dni.value'
+import { type LastName } from '@/valueObjects/lastName/lastName.value'
+import { type Name } from '@/valueObjects/name/name.value'
+import { type ValidDate } from '@/valueObjects/date/validDate.value'
+import { type ID } from '@/valueObjects/id/id.value'
 
 export interface UserEntity {
   id: ID
-  name: UserName
-  lastName: UserLastName
-  dni: UserDNI
-  email: UserEmail
-  phoneNumber: UserPhoneNumber
-  password: UserPassword
-  address: UserAddress
-  birthDate: UserBirthDate
-  sex: UserSex
+  name: Name
+  lastName: LastName
+  dni: DNI
+  email: Email
+  phoneNumber: PhoneNumber
+  password: Password
+  address: Address
+  birthDate: BirthDate
+  sex: Sex
   updatedAt: ValidDate
   createdAt: ValidDate
   deleted: boolean

@@ -1,7 +1,7 @@
 import { type Request, type Response } from 'express'
 import { type AuthUseCase } from '../../application/authUseCase'
-import { UserDNI } from '@/core/user/domain/valueObjects/dni/dni.value'
-import { UserPassword } from '@/core/user/domain/valueObjects/password/password.value'
+import { Password } from '@/valueObjects/password/password.value'
+import { DNI } from '@/valueObjects/dni/dni.value'
 
 export class AuthController {
   constructor (private readonly authUseCase: AuthUseCase) {}
@@ -13,8 +13,8 @@ export class AuthController {
     const { dni, password } = request.body
 
     const token = await this.authUseCase.login({
-      dni: new UserDNI(Number(dni)),
-      password: new UserPassword(String(password))
+      dni: new DNI(Number(dni)),
+      password: new Password(String(password))
     })
 
     return response.status(200).header('Authorization', token.key).send()

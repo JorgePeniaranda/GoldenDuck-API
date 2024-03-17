@@ -1,7 +1,7 @@
-import { prisma } from '../../../../libs/prisma'
-import { Account } from '../../domain/account.value'
+import { prisma } from '@/libs/prisma'
 import { type AccountEntity } from '../../domain/account.entity'
 import { type AccountRepository } from '../../domain/account.repository'
+import { Account } from '../../domain/account.value'
 
 export class PrismaRepository implements AccountRepository {
   public async createAccount (account: Account): Promise<Account> {

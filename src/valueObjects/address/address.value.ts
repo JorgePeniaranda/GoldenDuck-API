@@ -1,7 +1,7 @@
-import { type UserPrimitiveEntity } from '../../user.entity'
+import { type UserPrimitiveEntity } from '../../core/user/domain/user.entity'
 import { addressValidation } from './address.validation'
 
-export class UserAddress {
+export class Address {
   constructor (private readonly address: UserPrimitiveEntity['address']) {
     this.validate(this.address)
   }

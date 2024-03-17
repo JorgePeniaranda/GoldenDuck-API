@@ -1,5 +1,5 @@
-import { ValidationDictionary } from '../../../../../messages/validations'
-import { checkOnlyLetters } from '../../../../../utils'
+import { ValidationDictionary } from '../../messages/validations'
+import { checkOnlyLetters } from '../../utils'
 import { z } from 'zod'
 
 export const NameValidation = z

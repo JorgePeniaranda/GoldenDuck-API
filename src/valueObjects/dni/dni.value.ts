@@ -1,7 +1,7 @@
-import { type UserPrimitiveEntity } from '../../user.entity'
+import { type UserPrimitiveEntity } from '../../core/user/domain/user.entity'
 import { DNIValidation } from './dni.validation'
 
-export class UserDNI {
+export class DNI {
   constructor (private readonly dni: UserPrimitiveEntity['dni']) {
     this.validate(this.dni)
   }

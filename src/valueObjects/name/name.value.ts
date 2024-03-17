@@ -1,7 +1,7 @@
-import { type UserPrimitiveEntity } from '../../user.entity'
+import { type UserPrimitiveEntity } from '../../core/user/domain/user.entity'
 import { NameValidation } from './name.validation'
 
-export class UserName {
+export class Name {
   constructor (private readonly name: UserPrimitiveEntity['name']) {
     this.validate(this.name)
   }

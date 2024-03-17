@@ -1,5 +1,5 @@
-import { ValidationDictionary } from '../../../../../messages/validations'
-import { checkAlphanumeric } from '../../../../../utils'
+import { ValidationDictionary } from '../../messages/validations'
+import { checkAlphanumeric } from '../../utils'
 import { z } from 'zod'
 
 export const addressValidation = z

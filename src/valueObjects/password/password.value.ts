@@ -1,7 +1,7 @@
-import { type UserPrimitiveEntity } from '../../user.entity'
+import { type UserPrimitiveEntity } from '../../core/user/domain/user.entity'
 import { PasswordValidation } from './password.validation'
 
-export class UserPassword {
+export class Password {
   constructor (private readonly password: UserPrimitiveEntity['password']) {
     this.validate(this.password)
   }
@@ -16,7 +16,7 @@ export class UserPassword {
     return this.password
   }
 
-  public equals (password: UserPassword): boolean {
+  public equals (password: Password): boolean {
     return this.password === password.value()
   }
 }

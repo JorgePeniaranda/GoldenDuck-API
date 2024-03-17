@@ -1,6 +1,6 @@
-import { RequestError } from '../../../helpers/customErrors'
-import { ErrorsDictionary } from '../../../messages/errors'
+import { RequestError } from '@/helpers/customErrors'
 import { type UserEntity } from '../domain/user.entity'
+import { ErrorsDictionary } from '@/messages/errors'
 import { type UserRepository } from '../domain/user.repository'
 import { type User } from '../domain/user.value'
 

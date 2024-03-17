@@ -1,5 +1,5 @@
-import { ValidationDictionary } from '../../../../../messages/validations'
-import { checkPasswordStrong } from '../../../../../utils'
+import { ValidationDictionary } from '../../messages/validations'
+import { checkPasswordStrong } from '../../utils'
 import { z } from 'zod'
 
 export const PasswordValidation = z

@@ -1,9 +1,9 @@
 import { type Request, type Response } from 'express'
 import { type UserUseCase } from '../../application/userUseCase'
-import { UserPhoneNumber } from '../../domain/valueObjects/phoneNumber/phoneNumber.value'
+import { UserPhoneNumber } from '../../../../valueObjects/phoneNumber/phoneNumber.value'
 import { ID } from '../../../../valueObjects/id/id.value'
-import { UserDNI } from '../../domain/valueObjects/dni/dni.value'
-import { UserEmail } from '../../domain/valueObjects/email/email.value'
+import { UserDNI } from '../../../../valueObjects/dni/dni.value'
+import { UserEmail } from '../../../../valueObjects/email/email.value'
 
 export class UserController {
   constructor (private readonly userUseCase: UserUseCase) {}

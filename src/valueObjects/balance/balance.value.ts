@@ -1,7 +1,7 @@
-import { type AccountPrimitiveEntity } from '../../account.entity'
+import { type AccountPrimitiveEntity } from '../../core/account/domain/account.entity'
 import { balanceValidation } from './balance.validation'
 
-export class AccountBalance {
+export class Balance {
   constructor (private readonly balance: AccountPrimitiveEntity['balance']) {
     this.validate(this.balance)
   }

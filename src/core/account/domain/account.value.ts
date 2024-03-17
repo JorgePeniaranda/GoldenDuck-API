@@ -1,16 +1,16 @@
-import { ValidDate } from '../../../valueObjects/date/validDate.value'
+import { ID } from '@/valueObjects/id/id.value'
 import {
   type AccountPrimitiveEntity,
   type AccountEntity
 } from './account.entity'
-import { ID } from '../../../valueObjects/id/id.value'
-import { AccountBalance } from './valueObjects/balance/balance.value'
 import { URL } from '@/valueObjects/url/url.value'
+import { Balance } from '@/valueObjects/balance/balance.value'
+import { ValidDate } from '@/valueObjects/date/validDate.value'
 
 export class Account implements AccountEntity {
   public id: ID
   public idUser: ID
-  public balance: AccountBalance
+  public balance: Balance
   public imgUrl: URL | null | undefined
   public updatedAt: ValidDate
   public createdAt: ValidDate
@@ -30,7 +30,7 @@ export class Account implements AccountEntity {
     const createdUser = new Account({
       id: new ID(user.id),
       idUser: new ID(user.id),
-      balance: new AccountBalance(user.balance),
+      balance: new Balance(user.balance),
       imgUrl:
         user.imgUrl === null || user.imgUrl === undefined
           ? null

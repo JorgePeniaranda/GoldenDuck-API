@@ -1,7 +1,7 @@
-import { type UserPrimitiveEntity } from '../../user.entity'
+import { type UserPrimitiveEntity } from '../../core/user/domain/user.entity'
 import { BirthDateValidation } from './birthDate.validation'
 
-export class UserBirthDate {
+export class BirthDate {
   constructor (private readonly birthDate: UserPrimitiveEntity['birthDate']) {
     this.validate(this.birthDate)
   }

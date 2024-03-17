@@ -1,7 +1,7 @@
-import { type UserPrimitiveEntity } from '../../user.entity'
+import { type UserPrimitiveEntity } from '../../core/user/domain/user.entity'
 import { PhoneNumberValidation } from './phoneNumber.validation'
 
-export class UserPhoneNumber {
+export class PhoneNumber {
   constructor (
     private readonly phoneNumber: UserPrimitiveEntity['phoneNumber']
   ) {

@@ -1,4 +1,4 @@
-import { NotFoundError } from '@/helpers/customErrors'
+import { NotFoundError, ValidationError } from '@/helpers/customErrors'
 import { Token } from '../domain/token.value'
 import { type UserEntity } from '@/core/user/domain/user.entity'
 import { ErrorsDictionary } from '@/messages/errors'
@@ -22,7 +22,7 @@ export class AuthUseCase {
     }
 
     if (!user.password.equals(password)) {
-      throw new NotFoundError(ErrorsDictionary.UserNotFound)
+      throw new ValidationError(ErrorsDictionary.IncorrectPassword)
     }
 
     const token = Token.create(

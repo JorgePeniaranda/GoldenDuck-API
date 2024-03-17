@@ -1,8 +1,8 @@
-import { RequestError } from '../../../helpers/customErrors'
-import { ErrorsDictionary } from '../../../messages/errors'
+import { RequestError } from '@/helpers/customErrors'
 import { type AccountEntity } from '../domain/account.entity'
 import { type AccountRepository } from '../domain/account.repository'
 import { type Account } from '../domain/account.value'
+import { ErrorsDictionary } from '@/messages/errors'
 
 export class AccountUseCase {
   constructor (private readonly accountRepository: AccountRepository) {}

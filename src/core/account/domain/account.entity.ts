@@ -1,12 +1,12 @@
 import { type URL } from '@/valueObjects/url/url.value'
 import { type ValidDate } from '../../../valueObjects/date/validDate.value'
 import { type ID } from '../../../valueObjects/id/id.value'
-import { type AccountBalance } from './valueObjects/balance/balance.value'
+import { type Balance } from '@/valueObjects/balance/balance.value'
 
 export interface AccountEntity {
   id: ID
   idUser: ID
-  balance: AccountBalance
+  balance: Balance
   imgUrl?: URL | null
   updatedAt: ValidDate
   createdAt: ValidDate

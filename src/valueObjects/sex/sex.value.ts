@@ -1,7 +1,7 @@
-import { type UserPrimitiveEntity } from '../../user.entity'
+import { type UserPrimitiveEntity } from '../../core/user/domain/user.entity'
 import { SexValidation } from './sex.validation'
 
-export class UserSex {
+export class Sex {
   constructor (private readonly sex: UserPrimitiveEntity['sex']) {
     this.validate(this.sex)
   }

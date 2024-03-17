@@ -1,16 +1,16 @@
-import { ValidDate } from '.././../../valueObjects/date/validDate.value'
 import { type UserPrimitiveEntity, type UserEntity } from './user.entity'
-import { UserAddress } from './valueObjects/address/address.value'
-import { UserBirthDate } from './valueObjects/birthDate/birthDate.value'
-import { UserDNI } from './valueObjects/dni/dni.value'
-import { UserEmail } from './valueObjects/email/email.value'
-import { UserLastName } from './valueObjects/lastName/lastName.value'
-import { UserName } from './valueObjects/name/name.value'
-import { UserPassword } from './valueObjects/password/password.value'
-import { UserPhoneNumber } from './valueObjects/phoneNumber/phoneNumber.value'
-import { UserSex } from './valueObjects/sex/sex.value'
-import { ID } from '.././../../valueObjects/id/id.value'
 import { Role } from '@/valueObjects/role/role.value'
+import { Name } from '@/valueObjects/name/name.value'
+import { LastName } from '@/valueObjects/lastName/lastName.value'
+import { DNI } from '@/valueObjects/dni/dni.value'
+import { Email } from '@/valueObjects/email/email.value'
+import { PhoneNumber } from '@/valueObjects/phoneNumber/phoneNumber.value'
+import { Password } from '@/valueObjects/password/password.value'
+import { Address } from '@/valueObjects/address/address.value'
+import { BirthDate } from '@/valueObjects/birthDate/birthDate.value'
+import { Sex } from '@/valueObjects/sex/sex.value'
+import { ID } from '@/valueObjects/id/id.value'
+import { ValidDate } from '@/valueObjects/date/validDate.value'
 
 export class User implements UserEntity {
   public readonly id: UserEntity['id']
@@ -48,15 +48,15 @@ export class User implements UserEntity {
   public static create (user: UserPrimitiveEntity): User {
     const createdUser = new User({
       id: new ID(user.id),
-      name: new UserName(user.name),
-      lastName: new UserLastName(user.lastName),
-      dni: new UserDNI(user.dni),
-      email: new UserEmail(user.email),
-      phoneNumber: new UserPhoneNumber(user.phoneNumber),
-      password: new UserPassword(user.password),
-      address: new UserAddress(user.address),
-      birthDate: new UserBirthDate(user.birthDate),
-      sex: new UserSex(user.sex),
+      name: new Name(user.name),
+      lastName: new LastName(user.lastName),
+      dni: new DNI(user.dni),
+      email: new Email(user.email),
+      phoneNumber: new PhoneNumber(user.phoneNumber),
+      password: new Password(user.password),
+      address: new Address(user.address),
+      birthDate: new BirthDate(user.birthDate),
+      sex: new Sex(user.sex),
       updatedAt: new ValidDate(user.updatedAt),
       createdAt: new ValidDate(user.createdAt),
       deleted: user.deleted,

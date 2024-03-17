@@ -1,6 +1,6 @@
 import { type Request, type Response } from 'express'
-import { ID } from '../../../../valueObjects/id/id.value'
 import { type AccountUseCase } from '../../application/accountUseCase'
+import { ID } from '@/valueObjects/id/id.value'
 
 export class AccountController {
   constructor (private readonly accountUseCase: AccountUseCase) {}
