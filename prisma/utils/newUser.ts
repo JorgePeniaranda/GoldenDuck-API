@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker'
+import bcrypt from 'bcryptjs'
 import { prisma } from '../../src/libs/prisma'
 import { $Enums } from '@prisma/client'
 
@@ -34,7 +35,7 @@ export const newUser = async (amount: number): Promise<Array<number>> => {
           min: 1000000000,
           max: 9999999999,
         }),
-        password: faker.internet.password(),
+        password: bcrypt.hashSync('¿¡TEST123test!?'), // faker.internet.password()
         address: faker.location.streetAddress(),
         birthDate: faker.date.birthdate(),
         sex: faker.helpers.enumValue($Enums.sex),
