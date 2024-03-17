@@ -1,7 +1,10 @@
 import { faker } from '@faker-js/faker'
 import { prisma } from '../../src/libs/prisma'
 
-export const newCard = async (idAccount: number, amount: number): Promise<Array<{ id: number }>> => {
+export const newCard = async (
+  idAccount: number,
+  amount: number,
+): Promise<Array<{ id: number }>> => {
   const listID = []
   for (let i = 0; i < amount; i++) {
     const randomDate = faker.date.past()
@@ -13,11 +16,11 @@ export const newCard = async (idAccount: number, amount: number): Promise<Array<
         cvv: faker.finance.creditCardCVV(),
         expiration: faker.date.future(),
         date: randomDate,
-        updatedDate: randomDate
+        updatedDate: randomDate,
       },
       select: {
-        id: true
-      }
+        id: true,
+      },
     })
 
     listID.push(id)

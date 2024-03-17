@@ -6,10 +6,10 @@ export class UserBirthDate {
     this.validate(this.birthDate)
   }
 
-  private validate (birthDate: UserPrimitiveEntity['birthDate']): UserPrimitiveEntity['birthDate'] {
-    const validatedBirthDate = BirthDateValidation.parse(birthDate)
-
-    return validatedBirthDate
+  private validate (
+    birthDate: UserPrimitiveEntity['birthDate']
+  ): UserPrimitiveEntity['birthDate'] {
+    return BirthDateValidation.parse(birthDate)
   }
 
   public value (): UserPrimitiveEntity['birthDate'] {

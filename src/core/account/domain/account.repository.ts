@@ -5,9 +5,5 @@ export interface AccountRepository {
   createAccount: (account: Account) => Promise<Account>
   updateAccount: (account: Account) => Promise<Account>
   deleteAccount: (account: Account) => Promise<void>
-  findAccount: ({
-    id
-  }: {
-    id?: AccountEntity['id']
-  }) => Promise<Account | null>
+  findAccount: ({ id }: { id?: AccountEntity['id'] }) => Promise<Account | null>
 }

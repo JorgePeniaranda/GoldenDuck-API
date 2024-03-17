@@ -1,4 +1,4 @@
-import { ValidationDictionary } from '../../../../../messages/validations'
+import { ValidationDictionary } from '../../messages/validations'
 import { z } from 'zod'
 
 export const RoleValidation = z.enum(['ADMIN', 'SUPPORT', 'USER'], {

@@ -6,10 +6,10 @@ export class UserPassword {
     this.validate(this.password)
   }
 
-  private validate (password: UserPrimitiveEntity['password']): UserPrimitiveEntity['password'] {
-    const validatedPassword = PasswordValidation.parse(password)
-
-    return validatedPassword
+  private validate (
+    password: UserPrimitiveEntity['password']
+  ): UserPrimitiveEntity['password'] {
+    return PasswordValidation.parse(password)
   }
 
   public value (): UserPrimitiveEntity['password'] {

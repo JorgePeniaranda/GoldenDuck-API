@@ -6,10 +6,10 @@ export class UserEmail {
     this.validate(this.email)
   }
 
-  private validate (email: UserPrimitiveEntity['email']): UserPrimitiveEntity['email'] {
-    const validatedEmail = EmailValidation.parse(email)
-
-    return validatedEmail
+  private validate (
+    email: UserPrimitiveEntity['email']
+  ): UserPrimitiveEntity['email'] {
+    return EmailValidation.parse(email)
   }
 
   public value (): UserPrimitiveEntity['email'] {

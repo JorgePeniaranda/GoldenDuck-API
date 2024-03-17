@@ -6,10 +6,10 @@ export class UserDNI {
     this.validate(this.dni)
   }
 
-  private validate (dni: UserPrimitiveEntity['dni']): UserPrimitiveEntity['dni'] {
-    const validatedDNI = DNIValidation.parse(dni)
-
-    return validatedDNI
+  private validate (
+    dni: UserPrimitiveEntity['dni']
+  ): UserPrimitiveEntity['dni'] {
+    return DNIValidation.parse(dni)
   }
 
   public value (): UserPrimitiveEntity['dni'] {

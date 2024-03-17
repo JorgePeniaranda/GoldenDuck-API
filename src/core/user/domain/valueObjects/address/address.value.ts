@@ -6,10 +6,10 @@ export class UserAddress {
     this.validate(this.address)
   }
 
-  private validate (address: UserPrimitiveEntity['address']): UserPrimitiveEntity['address'] {
-    const validatedAddress = addressValidation.parse(address)
-
-    return validatedAddress
+  private validate (
+    address: UserPrimitiveEntity['address']
+  ): UserPrimitiveEntity['address'] {
+    return addressValidation.parse(address)
   }
 
   public value (): UserPrimitiveEntity['address'] {

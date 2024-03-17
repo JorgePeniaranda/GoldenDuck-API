@@ -6,10 +6,10 @@ export class UserSex {
     this.validate(this.sex)
   }
 
-  private validate (sex: UserPrimitiveEntity['sex']): UserPrimitiveEntity['sex'] {
-    const validatedSex = SexValidation.parse(sex)
-
-    return validatedSex
+  private validate (
+    sex: UserPrimitiveEntity['sex']
+  ): UserPrimitiveEntity['sex'] {
+    return SexValidation.parse(sex)
   }
 
   public value (): UserPrimitiveEntity['sex'] {

@@ -1,7 +1,10 @@
 import { faker } from '@faker-js/faker'
 import { prisma } from '../../src/libs/prisma'
 
-export const newMessage = async (idAccount: number, amount: number): Promise<Array<{ id: number }>> => {
+export const newMessage = async (
+  idAccount: number,
+  amount: number,
+): Promise<Array<{ id: number }>> => {
   const listID = []
   for (let i = 0; i < amount; i++) {
     const randomDate = faker.date.past()
@@ -12,11 +15,11 @@ export const newMessage = async (idAccount: number, amount: number): Promise<Arr
         to: idAccount,
         message: faker.lorem.text(),
         date: randomDate,
-        updatedAt: randomDate
+        updatedAt: randomDate,
       },
       select: {
-        id: true
-      }
+        id: true,
+      },
     })
 
     listID.push(id)

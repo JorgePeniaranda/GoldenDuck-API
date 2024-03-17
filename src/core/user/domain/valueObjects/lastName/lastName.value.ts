@@ -6,10 +6,10 @@ export class UserLastName {
     this.validate(this.lastName)
   }
 
-  private validate (lastName: UserPrimitiveEntity['lastName']): UserPrimitiveEntity['lastName'] {
-    const validatedLastName = LastNameValidation.parse(lastName)
-
-    return validatedLastName
+  private validate (
+    lastName: UserPrimitiveEntity['lastName']
+  ): UserPrimitiveEntity['lastName'] {
+    return LastNameValidation.parse(lastName)
   }
 
   public value (): UserPrimitiveEntity['lastName'] {

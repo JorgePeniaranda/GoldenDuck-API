@@ -5,9 +5,7 @@ import { type UserRepository } from '../domain/user.repository'
 import { type User } from '../domain/user.value'
 
 export class UserUseCase {
-  constructor (private readonly userRepository: UserRepository) {
-    this.userRepository = userRepository
-  }
+  constructor (private readonly userRepository: UserRepository) {}
 
   public async create (user: User): Promise<User> {
     const createdUser = await this.userRepository.createUser(user)
@@ -33,7 +31,12 @@ export class UserUseCase {
     email?: UserEntity['email']
     phoneNumber?: UserEntity['phoneNumber']
   }): Promise<User | null> {
-    if (searchParams.id === undefined && searchParams.dni === undefined && searchParams.email === undefined && searchParams.phoneNumber === undefined) {
+    if (
+      searchParams.id === undefined &&
+      searchParams.dni === undefined &&
+      searchParams.email === undefined &&
+      searchParams.phoneNumber === undefined
+    ) {
       throw new RequestError(ErrorsDictionary.NoParams)
     }
 
@@ -47,7 +50,11 @@ export class UserUseCase {
     email?: UserEntity['email']
     phoneNumber?: UserEntity['phoneNumber']
   }): Promise<boolean> {
-    if (searchParams.dni === undefined && searchParams.email === undefined && searchParams.phoneNumber === undefined) {
+    if (
+      searchParams.dni === undefined &&
+      searchParams.email === undefined &&
+      searchParams.phoneNumber === undefined
+    ) {
       throw new RequestError(ErrorsDictionary.NoParams)
     }
 

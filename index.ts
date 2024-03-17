@@ -4,9 +4,12 @@ import 'express-async-errors' // This module monkey patches the built-in express
 import morgan from 'morgan'
 import helmet from 'helmet'
 import hpp from 'hpp'
+import passport from 'passport'
+import session from 'express-session'
 import { UserRouter } from './src/core/user/infraestructure/route/user.route'
 import { ErrorHandler } from './src/middlewares/ErrorHandler'
 import { AccountRouter } from '@/core/account/infraestructure/route/account.route'
+import { AuthRouter } from '@/core/auth/infraestructure/route/auth.route'
 
 const app = express()
 app.disabled('x-powered-by')
@@ -20,9 +23,18 @@ app.use(helmet()) // Helmet helps you secure your Express apps by setting variou
 app.use(express.urlencoded({ extended: false })) // Used to parse URL-encoded bodies
 app.use(express.json()) // Used to parse JSON bodies
 app.use(hpp()) // HPP middleware to protect against HTTP Parameter Pollution attacks
+app.use(
+  session({
+    secret: String(process.env.SESSION_SECRET),
+    resave: false,
+    saveUninitialized: false
+  })
+) // Express session
+app.use(passport.initialize()) // Initialize passport
+app.use(passport.session()) // Initialize passport session
 
 /* --- Routes --- */
-// app.use('/auth', AuthRouter)
+app.use('/auth', AuthRouter)
 app.use('/user', UserRouter)
 app.use('/accounts', AccountRouter)
 // app.use('/errors', ErrorsRouter)

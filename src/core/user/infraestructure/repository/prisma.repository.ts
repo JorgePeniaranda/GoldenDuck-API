@@ -47,7 +47,12 @@ export class PrismaRepository implements UserRepository {
   }): Promise<User | null> {
     const findUser = await prisma.user.findFirst({
       where: {
-        OR: [{ id: id?.value() }, { dni: dni?.value() }, { email: email?.value() }, { phoneNumber: phoneNumber?.value() }],
+        OR: [
+          { id: id?.value() },
+          { dni: dni?.value() },
+          { email: email?.value() },
+          { phoneNumber: phoneNumber?.value() }
+        ],
         deleted: false
       }
     })

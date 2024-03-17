@@ -8,7 +8,7 @@ import { UserLastName } from './valueObjects/lastName/lastName.value'
 import { UserName } from './valueObjects/name/name.value'
 import { UserPassword } from './valueObjects/password/password.value'
 import { UserPhoneNumber } from './valueObjects/phoneNumber/phoneNumber.value'
-import { UserRole } from './valueObjects/role/role.value'
+import { UserRole } from '../../../valueObjects/role/role.value'
 import { UserSex } from './valueObjects/sex/sex.value'
 import { ID } from '.././../../valueObjects/id/id.value'
 

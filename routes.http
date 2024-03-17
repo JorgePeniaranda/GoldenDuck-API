@@ -5,5 +5,5 @@
 @host = {{hostname}}:{{port}}
 @contentType = application/json
 
-POST {{protocol}}://{{host}}/
+GET {{protocol}}://{{host}}/user?id=1
 Content-Type: {{contentType}}

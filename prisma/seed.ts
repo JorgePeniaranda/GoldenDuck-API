@@ -13,7 +13,7 @@ import { newError } from './utils/newError'
 
 const prisma = new PrismaClient()
 
-async function main (amount: number): Promise<void> {
+async function main(amount: number): Promise<void> {
   const users = await newUser(amount) // (#) -> number of users
 
   // create data for user

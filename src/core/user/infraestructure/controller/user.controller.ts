@@ -18,7 +18,10 @@ export class UserController {
       id: typeof id === 'string' ? new ID(Number(id)) : undefined,
       dni: typeof dni === 'string' ? new UserDNI(Number(dni)) : undefined,
       email: typeof email === 'string' ? new UserEmail(email) : undefined,
-      phoneNumber: typeof phoneNumber === 'string' ? new UserPhoneNumber(Number(phoneNumber)) : undefined
+      phoneNumber:
+        typeof phoneNumber === 'string'
+          ? new UserPhoneNumber(Number(phoneNumber))
+          : undefined
     })
 
     if (user === null) {

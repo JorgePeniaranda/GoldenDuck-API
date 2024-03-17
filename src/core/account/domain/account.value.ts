@@ -1,5 +1,8 @@
 import { ValidDate } from '../../../valueObjects/date/validDate.value'
-import { type AccountPrimitiveEntity, type AccountEntity } from './account.entity'
+import {
+  type AccountPrimitiveEntity,
+  type AccountEntity
+} from './account.entity'
 import { ID } from '../../../valueObjects/id/id.value'
 import { AccountBalance } from './valueObjects/balance/balance.value'
 import { URL } from '@/valueObjects/url/url.value'
@@ -28,7 +31,10 @@ export class Account implements AccountEntity {
       id: new ID(user.id),
       idUser: new ID(user.id),
       balance: new AccountBalance(user.balance),
-      imgUrl: user.imgUrl === null || user.imgUrl === undefined ? null : new URL(user.imgUrl),
+      imgUrl:
+        user.imgUrl === null || user.imgUrl === undefined
+          ? null
+          : new URL(user.imgUrl),
       updatedAt: new ValidDate(user.updatedAt),
       createdAt: new ValidDate(user.createdAt),
       deleted: user.deleted

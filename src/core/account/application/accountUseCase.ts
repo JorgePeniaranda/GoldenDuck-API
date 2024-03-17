@@ -5,9 +5,7 @@ import { type AccountRepository } from '../domain/account.repository'
 import { type Account } from '../domain/account.value'
 
 export class AccountUseCase {
-  constructor (private readonly accountRepository: AccountRepository) {
-    this.accountRepository = accountRepository
-  }
+  constructor (private readonly accountRepository: AccountRepository) {}
 
   public async create (account: Account): Promise<Account> {
     const createdAccount = await this.accountRepository.createAccount(account)

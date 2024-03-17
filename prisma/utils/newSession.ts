@@ -1,7 +1,10 @@
 import { faker } from '@faker-js/faker'
 import { prisma } from '../../src/libs/prisma'
 
-export const newSession = async (idUser: number, amount: number): Promise<Array<{ id: number }>> => {
+export const newSession = async (
+  idUser: number,
+  amount: number,
+): Promise<Array<{ id: number }>> => {
   const listID = []
   for (let i = 0; i < amount; i++) {
     const id = await prisma.session.create({
@@ -9,11 +12,11 @@ export const newSession = async (idUser: number, amount: number): Promise<Array<
         idUser,
         ip: faker.internet.ip(),
         userAgent: faker.internet.userAgent(),
-        date: faker.date.past()
+        date: faker.date.past(),
       },
       select: {
-        id: true
-      }
+        id: true,
+      },
     })
 
     listID.push(id)

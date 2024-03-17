@@ -6,7 +6,9 @@ export class AccountBalance {
     this.validate(this.balance)
   }
 
-  private validate (balance: AccountPrimitiveEntity['balance']): AccountPrimitiveEntity['balance'] {
+  private validate (
+    balance: AccountPrimitiveEntity['balance']
+  ): AccountPrimitiveEntity['balance'] {
     const validatedBalance = balanceValidation.parse(balance)
 
     return validatedBalance
