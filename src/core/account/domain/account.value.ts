@@ -8,13 +8,13 @@ import { Balance } from '@/valueObjects/balance/balance.value'
 import { ValidDate } from '@/valueObjects/date/validDate.value'
 
 export class Account implements AccountEntity {
-  public id: ID
-  public idUser: ID
-  public balance: Balance
-  public imgUrl: URL | null | undefined
-  public updatedAt: ValidDate
-  public createdAt: ValidDate
-  public deleted: boolean
+  public id: AccountEntity['id']
+  public idUser: AccountEntity['idUser']
+  public balance: AccountEntity['balance']
+  public imgUrl: AccountEntity['imgUrl']
+  public updatedAt: AccountEntity['updatedAt']
+  public createdAt: AccountEntity['createdAt']
+  public deleted: AccountEntity['deleted']
 
   constructor (account: AccountEntity) {
     this.id = account.id

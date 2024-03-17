@@ -1,9 +1,9 @@
 import { type Request, type Response } from 'express'
 import { type UserUseCase } from '../../application/userUseCase'
-import { UserPhoneNumber } from '../../../../valueObjects/phoneNumber/phoneNumber.value'
 import { ID } from '../../../../valueObjects/id/id.value'
-import { UserDNI } from '../../../../valueObjects/dni/dni.value'
-import { UserEmail } from '../../../../valueObjects/email/email.value'
+import { PhoneNumber } from '@/valueObjects/phoneNumber/phoneNumber.value'
+import { Email } from '@/valueObjects/email/email.value'
+import { DNI } from '@/valueObjects/dni/dni.value'
 
 export class UserController {
   constructor (private readonly userUseCase: UserUseCase) {}
@@ -16,11 +16,11 @@ export class UserController {
 
     const user = await this.userUseCase.findUser({
       id: typeof id === 'string' ? new ID(Number(id)) : undefined,
-      dni: typeof dni === 'string' ? new UserDNI(Number(dni)) : undefined,
-      email: typeof email === 'string' ? new UserEmail(email) : undefined,
+      dni: typeof dni === 'string' ? new DNI(Number(dni)) : undefined,
+      email: typeof email === 'string' ? new Email(email) : undefined,
       phoneNumber:
         typeof phoneNumber === 'string'
-          ? new UserPhoneNumber(Number(phoneNumber))
+          ? new PhoneNumber(Number(phoneNumber))
           : undefined
     })
 
