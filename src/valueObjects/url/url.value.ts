@@ -7,9 +7,7 @@ export class URL implements PrimitiveURL {
   }
 
   private validate (url: PrimitiveURL['url']): PrimitiveURL['url'] {
-    const validatedURL = ValidatedURL.parse(url)
-
-    return validatedURL
+    return ValidatedURL.parse(url)
   }
 
   public value (): PrimitiveURL['url'] {

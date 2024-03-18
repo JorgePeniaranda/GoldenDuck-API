@@ -1,7 +1,7 @@
 import { ValidationDictionary } from '../../messages/validations'
 import { z } from 'zod'
 
-export const DNIValidation = z.coerce
+export const DNIValidation = z
   .number({
     required_error: ValidationDictionary.dni.required,
     invalid_type_error: ValidationDictionary.dni.invalidType

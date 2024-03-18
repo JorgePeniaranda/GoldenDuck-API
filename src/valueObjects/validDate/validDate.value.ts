@@ -7,9 +7,7 @@ export class ValidDate implements PrimitiveValidDate {
   }
 
   private validate (validDate: PrimitiveValidDate['validDate']): PrimitiveValidDate['validDate'] {
-    const validatedValidDate = ValidatedValidDate.parse(validDate)
-
-    return validatedValidDate
+    return ValidatedValidDate.parse(validDate)
   }
 
   public value (): PrimitiveValidDate['validDate'] {

@@ -7,9 +7,7 @@ export class Float implements PrimitiveFloat {
   }
 
   private validate (float: PrimitiveFloat['float']): PrimitiveFloat['float'] {
-    const validatedURL = ValidatedURL.parse(float)
-
-    return validatedURL
+    return ValidatedURL.parse(float)
   }
 
   public value (): PrimitiveFloat['float'] {

@@ -7,9 +7,7 @@ export class PastDate implements PrimitivePastDate {
   }
 
   private validate (pastDate: PrimitivePastDate['pastDate']): PrimitivePastDate['pastDate'] {
-    const validatedPastDate = ValidatedPastDate.parse(pastDate)
-
-    return validatedPastDate
+    return ValidatedPastDate.parse(pastDate)
   }
 
   public value (): PrimitivePastDate['pastDate'] {

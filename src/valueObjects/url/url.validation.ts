@@ -1,7 +1,7 @@
 import { ValidationDictionary } from '../../messages/validations'
 import { z } from 'zod'
 
-export const ValidatedURL = z.coerce
+export const ValidatedURL = z
   .string({
     required_error: ValidationDictionary.url.required,
     invalid_type_error: ValidationDictionary.url.invalidType

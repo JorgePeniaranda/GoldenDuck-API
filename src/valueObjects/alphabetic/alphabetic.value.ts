@@ -7,9 +7,7 @@ export class Alphabetic implements PrimitiveAlphabetic {
   }
 
   private validate (alphabetic: PrimitiveAlphabetic['alphabetic']): PrimitiveAlphabetic['alphabetic'] {
-    const validatedAlphabetic = ValidatedAlphabetic.parse(alphabetic)
-
-    return validatedAlphabetic
+    return ValidatedAlphabetic.parse(alphabetic)
   }
 
   public value (): PrimitiveAlphabetic['alphabetic'] {

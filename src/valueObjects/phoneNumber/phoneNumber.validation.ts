@@ -1,7 +1,7 @@
 import { ValidationDictionary } from '../../messages/validations'
 import { z } from 'zod'
 
-export const PhoneNumberValidation = z.coerce
+export const PhoneNumberValidation = z
   .number({
     required_error: ValidationDictionary.phoneNumber.required,
     invalid_type_error: ValidationDictionary.phoneNumber.invalidType

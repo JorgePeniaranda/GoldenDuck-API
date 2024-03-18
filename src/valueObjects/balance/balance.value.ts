@@ -9,9 +9,7 @@ export class Balance implements PrimitiveBalance {
   private validate (
     balance: PrimitiveBalance['balance']
   ): PrimitiveBalance['balance'] {
-    const validatedBalance = balanceValidation.parse(balance)
-
-    return validatedBalance
+    return balanceValidation.parse(balance)
   }
 
   public value (): PrimitiveBalance['balance'] {

@@ -7,9 +7,7 @@ export class ID implements PrimitiveID {
   }
 
   private validate (id: PrimitiveID['id']): PrimitiveID['id'] {
-    const validatedID = ValidatedID.parse(id)
-
-    return validatedID
+    return ValidatedID.parse(id)
   }
 
   public value (): PrimitiveID['id'] {

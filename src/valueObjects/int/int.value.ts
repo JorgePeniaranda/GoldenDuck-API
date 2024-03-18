@@ -7,9 +7,7 @@ export class Int implements PrimitiveInt {
   }
 
   private validate (int: PrimitiveInt['int']): PrimitiveInt['int'] {
-    const validatedINT = ValidatedINT.parse(int)
-
-    return validatedINT
+    return ValidatedINT.parse(int)
   }
 
   public value (): PrimitiveInt['int'] {

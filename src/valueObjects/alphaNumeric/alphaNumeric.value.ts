@@ -7,9 +7,7 @@ export class AlphaNumeric implements PrimitiveAlphaNumeric {
   }
 
   private validate (alphaNumeric: PrimitiveAlphaNumeric['alphaNumeric']): PrimitiveAlphaNumeric['alphaNumeric'] {
-    const validatedAlphaNumeric = ValidatedAlphaNumeric.parse(alphaNumeric)
-
-    return validatedAlphaNumeric
+    return ValidatedAlphaNumeric.parse(alphaNumeric)
   }
 
   public value (): PrimitiveAlphaNumeric['alphaNumeric'] {
