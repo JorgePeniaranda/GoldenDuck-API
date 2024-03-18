@@ -3,6 +3,7 @@ import { type CardPrimitiveEntity, type CardEntity } from './card.entity'
 import { Int } from '@/valueObjects/int/int.value'
 import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
 import { ValidDate } from '@/valueObjects/validDate/validDate.value'
+import { ValidBigInt } from '@/valueObjects/bigInt/bigInt.value'
 
 export class Card implements CardEntity {
   readonly id: CardEntity['id']
@@ -25,11 +26,11 @@ export class Card implements CardEntity {
     this.deleted = card.deleted
   }
 
-  public create (card: CardPrimitiveEntity): Card {
+  public static create (card: CardPrimitiveEntity): Card {
     return new Card({
       id: new ID(card.id),
       idAccount: new ID(card.idAccount),
-      number: new Int(card.number),
+      number: new ValidBigInt(card.number),
       cvv: new Int(card.cvv),
       expiration: new ValidDate(card.expiration),
       date: new PastDate(card.date),
