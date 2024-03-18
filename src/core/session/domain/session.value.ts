@@ -1,9 +1,9 @@
-import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
+import { ID } from '@/valueObjects/number/ID/ID.value'
 import {
   type SessionPrimitiveEntity,
   type SessionEntity
 } from './session.entity'
-import { ID } from '@/valueObjects/id/id.value'
+import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
 
 export class Session implements SessionEntity {
   readonly id: SessionEntity['id']

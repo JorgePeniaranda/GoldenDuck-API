@@ -1,3 +1,5 @@
+import { type PrimitiveAlphabetic } from '@/valueObjects/string/alphabetic/alphabetic.primitive'
+
 export interface PrimitiveLastName {
-  lastName: string
+  lastName: PrimitiveAlphabetic['alphabetic']
 }

@@ -1,18 +1,9 @@
-import { addressValidation } from './address.validation'
-import { type PrimitiveAddress } from './address.primitive'
+import { ValueObject } from '@/valueObjects/valueObjects.prototipe'
+import { type PrimitiveAddress } from './Address.primitive'
+import { AlphaNumericSchema } from '@/valueObjects/string/alphaNumeric/alphaNumeric.schema'
 
-export class Address implements PrimitiveAddress {
-  constructor (readonly address: PrimitiveAddress['address']) {
-    this.validate(this.address)
-  }
-
-  private validate (
-    address: PrimitiveAddress['address']
-  ): PrimitiveAddress['address'] {
-    return addressValidation.parse(address)
-  }
-
-  public value (): PrimitiveAddress['address'] {
-    return this.address
+export class Address extends ValueObject {
+  constructor (address: PrimitiveAddress['address']) {
+    super(address, AlphaNumericSchema('Address'))
   }
 }

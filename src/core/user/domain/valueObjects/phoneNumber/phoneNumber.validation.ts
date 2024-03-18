@@ -1,15 +1,9 @@
-import { ValidationDictionary } from '../../messages/validations'
-import { z } from 'zod'
+import { ValidationDictionary } from '@/messages/validations'
+import { ValidBigIntSchema } from '@/valueObjects/number/BigInt/BigInt.schema'
+import { type ZodType } from 'zod'
 
-export const PhoneNumberValidation = z
-  .bigint({
-    required_error: ValidationDictionary.phoneNumber.required,
-    invalid_type_error: ValidationDictionary.phoneNumber.invalidType
-  })
-  .min(1n, { message: ValidationDictionary.phoneNumber.required })
-  .min(1000000000n, {
-    message: ValidationDictionary.phoneNumber.length
-  })
-  .max(9999999999n, {
-    message: ValidationDictionary.phoneNumber.length
-  })
+export const PhoneNumberSchema = (name: string): ZodType => {
+  return ValidBigIntSchema(name)
+    .min(1000000000n, { message: ValidationDictionary.global.invalidMin(name, 1000000000n) })
+    .max(9999999999n, { message: ValidationDictionary.global.invalidMin(name, 9999999999n) })
+}

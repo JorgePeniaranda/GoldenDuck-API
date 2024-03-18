@@ -1,11 +1,11 @@
-import { ID } from '@/valueObjects/id/id.value'
+import { ID } from '@/valueObjects/number/ID/ID.value'
 import {
   type InvestmentPrimitiveEntity,
   type InvestmentEntity
 } from './investment.entity'
-import { Balance } from '@/valueObjects/balance/balance.value'
-import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
-import { ValidDate } from '@/valueObjects/validDate/validDate.value'
+import { Balance } from '@/core/account/domain/valueObjects/balance/Balance.value'
+import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
+import { ValidDate } from '@/valueObjects/date/ValidDate/ValidDate.value'
 
 export class Investment implements InvestmentEntity {
   readonly id: InvestmentEntity['id']

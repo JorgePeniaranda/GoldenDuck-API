@@ -1,18 +1,9 @@
-import { type PrimitiveLastName } from './lastName.primitive'
-import { LastNameValidation } from './lastName.validation'
+import { ValueObject } from '@/valueObjects/valueObjects.prototipe'
+import { type PrimitiveLastName } from './LastName.primitive'
+import { AlphabeticSchema } from '@/valueObjects/string/alphabetic/alphabetic.schema'
 
-export class LastName implements PrimitiveLastName {
-  constructor (readonly lastName: PrimitiveLastName['lastName']) {
-    this.validate(this.lastName)
-  }
-
-  private validate (
-    lastName: PrimitiveLastName['lastName']
-  ): PrimitiveLastName['lastName'] {
-    return LastNameValidation.parse(lastName)
-  }
-
-  public value (): PrimitiveLastName['lastName'] {
-    return this.lastName
+export class LastName extends ValueObject {
+  constructor (lastName: PrimitiveLastName['lastName']) {
+    super(lastName, AlphabeticSchema('LastName'))
   }
 }

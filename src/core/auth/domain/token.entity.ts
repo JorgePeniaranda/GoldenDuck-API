@@ -1,7 +1,7 @@
-import { type PrimitiveID } from '@/valueObjects/id/id.primitive'
-import { type ID } from '@/valueObjects/id/id.value'
-import { type PrimitiveRole } from '@/valueObjects/role/role.primitive'
-import { type Role } from '@/valueObjects/role/role.value'
+import { type PrimitiveRole } from '@/valueObjects/enum/Role/Role.primitive'
+import { type Role } from '@/valueObjects/enum/Role/Role.value'
+import { type PrimitiveID } from '@/valueObjects/number/ID/ID.primitive'
+import { type ID } from '@/valueObjects/number/ID/ID.value'
 
 export interface TokenEntity {
   id: ID

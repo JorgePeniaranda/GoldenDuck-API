@@ -1,3 +1,5 @@
+import { type PrimitiveFloat } from '@/valueObjects/number/Float/Float.primitive'
+
 export interface PrimitiveBalance {
-  balance: number | bigint
+  balance: PrimitiveFloat['float']
 }

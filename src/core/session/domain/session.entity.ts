@@ -1,7 +1,7 @@
-import { type PrimitiveID } from '@/valueObjects/id/id.primitive'
-import { type ID } from '@/valueObjects/id/id.value'
-import { type PrimitivePastDate } from '@/valueObjects/pastDate/pastDate.primitive'
-import { type PastDate } from '@/valueObjects/pastDate/pastDate.value'
+import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.primitive'
+import { type PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
+import { type PrimitiveID } from '@/valueObjects/number/ID/ID.primitive'
+import { type ID } from '@/valueObjects/number/ID/ID.value'
 
 export interface SessionEntity {
   id: ID

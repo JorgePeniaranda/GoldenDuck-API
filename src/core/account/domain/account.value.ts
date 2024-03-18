@@ -1,11 +1,11 @@
-import { ID } from '@/valueObjects/id/id.value'
+import { ID } from '@/valueObjects/number/ID/ID.value'
 import {
   type AccountPrimitiveEntity,
   type AccountEntity
 } from './account.entity'
-import { URL } from '@/valueObjects/url/url.value'
-import { Balance } from '@/valueObjects/balance/balance.value'
-import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
+import { Balance } from './valueObjects/balance/Balance.value'
+import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
+import { URL } from '@/valueObjects/string/url/url.value'
 
 export class Account implements AccountEntity {
   public id: AccountEntity['id']
@@ -45,12 +45,12 @@ export class Account implements AccountEntity {
 
   public toJSON (): AccountPrimitiveEntity {
     return {
-      id: this.id.value(),
-      idUser: this.idUser.value(),
-      balance: this.balance.value(),
-      imgUrl: this.imgUrl?.value(),
-      updatedAt: this.updatedAt.value(),
-      createdAt: this.createdAt.value(),
+      id: this.id.value,
+      idUser: this.idUser.value,
+      balance: this.balance.value,
+      imgUrl: this.imgUrl?.value,
+      updatedAt: this.updatedAt.value,
+      createdAt: this.createdAt.value,
       deleted: this.deleted
     }
   }

@@ -1,3 +1,5 @@
+import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.primitive'
+
 export interface PrimitiveBirthDate {
-  birthDate: Date | string
+  birthDate: PrimitivePastDate['pastDate']
 }

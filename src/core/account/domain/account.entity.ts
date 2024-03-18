@@ -1,11 +1,11 @@
-import { type URL } from '@/valueObjects/url/url.value'
-import { type ID } from '../../../valueObjects/id/id.value'
-import { type Balance } from '@/valueObjects/balance/balance.value'
-import { type PrimitiveID } from '@/valueObjects/id/id.primitive'
-import { type PrimitiveBalance } from '@/valueObjects/balance/balance.primitive'
-import { type PrimitiveURL } from '@/valueObjects/url/url.primitive'
-import { type PastDate } from '@/valueObjects/pastDate/pastDate.value'
-import { type PrimitivePastDate } from '@/valueObjects/pastDate/pastDate.primitive'
+import { type ID } from '@/valueObjects/number/ID/ID.value'
+import { type Balance } from './valueObjects/balance/Balance.value'
+import { type URL } from '@/valueObjects/string/url/url.value'
+import { type PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
+import { type PrimitiveID } from '@/valueObjects/number/ID/ID.primitive'
+import { type PrimitiveBalance } from './valueObjects/balance/Balance.primitive'
+import { type PrimitiveURL } from '@/valueObjects/string/url/url.primitive'
+import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.primitive'
 
 export interface AccountEntity {
   id: ID

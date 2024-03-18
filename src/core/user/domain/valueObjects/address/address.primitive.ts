@@ -1,3 +1,5 @@
+import { type PrimitiveAlphaNumeric } from '@/valueObjects/string/alphaNumeric/alphaNumeric.primitive'
+
 export interface PrimitiveAddress {
-  address: string
+  address: PrimitiveAlphaNumeric['alphaNumeric']
 }

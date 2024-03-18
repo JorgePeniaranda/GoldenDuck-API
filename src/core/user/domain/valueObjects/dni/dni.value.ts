@@ -1,16 +1,9 @@
-import { type PrimitiveDNI } from './dni.primitive'
-import { DNIValidation } from './dni.validation'
+import { ValueObject } from '@/valueObjects/valueObjects.prototipe'
+import { type PrimitiveDNI } from './Dni.primitive'
+import { DNISchema } from './Dni.schema'
 
-export class DNI implements PrimitiveDNI {
-  constructor (readonly dni: PrimitiveDNI['dni']) {
-    this.validate(this.dni)
-  }
-
-  private validate (dni: PrimitiveDNI['dni']): PrimitiveDNI['dni'] {
-    return DNIValidation.parse(dni)
-  }
-
-  public value (): PrimitiveDNI['dni'] {
-    return this.dni
+export class DNI extends ValueObject {
+  constructor (dni: PrimitiveDNI['dni']) {
+    super(dni, DNISchema('DNI'))
   }
 }

@@ -1,18 +1,9 @@
-import { type PrimitiveBalance } from './balance.primitive'
-import { balanceValidation } from './balance.validation'
+import { ValueObject } from '@/valueObjects/valueObjects.prototipe'
+import { type PrimitiveBalance } from './Balance.primitive'
+import { FloatSchema } from '@/valueObjects/number/Float/Float.schema'
 
-export class Balance implements PrimitiveBalance {
-  constructor (readonly balance: PrimitiveBalance['balance']) {
-    this.validate(this.balance)
-  }
-
-  private validate (
-    balance: PrimitiveBalance['balance']
-  ): PrimitiveBalance['balance'] {
-    return balanceValidation.parse(balance)
-  }
-
-  public value (): PrimitiveBalance['balance'] {
-    return this.balance
+export class Balance extends ValueObject {
+  constructor (balance: PrimitiveBalance['balance']) {
+    super(balance, FloatSchema('Balance'))
   }
 }

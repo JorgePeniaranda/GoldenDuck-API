@@ -1,10 +1,9 @@
-import { ID } from '@/valueObjects/id/id.value'
+import { ID } from '@/valueObjects/number/ID/ID.value'
 import { type CardPrimitiveEntity, type CardEntity } from './card.entity'
-import { Int } from '@/valueObjects/int/int.value'
-import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
-import { ValidDate } from '@/valueObjects/validDate/validDate.value'
-import { ValidBigInt } from '@/valueObjects/bigInt/bigInt.value'
-
+import { ValidDate } from '@/valueObjects/date/ValidDate/ValidDate.value'
+import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
+import { CardNumber } from './valueObjects/cardNumber/CardNumber.value'
+import { CVV } from './valueObjects/cvv/cvv.value'
 export class Card implements CardEntity {
   readonly id: CardEntity['id']
   readonly idAccount: CardEntity['idAccount']
@@ -30,8 +29,8 @@ export class Card implements CardEntity {
     return new Card({
       id: new ID(card.id),
       idAccount: new ID(card.idAccount),
-      number: new ValidBigInt(card.number),
-      cvv: new Int(card.cvv),
+      number: new CardNumber(card.number),
+      cvv: new CVV(card.cvv),
       expiration: new ValidDate(card.expiration),
       date: new PastDate(card.date),
       updatedDate: new PastDate(card.updatedDate),

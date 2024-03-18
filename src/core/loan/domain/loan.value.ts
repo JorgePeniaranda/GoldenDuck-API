@@ -1,8 +1,8 @@
-import { ID } from '@/valueObjects/id/id.value'
+import { ID } from '@/valueObjects/number/ID/ID.value'
 import { type LoanPrimitiveEntity, type LoanEntity } from './loan.entity'
-import { Balance } from '@/valueObjects/balance/balance.value'
-import { ValidDate } from '@/valueObjects/validDate/validDate.value'
-import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
+import { Balance } from '@/core/account/domain/valueObjects/balance/Balance.value'
+import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
+import { ValidDate } from '@/valueObjects/date/ValidDate/ValidDate.value'
 
 export class Loan implements LoanEntity {
   readonly id: LoanEntity['id']

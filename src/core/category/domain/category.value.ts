@@ -1,9 +1,9 @@
-import { ID } from '@/valueObjects/id/id.value'
+import { ID } from '@/valueObjects/number/ID/ID.value'
 import {
   type CategoryPrimitiveEntity,
   type CategoryEntity
 } from './category.entity'
-import { Alphabetic } from '@/valueObjects/alphabetic/alphabetic.value'
+import { Alphabetic } from '@/valueObjects/string/alphabetic/alphabetic.value'
 
 export class Category implements CategoryEntity {
   public readonly id: CategoryEntity['id']

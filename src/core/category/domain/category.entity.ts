@@ -1,7 +1,7 @@
-import { type PrimitiveAlphabetic } from '@/valueObjects/alphabetic/alphabetic.primitive'
-import { type Alphabetic } from '@/valueObjects/alphabetic/alphabetic.value'
-import { type PrimitiveID } from '@/valueObjects/id/id.primitive'
-import { type ID } from '@/valueObjects/id/id.value'
+import { type PrimitiveID } from '@/valueObjects/number/ID/ID.primitive'
+import { type ID } from '@/valueObjects/number/ID/ID.value'
+import { type PrimitiveAlphabetic } from '@/valueObjects/string/alphabetic/alphabetic.primitive'
+import { type Alphabetic } from '@/valueObjects/string/alphabetic/alphabetic.value'
 
 export interface CategoryEntity {
   id: ID

@@ -1,11 +1,11 @@
-import { type PrimitiveBalance } from '@/valueObjects/balance/balance.primitive'
-import { type Balance } from '@/valueObjects/balance/balance.value'
-import { type PrimitiveID } from '@/valueObjects/id/id.primitive'
-import { type ID } from '@/valueObjects/id/id.value'
-import { type PrimitivePastDate } from '@/valueObjects/pastDate/pastDate.primitive'
-import { type PastDate } from '@/valueObjects/pastDate/pastDate.value'
-import { type PrimitiveValidDate } from '@/valueObjects/validDate/validDate.primitive'
-import { type ValidDate } from '@/valueObjects/validDate/validDate.value'
+import { type PrimitiveBalance } from '@/core/account/domain/valueObjects/balance/Balance.primitive'
+import { type Balance } from '@/core/account/domain/valueObjects/balance/Balance.value'
+import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.primitive'
+import { type PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
+import { type PrimitiveValidDate } from '@/valueObjects/date/ValidDate/ValidDate.primitive'
+import { type ValidDate } from '@/valueObjects/date/ValidDate/ValidDate.value'
+import { type PrimitiveID } from '@/valueObjects/number/ID/ID.primitive'
+import { type ID } from '@/valueObjects/number/ID/ID.value'
 
 export interface InvestmentEntity {
   id: ID

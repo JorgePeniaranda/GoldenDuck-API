@@ -1,10 +1,10 @@
+import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
 import {
   type TransactionPrimitiveEntity,
   type TransactionEntity
 } from './transaction.entity'
-import { ID } from '@/valueObjects/id/id.value'
-import { Balance } from '@/valueObjects/balance/balance.value'
-import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
+import { Balance } from '@/core/account/domain/valueObjects/balance/Balance.value'
+import { ID } from '@/valueObjects/number/ID/ID.value'
 
 export class Transaction implements TransactionEntity {
   readonly id: TransactionEntity['id']

@@ -1,19 +1,19 @@
-import { type PrimitiveValidBigInt } from '@/valueObjects/bigInt/bigInt.primitive'
-import { type ValidBigInt } from '@/valueObjects/bigInt/bigInt.value'
-import { type PrimitiveID } from '@/valueObjects/id/id.primitive'
-import { type ID } from '@/valueObjects/id/id.value'
-import { type PrimitiveInt } from '@/valueObjects/int/int.primitive'
-import { type Int } from '@/valueObjects/int/int.value'
-import { type PrimitivePastDate } from '@/valueObjects/pastDate/pastDate.primitive'
-import { type PastDate } from '@/valueObjects/pastDate/pastDate.value'
-import { type PrimitiveValidDate } from '@/valueObjects/validDate/validDate.primitive'
-import { type ValidDate } from '@/valueObjects/validDate/validDate.value'
+import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.primitive'
+import { type PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
+import { type PrimitiveValidDate } from '@/valueObjects/date/ValidDate/ValidDate.primitive'
+import { type ValidDate } from '@/valueObjects/date/ValidDate/ValidDate.value'
+import { type PrimitiveID } from '@/valueObjects/number/ID/ID.primitive'
+import { type ID } from '@/valueObjects/number/ID/ID.value'
+import { type CardNumber } from './valueObjects/cardNumber/CardNumber.value'
+import { type CVV } from './valueObjects/cvv/cvv.value'
+import { type PrimitiveCVV } from './valueObjects/cvv/cvv.primitive'
+import { type PrimitiveCardNumber } from './valueObjects/cardNumber/CardNumber.primitive'
 
 export interface CardEntity {
   id: ID
   idAccount: ID
-  number: ValidBigInt
-  cvv: Int
+  number: CardNumber
+  cvv: CVV
   expiration: ValidDate
   date: PastDate
   updatedDate: PastDate
@@ -23,8 +23,8 @@ export interface CardEntity {
 export interface CardPrimitiveEntity {
   id: PrimitiveID['id']
   idAccount: PrimitiveID['id']
-  number: PrimitiveValidBigInt['bigint']
-  cvv: PrimitiveInt['int']
+  number: PrimitiveCardNumber['cardNumber']
+  cvv: PrimitiveCVV['cvv']
   expiration: PrimitiveValidDate['validDate']
   date: PrimitivePastDate['pastDate']
   updatedDate: PrimitivePastDate['pastDate']

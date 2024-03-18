@@ -1,12 +1,9 @@
-import { ValidationDictionary } from '../../messages/validations'
-import { z } from 'zod'
+import { ValidationDictionary } from '@/messages/validations'
+import { PastDateSchema } from '@/valueObjects/date/PastDate/PastDate.schema'
+import { type ZodType } from 'zod'
 
-export const BirthDateValidation = z.coerce
-  .date({
-    required_error: ValidationDictionary.birthDate.required,
-    invalid_type_error: ValidationDictionary.birthDate.invalidType
-  })
-  .refine(
+export const BirthDateSchema = (name: string): ZodType => {
+  return PastDateSchema(name).refine(
     (date) => {
       const now = new Date()
       const minAge = 18
@@ -19,3 +16,4 @@ export const BirthDateValidation = z.coerce
     },
     { message: ValidationDictionary.birthDate.invalidAge }
   )
+}

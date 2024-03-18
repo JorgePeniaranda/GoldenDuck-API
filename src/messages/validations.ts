@@ -19,9 +19,9 @@ export const ValidationDictionary = {
   },
   password: {
     strong:
-      'La contraseña debe tener una mayúscula, una minúscula, un número y un caracter especial' // usado
+      'La contraseña debe tener una mayúscula, una minúscula, un número y un caracter especial'
   },
   birthDate: {
-    invalidAge: 'Debe ser mayor de 18 años' // usado
+    invalidAge: 'Debe ser mayor de 18 años'
   }
 }
