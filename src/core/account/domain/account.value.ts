@@ -6,6 +6,7 @@ import {
 import { Balance } from './valueObjects/balance/Balance.value'
 import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
 import { URL } from '@/valueObjects/string/url/url.value'
+import { ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
 
 export class Account implements AccountEntity {
   public id: AccountEntity['id']
@@ -37,7 +38,7 @@ export class Account implements AccountEntity {
           : new URL(user.imgUrl),
       updatedAt: new PastDate(user.updatedAt),
       createdAt: new PastDate(user.createdAt),
-      deleted: user.deleted
+      deleted: new ValidBoolean(user.deleted)
     })
 
     return createdUser
@@ -51,7 +52,7 @@ export class Account implements AccountEntity {
       imgUrl: this.imgUrl?.value,
       updatedAt: this.updatedAt.value,
       createdAt: this.createdAt.value,
-      deleted: this.deleted
+      deleted: this.deleted.value
     }
   }
 }

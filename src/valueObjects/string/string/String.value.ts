@@ -1,9 +1,9 @@
 import { ValueObject } from '@/valueObjects/valueObjects.prototipe'
-import { type PrimitiveString } from './string.primitive'
-import { StringSchema } from './String.schema'
+import { type PrimitiveValidString } from './string.primitive'
+import { ValidStringSchema } from './String.schema'
 
-export class Alphabetic extends ValueObject<PrimitiveString['string']> {
-  constructor (string: PrimitiveString['string'], name?: string) {
-    super(string, StringSchema(name ?? 'String'))
+export class ValidString extends ValueObject<PrimitiveValidString['string']> {
+  constructor (string: PrimitiveValidString['string'], name?: string) {
+    super(string, ValidStringSchema(name ?? 'String'))
   }
 }

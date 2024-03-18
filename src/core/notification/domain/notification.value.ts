@@ -1,9 +1,11 @@
-import { ID } from '@/valueObjects/id/id.value'
 import {
   type NotificationPrimitiveEntity,
   type NotificationEntity
 } from './notification.entity'
-import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
+import { ValidString } from '@/valueObjects/string/string/String.value'
+import { ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
+import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
+import { ID } from '@/valueObjects/number/ID/ID.value'
 
 export class Notification implements NotificationEntity {
   id: NotificationEntity['id']
@@ -24,8 +26,8 @@ export class Notification implements NotificationEntity {
     return new Notification({
       id: new ID(notification.id),
       idAccount: new ID(notification.idAccount),
-      message: notification.message,
-      read: notification.read,
+      message: new ValidString(notification.message),
+      read: new ValidBoolean(notification.read),
       date: new PastDate(notification.date)
     })
   }
@@ -34,8 +36,8 @@ export class Notification implements NotificationEntity {
     return {
       id: this.id.value,
       idAccount: this.idAccount.value,
-      message: this.message,
-      read: this.read,
+      message: this.message.value,
+      read: this.read.value,
       date: this.date.value
     }
   }

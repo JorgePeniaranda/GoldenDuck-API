@@ -1,6 +1,8 @@
 import { ID } from '@/valueObjects/number/ID/ID.value'
 import { type ErrorPrimitiveEntity, type ErrorEntity } from './error.entity'
 import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
+import { ValidString } from '@/valueObjects/string/string/String.value'
+import { ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
 
 export class Error implements ErrorEntity {
   public readonly id: ErrorEntity['id']
@@ -20,20 +22,20 @@ export class Error implements ErrorEntity {
   public create (error: ErrorPrimitiveEntity): Error {
     return new Error({
       id: new ID(error.id),
-      name: error.name,
-      message: error.message,
+      name: new ValidString(error.name),
+      message: new ValidString(error.message),
       date: new PastDate(error.date),
-      deleted: error.deleted
+      deleted: new ValidBoolean(error.deleted)
     })
   }
 
-  public toJSON (): ErrorEntity {
+  public toJSON (): ErrorPrimitiveEntity {
     return {
-      id: this.id,
-      name: this.name,
-      message: this.message,
-      date: this.date,
-      deleted: this.deleted
+      id: this.id.value,
+      name: this.name.value,
+      message: this.message.value,
+      date: this.date.value,
+      deleted: this.deleted.value
     }
   }
 }

@@ -4,6 +4,7 @@ import {
   type SessionEntity
 } from './session.entity'
 import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
+import { ValidString } from '@/valueObjects/string/string/String.value'
 
 export class Session implements SessionEntity {
   readonly id: SessionEntity['id']
@@ -24,8 +25,8 @@ export class Session implements SessionEntity {
     return new Session({
       id: new ID(session.id),
       idUser: new ID(session.idUser),
-      ip: session.ip,
-      userAgent: session.userAgent,
+      ip: new ValidString(session.ip),
+      userAgent: new ValidString(session.userAgent),
       date: new PastDate(session.date)
     })
   }
@@ -34,8 +35,8 @@ export class Session implements SessionEntity {
     return {
       id: this.id.value,
       idUser: this.idUser.value,
-      ip: this.ip,
-      userAgent: this.userAgent,
+      ip: this.ip.value,
+      userAgent: this.userAgent.value,
       date: this.date.value
     }
   }

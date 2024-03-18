@@ -4,6 +4,7 @@ import { ValidDate } from '@/valueObjects/date/ValidDate/ValidDate.value'
 import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
 import { CardNumber } from './valueObjects/cardNumber/CardNumber.value'
 import { CVV } from './valueObjects/cvv/cvv.value'
+import { ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
 export class Card implements CardEntity {
   readonly id: CardEntity['id']
   readonly idAccount: CardEntity['idAccount']
@@ -34,7 +35,7 @@ export class Card implements CardEntity {
       expiration: new ValidDate(card.expiration),
       date: new PastDate(card.date),
       updatedDate: new PastDate(card.updatedDate),
-      deleted: card.deleted
+      deleted: new ValidBoolean(card.deleted)
     })
   }
 
@@ -47,7 +48,7 @@ export class Card implements CardEntity {
       expiration: this.expiration.value,
       date: this.date.value,
       updatedDate: this.updatedDate.value,
-      deleted: this.deleted
+      deleted: this.deleted.value
     }
   }
 }

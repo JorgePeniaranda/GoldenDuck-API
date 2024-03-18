@@ -1,3 +1,3 @@
-export interface PrimitiveBoolean {
+export interface PrimitiveValidBoolean {
   boolean: boolean
 }

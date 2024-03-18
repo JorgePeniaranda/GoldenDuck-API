@@ -1,9 +1,9 @@
 import { ValueObject } from '@/valueObjects/valueObjects.prototipe'
-import { BooleanSchema } from './Boolean.schema'
-import { type PrimitiveBoolean } from './Boolean.primitive'
+import { type PrimitiveValidBoolean } from './Boolean.primitive'
+import { ValidBooleanSchema } from './Boolean.schema'
 
-export class Boolean extends ValueObject<PrimitiveBoolean['boolean']> {
-  constructor (boolean: PrimitiveBoolean['boolean'], name?: string) {
-    super(boolean, BooleanSchema(name ?? 'Boolean'))
+export class ValidBoolean extends ValueObject<PrimitiveValidBoolean['boolean']> {
+  constructor (boolean: PrimitiveValidBoolean['boolean'], name?: string) {
+    super(boolean, ValidBooleanSchema(name ?? 'Boolean'))
   }
 }

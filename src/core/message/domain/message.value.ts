@@ -4,6 +4,8 @@ import {
   type MessageEntity
 } from './message.entity'
 import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
+import { ValidString } from '@/valueObjects/string/string/String.value'
+import { ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
 
 export class Message implements MessageEntity {
   readonly id: MessageEntity['id']
@@ -29,10 +31,10 @@ export class Message implements MessageEntity {
       id: new ID(message.id),
       from: new ID(message.from),
       to: new ID(message.to),
-      message: message.message,
+      message: new ValidString(message.message),
       read: message.read,
       date: new PastDate(message.date),
-      deleted: message.deleted
+      deleted: new ValidBoolean(message.deleted)
     })
   }
 
@@ -41,10 +43,10 @@ export class Message implements MessageEntity {
       id: this.id.value,
       from: this.from.value,
       to: this.to.value,
-      message: this.message,
+      message: this.message.value,
       read: this.read,
       date: this.date.value,
-      deleted: this.deleted
+      deleted: this.deleted.value
     }
   }
 }

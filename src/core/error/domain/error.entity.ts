@@ -1,20 +1,24 @@
+import { type PrimitiveValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.primitive'
+import { type ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
 import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.primitive'
 import { type PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
 import { type PrimitiveID } from '@/valueObjects/number/ID/ID.primitive'
 import { type ID } from '@/valueObjects/number/ID/ID.value'
+import { type ValidString } from '@/valueObjects/string/string/String.value'
+import { type PrimitiveValidString } from '@/valueObjects/string/string/string.primitive'
 
 export interface ErrorEntity {
   id: ID
-  name: string
-  message: string
+  name: ValidString
+  message: ValidString
   date: PastDate
-  deleted: boolean
+  deleted: ValidBoolean
 }
 
 export interface ErrorPrimitiveEntity {
   id: PrimitiveID['id']
-  name: string
-  message: string
+  name: PrimitiveValidString['string']
+  message: PrimitiveValidString['string']
   date: PrimitivePastDate['pastDate']
-  deleted: boolean
+  deleted: PrimitiveValidBoolean['boolean']
 }

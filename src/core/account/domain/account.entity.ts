@@ -6,6 +6,8 @@ import { type PrimitiveID } from '@/valueObjects/number/ID/ID.primitive'
 import { type PrimitiveBalance } from './valueObjects/balance/Balance.primitive'
 import { type PrimitiveURL } from '@/valueObjects/string/url/url.primitive'
 import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.primitive'
+import { type ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
+import { type PrimitiveValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.primitive'
 
 export interface AccountEntity {
   id: ID
@@ -14,7 +16,7 @@ export interface AccountEntity {
   imgUrl?: URL | null
   updatedAt: PastDate
   createdAt: PastDate
-  deleted: boolean
+  deleted: ValidBoolean
 }
 
 export interface AccountPrimitiveEntity {
@@ -24,5 +26,5 @@ export interface AccountPrimitiveEntity {
   imgUrl?: PrimitiveURL['url'] | null
   updatedAt: PrimitivePastDate['pastDate']
   createdAt: PrimitivePastDate['pastDate']
-  deleted: boolean
+  deleted: PrimitiveValidBoolean['boolean']
 }

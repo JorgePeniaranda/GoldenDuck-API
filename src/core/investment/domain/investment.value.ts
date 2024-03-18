@@ -6,6 +6,7 @@ import {
 import { Balance } from '@/core/account/domain/valueObjects/balance/Balance.value'
 import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
 import { ValidDate } from '@/valueObjects/date/ValidDate/ValidDate.value'
+import { Float } from '@/valueObjects/number/Float/Float.value'
 
 export class Investment implements InvestmentEntity {
   readonly id: InvestmentEntity['id']
@@ -29,7 +30,7 @@ export class Investment implements InvestmentEntity {
       id: new ID(investment.id),
       idAccount: new ID(investment.idAccount),
       amount: new Balance(investment.amount),
-      interest: investment.interest,
+      interest: new Float(investment.interest),
       date: new PastDate(investment.date),
       dateEnd: new ValidDate(investment.dateEnd)
     })
@@ -40,7 +41,7 @@ export class Investment implements InvestmentEntity {
       id: this.id.value,
       idAccount: this.idAccount.value,
       amount: this.amount.value,
-      interest: this.interest,
+      interest: this.interest.value,
       date: this.date.value,
       dateEnd: this.dateEnd.value
     }

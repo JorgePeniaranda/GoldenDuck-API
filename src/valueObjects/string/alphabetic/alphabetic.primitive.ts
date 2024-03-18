@@ -1,5 +1,5 @@
-import { type PrimitiveString } from '../string/string.primitive'
+import { type PrimitiveValidString } from '../string/string.primitive'
 
 export interface PrimitiveAlphabetic {
-  alphabetic: PrimitiveString['string']
+  alphabetic: PrimitiveValidString['string']
 }

@@ -4,6 +4,7 @@ import {
   type CategoryEntity
 } from './category.entity'
 import { Alphabetic } from '@/valueObjects/string/alphabetic/alphabetic.value'
+import { ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
 
 export class Category implements CategoryEntity {
   public readonly id: CategoryEntity['id']
@@ -20,7 +21,7 @@ export class Category implements CategoryEntity {
     return new Category({
       id: new ID(category.id),
       name: new Alphabetic(category.name),
-      deleted: category.deleted
+      deleted: new ValidBoolean(category.deleted)
     })
   }
 
@@ -28,7 +29,7 @@ export class Category implements CategoryEntity {
     return {
       id: this.id.value,
       name: this.name.value,
-      deleted: this.deleted
+      deleted: this.deleted.value
     }
   }
 }

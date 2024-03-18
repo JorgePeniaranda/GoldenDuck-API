@@ -1,5 +1,5 @@
-import { type PrimitiveString } from '../string/string.primitive'
+import { type PrimitiveValidString } from '../string/string.primitive'
 
 export interface PrimitiveAlphaNumeric {
-  alphaNumeric: PrimitiveString['string']
+  alphaNumeric: PrimitiveValidString['string']
 }

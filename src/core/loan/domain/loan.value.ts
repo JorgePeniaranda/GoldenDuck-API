@@ -3,6 +3,7 @@ import { type LoanPrimitiveEntity, type LoanEntity } from './loan.entity'
 import { Balance } from '@/core/account/domain/valueObjects/balance/Balance.value'
 import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
 import { ValidDate } from '@/valueObjects/date/ValidDate/ValidDate.value'
+import { Float } from '@/valueObjects/number/Float/Float.value'
 
 export class Loan implements LoanEntity {
   readonly id: LoanEntity['id']
@@ -26,7 +27,7 @@ export class Loan implements LoanEntity {
       id: new ID(loan.id),
       idAccount: new ID(loan.idAccount),
       amount: new Balance(loan.amount),
-      interest: loan.interest,
+      interest: new Float(loan.interest),
       date: new PastDate(loan.date),
       dateEnd: new ValidDate(loan.dateEnd)
     })
@@ -37,7 +38,7 @@ export class Loan implements LoanEntity {
       id: this.id.value,
       idAccount: this.idAccount.value,
       amount: this.amount.value,
-      interest: this.interest,
+      interest: this.interest.value,
       date: this.date.value,
       dateEnd: this.dateEnd.value
     }

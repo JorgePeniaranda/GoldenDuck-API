@@ -21,6 +21,8 @@ import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.pr
 import { type PrimitiveSex } from '@/valueObjects/enum/Sex/Sex.primitive'
 import { type PrimitiveRole } from '@/valueObjects/enum/Role/Role.primitive'
 import { type Sex } from '@/valueObjects/enum/Sex/Sex.value'
+import { type ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
+import { type PrimitiveValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.primitive'
 
 export interface UserEntity {
   id: ID
@@ -35,7 +37,7 @@ export interface UserEntity {
   sex: Sex
   updatedAt: PastDate
   createdAt: PastDate
-  deleted: boolean
+  deleted: ValidBoolean
   role: Role
 }
 
@@ -52,6 +54,6 @@ export interface UserPrimitiveEntity {
   sex: PrimitiveSex['sex']
   updatedAt: PrimitivePastDate['pastDate']
   createdAt: PrimitivePastDate['pastDate']
-  deleted: boolean
+  deleted: PrimitiveValidBoolean['boolean']
   role: PrimitiveRole['role']
 }

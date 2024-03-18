@@ -1,3 +1,3 @@
-export interface PrimitiveString {
+export interface PrimitiveValidString {
   string: string
 }
