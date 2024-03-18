@@ -1,17 +1,18 @@
+import { type PrimitiveValidDate } from './validDate.primitive'
 import { ValidDateValidation } from './validDate.validation'
 
-export class ValidDate {
-  constructor (private readonly birthDate: Date) {
-    this.validate(this.birthDate)
+export class ValidDate implements PrimitiveValidDate {
+  constructor (readonly validDate: PrimitiveValidDate['validDate']) {
+    this.validate(this.validDate)
   }
 
-  private validate (birthDate: Date): Date {
-    const validatedBirthDate = ValidDateValidation.parse(birthDate)
+  private validate (validDate: PrimitiveValidDate['validDate']): PrimitiveValidDate['validDate'] {
+    const validatedBirthDate = ValidDateValidation.parse(validDate)
 
     return validatedBirthDate
   }
 
-  public value (): Date {
-    return this.birthDate
+  public value (): PrimitiveValidDate['validDate'] {
+    return this.validDate
   }
 }

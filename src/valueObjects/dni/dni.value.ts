@@ -1,18 +1,18 @@
-import { type UserPrimitiveEntity } from '../../core/user/domain/user.entity'
+import { type PrimitiveDNI } from './dni.primitive'
 import { DNIValidation } from './dni.validation'
 
-export class DNI {
-  constructor (private readonly dni: UserPrimitiveEntity['dni']) {
+export class DNI implements PrimitiveDNI {
+  constructor (readonly dni: PrimitiveDNI['dni']) {
     this.validate(this.dni)
   }
 
   private validate (
-    dni: UserPrimitiveEntity['dni']
-  ): UserPrimitiveEntity['dni'] {
+    dni: PrimitiveDNI['dni']
+  ): PrimitiveDNI['dni'] {
     return DNIValidation.parse(dni)
   }
 
-  public value (): UserPrimitiveEntity['dni'] {
+  public value (): PrimitiveDNI['dni'] {
     return this.dni
   }
 }

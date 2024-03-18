@@ -1,18 +1,18 @@
-import { type UserPrimitiveEntity } from '../../core/user/domain/user.entity'
+import { type PrimitivePassword } from './password.primitive'
 import { PasswordValidation } from './password.validation'
 
-export class Password {
-  constructor (private readonly password: UserPrimitiveEntity['password']) {
+export class Password implements PrimitivePassword {
+  constructor (readonly password: PrimitivePassword['password']) {
     this.validate(this.password)
   }
 
   private validate (
-    password: UserPrimitiveEntity['password']
-  ): UserPrimitiveEntity['password'] {
+    password: PrimitivePassword['password']
+  ): PrimitivePassword['password'] {
     return PasswordValidation.parse(password)
   }
 
-  public value (): UserPrimitiveEntity['password'] {
+  public value (): PrimitivePassword['password'] {
     return this.password
   }
 

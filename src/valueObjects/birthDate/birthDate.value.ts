@@ -1,18 +1,18 @@
-import { type UserPrimitiveEntity } from '../../core/user/domain/user.entity'
+import { type PrimitiveBirthDate } from './birthDate.primitive'
 import { BirthDateValidation } from './birthDate.validation'
 
-export class BirthDate {
-  constructor (private readonly birthDate: UserPrimitiveEntity['birthDate']) {
+export class BirthDate implements PrimitiveBirthDate {
+  constructor (readonly birthDate: PrimitiveBirthDate['birthDate']) {
     this.validate(this.birthDate)
   }
 
   private validate (
-    birthDate: UserPrimitiveEntity['birthDate']
-  ): UserPrimitiveEntity['birthDate'] {
+    birthDate: PrimitiveBirthDate['birthDate']
+  ): PrimitiveBirthDate['birthDate'] {
     return BirthDateValidation.parse(birthDate)
   }
 
-  public value (): UserPrimitiveEntity['birthDate'] {
+  public value (): PrimitiveBirthDate['birthDate'] {
     return this.birthDate
   }
 }

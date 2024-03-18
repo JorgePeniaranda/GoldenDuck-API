@@ -1,17 +1,18 @@
+import { type PrimitiveID } from './id.primitive'
 import { ValidatedID } from './id.validation'
 
-export class ID {
-  constructor (private readonly id: number) {
+export class ID implements PrimitiveID {
+  constructor (readonly id: PrimitiveID['id']) {
     this.validate(this.id)
   }
 
-  private validate (id: number): number {
+  private validate (id: PrimitiveID['id']): PrimitiveID['id'] {
     const validatedID = ValidatedID.parse(id)
 
     return validatedID
   }
 
-  public value (): number {
+  public value (): PrimitiveID['id'] {
     return this.id
   }
 }

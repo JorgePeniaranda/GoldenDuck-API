@@ -1,18 +1,18 @@
-import { type UserPrimitiveEntity } from '../../core/user/domain/user.entity'
+import { type PrimitiveEmail } from './email.primitive'
 import { EmailValidation } from './email.validation'
 
-export class Email {
-  constructor (private readonly email: UserPrimitiveEntity['email']) {
+export class Email implements PrimitiveEmail {
+  constructor (readonly email: PrimitiveEmail['email']) {
     this.validate(this.email)
   }
 
   private validate (
-    email: UserPrimitiveEntity['email']
-  ): UserPrimitiveEntity['email'] {
+    email: PrimitiveEmail['email']
+  ): PrimitiveEmail['email'] {
     return EmailValidation.parse(email)
   }
 
-  public value (): UserPrimitiveEntity['email'] {
+  public value (): PrimitiveEmail['email'] {
     return this.email
   }
 }

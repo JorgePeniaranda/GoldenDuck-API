@@ -1,18 +1,18 @@
-import { type UserPrimitiveEntity } from '../../core/user/domain/user.entity'
+import { type PrimitiveSex } from './sex.primitive'
 import { SexValidation } from './sex.validation'
 
-export class Sex {
-  constructor (private readonly sex: UserPrimitiveEntity['sex']) {
+export class Sex implements PrimitiveSex {
+  constructor (readonly sex: PrimitiveSex['sex']) {
     this.validate(this.sex)
   }
 
   private validate (
-    sex: UserPrimitiveEntity['sex']
-  ): UserPrimitiveEntity['sex'] {
+    sex: PrimitiveSex['sex']
+  ): PrimitiveSex['sex'] {
     return SexValidation.parse(sex)
   }
 
-  public value (): UserPrimitiveEntity['sex'] {
+  public value (): PrimitiveSex['sex'] {
     return this.sex
   }
 }
