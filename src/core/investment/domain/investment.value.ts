@@ -1,4 +1,4 @@
-import { type InvestmentEntity } from './investment.entity'
+import { type InvestmentPrimitiveEntity, type InvestmentEntity } from './investment.entity'
 
 export class Investment implements InvestmentEntity {
   readonly id: InvestmentEntity['id']
@@ -17,13 +17,13 @@ export class Investment implements InvestmentEntity {
     this.dateEnd = investment.dateEnd
   }
 
-  public toJSON (): InvestmentEntity {
+  public toJSON (): InvestmentPrimitiveEntity {
     return {
-      id: this.id,
-      idAccount: this.idAccount,
+      id: this.id.value(),
+      idAccount: this.idAccount.value(),
       amount: this.amount,
       interest: this.interest,
-      date: this.date,
+      date: this.date.value(),
       dateEnd: this.dateEnd
     }
   }

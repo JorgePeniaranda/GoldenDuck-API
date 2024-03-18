@@ -1,4 +1,4 @@
-import { type CardEntity } from './card.entity'
+import { type CardPrimitiveEntity, type CardEntity } from './card.entity'
 
 export class Card implements CardEntity {
   readonly id: CardEntity['id']
@@ -21,11 +21,11 @@ export class Card implements CardEntity {
     this.deleted = card.deleted
   }
 
-  public toJSON (): CardEntity {
+  public toJSON (): CardPrimitiveEntity {
     return {
-      id: this.id,
-      idAccount: this.idAccount,
-      number: this.number,
+      id: this.id.value(),
+      idAccount: this.idAccount.value(),
+      number: this.number.value(),
       cvv: this.cvv,
       expiration: this.expiration,
       date: this.date,

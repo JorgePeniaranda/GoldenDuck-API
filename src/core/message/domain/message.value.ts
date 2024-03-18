@@ -1,4 +1,4 @@
-import { type MessageEntity } from './message.entity'
+import { type MessagePrimitiveEntity, type MessageEntity } from './message.entity'
 
 export class Message implements MessageEntity {
   readonly id: MessageEntity['id']
@@ -19,14 +19,14 @@ export class Message implements MessageEntity {
     this.deleted = message.deleted
   }
 
-  public toJSON (): MessageEntity {
+  public toJSON (): MessagePrimitiveEntity {
     return {
-      id: this.id,
-      from: this.from,
-      to: this.to,
+      id: this.id.value(),
+      from: this.from.value(),
+      to: this.to.value(),
       message: this.message,
       read: this.read,
-      date: this.date,
+      date: this.date.value(),
       deleted: this.deleted
     }
   }

@@ -1,19 +1,13 @@
 import { type ErrorEntity } from './error.entity'
-import { type User } from './error.value'
+import { type Error } from './error.value'
 
-export interface UserRepository {
-  createUser: (user: User) => Promise<User>
-  updateUser: (user: User) => Promise<User>
-  deleteUser: (user: User) => Promise<void>
-  findUser: ({
-    id,
-    dni,
-    email,
-    phoneNumber
+export interface ErrorRepository {
+  createError: (user: Error) => Promise<Error>
+  updateError: (user: Error) => Promise<Error>
+  deleteError: (user: Error) => Promise<void>
+  findError: ({
+    id
   }: {
     id?: ErrorEntity['id']
-    dni?: ErrorEntity['dni']
-    email?: ErrorEntity['email']
-    phoneNumber?: ErrorEntity['phoneNumber']
-  }) => Promise<User | null>
+  }) => Promise<Error | null>
 }

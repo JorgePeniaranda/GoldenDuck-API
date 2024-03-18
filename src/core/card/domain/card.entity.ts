@@ -12,3 +12,14 @@ export interface CardEntity {
   updatedDate: ValidDate
   deleted: boolean
 }
+
+export interface CardPrimitiveEntity {
+  id: number
+  idAccount: number
+  number: number
+  cvv: Balance
+  expiration: ValidDate
+  date: ValidDate
+  updatedDate: ValidDate
+  deleted: boolean
+}

@@ -5,3 +5,9 @@ export interface CategoryEntity {
   name: string
   deleted: boolean
 }
+
+export interface CategoryPrimitiveEntity {
+  id: number
+  name: string
+  deleted: boolean
+}

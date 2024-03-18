@@ -8,3 +8,11 @@ export interface SessionEntity {
   userAgent: string
   date: ValidDate
 }
+
+export interface SessionPrimitiveEntity {
+  id: number
+  idUser: number
+  ip: string
+  userAgent: string
+  date: Date
+}

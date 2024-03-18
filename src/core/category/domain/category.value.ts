@@ -1,4 +1,4 @@
-import { type CategoryEntity } from './category.entity'
+import { type CategoryPrimitiveEntity, type CategoryEntity } from './category.entity'
 
 export class Category implements CategoryEntity {
   public readonly id: CategoryEntity['id']
@@ -11,9 +11,9 @@ export class Category implements CategoryEntity {
     this.deleted = Category.deleted
   }
 
-  public toJSON (): CategoryEntity {
+  public toJSON (): CategoryPrimitiveEntity {
     return {
-      id: this.id,
+      id: this.id.value(),
       name: this.name,
       deleted: this.deleted
     }

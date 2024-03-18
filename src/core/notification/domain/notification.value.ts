@@ -1,4 +1,4 @@
-import { type NotificationEntity } from './notification.entity'
+import { type NotificationPrimitiveEntity, type NotificationEntity } from './notification.entity'
 
 export class Notification implements NotificationEntity {
   id: NotificationEntity['id']
@@ -15,10 +15,10 @@ export class Notification implements NotificationEntity {
     this.date = notification.date
   }
 
-  public toJSON (): NotificationEntity {
+  public toJSON (): NotificationPrimitiveEntity {
     return {
-      id: this.id,
-      idAccount: this.idAccount,
+      id: this.id.value(),
+      idAccount: this.idAccount.value(),
       message: this.message,
       read: this.read,
       date: this.date

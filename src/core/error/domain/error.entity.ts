@@ -8,3 +8,11 @@ export interface ErrorEntity {
   date: ValidDate
   deleted: boolean
 }
+
+export interface ErrorPrimitiveEntity {
+  id: number
+  name: string
+  message: string
+  date: Date
+  deleted: boolean
+}

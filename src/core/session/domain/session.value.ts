@@ -1,4 +1,4 @@
-import { type SessionEntity } from './session.entity'
+import { type SessionPrimitiveEntity, type SessionEntity } from './session.entity'
 
 export class Session implements SessionEntity {
   readonly id: SessionEntity['id']
@@ -15,13 +15,13 @@ export class Session implements SessionEntity {
     this.date = session.date
   }
 
-  public toJSON (): SessionEntity {
+  public toJSON (): SessionPrimitiveEntity {
     return {
-      id: this.id,
-      idUser: this.idUser,
+      id: this.id.value(),
+      idUser: this.idUser.value(),
       ip: this.ip,
       userAgent: this.userAgent,
-      date: this.date
+      date: this.date.value()
     }
   }
 }

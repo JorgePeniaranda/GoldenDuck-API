@@ -7,3 +7,11 @@ export interface NotificationEntity {
   read: boolean
   date: Date
 }
+
+export interface NotificationPrimitiveEntity {
+  id: number
+  idAccount: number
+  message: string
+  read: boolean
+  date: Date
+}

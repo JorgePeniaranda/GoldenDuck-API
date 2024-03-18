@@ -10,3 +10,13 @@ export interface MessageEntity {
   date: ValidDate
   deleted: boolean
 }
+
+export interface MessagePrimitiveEntity {
+  id: number
+  from: number
+  to: number
+  message: string
+  read: boolean
+  date: Date
+  deleted: boolean
+}

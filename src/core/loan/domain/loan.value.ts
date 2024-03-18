@@ -1,4 +1,4 @@
-import { type LoanEntity } from './loan.entity'
+import { type LoanPrimitiveEntity, type LoanEntity } from './loan.entity'
 
 export class Loan implements LoanEntity {
   readonly id: LoanEntity['id']
@@ -17,13 +17,13 @@ export class Loan implements LoanEntity {
     this.dateEnd = loan.dateEnd
   }
 
-  public toJSON (): LoanEntity {
+  public toJSON (): LoanPrimitiveEntity {
     return {
-      id: this.id,
-      idAccount: this.idAccount,
-      amount: this.amount,
+      id: this.id.value(),
+      idAccount: this.idAccount.value(),
+      amount: this.amount.value(),
       interest: this.interest,
-      date: this.date,
+      date: this.date.value(),
       dateEnd: this.dateEnd
     }
   }

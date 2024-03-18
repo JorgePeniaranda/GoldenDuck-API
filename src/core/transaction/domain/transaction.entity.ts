@@ -10,3 +10,12 @@ export interface TransactionEntity {
   idCategory: ID
   date: ValidDate
 }
+
+export interface TransactionPrimitiveEntity {
+  id: number
+  from: number
+  to: number
+  amount: number | bigint
+  idCategory: number
+  date: Date
+}
