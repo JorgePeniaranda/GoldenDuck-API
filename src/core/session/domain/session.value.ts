@@ -1,4 +1,6 @@
+import { ValidDate } from '@/valueObjects/date/validDate.value'
 import { type SessionPrimitiveEntity, type SessionEntity } from './session.entity'
+import { ID } from '@/valueObjects/id/id.value'
 
 export class Session implements SessionEntity {
   readonly id: SessionEntity['id']
@@ -13,6 +15,16 @@ export class Session implements SessionEntity {
     this.ip = session.ip
     this.userAgent = session.userAgent
     this.date = session.date
+  }
+
+  public create (session: SessionPrimitiveEntity): Session {
+    return new Session({
+      id: new ID(session.id),
+      idUser: new ID(session.idUser),
+      ip: session.ip,
+      userAgent: session.userAgent,
+      date: new ValidDate(session.date)
+    })
   }
 
   public toJSON (): SessionPrimitiveEntity {

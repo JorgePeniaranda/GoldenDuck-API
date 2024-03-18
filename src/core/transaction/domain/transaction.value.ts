@@ -1,4 +1,7 @@
+import { ValidDate } from '@/valueObjects/date/validDate.value'
 import { type TransactionPrimitiveEntity, type TransactionEntity } from './transaction.entity'
+import { ID } from '@/valueObjects/id/id.value'
+import { Balance } from '@/valueObjects/balance/balance.value'
 
 export class Transaction implements TransactionEntity {
   readonly id: TransactionEntity['id']
@@ -15,6 +18,17 @@ export class Transaction implements TransactionEntity {
     this.amount = transaction.amount
     this.idCategory = transaction.idCategory
     this.date = transaction.date
+  }
+
+  public create (transaction: TransactionPrimitiveEntity): Transaction {
+    return new Transaction({
+      id: new ID(transaction.id),
+      from: new ID(transaction.from),
+      to: new ID(transaction.to),
+      amount: new Balance(transaction.amount),
+      idCategory: new ID(transaction.idCategory),
+      date: new ValidDate(transaction.date)
+    })
   }
 
   public toJSON (): TransactionPrimitiveEntity {

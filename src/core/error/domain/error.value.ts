@@ -1,4 +1,6 @@
-import { type ErrorEntity } from './error.entity'
+import { ID } from '@/valueObjects/id/id.value'
+import { type ErrorPrimitiveEntity, type ErrorEntity } from './error.entity'
+import { ValidDate } from '@/valueObjects/date/validDate.value'
 
 export class Error implements ErrorEntity {
   public readonly id: ErrorEntity['id']
@@ -13,6 +15,16 @@ export class Error implements ErrorEntity {
     this.message = user.message
     this.date = user.date
     this.deleted = user.deleted
+  }
+
+  public create (error: ErrorPrimitiveEntity): Error {
+    return new Error({
+      id: new ID(error.id),
+      name: error.name,
+      message: error.message,
+      date: new ValidDate(error.date),
+      deleted: error.deleted
+    })
   }
 
   public toJSON (): ErrorEntity {

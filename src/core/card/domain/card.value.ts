@@ -1,3 +1,4 @@
+import { ID } from '@/valueObjects/id/id.value'
 import { type CardPrimitiveEntity, type CardEntity } from './card.entity'
 
 export class Card implements CardEntity {
@@ -21,11 +22,24 @@ export class Card implements CardEntity {
     this.deleted = card.deleted
   }
 
+  public create (card: CardPrimitiveEntity): Card {
+    return new Card({
+      id: new ID(card.id),
+      idAccount: new ID(card.idAccount),
+      number: card.number,
+      cvv: card.cvv,
+      expiration: card.expiration,
+      date: card.date,
+      updatedDate: card.updatedDate,
+      deleted: card.deleted
+    })
+  }
+
   public toJSON (): CardPrimitiveEntity {
     return {
       id: this.id.value(),
       idAccount: this.idAccount.value(),
-      number: this.number.value(),
+      number: this.number,
       cvv: this.cvv,
       expiration: this.expiration,
       date: this.date,

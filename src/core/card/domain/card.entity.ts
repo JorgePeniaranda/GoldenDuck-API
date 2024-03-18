@@ -5,7 +5,7 @@ import { type ID } from '@/valueObjects/id/id.value'
 export interface CardEntity {
   id: ID
   idAccount: ID
-  number: ID
+  number: number
   cvv: Balance
   expiration: ValidDate
   date: ValidDate

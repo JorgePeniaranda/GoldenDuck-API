@@ -1,4 +1,6 @@
+import { ID } from '@/valueObjects/id/id.value'
 import { type MessagePrimitiveEntity, type MessageEntity } from './message.entity'
+import { ValidDate } from '@/valueObjects/date/validDate.value'
 
 export class Message implements MessageEntity {
   readonly id: MessageEntity['id']
@@ -17,6 +19,18 @@ export class Message implements MessageEntity {
     this.read = message.read
     this.date = message.date
     this.deleted = message.deleted
+  }
+
+  public create (message: MessagePrimitiveEntity): Message {
+    return new Message({
+      id: new ID(message.id),
+      from: new ID(message.from),
+      to: new ID(message.to),
+      message: message.message,
+      read: message.read,
+      date: new ValidDate(message.date),
+      deleted: message.deleted
+    })
   }
 
   public toJSON (): MessagePrimitiveEntity {
