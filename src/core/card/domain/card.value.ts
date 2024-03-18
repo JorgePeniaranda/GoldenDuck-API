@@ -20,4 +20,17 @@ export class Card implements CardEntity {
     this.updatedDate = card.updatedDate
     this.deleted = card.deleted
   }
+
+  public toJSON (): CardEntity {
+    return {
+      id: this.id,
+      idAccount: this.idAccount,
+      number: this.number,
+      cvv: this.cvv,
+      expiration: this.expiration,
+      date: this.date,
+      updatedDate: this.updatedDate,
+      deleted: this.deleted
+    }
+  }
 }

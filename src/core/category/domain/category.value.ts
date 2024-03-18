@@ -10,4 +10,12 @@ export class Category implements CategoryEntity {
     this.name = Category.name
     this.deleted = Category.deleted
   }
+
+  public toJSON (): CategoryEntity {
+    return {
+      id: this.id,
+      name: this.name,
+      deleted: this.deleted
+    }
+  }
 }

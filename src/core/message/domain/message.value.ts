@@ -18,4 +18,16 @@ export class Message implements MessageEntity {
     this.date = message.date
     this.deleted = message.deleted
   }
+
+  public toJSON (): MessageEntity {
+    return {
+      id: this.id,
+      from: this.from,
+      to: this.to,
+      message: this.message,
+      read: this.read,
+      date: this.date,
+      deleted: this.deleted
+    }
+  }
 }

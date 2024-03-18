@@ -1,4 +1,4 @@
-import { type UserEntity } from './error.entity'
+import { type ErrorEntity } from './error.entity'
 import { type User } from './error.value'
 
 export interface UserRepository {
@@ -11,9 +11,9 @@ export interface UserRepository {
     email,
     phoneNumber
   }: {
-    id?: UserEntity['id']
-    dni?: UserEntity['dni']
-    email?: UserEntity['email']
-    phoneNumber?: UserEntity['phoneNumber']
+    id?: ErrorEntity['id']
+    dni?: ErrorEntity['dni']
+    email?: ErrorEntity['email']
+    phoneNumber?: ErrorEntity['phoneNumber']
   }) => Promise<User | null>
 }

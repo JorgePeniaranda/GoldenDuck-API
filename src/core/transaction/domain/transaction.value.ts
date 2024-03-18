@@ -16,4 +16,15 @@ export class Transaction implements TransactionEntity {
     this.idCategory = transaction.idCategory
     this.date = transaction.date
   }
+
+  public toJSON (): TransactionEntity {
+    return {
+      id: this.id,
+      from: this.from,
+      to: this.to,
+      amount: this.amount,
+      idCategory: this.idCategory,
+      date: this.date
+    }
+  }
 }

@@ -16,4 +16,15 @@ export class Investment implements InvestmentEntity {
     this.date = investment.date
     this.dateEnd = investment.dateEnd
   }
+
+  public toJSON (): InvestmentEntity {
+    return {
+      id: this.id,
+      idAccount: this.idAccount,
+      amount: this.amount,
+      interest: this.interest,
+      date: this.date,
+      dateEnd: this.dateEnd
+    }
+  }
 }

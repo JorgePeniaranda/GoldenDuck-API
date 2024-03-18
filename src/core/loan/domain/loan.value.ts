@@ -16,4 +16,15 @@ export class Loan implements LoanEntity {
     this.date = loan.date
     this.dateEnd = loan.dateEnd
   }
+
+  public toJSON (): LoanEntity {
+    return {
+      id: this.id,
+      idAccount: this.idAccount,
+      amount: this.amount,
+      interest: this.interest,
+      date: this.date,
+      dateEnd: this.dateEnd
+    }
+  }
 }

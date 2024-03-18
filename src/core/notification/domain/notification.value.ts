@@ -14,4 +14,14 @@ export class Notification implements NotificationEntity {
     this.read = notification.read
     this.date = notification.date
   }
+
+  public toJSON (): NotificationEntity {
+    return {
+      id: this.id,
+      idAccount: this.idAccount,
+      message: this.message,
+      read: this.read,
+      date: this.date
+    }
+  }
 }

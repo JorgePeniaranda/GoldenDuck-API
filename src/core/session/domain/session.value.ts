@@ -14,4 +14,14 @@ export class Session implements SessionEntity {
     this.userAgent = session.userAgent
     this.date = session.date
   }
+
+  public toJSON (): SessionEntity {
+    return {
+      id: this.id,
+      idUser: this.idUser,
+      ip: this.ip,
+      userAgent: this.userAgent,
+      date: this.date
+    }
+  }
 }
