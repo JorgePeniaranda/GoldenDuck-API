@@ -10,7 +10,7 @@ import { Address } from '@/valueObjects/address/address.value'
 import { BirthDate } from '@/valueObjects/birthDate/birthDate.value'
 import { Sex } from '@/valueObjects/sex/sex.value'
 import { ID } from '@/valueObjects/id/id.value'
-import { ValidDate } from '@/valueObjects/date/validDate.value'
+import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
 
 export class User implements UserEntity {
   public readonly id: UserEntity['id']
@@ -57,8 +57,8 @@ export class User implements UserEntity {
       address: new Address(user.address),
       birthDate: new BirthDate(user.birthDate),
       sex: new Sex(user.sex),
-      updatedAt: new ValidDate(user.updatedAt),
-      createdAt: new ValidDate(user.createdAt),
+      updatedAt: new PastDate(user.updatedAt),
+      createdAt: new PastDate(user.createdAt),
       deleted: user.deleted,
       role: new Role(user.role)
     })

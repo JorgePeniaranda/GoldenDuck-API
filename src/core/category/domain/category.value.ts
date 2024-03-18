@@ -1,5 +1,6 @@
 import { ID } from '@/valueObjects/id/id.value'
 import { type CategoryPrimitiveEntity, type CategoryEntity } from './category.entity'
+import { Alphabetic } from '@/valueObjects/alphabetic/alphabetic.value'
 
 export class Category implements CategoryEntity {
   public readonly id: CategoryEntity['id']
@@ -15,7 +16,7 @@ export class Category implements CategoryEntity {
   public create (category: CategoryPrimitiveEntity): Category {
     return new Category({
       id: new ID(category.id),
-      name: category.name,
+      name: new Alphabetic(category.name),
       deleted: category.deleted
     })
   }
@@ -23,7 +24,7 @@ export class Category implements CategoryEntity {
   public toJSON (): CategoryPrimitiveEntity {
     return {
       id: this.id.value(),
-      name: this.name,
+      name: this.name.value(),
       deleted: this.deleted
     }
   }

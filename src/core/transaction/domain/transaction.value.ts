@@ -1,7 +1,7 @@
-import { ValidDate } from '@/valueObjects/date/validDate.value'
 import { type TransactionPrimitiveEntity, type TransactionEntity } from './transaction.entity'
 import { ID } from '@/valueObjects/id/id.value'
 import { Balance } from '@/valueObjects/balance/balance.value'
+import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
 
 export class Transaction implements TransactionEntity {
   readonly id: TransactionEntity['id']
@@ -27,7 +27,7 @@ export class Transaction implements TransactionEntity {
       to: new ID(transaction.to),
       amount: new Balance(transaction.amount),
       idCategory: new ID(transaction.idCategory),
-      date: new ValidDate(transaction.date)
+      date: new PastDate(transaction.date)
     })
   }
 

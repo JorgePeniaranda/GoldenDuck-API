@@ -1,5 +1,5 @@
 import { type PrimitiveValidDate } from './validDate.primitive'
-import { ValidDateValidation } from './validDate.validation'
+import { ValidatedValidDate } from './validDate.validation'
 
 export class ValidDate implements PrimitiveValidDate {
   constructor (readonly validDate: PrimitiveValidDate['validDate']) {
@@ -7,9 +7,9 @@ export class ValidDate implements PrimitiveValidDate {
   }
 
   private validate (validDate: PrimitiveValidDate['validDate']): PrimitiveValidDate['validDate'] {
-    const validatedBirthDate = ValidDateValidation.parse(validDate)
+    const validatedValidDate = ValidatedValidDate.parse(validDate)
 
-    return validatedBirthDate
+    return validatedValidDate
   }
 
   public value (): PrimitiveValidDate['validDate'] {

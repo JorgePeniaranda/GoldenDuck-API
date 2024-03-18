@@ -1,6 +1,6 @@
 import { ID } from '@/valueObjects/id/id.value'
 import { type ErrorPrimitiveEntity, type ErrorEntity } from './error.entity'
-import { ValidDate } from '@/valueObjects/date/validDate.value'
+import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
 
 export class Error implements ErrorEntity {
   public readonly id: ErrorEntity['id']
@@ -22,7 +22,7 @@ export class Error implements ErrorEntity {
       id: new ID(error.id),
       name: error.name,
       message: error.message,
-      date: new ValidDate(error.date),
+      date: new PastDate(error.date),
       deleted: error.deleted
     })
   }

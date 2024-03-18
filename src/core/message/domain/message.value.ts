@@ -1,6 +1,6 @@
 import { ID } from '@/valueObjects/id/id.value'
 import { type MessagePrimitiveEntity, type MessageEntity } from './message.entity'
-import { ValidDate } from '@/valueObjects/date/validDate.value'
+import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
 
 export class Message implements MessageEntity {
   readonly id: MessageEntity['id']
@@ -28,7 +28,7 @@ export class Message implements MessageEntity {
       to: new ID(message.to),
       message: message.message,
       read: message.read,
-      date: new ValidDate(message.date),
+      date: new PastDate(message.date),
       deleted: message.deleted
     })
   }

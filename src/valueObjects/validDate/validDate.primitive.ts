@@ -1,3 +1,3 @@
 export interface PrimitiveValidDate {
-  validDate: Date
+  validDate: Date | string
 }

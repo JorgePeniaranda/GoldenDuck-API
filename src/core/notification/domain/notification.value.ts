@@ -1,6 +1,6 @@
 import { ID } from '@/valueObjects/id/id.value'
 import { type NotificationPrimitiveEntity, type NotificationEntity } from './notification.entity'
-import { ValidDate } from '@/valueObjects/date/validDate.value'
+import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
 
 export class Notification implements NotificationEntity {
   id: NotificationEntity['id']
@@ -23,7 +23,7 @@ export class Notification implements NotificationEntity {
       idAccount: new ID(notification.idAccount),
       message: notification.message,
       read: notification.read,
-      date: new ValidDate(notification.date)
+      date: new PastDate(notification.date)
     })
   }
 

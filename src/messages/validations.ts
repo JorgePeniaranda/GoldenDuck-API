@@ -52,11 +52,6 @@ export const ValidationDictionary = {
     invalidType: 'Debe ingresar una fecha válida',
     invalidAge: 'Debe ser mayor de 18 años'
   },
-  validDate: {
-    required: 'La fecha es requerida',
-    invalidType: 'Debe ingresar una fecha válida',
-    invalidDate: 'Debe ser anterior a la fecha actual'
-  },
   sex: {
     required: 'El sexo es requerido',
     invalidType: 'Debe ingresar una opción válida'
@@ -74,5 +69,42 @@ export const ValidationDictionary = {
     required: 'La URL es requerida',
     invalidType: 'La URL debe ser un texto',
     invalidURL: 'La URL debe ser válida'
-  }
+  },
+  number: {
+    required: 'El número es requerido',
+    invalidType: 'El número debe ser un número',
+    nonnegative: 'El número debe ser positivo',
+    integer: 'El número debe ser entero',
+    finite: 'El número debe ser finito'
+  },
+  float: {
+    required: 'El número es requerido',
+    invalidType: 'El número debe ser un número',
+    nonnegative: 'El número debe ser positivo',
+    finite: 'El número debe ser finito'
+  },
+  alphabetic: {
+    required: 'El texto es requerido',
+    invalidType: 'El texto debe ser un texto',
+    onlyLetters: 'El texto debe contener solo letras'
+  },
+  alphaNumeric: {
+    required: 'El texto es requerido',
+    invalidType: 'El texto debe ser un texto',
+    onlyAlphaNumeric: 'El texto debe contener solo letras y números'
+  },
+  pastDate: {
+    required: 'La fecha es requerida',
+    invalidType: 'Debe ingresar una fecha válida',
+    invalidDate: 'Debe ser una fecha pasada'
+  },
+  validDate: {
+    required: 'La fecha es requerida',
+    invalidType: 'Debe ingresar una fecha válida',
+  },
+  futureDate: {
+    required: 'La fecha es requerida',
+    invalidType: 'Debe ingresar una fecha válida',
+    invalidDate: 'Debe ser una fecha futura'
+  },
 }

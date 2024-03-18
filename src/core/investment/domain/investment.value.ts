@@ -1,7 +1,8 @@
 import { ID } from '@/valueObjects/id/id.value'
 import { type InvestmentPrimitiveEntity, type InvestmentEntity } from './investment.entity'
-import { ValidDate } from '@/valueObjects/date/validDate.value'
 import { Balance } from '@/valueObjects/balance/balance.value'
+import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
+import { ValidDate } from '@/valueObjects/validDate/validDate.value'
 
 export class Investment implements InvestmentEntity {
   readonly id: InvestmentEntity['id']
@@ -26,8 +27,8 @@ export class Investment implements InvestmentEntity {
       idAccount: new ID(investment.idAccount),
       amount: new Balance(investment.amount),
       interest: investment.interest,
-      date: new ValidDate(investment.date),
-      dateEnd: investment.dateEnd
+      date: new PastDate(investment.date),
+      dateEnd: new ValidDate(investment.dateEnd)
     })
   }
 
@@ -38,7 +39,7 @@ export class Investment implements InvestmentEntity {
       amount: this.amount.value(),
       interest: this.interest,
       date: this.date.value(),
-      dateEnd: this.dateEnd
+      dateEnd: this.dateEnd.value()
     }
   }
 }

@@ -1,3 +1,3 @@
 export interface PrimitiveBirthDate {
-  birthDate: Date
+  birthDate: Date | string
 }

@@ -1,4 +1,4 @@
-import { ValidDate } from '@/valueObjects/date/validDate.value'
+import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
 import { type SessionPrimitiveEntity, type SessionEntity } from './session.entity'
 import { ID } from '@/valueObjects/id/id.value'
 
@@ -23,7 +23,7 @@ export class Session implements SessionEntity {
       idUser: new ID(session.idUser),
       ip: session.ip,
       userAgent: session.userAgent,
-      date: new ValidDate(session.date)
+      date: new PastDate(session.date)
     })
   }
 
