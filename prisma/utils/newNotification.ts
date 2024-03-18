@@ -3,19 +3,19 @@ import { prisma } from '../../src/libs/prisma'
 
 export const newNotification = async (
   idAccount: number,
-  amount: number,
-): Promise<Array<number>> => {
-  const listID = [] as Array<number>
+  amount: number
+): Promise<number[]> => {
+  const listID = [] as number[]
   for (let i = 0; i < amount; i++) {
     const { id } = await prisma.notification.create({
       data: {
         idAccount,
         message: faker.lorem.text(),
-        date: faker.date.past(),
+        date: faker.date.past()
       },
       select: {
-        id: true,
-      },
+        id: true
+      }
     })
 
     listID.push(id)

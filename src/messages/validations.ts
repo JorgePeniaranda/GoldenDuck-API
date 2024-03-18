@@ -100,11 +100,11 @@ export const ValidationDictionary = {
   },
   validDate: {
     required: 'La fecha es requerida',
-    invalidType: 'Debe ingresar una fecha válida',
+    invalidType: 'Debe ingresar una fecha válida'
   },
   futureDate: {
     required: 'La fecha es requerida',
     invalidType: 'Debe ingresar una fecha válida',
     invalidDate: 'Debe ser una fecha futura'
-  },
+  }
 }

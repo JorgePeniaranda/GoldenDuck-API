@@ -109,7 +109,7 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
   "compileOnSave": true,
-  "include": ["index.ts", "./src/**/*.ts"],
+  "include": ["index.ts", "./src/**/*.ts", "./prisma/**/*.ts"],
   "exclude": ["node_modules"],
   "buildOptions": {
     "outdir": "./dist",

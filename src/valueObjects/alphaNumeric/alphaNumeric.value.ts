@@ -6,7 +6,9 @@ export class AlphaNumeric implements PrimitiveAlphaNumeric {
     this.validate(this.alphaNumeric)
   }
 
-  private validate (alphaNumeric: PrimitiveAlphaNumeric['alphaNumeric']): PrimitiveAlphaNumeric['alphaNumeric'] {
+  private validate (
+    alphaNumeric: PrimitiveAlphaNumeric['alphaNumeric']
+  ): PrimitiveAlphaNumeric['alphaNumeric'] {
     return ValidatedAlphaNumeric.parse(alphaNumeric)
   }
 

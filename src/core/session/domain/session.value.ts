@@ -1,5 +1,8 @@
 import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
-import { type SessionPrimitiveEntity, type SessionEntity } from './session.entity'
+import {
+  type SessionPrimitiveEntity,
+  type SessionEntity
+} from './session.entity'
 import { ID } from '@/valueObjects/id/id.value'
 
 export class Session implements SessionEntity {

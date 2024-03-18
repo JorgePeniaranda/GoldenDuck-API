@@ -6,9 +6,7 @@ export class Sex implements PrimitiveSex {
     this.validate(this.sex)
   }
 
-  private validate (
-    sex: PrimitiveSex['sex']
-  ): PrimitiveSex['sex'] {
+  private validate (sex: PrimitiveSex['sex']): PrimitiveSex['sex'] {
     return SexValidation.parse(sex)
   }
 

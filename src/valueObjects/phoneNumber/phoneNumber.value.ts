@@ -2,9 +2,7 @@ import { type PrimitivePhoneNumber } from './phoneNumber.primitive'
 import { PhoneNumberValidation } from './phoneNumber.validation'
 
 export class PhoneNumber implements PrimitivePhoneNumber {
-  constructor (
-    readonly phoneNumber: PrimitivePhoneNumber['phoneNumber']
-  ) {
+  constructor (readonly phoneNumber: PrimitivePhoneNumber['phoneNumber']) {
     this.validate(this.phoneNumber)
   }
 

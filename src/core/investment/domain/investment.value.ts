@@ -1,5 +1,8 @@
 import { ID } from '@/valueObjects/id/id.value'
-import { type InvestmentPrimitiveEntity, type InvestmentEntity } from './investment.entity'
+import {
+  type InvestmentPrimitiveEntity,
+  type InvestmentEntity
+} from './investment.entity'
 import { Balance } from '@/valueObjects/balance/balance.value'
 import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
 import { ValidDate } from '@/valueObjects/validDate/validDate.value'

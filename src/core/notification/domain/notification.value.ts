@@ -1,5 +1,8 @@
 import { ID } from '@/valueObjects/id/id.value'
-import { type NotificationPrimitiveEntity, type NotificationEntity } from './notification.entity'
+import {
+  type NotificationPrimitiveEntity,
+  type NotificationEntity
+} from './notification.entity'
 import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
 
 export class Notification implements NotificationEntity {

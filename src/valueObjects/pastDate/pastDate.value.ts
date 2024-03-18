@@ -6,7 +6,9 @@ export class PastDate implements PrimitivePastDate {
     this.validate(this.pastDate)
   }
 
-  private validate (pastDate: PrimitivePastDate['pastDate']): PrimitivePastDate['pastDate'] {
+  private validate (
+    pastDate: PrimitivePastDate['pastDate']
+  ): PrimitivePastDate['pastDate'] {
     return ValidatedPastDate.parse(pastDate)
   }
 

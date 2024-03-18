@@ -6,9 +6,7 @@ export class DNI implements PrimitiveDNI {
     this.validate(this.dni)
   }
 
-  private validate (
-    dni: PrimitiveDNI['dni']
-  ): PrimitiveDNI['dni'] {
+  private validate (dni: PrimitiveDNI['dni']): PrimitiveDNI['dni'] {
     return DNIValidation.parse(dni)
   }
 

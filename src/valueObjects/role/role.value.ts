@@ -6,9 +6,7 @@ export class Role implements PrimitiveRole {
     this.validate(this.role)
   }
 
-  private validate (
-    role: PrimitiveRole['role']
-  ): PrimitiveRole['role'] {
+  private validate (role: PrimitiveRole['role']): PrimitiveRole['role'] {
     return RoleValidation.parse(role)
   }
 

@@ -6,7 +6,9 @@ export class Alphabetic implements PrimitiveAlphabetic {
     this.validate(this.alphabetic)
   }
 
-  private validate (alphabetic: PrimitiveAlphabetic['alphabetic']): PrimitiveAlphabetic['alphabetic'] {
+  private validate (
+    alphabetic: PrimitiveAlphabetic['alphabetic']
+  ): PrimitiveAlphabetic['alphabetic'] {
     return ValidatedAlphabetic.parse(alphabetic)
   }
 

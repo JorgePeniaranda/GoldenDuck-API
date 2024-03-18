@@ -1,5 +1,8 @@
 import { ID } from '@/valueObjects/id/id.value'
-import { type MessagePrimitiveEntity, type MessageEntity } from './message.entity'
+import {
+  type MessagePrimitiveEntity,
+  type MessageEntity
+} from './message.entity'
 import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
 
 export class Message implements MessageEntity {

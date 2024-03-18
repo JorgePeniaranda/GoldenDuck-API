@@ -6,7 +6,9 @@ export class ValidDate implements PrimitiveValidDate {
     this.validate(this.validDate)
   }
 
-  private validate (validDate: PrimitiveValidDate['validDate']): PrimitiveValidDate['validDate'] {
+  private validate (
+    validDate: PrimitiveValidDate['validDate']
+  ): PrimitiveValidDate['validDate'] {
     return ValidatedValidDate.parse(validDate)
   }
 

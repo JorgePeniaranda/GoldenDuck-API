@@ -6,9 +6,7 @@ export class Email implements PrimitiveEmail {
     this.validate(this.email)
   }
 
-  private validate (
-    email: PrimitiveEmail['email']
-  ): PrimitiveEmail['email'] {
+  private validate (email: PrimitiveEmail['email']): PrimitiveEmail['email'] {
     return EmailValidation.parse(email)
   }
 

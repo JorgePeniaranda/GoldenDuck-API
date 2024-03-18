@@ -3,8 +3,8 @@ import { prisma } from '../../src/libs/prisma'
 
 export const newTransaction = async (
   idUser: number,
-  amount: number,
-): Promise<Array<number>> => {
+  amount: number
+): Promise<number[]> => {
   const listID = [] as number[]
   for (let i = 0; i < amount; i++) {
     const { id } = await prisma.transaction.create({
@@ -13,12 +13,12 @@ export const newTransaction = async (
         to: idUser,
         amount: faker.number.int({
           min: 0,
-          max: 100000,
-        }),
+          max: 100000
+        })
       },
       select: {
-        id: true,
-      },
+        id: true
+      }
     })
 
     listID.push(id)

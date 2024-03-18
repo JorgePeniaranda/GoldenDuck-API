@@ -1,4 +1,7 @@
-import { type TransactionPrimitiveEntity, type TransactionEntity } from './transaction.entity'
+import {
+  type TransactionPrimitiveEntity,
+  type TransactionEntity
+} from './transaction.entity'
 import { ID } from '@/valueObjects/id/id.value'
 import { Balance } from '@/valueObjects/balance/balance.value'
 import { PastDate } from '@/valueObjects/pastDate/pastDate.value'

@@ -6,8 +6,11 @@ export const ValidatedPastDate = z.coerce
     required_error: ValidationDictionary.futureDate.required,
     invalid_type_error: ValidationDictionary.futureDate.invalidType
   })
-  .refine((date) => {
-    return date <= new Date()
-  }, {
-    message: ValidationDictionary.futureDate.invalidDate
-  })
+  .refine(
+    (date) => {
+      return date <= new Date()
+    },
+    {
+      message: ValidationDictionary.futureDate.invalidDate
+    }
+  )

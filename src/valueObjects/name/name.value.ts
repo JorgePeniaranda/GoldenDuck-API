@@ -6,9 +6,7 @@ export class Name implements PrimitiveName {
     this.validate(this.name)
   }
 
-  private validate (
-    name: PrimitiveName['name']
-  ): PrimitiveName['name'] {
+  private validate (name: PrimitiveName['name']): PrimitiveName['name'] {
     return NameValidation.parse(name)
   }
 
