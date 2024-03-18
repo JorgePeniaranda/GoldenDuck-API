@@ -1,5 +1,4 @@
-import { type PrimitiveBalance } from '@/core/account/domain/valueObjects/balance/Balance.primitive'
-import { type Balance } from '@/core/account/domain/valueObjects/balance/Balance.value'
+import { type AccountEntity, type AccountPrimitiveEntity } from '@/core/account/domain/account.entity'
 import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.primitive'
 import { type PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
 import { type PrimitiveID } from '@/valueObjects/number/ID/ID.primitive'
@@ -7,18 +6,18 @@ import { type ID } from '@/valueObjects/number/ID/ID.value'
 
 export interface TransactionEntity {
   id: ID
-  from: ID
-  to: ID
-  amount: Balance
+  from: AccountEntity['id']
+  to: AccountEntity['id']
+  amount: AccountEntity['balance']
   idCategory: ID
   date: PastDate
 }
 
 export interface TransactionPrimitiveEntity {
   id: PrimitiveID['id']
-  from: PrimitiveID['id']
-  to: PrimitiveID['id']
-  amount: PrimitiveBalance['balance']
+  from: AccountPrimitiveEntity['id']
+  to: AccountPrimitiveEntity['id']
+  amount: AccountPrimitiveEntity['balance']
   idCategory: PrimitiveID['id']
   date: PrimitivePastDate['pastDate']
 }

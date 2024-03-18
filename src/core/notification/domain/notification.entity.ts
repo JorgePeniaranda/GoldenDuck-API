@@ -1,4 +1,4 @@
-import { type UserEntity, type UserPrimitiveEntity } from '@/core/user/domain/user.entity'
+import { type AccountEntity, type AccountPrimitiveEntity } from '@/core/account/domain/account.entity'
 import { type PrimitiveValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.primitive'
 import { type ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
 import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.primitive'
@@ -10,7 +10,7 @@ import { type PrimitiveValidString } from '@/valueObjects/string/string/string.p
 
 export interface NotificationEntity {
   id: ID
-  idAccount: UserEntity['id']
+  idAccount: AccountEntity['id']
   message: ValidString
   read: ValidBoolean
   date: PastDate
@@ -18,7 +18,7 @@ export interface NotificationEntity {
 
 export interface NotificationPrimitiveEntity {
   id: PrimitiveID['id']
-  idAccount: UserPrimitiveEntity['id']
+  idAccount: AccountPrimitiveEntity['id']
   message: PrimitiveValidString['string']
   read: PrimitiveValidBoolean['boolean']
   date: PrimitivePastDate['pastDate']

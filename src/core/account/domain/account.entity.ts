@@ -8,10 +8,11 @@ import { type PrimitiveURL } from '@/valueObjects/string/url/url.primitive'
 import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.primitive'
 import { type ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
 import { type PrimitiveValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.primitive'
+import { type UserEntity, type UserPrimitiveEntity } from '@/core/user/domain/user.entity'
 
 export interface AccountEntity {
   id: ID
-  idUser: ID
+  idUser: UserEntity['id']
   balance: Balance
   imgUrl?: URL | null
   updatedAt: PastDate
@@ -21,7 +22,7 @@ export interface AccountEntity {
 
 export interface AccountPrimitiveEntity {
   id: PrimitiveID['id']
-  idUser: PrimitiveID['id']
+  idUser: UserPrimitiveEntity['id']
   balance: PrimitiveBalance['balance']
   imgUrl?: PrimitiveURL['url'] | null
   updatedAt: PrimitivePastDate['pastDate']

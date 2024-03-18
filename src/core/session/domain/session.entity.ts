@@ -1,3 +1,4 @@
+import { type UserEntity, type UserPrimitiveEntity } from '@/core/user/domain/user.entity'
 import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.primitive'
 import { type PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
 import { type PrimitiveID } from '@/valueObjects/number/ID/ID.primitive'
@@ -7,7 +8,7 @@ import { type PrimitiveValidString } from '@/valueObjects/string/string/string.p
 
 export interface SessionEntity {
   id: ID
-  idUser: ID
+  idUser: UserEntity['id']
   ip: ValidString
   userAgent: ValidString
   date: PastDate
@@ -15,7 +16,7 @@ export interface SessionEntity {
 
 export interface SessionPrimitiveEntity {
   id: PrimitiveID['id']
-  idUser: PrimitiveID['id']
+  idUser: UserPrimitiveEntity['id']
   ip: PrimitiveValidString['string']
   userAgent: PrimitiveValidString['string']
   date: PrimitivePastDate['pastDate']
