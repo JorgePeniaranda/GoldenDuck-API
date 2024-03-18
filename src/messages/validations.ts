@@ -1,4 +1,29 @@
 export const ValidationDictionary = {
+  global: {
+    required: (name: string) => `${name}: Se requiere un valor`,
+    invalidType: (name: string) => `${name}: El tipo de dato es inválido`,
+    invalidMin: (name: string, min: number) =>
+      `${name}: El valor mínimo es ${min}`,
+    invalidMax: (name: string, max: number) =>
+      `${name}: El valor máximo es ${max}`,
+    nonNegative: (name: string) => `${name}: El valor debe ser positivo`,
+    nonPositive: (name: string) => `${name}: El valor debe ser positivo`,
+    finite: (name: string) => `${name}: El valor debe ser finito`,
+    pastDate: (name: string) => `${name}: Debe ser una fecha pasada`,
+    validDate: (name: string) => `${name}: Debe ser una fecha valida`,
+    futureDate: (name: string) => `${name}: Debe ser una fecha futura`,
+    onlyAlphabetic: (name: string) => `${name}: Debe contener solo letras`,
+    onlyAlphaNumeric: (name: string) =>
+      `${name}: Debe contener solo letras y números`,
+    invalidEmail: (name: string) => `${name}: Debe ser un email valido`
+  },
+
+  password: {
+    strong:
+      'La contraseña debe tener una mayúscula, una minúscula, un número y un caracter especial' // usado
+  },
+
+  // comprobar...
   id: {
     required: 'La ID es requerido',
     invalidType: 'La ID debe contener solo numeros',
@@ -28,14 +53,6 @@ export const ValidationDictionary = {
     required: 'El número telefónico es requerido',
     invalidType: 'El número telefónico debe contener solo numeros',
     length: 'El número telefónico debe contener 10 dígitos'
-  },
-  password: {
-    required: 'La contraseña es requerida',
-    min: 'La contraseña debe tener al menos 8 caracteres',
-    max: 'La contraseña debe tener menos de 72 caracteres',
-    strong:
-      'La contraseña debe tener una mayúscula, una minúscula, un número y un caracter especial',
-    invalidType: 'La contraseña debe ser un texto'
   },
   confirmPassword: {
     required: 'Es necesario confirmar la contraseña',
