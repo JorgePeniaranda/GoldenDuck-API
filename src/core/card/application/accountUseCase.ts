@@ -17,7 +17,9 @@ export class CardUseCase {
     await this.cardRepository.deleteCard(card.id)
   }
 
-  public async getAllCard (idAccount: CardEntity['idAccount']): Promise<Card[] | null> {
+  public async getAllCard (
+    idAccount: CardEntity['idAccount']
+  ): Promise<Card[] | null> {
     const cards = await this.cardRepository.getAllCard(idAccount)
 
     return cards

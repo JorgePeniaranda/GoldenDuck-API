@@ -12,14 +12,16 @@ export class PrismaRepository implements CardRepository {
     return card
   }
 
-  public async getAllCard (idAccount: CardEntity['idAccount']): Promise<Card[] | null> {
+  public async getAllCard (
+    idAccount: CardEntity['idAccount']
+  ): Promise<Card[] | null> {
     const cards = await prisma.card.findMany({
       where: {
         idAccount: idAccount.value()
       }
     })
 
-    const cardsEntity: Card[] = cards.map(card => Card.create(card))
+    const cardsEntity: Card[] = cards.map((card) => Card.create(card))
 
     return cardsEntity ?? null
   }
@@ -37,7 +39,11 @@ export class PrismaRepository implements CardRepository {
     return Card.create(card)
   }
 
-  public async findCard ({ id }: { id?: CardEntity['id'] }): Promise<Card | null> {
+  public async findCard ({
+    id
+  }: {
+    id?: CardEntity['id']
+  }): Promise<Card | null> {
     const card = await prisma.card.findUnique({
       where: {
         id: id?.value()

@@ -5,7 +5,7 @@ import {
 } from './account.entity'
 import { URL } from '@/valueObjects/url/url.value'
 import { Balance } from '@/valueObjects/balance/balance.value'
-import { ValidDate } from '@/valueObjects/date/validDate.value'
+import { PastDate } from '@/valueObjects/pastDate/pastDate.value'
 
 export class Account implements AccountEntity {
   public id: AccountEntity['id']
@@ -35,8 +35,8 @@ export class Account implements AccountEntity {
         user.imgUrl === null || user.imgUrl === undefined
           ? null
           : new URL(user.imgUrl),
-      updatedAt: new ValidDate(user.updatedAt),
-      createdAt: new ValidDate(user.createdAt),
+      updatedAt: new PastDate(user.updatedAt),
+      createdAt: new PastDate(user.createdAt),
       deleted: user.deleted
     })
 

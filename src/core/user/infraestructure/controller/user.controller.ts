@@ -16,11 +16,11 @@ export class UserController {
 
     const user = await this.userUseCase.findUser({
       id: typeof id === 'string' ? new ID(Number(id)) : undefined,
-      dni: typeof dni === 'string' ? new DNI(Number(dni)) : undefined,
+      dni: typeof dni === 'string' ? new DNI(BigInt(dni)) : undefined,
       email: typeof email === 'string' ? new Email(email) : undefined,
       phoneNumber:
         typeof phoneNumber === 'string'
-          ? new PhoneNumber(Number(phoneNumber))
+          ? new PhoneNumber(BigInt(phoneNumber))
           : undefined
     })
 

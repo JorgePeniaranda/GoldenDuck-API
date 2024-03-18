@@ -13,7 +13,7 @@ export class AuthController {
     const { dni, password } = request.body
 
     const token = await this.authUseCase.login({
-      dni: new DNI(Number(dni)),
+      dni: new DNI(BigInt(dni as bigint)),
       password: new Password(String(password))
     })
 
