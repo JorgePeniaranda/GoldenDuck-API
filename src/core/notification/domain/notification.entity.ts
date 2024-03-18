@@ -1,3 +1,6 @@
+import { type PrimitiveValidDate } from '@/valueObjects/date/validDate.primitive'
+import { type ValidDate } from '@/valueObjects/date/validDate.value'
+import { type PrimitiveID } from '@/valueObjects/id/id.primitive'
 import { type ID } from '@/valueObjects/id/id.value'
 
 export interface NotificationEntity {
@@ -5,13 +8,13 @@ export interface NotificationEntity {
   idAccount: ID
   message: string
   read: boolean
-  date: Date
+  date: ValidDate
 }
 
 export interface NotificationPrimitiveEntity {
-  id: number
-  idAccount: number
+  id: PrimitiveID['id']
+  idAccount: PrimitiveID['id']
   message: string
   read: boolean
-  date: Date
+  date: PrimitiveValidDate['validDate']
 }

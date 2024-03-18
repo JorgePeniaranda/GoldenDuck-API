@@ -1,5 +1,8 @@
+import { type PrimitiveBalance } from '@/valueObjects/balance/balance.primitive'
 import { type Balance } from '@/valueObjects/balance/balance.value'
+import { type PrimitiveValidDate } from '@/valueObjects/date/validDate.primitive'
 import { type ValidDate } from '@/valueObjects/date/validDate.value'
+import { type PrimitiveID } from '@/valueObjects/id/id.primitive'
 import { type ID } from '@/valueObjects/id/id.value'
 
 export interface InvestmentEntity {
@@ -12,10 +15,10 @@ export interface InvestmentEntity {
 }
 
 export interface InvestmentPrimitiveEntity {
-  id: number
-  idAccount: number
-  amount: Balance
+  id: PrimitiveID['id']
+  idAccount: PrimitiveID['id']
+  amount: PrimitiveBalance['balance']
   interest: number
-  date: Date
-  dateEnd: Date
+  date: PrimitiveValidDate['validDate']
+  dateEnd: PrimitiveValidDate['validDate']
 }

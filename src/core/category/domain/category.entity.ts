@@ -1,3 +1,4 @@
+import { type PrimitiveID } from '@/valueObjects/id/id.primitive'
 import { type ID } from '@/valueObjects/id/id.value'
 
 export interface CategoryEntity {
@@ -7,7 +8,7 @@ export interface CategoryEntity {
 }
 
 export interface CategoryPrimitiveEntity {
-  id: number
+  id: PrimitiveID['id']
   name: string
   deleted: boolean
 }

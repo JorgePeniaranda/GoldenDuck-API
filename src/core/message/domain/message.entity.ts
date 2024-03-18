@@ -1,4 +1,6 @@
+import { type PrimitiveValidDate } from '@/valueObjects/date/validDate.primitive'
 import { type ValidDate } from '@/valueObjects/date/validDate.value'
+import { type PrimitiveID } from '@/valueObjects/id/id.primitive'
 import { type ID } from '@/valueObjects/id/id.value'
 
 export interface MessageEntity {
@@ -12,11 +14,11 @@ export interface MessageEntity {
 }
 
 export interface MessagePrimitiveEntity {
-  id: number
-  from: number
-  to: number
+  id: PrimitiveID['id']
+  from: PrimitiveID['id']
+  to: PrimitiveID['id']
   message: string
   read: boolean
-  date: Date
+  date: PrimitiveValidDate['validDate']
   deleted: boolean
 }
