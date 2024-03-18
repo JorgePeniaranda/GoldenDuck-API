@@ -3,7 +3,7 @@ import { PositiveIntSchema } from './PositiveInt.schema'
 import { type PrimitivePositiveInt } from './PositiveInt.primitive'
 
 export class PositiveInt extends ValueObject<PrimitivePositiveInt['int']> {
-  constructor (int: PrimitivePositiveInt['int']) {
-    super(int, PositiveIntSchema('PositiveInt'))
+  constructor (int: PrimitivePositiveInt['int'], name?: string) {
+    super(int, PositiveIntSchema(name ?? 'PositiveInt'))
   }
 }

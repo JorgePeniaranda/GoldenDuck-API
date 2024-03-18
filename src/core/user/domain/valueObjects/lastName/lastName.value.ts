@@ -1,9 +1,8 @@
-import { ValueObject } from '@/valueObjects/valueObjects.prototipe'
 import { type PrimitiveLastName } from './LastName.primitive'
-import { AlphabeticSchema } from '@/valueObjects/string/alphabetic/alphabetic.schema'
+import { Alphabetic } from '@/valueObjects/string/alphabetic/alphabetic.value'
 
-export class LastName extends ValueObject<PrimitiveLastName['lastName']> {
+export class LastName extends Alphabetic {
   constructor (lastName: PrimitiveLastName['lastName']) {
-    super(lastName, AlphabeticSchema('LastName'))
+    super(lastName, 'LastName')
   }
 }
