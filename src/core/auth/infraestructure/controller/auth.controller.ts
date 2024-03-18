@@ -1,7 +1,7 @@
 import { type Request, type Response } from 'express'
 import { type AuthUseCase } from '../../application/authUseCase'
-import { Password } from '@/valueObjects/password/password.value'
-import { DNI } from '@/valueObjects/dni/dni.value'
+import { DNI } from '@/core/user/domain/valueObjects/dni/Dni.value'
+import { Password } from '@/valueObjects/string/password/password.value'
 
 export class AuthController {
   constructor (private readonly authUseCase: AuthUseCase) {}

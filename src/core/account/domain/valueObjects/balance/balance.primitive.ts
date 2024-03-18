@@ -1,5 +1,5 @@
-import { type PrimitivePositiveFloat } from '@/valueObjects/number/PositiveFloat/PositiveFloat.primitive'
+import { type PrimitiveValidBigInt } from '@/valueObjects/number/BigInt/BigInt.primitive'
 
 export interface PrimitiveBalance {
-  balance: PrimitivePositiveFloat['float']
+  balance: PrimitiveValidBigInt['bigint']
 }

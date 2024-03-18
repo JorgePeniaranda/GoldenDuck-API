@@ -1,14 +1,14 @@
 import { type ZodType } from 'zod'
 
-export abstract class ValueObject {
+export abstract class ValueObject<T> {
   constructor (
-    readonly value: any,
+    readonly value: T,
     private readonly schema: ZodType
   ) {
     this.value = this.validate(value, this.schema)
   }
 
-  private validate (value: any, schema: ZodType): any {
+  private validate (value: T, schema: ZodType): T {
     return schema.parse(value)
   }
 

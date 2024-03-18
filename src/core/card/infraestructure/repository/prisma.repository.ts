@@ -17,7 +17,7 @@ export class PrismaRepository implements CardRepository {
   ): Promise<Card[] | null> {
     const cards = await prisma.card.findMany({
       where: {
-        idAccount: idAccount.value()
+        idAccount: idAccount.value
       }
     })
 
@@ -29,7 +29,7 @@ export class PrismaRepository implements CardRepository {
   public async deleteCard (id: CardEntity['id']): Promise<Card> {
     const card = await prisma.card.update({
       where: {
-        id: id.value()
+        id: id.value
       },
       data: {
         deleted: true
@@ -46,7 +46,7 @@ export class PrismaRepository implements CardRepository {
   }): Promise<Card | null> {
     const card = await prisma.card.findUnique({
       where: {
-        id: id?.value()
+        id: id?.value
       }
     })
 

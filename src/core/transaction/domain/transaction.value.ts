@@ -36,12 +36,12 @@ export class Transaction implements TransactionEntity {
 
   public toJSON (): TransactionPrimitiveEntity {
     return {
-      id: this.id.value(),
-      from: this.from.value(),
-      to: this.to.value(),
-      amount: this.amount.value(),
-      idCategory: this.idCategory.value(),
-      date: this.date.value()
+      id: this.id.value,
+      from: this.from.value,
+      to: this.to.value,
+      amount: this.amount.value,
+      idCategory: this.idCategory.value,
+      date: this.date.value
     }
   }
 }

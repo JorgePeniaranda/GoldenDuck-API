@@ -2,7 +2,7 @@ import { ValueObject } from '@/valueObjects/valueObjects.prototipe'
 import { NegativeIntSchema } from './NegativeInt.schema'
 import { type PrimitiveNegativeInt } from './NegativeInt.primitive'
 
-export class NegativeInt extends ValueObject {
+export class NegativeInt extends ValueObject<PrimitiveNegativeInt['int']> {
   constructor (int: PrimitiveNegativeInt['int']) {
     super(int, NegativeIntSchema('NegativeInt'))
   }

@@ -37,12 +37,12 @@ export class Investment implements InvestmentEntity {
 
   public toJSON (): InvestmentPrimitiveEntity {
     return {
-      id: this.id.value(),
-      idAccount: this.idAccount.value(),
-      amount: this.amount.value(),
+      id: this.id.value,
+      idAccount: this.idAccount.value,
+      amount: this.amount.value,
       interest: this.interest,
-      date: this.date.value(),
-      dateEnd: this.dateEnd.value()
+      date: this.date.value,
+      dateEnd: this.dateEnd.value
     }
   }
 }

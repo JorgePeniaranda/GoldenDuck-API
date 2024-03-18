@@ -38,12 +38,12 @@ export class Message implements MessageEntity {
 
   public toJSON (): MessagePrimitiveEntity {
     return {
-      id: this.id.value(),
-      from: this.from.value(),
-      to: this.to.value(),
+      id: this.id.value,
+      from: this.from.value,
+      to: this.to.value,
       message: this.message,
       read: this.read,
-      date: this.date.value(),
+      date: this.date.value,
       deleted: this.deleted
     }
   }

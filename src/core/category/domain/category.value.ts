@@ -26,8 +26,8 @@ export class Category implements CategoryEntity {
 
   public toJSON (): CategoryPrimitiveEntity {
     return {
-      id: this.id.value(),
-      name: this.name.value(),
+      id: this.id.value,
+      name: this.name.value,
       deleted: this.deleted
     }
   }

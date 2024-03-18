@@ -1,9 +1,9 @@
 import { type Request, type Response } from 'express'
 import { type UserUseCase } from '../../application/userUseCase'
-import { ID } from '../../../../valueObjects/id/id.value'
-import { PhoneNumber } from '@/valueObjects/phoneNumber/phoneNumber.value'
-import { Email } from '@/valueObjects/email/email.value'
-import { DNI } from '@/valueObjects/dni/dni.value'
+import { ID } from '@/valueObjects/number/ID/ID.value'
+import { DNI } from '../../domain/valueObjects/dni/Dni.value'
+import { Email } from '@/valueObjects/string/email/email.value'
+import { PhoneNumber } from '../../domain/valueObjects/phoneNumber/phoneNumber.value'
 
 export class UserController {
   constructor (private readonly userUseCase: UserUseCase) {}
@@ -28,6 +28,6 @@ export class UserController {
       return response.status(404).send()
     }
 
-    return response.json(user?.email).status(200)
+    return response.json({ ...user?.toJSON(), dni: user.dni.toString(), phoneNumber: user.phoneNumber.toString() }).status(200)
   }
 }

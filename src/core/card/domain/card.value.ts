@@ -40,13 +40,13 @@ export class Card implements CardEntity {
 
   public toJSON (): CardPrimitiveEntity {
     return {
-      id: this.id.value(),
-      idAccount: this.idAccount.value(),
-      number: this.number.value(),
-      cvv: this.cvv.value(),
-      expiration: this.expiration.value(),
-      date: this.date.value(),
-      updatedDate: this.updatedDate.value(),
+      id: this.id.value,
+      idAccount: this.idAccount.value,
+      number: this.number.value,
+      cvv: this.cvv.value,
+      expiration: this.expiration.value,
+      date: this.date.value,
+      updatedDate: this.updatedDate.value,
       deleted: this.deleted
     }
   }

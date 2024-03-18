@@ -32,11 +32,11 @@ export class Notification implements NotificationEntity {
 
   public toJSON (): NotificationPrimitiveEntity {
     return {
-      id: this.id.value(),
-      idAccount: this.idAccount.value(),
+      id: this.id.value,
+      idAccount: this.idAccount.value,
       message: this.message,
       read: this.read,
-      date: this.date.value()
+      date: this.date.value
     }
   }
 }

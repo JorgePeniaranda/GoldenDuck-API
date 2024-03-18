@@ -15,7 +15,7 @@ export class PrismaRepository implements AccountRepository {
   public async updateAccount (account: Account): Promise<Account> {
     await prisma.account.update({
       where: {
-        id: account.id.value()
+        id: account.id.value
       },
       data: account.toJSON()
     })
@@ -26,7 +26,7 @@ export class PrismaRepository implements AccountRepository {
   public async deleteAccount (account: Account): Promise<void> {
     await prisma.account.update({
       where: {
-        id: account.id.value()
+        id: account.id.value
       },
       data: {
         deleted: true
@@ -41,7 +41,7 @@ export class PrismaRepository implements AccountRepository {
   }): Promise<Account | null> {
     const findAccount = await prisma.account.findFirst({
       where: {
-        OR: [{ id: id?.value() }],
+        OR: [{ id: id?.value }],
         deleted: false
       }
     })

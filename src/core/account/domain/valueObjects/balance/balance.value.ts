@@ -1,9 +1,9 @@
 import { ValueObject } from '@/valueObjects/valueObjects.prototipe'
-import { PositiveFloatSchema } from '@/valueObjects/number/PositiveFloat/PositiveFloat.schema'
 import { type PrimitiveBalance } from './Balance.primitive'
+import { ValidBigIntSchema } from '@/valueObjects/number/BigInt/BigInt.schema'
 
-export class Balance extends ValueObject {
+export class Balance extends ValueObject<PrimitiveBalance['balance']> {
   constructor (readonly balance: PrimitiveBalance['balance']) {
-    super(balance, PositiveFloatSchema('Balance'))
+    super(balance, ValidBigIntSchema('Balance'))
   }
 }

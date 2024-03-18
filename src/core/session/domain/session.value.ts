@@ -32,11 +32,11 @@ export class Session implements SessionEntity {
 
   public toJSON (): SessionPrimitiveEntity {
     return {
-      id: this.id.value(),
-      idUser: this.idUser.value(),
+      id: this.id.value,
+      idUser: this.idUser.value,
       ip: this.ip,
       userAgent: this.userAgent,
-      date: this.date.value()
+      date: this.date.value
     }
   }
 }

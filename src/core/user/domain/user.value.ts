@@ -68,20 +68,20 @@ export class User implements UserEntity {
 
   public toJSON (): UserPrimitiveEntity {
     return {
-      id: this.id.value(),
-      name: this.name.value(),
-      lastName: this.lastName.value(),
-      dni: this.dni.value(),
-      email: this.email.value(),
-      phoneNumber: this.phoneNumber.value(),
-      password: this.password.value(),
-      address: this.address.value(),
-      birthDate: this.birthDate.value(),
-      sex: this.sex.value(),
-      updatedAt: this.updatedAt.value(),
-      createdAt: this.createdAt.value(),
+      id: this.id.value,
+      name: this.name.value,
+      lastName: this.lastName.value,
+      dni: this.dni.value,
+      email: this.email.value,
+      phoneNumber: this.phoneNumber.value,
+      password: this.password.value,
+      address: this.address.value,
+      birthDate: this.birthDate.value,
+      sex: this.sex.value,
+      updatedAt: this.updatedAt.value,
+      createdAt: this.createdAt.value,
       deleted: this.deleted,
-      role: this.role.value()
+      role: this.role.value
     }
   }
 }

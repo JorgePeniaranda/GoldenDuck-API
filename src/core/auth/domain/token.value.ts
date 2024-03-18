@@ -32,7 +32,7 @@ export class Token implements TokenEntity {
     const tokenData = jwt.verify(token, process.env.JWT_SECRET, {
       algorithms: ['HS256'],
       issuer: TokenType[type],
-      subject: String(id.value())
+      subject: String(id.value)
     })
 
     if (typeof tokenData !== 'object') {
@@ -76,8 +76,8 @@ export class Token implements TokenEntity {
       expiresIn,
       algorithm: 'HS256',
       issuer: TokenType[type],
-      audience: role.value(),
-      subject: String(id.value())
+      audience: role.value,
+      subject: String(id.value)
     })
 
     return new Token({ token: createdJWT, id, type, role })

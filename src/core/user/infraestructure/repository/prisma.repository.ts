@@ -15,7 +15,7 @@ export class PrismaRepository implements UserRepository {
   public async updateUser (user: User): Promise<User> {
     await prisma.user.update({
       where: {
-        id: user.id.value()
+        id: user.id.value
       },
       data: user.toJSON()
     })
@@ -26,7 +26,7 @@ export class PrismaRepository implements UserRepository {
   public async deleteUser (user: User): Promise<void> {
     await prisma.user.update({
       where: {
-        id: user.id.value()
+        id: user.id.value
       },
       data: {
         deleted: true
@@ -48,10 +48,10 @@ export class PrismaRepository implements UserRepository {
     const findUser = await prisma.user.findFirst({
       where: {
         OR: [
-          { id: id?.value() },
-          { dni: dni?.value() },
-          { email: email?.value() },
-          { phoneNumber: phoneNumber?.value() }
+          { id: id?.value },
+          { dni: dni?.value },
+          { email: email?.value },
+          { phoneNumber: phoneNumber?.value }
         ],
         deleted: false
       }
