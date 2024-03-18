@@ -1,3 +1,5 @@
+import { type PrimitiveValidBigInt } from '../BigInt/BigInt.primitive'
+
 export interface PrimitiveNegativeBigInt {
-  bigint: bigint
+  bigint: PrimitiveValidBigInt['bigint']
 }

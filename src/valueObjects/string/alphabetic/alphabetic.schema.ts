@@ -1,13 +1,10 @@
 import { ValidationDictionary } from '@/messages/validations'
 import { checkOnlyLetters } from '@/utils'
-import { type ZodType, z } from 'zod'
+import { type ZodType } from 'zod'
+import { StringSchema } from '../string/String.schema'
 
 export const AlphabeticSchema = (name: string): ZodType => {
-  return z
-    .string({
-      required_error: ValidationDictionary.global.required(name),
-      invalid_type_error: ValidationDictionary.global.invalidType(name)
-    })
+  return StringSchema(name)
     .refine(checkOnlyLetters, {
       message: ValidationDictionary.global.onlyAlphabetic(name)
     })

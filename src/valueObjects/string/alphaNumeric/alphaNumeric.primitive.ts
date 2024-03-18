@@ -1,3 +1,5 @@
+import { type PrimitiveString } from '../string/string.primitive'
+
 export interface PrimitiveAlphaNumeric {
-  alphaNumeric: string
+  alphaNumeric: PrimitiveString['string']
 }
