@@ -3,17 +3,19 @@ import {
   type InvestmentPrimitiveEntity,
   type InvestmentEntity
 } from './investment.entity'
-import { Balance } from '@/core/account/domain/valueObjects/balance/Balance.value'
 import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
 import { ValidDate } from '@/valueObjects/date/ValidDate/ValidDate.value'
 import { Float } from '@/valueObjects/number/Float/Float.value'
+import { ValidBigInt } from '@/valueObjects/number/BigInt/BigInt.value'
+
+const ObjectName = 'Investment'
 
 export class Investment implements InvestmentEntity {
   readonly id: InvestmentEntity['id']
   readonly idAccount: InvestmentEntity['idAccount']
   readonly amount: InvestmentEntity['amount']
   readonly interest: InvestmentEntity['interest']
-  readonly date: InvestmentEntity['date']
+  readonly createdAt: InvestmentEntity['createdAt']
   readonly dateEnd: InvestmentEntity['dateEnd']
 
   constructor (investment: InvestmentEntity) {
@@ -21,18 +23,18 @@ export class Investment implements InvestmentEntity {
     this.idAccount = investment.idAccount
     this.amount = investment.amount
     this.interest = investment.interest
-    this.date = investment.date
+    this.createdAt = investment.createdAt
     this.dateEnd = investment.dateEnd
   }
 
   public create (investment: InvestmentPrimitiveEntity): Investment {
     return new Investment({
-      id: new ID(investment.id),
-      idAccount: new ID(investment.idAccount),
-      amount: new Balance(investment.amount),
-      interest: new Float(investment.interest),
-      date: new PastDate(investment.date),
-      dateEnd: new ValidDate(investment.dateEnd)
+      id: new ID(investment.id, `${ObjectName} -> ID`),
+      idAccount: new ID(investment.idAccount, `${ObjectName} -> IDAccount`),
+      amount: new ValidBigInt(investment.amount, `${ObjectName} -> Date`),
+      interest: new Float(investment.interest, `${ObjectName} -> Interest`),
+      createdAt: new PastDate(investment.createdAt, `${ObjectName} -> Date`),
+      dateEnd: new ValidDate(investment.dateEnd, `${ObjectName} -> DateEnd`)
     })
   }
 
@@ -42,7 +44,7 @@ export class Investment implements InvestmentEntity {
       idAccount: this.idAccount.value,
       amount: this.amount.value,
       interest: this.interest.value,
-      date: this.date.value,
+      createdAt: this.createdAt.value,
       dateEnd: this.dateEnd.value
     }
   }

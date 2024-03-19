@@ -17,7 +17,7 @@ export interface TransactionEntity {
   to: AccountEntity['id']
   amount: AccountEntity['balance']
   idCategory: CategoryEntity['id']
-  date: PastDate
+  createdAt: PastDate
 }
 
 export interface TransactionPrimitiveEntity {
@@ -26,5 +26,5 @@ export interface TransactionPrimitiveEntity {
   to: AccountPrimitiveEntity['id']
   amount: AccountPrimitiveEntity['balance']
   idCategory: CategoryPrimitiveEntity['id']
-  date: PrimitivePastDate['pastDate']
+  createdAt: PrimitivePastDate['pastDate']
 }

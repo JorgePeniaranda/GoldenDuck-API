@@ -3,8 +3,10 @@ import {
   type TransactionPrimitiveEntity,
   type TransactionEntity
 } from './transaction.entity'
-import { Balance } from '@/core/account/domain/valueObjects/balance/Balance.value'
 import { ID } from '@/valueObjects/number/ID/ID.value'
+import { ValidBigInt } from '@/valueObjects/number/BigInt/BigInt.value'
+
+const ObjectName = 'Transaction'
 
 export class Transaction implements TransactionEntity {
   readonly id: TransactionEntity['id']
@@ -12,7 +14,7 @@ export class Transaction implements TransactionEntity {
   readonly to: TransactionEntity['to']
   readonly amount: TransactionEntity['amount']
   readonly idCategory: TransactionEntity['idCategory']
-  readonly date: TransactionEntity['date']
+  readonly createdAt: TransactionEntity['createdAt']
 
   constructor (transaction: TransactionEntity) {
     this.id = transaction.id
@@ -20,17 +22,17 @@ export class Transaction implements TransactionEntity {
     this.to = transaction.to
     this.amount = transaction.amount
     this.idCategory = transaction.idCategory
-    this.date = transaction.date
+    this.createdAt = transaction.createdAt
   }
 
   public create (transaction: TransactionPrimitiveEntity): Transaction {
     return new Transaction({
-      id: new ID(transaction.id),
-      from: new ID(transaction.from),
-      to: new ID(transaction.to),
-      amount: new Balance(transaction.amount),
-      idCategory: new ID(transaction.idCategory),
-      date: new PastDate(transaction.date)
+      id: new ID(transaction.id, `${ObjectName} -> ID`),
+      from: new ID(transaction.from, `${ObjectName} -> From`),
+      to: new ID(transaction.to, `${ObjectName} -> To`),
+      amount: new ValidBigInt(transaction.amount, `${ObjectName} -> Amount`),
+      idCategory: new ID(transaction.idCategory, `${ObjectName} -> IDCategory`),
+      createdAt: new PastDate(transaction.createdAt, `${ObjectName} -> Date`)
     })
   }
 
@@ -41,7 +43,7 @@ export class Transaction implements TransactionEntity {
       to: this.to.value,
       amount: this.amount.value,
       idCategory: this.idCategory.value,
-      date: this.date.value
+      createdAt: this.createdAt.value
     }
   }
 }

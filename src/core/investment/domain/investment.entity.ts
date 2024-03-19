@@ -16,7 +16,7 @@ export interface InvestmentEntity {
   idAccount: AccountEntity['id']
   amount: AccountEntity['balance']
   interest: Float
-  date: PastDate
+  createdAt: PastDate
   dateEnd: ValidDate
 }
 
@@ -25,6 +25,6 @@ export interface InvestmentPrimitiveEntity {
   idAccount: AccountPrimitiveEntity['id']
   amount: AccountPrimitiveEntity['balance']
   interest: PrimitiveFloat['float']
-  date: PrimitivePastDate['pastDate']
+  createdAt: PrimitivePastDate['pastDate']
   dateEnd: PrimitiveValidDate['validDate']
 }

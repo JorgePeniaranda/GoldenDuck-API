@@ -12,7 +12,7 @@ export const newSession = async (
         idUser,
         ip: faker.internet.ip(),
         userAgent: faker.internet.userAgent(),
-        date: faker.date.past()
+        createdAt: faker.date.past()
       },
       select: {
         id: true

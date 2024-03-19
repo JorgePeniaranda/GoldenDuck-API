@@ -1,17 +1,18 @@
 import { ID } from '@/valueObjects/number/ID/ID.value'
 import { type UserPrimitiveEntity, type UserEntity } from './user.entity'
-import { Name } from './valueObjects/name/name.value'
-import { LastName } from './valueObjects/lastName/LastName.value'
 import { DNI } from './valueObjects/dni/Dni.value'
 import { Email } from '@/valueObjects/string/email/email.value'
 import { PhoneNumber } from './valueObjects/phoneNumber/phoneNumber.value'
 import { Password } from '@/valueObjects/string/password/password.value'
-import { Address } from './valueObjects/address/Address.value'
 import { BirthDate } from './valueObjects/birthDate/BirthDate.value'
 import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
 import { Role } from '@/valueObjects/enum/Role/Role.value'
 import { Sex } from '@/valueObjects/enum/Sex/Sex.value'
 import { ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
+import { Alphabetic } from '@/valueObjects/string/alphabetic/alphabetic.value'
+import { AlphaNumeric } from '@/valueObjects/string/alphaNumeric/alphaNumeric.value'
+
+const ObjectName = 'User'
 
 export class User implements UserEntity {
   public readonly id: UserEntity['id']
@@ -48,20 +49,20 @@ export class User implements UserEntity {
 
   public static create (user: UserPrimitiveEntity): User {
     const createdUser = new User({
-      id: new ID(user.id),
-      name: new Name(user.name),
-      lastName: new LastName(user.lastName),
-      dni: new DNI(user.dni),
-      email: new Email(user.email),
-      phoneNumber: new PhoneNumber(user.phoneNumber),
-      password: new Password(user.password),
-      address: new Address(user.address),
-      birthDate: new BirthDate(user.birthDate),
-      sex: new Sex(user.sex),
-      updatedAt: new PastDate(user.updatedAt),
-      createdAt: new PastDate(user.createdAt),
-      deleted: new ValidBoolean(user.deleted),
-      role: new Role(user.role)
+      id: new ID(user.id, `${ObjectName} -> ID`),
+      name: new Alphabetic(user.name, `${ObjectName} -> Name`),
+      lastName: new Alphabetic(user.lastName, `${ObjectName} -> LastName`),
+      dni: new DNI(user.dni, `${ObjectName} -> DNI`),
+      email: new Email(user.email, `${ObjectName} -> Email`),
+      phoneNumber: new PhoneNumber(user.phoneNumber, `${ObjectName} -> PhoneNumber`),
+      password: new Password(user.password, `${ObjectName} -> Password`),
+      address: new AlphaNumeric(user.address, `${ObjectName} -> Address`),
+      birthDate: new BirthDate(user.birthDate, `${ObjectName} -> BirthDate`),
+      sex: new Sex(user.sex, `${ObjectName} -> Sex`),
+      updatedAt: new PastDate(user.updatedAt, `${ObjectName} -> UpdatedAt`),
+      createdAt: new PastDate(user.createdAt, `${ObjectName} -> CreatedAt`),
+      deleted: new ValidBoolean(user.deleted, `${ObjectName} -> Deleted`),
+      role: new Role(user.role, `${ObjectName} -> Role`)
     })
 
     return createdUser

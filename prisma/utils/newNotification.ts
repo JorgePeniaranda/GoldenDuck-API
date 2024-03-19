@@ -11,7 +11,7 @@ export const newNotification = async (
       data: {
         idAccount,
         message: faker.lorem.text(),
-        date: faker.date.past()
+        createdAt: faker.date.past()
       },
       select: {
         id: true

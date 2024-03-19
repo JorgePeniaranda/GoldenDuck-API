@@ -11,7 +11,7 @@ export interface ErrorEntity {
   id: ID
   name: ValidString
   message: ValidString
-  date: PastDate
+  createdAt: PastDate
   deleted: ValidBoolean
 }
 
@@ -19,6 +19,6 @@ export interface ErrorPrimitiveEntity {
   id: PrimitiveID['id']
   name: PrimitiveValidString['string']
   message: PrimitiveValidString['string']
-  date: PrimitivePastDate['pastDate']
+  createdAt: PrimitivePastDate['pastDate']
   deleted: PrimitiveValidBoolean['boolean']
 }

@@ -16,7 +16,7 @@ export interface NotificationEntity {
   idAccount: AccountEntity['id']
   message: ValidString
   read: ValidBoolean
-  date: PastDate
+  createdAt: PastDate
 }
 
 export interface NotificationPrimitiveEntity {
@@ -24,5 +24,5 @@ export interface NotificationPrimitiveEntity {
   idAccount: AccountPrimitiveEntity['id']
   message: PrimitiveValidString['string']
   read: PrimitiveValidBoolean['boolean']
-  date: PrimitivePastDate['pastDate']
+  createdAt: PrimitivePastDate['pastDate']
 }

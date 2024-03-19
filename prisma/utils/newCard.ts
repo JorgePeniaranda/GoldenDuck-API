@@ -21,7 +21,7 @@ export const newCard = async (
           max: 999
         }),
         expiration: faker.date.future(),
-        date: randomDate,
+        createdAt: randomDate,
         updatedDate: randomDate
       },
       select: {

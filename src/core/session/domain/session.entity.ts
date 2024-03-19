@@ -14,7 +14,7 @@ export interface SessionEntity {
   idUser: UserEntity['id']
   ip: ValidString
   userAgent: ValidString
-  date: PastDate
+  createdAt: PastDate
 }
 
 export interface SessionPrimitiveEntity {
@@ -22,5 +22,5 @@ export interface SessionPrimitiveEntity {
   idUser: UserPrimitiveEntity['id']
   ip: PrimitiveValidString['string']
   userAgent: PrimitiveValidString['string']
-  date: PrimitivePastDate['pastDate']
+  createdAt: PrimitivePastDate['pastDate']
 }

@@ -42,7 +42,7 @@ model Session {
   idUser    Int
   ip        String?
   userAgent String?
-  date      DateTime @default(now())
+  createdAt DateTime @default(now())
   user      User     @relation(fields: [idUser], references: [id])
 }
 
@@ -71,7 +71,7 @@ model Message {
   to          Int
   message     String
   read        Boolean  @default(false)
-  date        DateTime @default(now())
+  createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
   deleted     Boolean  @default(false)
   accountTo   Account  @relation(name: "toAccount", fields: [to], references: [id])
@@ -83,7 +83,7 @@ model Notification {
   idAccount Int
   message   String
   read      Boolean  @default(false)
-  date      DateTime @default(now())
+  createdAt DateTime @default(now())
   account   Account  @relation(fields: [idAccount], references: [id])
 }
 
@@ -93,7 +93,7 @@ model Card {
   number      BigInt
   cvv         Int
   expiration  DateTime
-  date        DateTime @default(now())
+  createdAt   DateTime @default(now())
   updatedDate DateTime @default(now())
   deleted     Boolean  @default(false)
   account     Account  @relation(fields: [idAccount], references: [id])
@@ -112,7 +112,7 @@ model Transaction {
   to          Int
   amount      BigInt
   idCategory  Int?
-  date        DateTime  @default(now())
+  createdAt   DateTime  @default(now())
   accountTo   Account   @relation(name: "toAccount", fields: [to], references: [id])
   accountFrom Account   @relation(name: "fromAccount", fields: [from], references: [id])
   category    Category? @relation(fields: [idCategory], references: [id])
@@ -123,7 +123,7 @@ model Loan {
   idAccount Int
   amount    BigInt
   interest  Float
-  date      DateTime @default(now())
+  createdAt DateTime @default(now())
   dateEnd   DateTime
   account   Account  @relation(fields: [idAccount], references: [id])
 }
@@ -133,15 +133,15 @@ model Investment {
   idAccount Int
   amount    BigInt
   interest  Float
-  date      DateTime @default(now())
+  createdAt DateTime @default(now())
   dateEnd   DateTime
   account   Account  @relation(fields: [idAccount], references: [id])
 }
 
 model Error {
-  id      Int      @id @default(autoincrement())
-  name    String?
-  message String?
-  date    DateTime @default(now())
-  deleted Boolean  @default(false)
+  id        Int      @id @default(autoincrement())
+  name      String?
+  message   String?
+  createdAt DateTime @default(now())
+  deleted   Boolean  @default(false)
 }

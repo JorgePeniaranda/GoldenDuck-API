@@ -1,16 +1,18 @@
 import { ID } from '@/valueObjects/number/ID/ID.value'
 import { type LoanPrimitiveEntity, type LoanEntity } from './loan.entity'
-import { Balance } from '@/core/account/domain/valueObjects/balance/Balance.value'
 import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
 import { ValidDate } from '@/valueObjects/date/ValidDate/ValidDate.value'
 import { Float } from '@/valueObjects/number/Float/Float.value'
+import { ValidBigInt } from '@/valueObjects/number/BigInt/BigInt.value'
+
+const ObjectName = 'Loan'
 
 export class Loan implements LoanEntity {
   readonly id: LoanEntity['id']
   readonly idAccount: LoanEntity['idAccount']
   readonly amount: LoanEntity['amount']
   readonly interest: LoanEntity['interest']
-  readonly date: LoanEntity['date']
+  readonly createdAt: LoanEntity['createdAt']
   readonly dateEnd: LoanEntity['dateEnd']
 
   constructor (loan: LoanEntity) {
@@ -18,18 +20,18 @@ export class Loan implements LoanEntity {
     this.idAccount = loan.idAccount
     this.amount = loan.amount
     this.interest = loan.interest
-    this.date = loan.date
+    this.createdAt = loan.createdAt
     this.dateEnd = loan.dateEnd
   }
 
   public create (loan: LoanPrimitiveEntity): Loan {
     return new Loan({
-      id: new ID(loan.id),
-      idAccount: new ID(loan.idAccount),
-      amount: new Balance(loan.amount),
-      interest: new Float(loan.interest),
-      date: new PastDate(loan.date),
-      dateEnd: new ValidDate(loan.dateEnd)
+      id: new ID(loan.id, `${ObjectName} -> ID`),
+      idAccount: new ID(loan.idAccount, `${ObjectName} -> IDAccount`),
+      amount: new ValidBigInt(loan.amount, `${ObjectName} -> Amount`),
+      interest: new Float(loan.interest, `${ObjectName} -> Interest`),
+      createdAt: new PastDate(loan.createdAt, `${ObjectName} -> Date`),
+      dateEnd: new ValidDate(loan.dateEnd, `${ObjectName} -> DateEnd`)
     })
   }
 
@@ -39,7 +41,7 @@ export class Loan implements LoanEntity {
       idAccount: this.idAccount.value,
       amount: this.amount.value,
       interest: this.interest.value,
-      date: this.date.value,
+      createdAt: this.createdAt.value,
       dateEnd: this.dateEnd.value
     }
   }

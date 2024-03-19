@@ -16,8 +16,8 @@ export interface MessageEntity {
   from: AccountEntity['id']
   to: AccountEntity['id']
   message: ValidString
-  read: boolean
-  date: PastDate
+  read: ValidBoolean
+  createdAt: PastDate
   deleted: ValidBoolean
 }
 
@@ -27,6 +27,6 @@ export interface MessagePrimitiveEntity {
   to: AccountPrimitiveEntity['id']
   message: PrimitiveValidString['string']
   read: boolean
-  date: PrimitivePastDate['pastDate']
+  createdAt: PrimitivePastDate['pastDate']
   deleted: PrimitiveValidBoolean['boolean']
 }

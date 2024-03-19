@@ -2,7 +2,6 @@ import {
   type AccountEntity,
   type AccountPrimitiveEntity
 } from '@/core/account/domain/account.entity'
-import { type PrimitiveBalance } from '@/core/account/domain/valueObjects/balance/Balance.primitive'
 import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.primitive'
 import { type PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
 import { type ValidDate } from '@/valueObjects/date/ValidDate/ValidDate.value'
@@ -16,15 +15,15 @@ export interface LoanEntity {
   idAccount: AccountEntity['id']
   amount: AccountEntity['balance']
   interest: Float
-  date: PastDate
+  createdAt: PastDate
   dateEnd: ValidDate
 }
 
 export interface LoanPrimitiveEntity {
   id: PrimitiveID['id']
   idAccount: AccountPrimitiveEntity['id']
-  amount: PrimitiveBalance['balance']
+  amount: AccountPrimitiveEntity['balance']
   interest: PrimitiveFloat['float']
-  date: PrimitivePastDate['pastDate']
+  createdAt: PrimitivePastDate['pastDate']
   dateEnd: PrimitivePastDate['pastDate']
 }

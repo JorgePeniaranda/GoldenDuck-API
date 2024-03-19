@@ -7,28 +7,30 @@ import { ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
 import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
 import { ID } from '@/valueObjects/number/ID/ID.value'
 
+const ObjectName = 'Notification'
+
 export class Notification implements NotificationEntity {
   id: NotificationEntity['id']
   idAccount: NotificationEntity['idAccount']
   message: NotificationEntity['message']
   read: NotificationEntity['read']
-  date: NotificationEntity['date']
+  createdAt: NotificationEntity['createdAt']
 
   constructor (notification: NotificationEntity) {
     this.id = notification.id
     this.idAccount = notification.idAccount
     this.message = notification.message
     this.read = notification.read
-    this.date = notification.date
+    this.createdAt = notification.createdAt
   }
 
   public create (notification: NotificationPrimitiveEntity): Notification {
     return new Notification({
-      id: new ID(notification.id),
-      idAccount: new ID(notification.idAccount),
-      message: new ValidString(notification.message),
-      read: new ValidBoolean(notification.read),
-      date: new PastDate(notification.date)
+      id: new ID(notification.id, `${ObjectName} -> ID`),
+      idAccount: new ID(notification.idAccount, `${ObjectName} -> IDAccount`),
+      message: new ValidString(notification.message, `${ObjectName} -> Message`),
+      read: new ValidBoolean(notification.read, `${ObjectName} -> Read`),
+      createdAt: new PastDate(notification.createdAt, `${ObjectName} -> Date`)
     })
   }
 
@@ -38,7 +40,7 @@ export class Notification implements NotificationEntity {
       idAccount: this.idAccount.value,
       message: this.message.value,
       read: this.read.value,
-      date: this.date.value
+      createdAt: this.createdAt.value
     }
   }
 }

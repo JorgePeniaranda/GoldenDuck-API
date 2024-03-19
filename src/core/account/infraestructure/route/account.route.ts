@@ -9,4 +9,4 @@ const Repository = new PrismaRepository()
 const UseCase = new AccountUseCase(Repository)
 const Controller = new AccountController(UseCase)
 
-AccountRouter.get('/', () => Controller.getUser)
+AccountRouter.get('/', Controller.getUser)

@@ -5,7 +5,7 @@ import { PhoneNumberSchema } from './phoneNumber.schema'
 export class PhoneNumber extends ValueObject<
 PrimitivePhoneNumber['phoneNumber']
 > {
-  constructor (phoneNumber: PrimitivePhoneNumber['phoneNumber']) {
-    super(phoneNumber, PhoneNumberSchema('PhoneNumber'))
+  constructor (phoneNumber: PrimitivePhoneNumber['phoneNumber'], name?: string) {
+    super(phoneNumber, PhoneNumberSchema(name ?? 'PhoneNumber'))
   }
 }

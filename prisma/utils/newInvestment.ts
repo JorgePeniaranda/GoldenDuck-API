@@ -18,7 +18,7 @@ export const newInvestment = async (
           min: 1.3,
           max: 10
         }),
-        date: faker.date.past(),
+        createdAt: faker.date.past(),
         dateEnd: faker.date.future()
       },
       select: {

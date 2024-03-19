@@ -14,7 +14,7 @@ export const newMessage = async (
         from: idAccount,
         to: idAccount,
         message: faker.lorem.text(),
-        date: randomDate,
+        createdAt: randomDate,
         updatedAt: randomDate
       },
       select: {

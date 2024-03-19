@@ -6,6 +6,8 @@ import {
 import { Alphabetic } from '@/valueObjects/string/alphabetic/alphabetic.value'
 import { ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
 
+const ObjectName = 'Category'
+
 export class Category implements CategoryEntity {
   public readonly id: CategoryEntity['id']
   public name: CategoryEntity['name']
@@ -19,9 +21,9 @@ export class Category implements CategoryEntity {
 
   public create (category: CategoryPrimitiveEntity): Category {
     return new Category({
-      id: new ID(category.id),
-      name: new Alphabetic(category.name),
-      deleted: new ValidBoolean(category.deleted)
+      id: new ID(category.id, `${ObjectName} -> ID`),
+      name: new Alphabetic(category.name, `${ObjectName} -> Name`),
+      deleted: new ValidBoolean(category.deleted, `${ObjectName} -> Deleted`)
     })
   }
 
