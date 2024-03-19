@@ -2,8 +2,8 @@ import { type ErrorEntity } from './error.entity'
 import { type Error } from './error.value'
 
 export interface ErrorRepository {
-  createError: (user: Error) => Promise<Error>
-  updateError: (user: Error) => Promise<Error>
-  deleteError: (user: Error) => Promise<void>
+  createError: ({ name, message }: { name: ErrorEntity['name'], message: ErrorEntity['message'] }) => Promise<Error>
+  getAllError: () => Promise<Error[] | null>
   findError: ({ id }: { id?: ErrorEntity['id'] }) => Promise<Error | null>
+  deleteError: ({ id }: { id: ErrorEntity['id'] }) => Promise<void>
 }

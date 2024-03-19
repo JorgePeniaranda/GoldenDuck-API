@@ -9,16 +9,16 @@ import { type PrimitiveValidString } from '@/valueObjects/string/string/string.p
 
 export interface ErrorEntity {
   id: ID
-  name: ValidString
-  message: ValidString
+  name?: ValidString | null
+  message?: ValidString | null
   createdAt: PastDate
   deleted: ValidBoolean
 }
 
 export interface ErrorPrimitiveEntity {
   id: PrimitiveID['id']
-  name: PrimitiveValidString['string']
-  message: PrimitiveValidString['string']
+  name?: PrimitiveValidString['string'] | null
+  message?: PrimitiveValidString['string'] | null
   createdAt: PrimitivePastDate['pastDate']
   deleted: PrimitiveValidBoolean['boolean']
 }

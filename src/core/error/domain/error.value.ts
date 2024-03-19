@@ -15,8 +15,8 @@ export class Error implements ErrorEntity {
 
   constructor (error: ErrorPrimitiveEntity) {
     this.id = new ID(error.id, `${ObjectName} -> ID`)
-    this.name = new ValidString(error.name, `${ObjectName} -> Name`)
-    this.message = new ValidString(error.message, `${ObjectName} -> Message`)
+    this.name = typeof error.name !== 'string' ? null : new ValidString(error.name, `${ObjectName} -> Name`)
+    this.message = typeof error.message !== 'string' ? null : new ValidString(error.message, `${ObjectName} -> Message`)
     this.createdAt = new PastDate(error.createdAt, `${ObjectName} -> Date`)
     this.deleted = new ValidBoolean(error.deleted, `${ObjectName} -> Deleted`)
   }
@@ -24,8 +24,8 @@ export class Error implements ErrorEntity {
   public toJSON (): ErrorPrimitiveEntity {
     return {
       id: this.id.value,
-      name: this.name.value,
-      message: this.message.value,
+      name: this.name?.value,
+      message: this.message?.value,
       createdAt: this.createdAt.value,
       deleted: this.deleted.value
     }
