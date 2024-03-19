@@ -22,7 +22,7 @@ export interface CardEntity {
   cvv: CVV
   expiration: ValidDate
   createdAt: PastDate
-  updatedDate: PastDate
+  updatedAt: PastDate
   deleted: ValidBoolean
 }
 
@@ -33,6 +33,6 @@ export interface CardPrimitiveEntity {
   cvv: PrimitiveCVV['cvv']
   expiration: PrimitiveValidDate['validDate']
   createdAt: PrimitivePastDate['pastDate']
-  updatedDate: PrimitivePastDate['pastDate']
+  updatedAt: PrimitivePastDate['pastDate']
   deleted: PrimitiveValidBoolean['boolean']
 }

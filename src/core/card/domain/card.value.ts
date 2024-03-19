@@ -15,7 +15,7 @@ export class Card implements CardEntity {
   readonly cvv: CardEntity['cvv']
   readonly expiration: CardEntity['expiration']
   readonly createdAt: CardEntity['createdAt']
-  readonly updatedDate: CardEntity['updatedDate']
+  readonly updatedAt: CardEntity['updatedAt']
   readonly deleted: CardEntity['deleted']
 
   constructor (card: CardPrimitiveEntity) {
@@ -28,8 +28,8 @@ export class Card implements CardEntity {
       `${ObjectName} -> Expiration`
     )
     this.createdAt = new PastDate(card.createdAt, `${ObjectName} -> Date`)
-    this.updatedDate = new PastDate(
-      card.updatedDate,
+    this.updatedAt = new PastDate(
+      card.updatedAt,
       `${ObjectName} -> UpdatedDate`
     )
     this.deleted = new ValidBoolean(card.deleted, `${ObjectName} -> Deleted`)
@@ -43,7 +43,7 @@ export class Card implements CardEntity {
       cvv: this.cvv.value,
       expiration: this.expiration.value,
       createdAt: this.createdAt.value,
-      updatedDate: this.updatedDate.value,
+      updatedAt: this.updatedAt.value,
       deleted: this.deleted.value
     }
   }

@@ -9,4 +9,8 @@ const Repository = new PrismaRepository()
 const UseCase = new CardUseCase(Repository)
 const Controller = new CardController(UseCase)
 
-AccountRouter.get('/', () => Controller.getCard)
+AccountRouter.get('/', () => Controller.getAllCard)
+AccountRouter.post('/', () => Controller.createCard)
+
+AccountRouter.get('/:id', () => Controller.getCard)
+AccountRouter.delete('/:id', () => Controller.delete)
