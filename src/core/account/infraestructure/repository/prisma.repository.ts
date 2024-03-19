@@ -2,36 +2,31 @@ import { prisma } from '@/libs/prisma'
 import { type AccountEntity } from '../../domain/account.entity'
 import { type AccountRepository } from '../../domain/account.repository'
 import { Account } from '../../domain/account.value'
+import { type UserEntity } from '@/core/user/domain/user.entity'
 
 export class PrismaRepository implements AccountRepository {
-  public async createAccount (account: Account): Promise<Account> {
-    await prisma.account.create({
-      data: account.toJSON()
-    })
-
-    return account
-  }
-
-  public async updateAccount (account: Account): Promise<Account> {
-    await prisma.account.update({
-      where: {
-        id: account.id.value
-      },
-      data: account.toJSON()
-    })
-
-    return account
-  }
-
-  public async deleteAccount (account: Account): Promise<void> {
-    await prisma.account.update({
-      where: {
-        id: account.id.value
-      },
+  public async createAccount ({ idUser, imgUrl }: { idUser: AccountEntity['idUser'], imgUrl?: AccountEntity['imgUrl'] }): Promise<Account> {
+    const createdAccount = await prisma.account.create({
       data: {
-        deleted: true
+        idUser: idUser.value,
+        imgUrl: imgUrl?.value
       }
     })
+
+    return new Account(createdAccount)
+  }
+
+  public async getAllAccounts (
+    idUser: UserEntity['id']
+  ): Promise<Account[] | null> {
+    const findAccounts = await prisma.account.findMany({
+      where: {
+        idUser: idUser?.value,
+        deleted: false
+      }
+    })
+
+    return findAccounts === null ? null : findAccounts.map(account => new Account(account))
   }
 
   public async findAccount ({
@@ -46,12 +41,32 @@ export class PrismaRepository implements AccountRepository {
       }
     })
 
-    if (findAccount === null) {
-      return null
-    }
+    return findAccount === null ? null : new Account(findAccount)
+  }
 
-    const account = new Account(findAccount)
+  public async updateAccount ({ id, imgUrl }: { id: AccountEntity['id'], imgUrl: AccountEntity['imgUrl'] }): Promise<Account> {
+    const updatedAccount = await prisma.account.update({
+      where: {
+        id: id.value
+      },
+      data: {
+        imgUrl: imgUrl?.value,
+        updatedAt: new Date()
+      }
+    })
 
-    return account
+    return new Account(updatedAccount)
+  }
+
+  public async deleteAccount (id: AccountEntity['id']): Promise<void> {
+    await prisma.account.update({
+      where: {
+        id: id.value
+      },
+      data: {
+        updatedAt: new Date(),
+        deleted: true
+      }
+    })
   }
 }

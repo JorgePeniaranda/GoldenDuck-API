@@ -7,14 +7,29 @@ import { type CardEntity } from '../domain/card.entity'
 export class CardUseCase {
   constructor (private readonly cardRepository: CardRepository) {}
 
-  public async create (card: Card): Promise<Card> {
-    const createdCard = await this.cardRepository.createCard(card)
+  public async create ({
+    idAccount,
+    number,
+    cvv,
+    expiration
+  }: {
+    idAccount: CardEntity['idAccount']
+    number: CardEntity['number']
+    cvv: CardEntity['cvv']
+    expiration: CardEntity['expiration']
+  }): Promise<Card> {
+    const createdCard = await this.cardRepository.createCard({
+      idAccount,
+      number,
+      cvv,
+      expiration
+    })
 
     return createdCard
   }
 
-  public async delete (card: Card): Promise<void> {
-    await this.cardRepository.deleteCard(card.id)
+  public async delete (id: CardEntity['id']): Promise<void> {
+    await this.cardRepository.deleteCard(id)
   }
 
   public async getAllCard (

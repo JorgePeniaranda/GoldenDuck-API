@@ -9,4 +9,10 @@ const Repository = new PrismaRepository()
 const UseCase = new AccountUseCase(Repository)
 const Controller = new AccountController(UseCase)
 
-AccountRouter.get('/', Controller.getUser)
+AccountRouter.get('/', Controller.getAllAccount)
+AccountRouter.post('/', Controller.createAccount)
+
+AccountRouter.get('/:id', Controller.getAccount)
+AccountRouter.put('/', Controller.updateAccount)
+AccountRouter.patch('/', Controller.updateAccount)
+AccountRouter.delete('/', Controller.deleteAccount)
