@@ -47,13 +47,13 @@ export class CardController {
     return response.json(cardsToJson).status(200)
   }
 
-  public delete = async (
+  public deleteCard = async (
     request: Request,
     response: Response
   ): Promise<Response> => {
     const { id } = request.query
 
-    await this.cardUseCase.delete(new ID(Number(id)))
+    await this.cardUseCase.deleteCard(new ID(Number(id)))
 
     return response.json().status(204)
   }

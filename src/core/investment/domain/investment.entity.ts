@@ -2,6 +2,8 @@ import {
   type AccountEntity,
   type AccountPrimitiveEntity
 } from '@/core/account/domain/account.entity'
+import { type PrimitiveValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.primitive'
+import { type ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
 import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.primitive'
 import { type PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
 import { type PrimitiveValidDate } from '@/valueObjects/date/ValidDate/ValidDate.primitive'
@@ -18,6 +20,7 @@ export interface InvestmentEntity {
   interest: Float
   createdAt: PastDate
   dateEnd: ValidDate
+  canceled: ValidBoolean
 }
 
 export interface InvestmentPrimitiveEntity {
@@ -27,4 +30,5 @@ export interface InvestmentPrimitiveEntity {
   interest: PrimitiveFloat['float']
   createdAt: PrimitivePastDate['pastDate']
   dateEnd: PrimitiveValidDate['validDate']
+  canceled: PrimitiveValidBoolean['boolean']
 }

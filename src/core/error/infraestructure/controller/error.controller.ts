@@ -1,7 +1,7 @@
 import { type Request, type Response } from 'express'
 import { Alphabetic } from '@/valueObjects/string/alphabetic/alphabetic.value'
 import { ID } from '@/valueObjects/number/ID/ID.value'
-import { type ErrorUseCase } from '../../application/cardUseCase'
+import { type ErrorUseCase } from '../../application/errorUseCase'
 
 export class ErrorController {
   constructor (private readonly cardUseCase: ErrorUseCase) {}

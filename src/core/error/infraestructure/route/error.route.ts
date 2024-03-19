@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { PrismaRepository } from '../repository/prisma.repository'
-import { ErrorUseCase } from '../../application/cardUseCase'
-import { ErrorController } from '../controller/card.controller'
+import { ErrorUseCase } from '../../application/errorUseCase'
+import { ErrorController } from '../controller/error.controller'
 
 export const CardRouter = Router()
 

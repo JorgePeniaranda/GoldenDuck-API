@@ -7,6 +7,7 @@ import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
 import { ValidDate } from '@/valueObjects/date/ValidDate/ValidDate.value'
 import { Float } from '@/valueObjects/number/Float/Float.value'
 import { ValidBigInt } from '@/valueObjects/number/BigInt/BigInt.value'
+import { ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
 
 const ObjectName = 'Investment'
 
@@ -17,6 +18,7 @@ export class Investment implements InvestmentEntity {
   readonly interest: InvestmentEntity['interest']
   readonly createdAt: InvestmentEntity['createdAt']
   readonly dateEnd: InvestmentEntity['dateEnd']
+  readonly canceled: InvestmentEntity['canceled']
 
   constructor (investment: InvestmentPrimitiveEntity) {
     this.id = new ID(investment.id, `${ObjectName} -> ID`)
@@ -25,6 +27,7 @@ export class Investment implements InvestmentEntity {
     this.interest = new Float(investment.interest, `${ObjectName} -> Interest`)
     this.createdAt = new PastDate(investment.createdAt, `${ObjectName} -> Date`)
     this.dateEnd = new ValidDate(investment.dateEnd, `${ObjectName} -> DateEnd`)
+    this.canceled = new ValidBoolean(investment.canceled, `${ObjectName} -> DateEnd`)
   }
 
   public toJSON (): InvestmentPrimitiveEntity {
@@ -34,7 +37,8 @@ export class Investment implements InvestmentEntity {
       amount: this.amount.value,
       interest: this.interest.value,
       createdAt: this.createdAt.value,
-      dateEnd: this.dateEnd.value
+      dateEnd: this.dateEnd.value,
+      canceled: this.canceled.value
     }
   }
 }

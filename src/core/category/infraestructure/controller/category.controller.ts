@@ -1,5 +1,5 @@
 import { type Request, type Response } from 'express'
-import { type CategoryUseCase } from '../../application/cardUseCase'
+import { type CategoryUseCase } from '../../application/categoryUseCase'
 import { Alphabetic } from '@/valueObjects/string/alphabetic/alphabetic.value'
 import { ID } from '@/valueObjects/number/ID/ID.value'
 

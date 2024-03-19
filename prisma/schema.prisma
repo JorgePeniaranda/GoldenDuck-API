@@ -115,6 +115,7 @@ model Transaction {
   createdAt   DateTime  @default(now())
   accountTo   Account   @relation(name: "toAccount", fields: [to], references: [id])
   accountFrom Account   @relation(name: "fromAccount", fields: [from], references: [id])
+  canceled    Boolean   @default(false)
   category    Category? @relation(fields: [idCategory], references: [id])
 }
 
@@ -125,6 +126,7 @@ model Loan {
   interest  Float
   createdAt DateTime @default(now())
   dateEnd   DateTime
+  canceled Boolean  @default(false)
   account   Account  @relation(fields: [idAccount], references: [id])
 }
 
@@ -135,6 +137,7 @@ model Investment {
   interest  Float
   createdAt DateTime @default(now())
   dateEnd   DateTime
+  canceled Boolean  @default(false)
   account   Account  @relation(fields: [idAccount], references: [id])
 }
 

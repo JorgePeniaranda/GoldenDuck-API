@@ -13,4 +13,4 @@ CardRouter.get('/', Controller.getAllCard)
 CardRouter.post('/', Controller.createCard)
 
 CardRouter.get('/:id', Controller.getCard)
-CardRouter.delete('/:id', Controller.delete)
+CardRouter.delete('/:id', Controller.deleteCard)

@@ -28,7 +28,7 @@ export class CardUseCase {
     return createdCard
   }
 
-  public async delete (id: CardEntity['id']): Promise<void> {
+  public async deleteCard (id: CardEntity['id']): Promise<void> {
     await this.cardRepository.deleteCard(id)
   }
 
