@@ -1,5 +1,5 @@
 import { type Request, type Response } from 'express'
-import { type CardUseCase } from '../../application/accountUseCase'
+import { type CardUseCase } from '../../application/cardUseCase'
 import { ID } from '@/valueObjects/number/ID/ID.value'
 import { CardNumber } from '../../domain/valueObjects/cardNumber/CardNumber.value'
 import { CVV } from '../../domain/valueObjects/cvv/cvv.value'
