@@ -7,20 +7,65 @@ import { type User } from '../domain/user.value'
 export class UserUseCase {
   constructor (private readonly userRepository: UserRepository) {}
 
-  public async create (user: User): Promise<User> {
-    const createdUser = await this.userRepository.createUser(user)
+  public async createUser ({
+    name,
+    lastName,
+    dni,
+    email,
+    phoneNumber,
+    password,
+    address,
+    birthDate,
+    sex
+  }: {
+    name: UserEntity['name']
+    lastName: UserEntity['lastName']
+    dni: UserEntity['dni']
+    email: UserEntity['email']
+    phoneNumber: UserEntity['phoneNumber']
+    password: UserEntity['password']
+    address: UserEntity['address']
+    birthDate: UserEntity['birthDate']
+    sex: UserEntity['sex']
+  }): Promise<User> {
+    const createdUser = await this.userRepository.createUser({
+      name,
+      lastName,
+      dni,
+      email,
+      phoneNumber,
+      password,
+      address,
+      birthDate,
+      sex
+    })
 
     return createdUser
   }
 
-  public async update (user: User): Promise<User> {
-    const updatedUser = await this.userRepository.updateUser(user)
+  public async updateUser ({
+    id,
+    email,
+    phoneNumber,
+    password
+  }: {
+    id: UserEntity['id']
+    email: UserEntity['email']
+    phoneNumber: UserEntity['phoneNumber']
+    password: UserEntity['password']
+  }): Promise<User> {
+    const updatedUser = await this.userRepository.updateUser({
+      id,
+      email,
+      phoneNumber,
+      password
+    })
 
     return updatedUser
   }
 
-  public async delete (user: User): Promise<void> {
-    await this.userRepository.deleteUser(user)
+  public async deleteUser (id: UserEntity['id']): Promise<void> {
+    await this.userRepository.deleteUser(id)
   }
 
   public async findUser (searchParams: {

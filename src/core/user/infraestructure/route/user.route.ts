@@ -10,3 +10,9 @@ const UseCase = new UserUseCase(Repository)
 const Controller = new UserController(UseCase)
 
 UserRouter.get('/', Controller.getUser)
+UserRouter.post('/', Controller.createUser)
+
+UserRouter.get('/:id', Controller.getUser)
+UserRouter.put('/', Controller.updateUser)
+UserRouter.patch('/', Controller.updateUser)
+UserRouter.delete('/', Controller.deleteUser)
