@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { PrismaRepository } from '../repository/prisma.repository'
-import { InvestmentUseCase } from '../../application/repositoryUseCase'
-import { InvestmentController } from '../controller/repository.controller'
+import { InvestmentUseCase } from '../../application/investmentUseCase'
+import { InvestmentController } from '../controller/investment.controller'
 
 export const InvestmentRouter = Router()
 

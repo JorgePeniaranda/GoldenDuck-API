@@ -23,7 +23,7 @@ export class Error implements ErrorEntity {
       typeof error.message !== 'string'
         ? null
         : new ValidString(error.message, `${ObjectName} -> Message`)
-    this.createdAt = new PastDate(error.createdAt, `${ObjectName} -> Date`)
+    this.createdAt = new PastDate(error.createdAt, `${ObjectName} -> CreatedAt`)
     this.deleted = new ValidBoolean(error.deleted, `${ObjectName} -> Deleted`)
   }
 

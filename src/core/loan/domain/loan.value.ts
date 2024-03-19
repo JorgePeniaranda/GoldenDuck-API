@@ -22,7 +22,7 @@ export class Loan implements LoanEntity {
     this.idAccount = new ID(loan.idAccount, `${ObjectName} -> IDAccount`)
     this.amount = new ValidBigInt(loan.amount, `${ObjectName} -> Amount`)
     this.interest = new Float(loan.interest, `${ObjectName} -> Interest`)
-    this.createdAt = new PastDate(loan.createdAt, `${ObjectName} -> Date`)
+    this.createdAt = new PastDate(loan.createdAt, `${ObjectName} -> CreatedAt`)
     this.dateEnd = new ValidDate(loan.dateEnd, `${ObjectName} -> DateEnd`)
     this.canceled = new ValidBoolean(loan.canceled, `${ObjectName} -> Canceled`)
   }

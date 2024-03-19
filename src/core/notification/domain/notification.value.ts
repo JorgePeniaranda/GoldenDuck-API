@@ -14,6 +14,7 @@ export class Notification implements NotificationEntity {
   idAccount: NotificationEntity['idAccount']
   message: NotificationEntity['message']
   read: NotificationEntity['read']
+  updatedAt: NotificationEntity['updatedAt']
   createdAt: NotificationEntity['createdAt']
 
   constructor (notification: NotificationPrimitiveEntity) {
@@ -29,7 +30,11 @@ export class Notification implements NotificationEntity {
     this.read = new ValidBoolean(notification.read, `${ObjectName} -> Read`)
     this.createdAt = new PastDate(
       notification.createdAt,
-      `${ObjectName} -> Date`
+      `${ObjectName} -> CreatedAt`
+    )
+    this.updatedAt = new PastDate(
+      notification.updatedAt,
+      `${ObjectName} -> UpdatedAt`
     )
   }
 
@@ -39,6 +44,7 @@ export class Notification implements NotificationEntity {
       idAccount: this.idAccount.value,
       message: this.message.value,
       read: this.read.value,
+      updatedAt: this.updatedAt.value,
       createdAt: this.createdAt.value
     }
   }

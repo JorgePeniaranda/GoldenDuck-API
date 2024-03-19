@@ -27,7 +27,7 @@ export class Card implements CardEntity {
       card.expiration,
       `${ObjectName} -> Expiration`
     )
-    this.createdAt = new PastDate(card.createdAt, `${ObjectName} -> Date`)
+    this.createdAt = new PastDate(card.createdAt, `${ObjectName} -> CreatedAt`)
     this.updatedAt = new PastDate(
       card.updatedAt,
       `${ObjectName} -> UpdatedDate`

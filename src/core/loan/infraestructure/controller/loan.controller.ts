@@ -3,7 +3,7 @@ import { ID } from '@/valueObjects/number/ID/ID.value'
 import { ValidBigInt } from '@/valueObjects/number/BigInt/BigInt.value'
 import { Int } from '@/valueObjects/number/Int/Int.value'
 import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
-import { type LoanUseCase } from '../../application/repositoryUseCase'
+import { type LoanUseCase } from '../../application/loanUseCase'
 
 export class LoanController {
   constructor (private readonly investmentUseCase: LoanUseCase) {}
@@ -19,6 +19,23 @@ export class LoanController {
       amount: new ValidBigInt(BigInt(String(number))),
       interest: new Int(Number(cvv)),
       dateEnd: new PastDate(String(expiration))
+    })
+
+    if (investment === null) {
+      return response.status(404).send()
+    }
+
+    return response.json(investment?.id).status(200)
+  }
+
+  public getLoan = async (
+    request: Request,
+    response: Response
+  ): Promise<Response> => {
+    const { id } = request.query
+
+    const investment = await this.investmentUseCase.findLoan({
+      id: typeof id === 'string' ? new ID(Number(id)) : undefined
     })
 
     if (investment === null) {
@@ -58,22 +75,5 @@ export class LoanController {
     await this.investmentUseCase.cancelLoan(new ID(Number(id)))
 
     return response.json().status(204)
-  }
-
-  public getLoan = async (
-    request: Request,
-    response: Response
-  ): Promise<Response> => {
-    const { id } = request.query
-
-    const investment = await this.investmentUseCase.findLoan({
-      id: typeof id === 'string' ? new ID(Number(id)) : undefined
-    })
-
-    if (investment === null) {
-      return response.status(404).send()
-    }
-
-    return response.json(investment?.id).status(200)
   }
 }

@@ -84,6 +84,7 @@ model Notification {
   message   String
   read      Boolean  @default(false)
   createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
   account   Account  @relation(fields: [idAccount], references: [id])
 }
 
