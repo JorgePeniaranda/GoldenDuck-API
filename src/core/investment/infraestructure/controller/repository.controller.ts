@@ -3,7 +3,7 @@ import { ID } from '@/valueObjects/number/ID/ID.value'
 import { ValidBigInt } from '@/valueObjects/number/BigInt/BigInt.value'
 import { Int } from '@/valueObjects/number/Int/Int.value'
 import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
-import { type InvestmentUseCase } from '../../application/cardUseCase'
+import { type InvestmentUseCase } from '../../application/repositoryUseCase'
 
 export class InvestmentController {
   constructor (private readonly investmentUseCase: InvestmentUseCase) {}
@@ -34,7 +34,9 @@ export class InvestmentController {
   ): Promise<Response> => {
     const { id } = request.query
 
-    const investments = await this.investmentUseCase.getAllInvestment(new ID(Number(id)))
+    const investments = await this.investmentUseCase.getAllInvestment(
+      new ID(Number(id))
+    )
 
     if (investments === null) {
       return response.status(404).send()
@@ -72,6 +74,6 @@ export class InvestmentController {
       return response.status(404).send()
     }
 
-    return response.json(investment?.id).status(200)
+    return response.json(investment?.toJSON()).status(200)
   }
 }

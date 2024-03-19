@@ -5,7 +5,11 @@ import { type Alphabetic } from '@/valueObjects/string/alphabetic/alphabetic.val
 import { type CategoryEntity } from '../../domain/category.entity'
 
 export class PrismaRepository implements CategoryRepository {
-  public async createCategory ({ name }: { name: Alphabetic }): Promise<Category> {
+  public async createCategory ({
+    name
+  }: {
+    name: Alphabetic
+  }): Promise<Category> {
     const createdCategory = await prisma.category.create({
       data: {
         name: name.value
@@ -21,7 +25,11 @@ export class PrismaRepository implements CategoryRepository {
     return categories.map((category) => new Category(category))
   }
 
-  public async findCategory ({ id }: { id?: CategoryEntity['id'] }): Promise<Category | null> {
+  public async findCategory ({
+    id
+  }: {
+    id?: CategoryEntity['id']
+  }): Promise<Category | null> {
     const category = await prisma.category.findUnique({
       where: {
         id: id?.value
@@ -31,7 +39,13 @@ export class PrismaRepository implements CategoryRepository {
     return category === null ? null : new Category(category)
   }
 
-  public async updateCategory ({ id, name }: { id: CategoryEntity['id'], name: CategoryEntity['name'] }): Promise<Category> {
+  public async updateCategory ({
+    id,
+    name
+  }: {
+    id: CategoryEntity['id']
+    name: CategoryEntity['name']
+  }): Promise<Category> {
     const updatedCategory = await prisma.category.update({
       where: {
         id: id.value,
@@ -45,7 +59,11 @@ export class PrismaRepository implements CategoryRepository {
     return new Category(updatedCategory)
   }
 
-  public async deleteCategory ({ id }: { id: CategoryEntity['id'] }): Promise<void> {
+  public async deleteCategory ({
+    id
+  }: {
+    id: CategoryEntity['id']
+  }): Promise<void> {
     await prisma.category.delete({
       where: {
         id: id.value

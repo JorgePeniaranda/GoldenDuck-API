@@ -13,12 +13,16 @@ export class AccountUseCase {
   }: {
     idUser: AccountEntity['idUser']
   }): Promise<Account> {
-    const createdAccount = await this.accountRepository.createAccount({ idUser })
+    const createdAccount = await this.accountRepository.createAccount({
+      idUser
+    })
 
     return createdAccount
   }
 
-  public async getAllAccount (idUser: UserEntity['id']): Promise<Account[] | null> {
+  public async getAllAccount (
+    idUser: UserEntity['id']
+  ): Promise<Account[] | null> {
     const accounts = await this.accountRepository.getAllAccounts(idUser)
 
     return accounts

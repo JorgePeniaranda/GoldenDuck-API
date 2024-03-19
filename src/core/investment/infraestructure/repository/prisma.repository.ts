@@ -27,7 +27,9 @@ export class PrismaRepository implements InvestmentRepository {
     return new Investment(createdInvestment)
   }
 
-  public async getAllInvestment (idAccount?: InvestmentEntity['idAccount']): Promise<Investment[] | null> {
+  public async getAllInvestment (
+    idAccount?: InvestmentEntity['idAccount']
+  ): Promise<Investment[] | null> {
     const investments = await prisma.investment.findMany({
       where: {
         idAccount: idAccount?.value
@@ -51,7 +53,11 @@ export class PrismaRepository implements InvestmentRepository {
     return investment === null ? null : new Investment(investment)
   }
 
-  public async cancelInvestment ({ id }: { id: InvestmentEntity['id'] }): Promise<void> {
+  public async cancelInvestment ({
+    id
+  }: {
+    id: InvestmentEntity['id']
+  }): Promise<void> {
     await prisma.investment.update({
       where: {
         id: id.value

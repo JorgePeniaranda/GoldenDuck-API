@@ -4,7 +4,13 @@ import { type ErrorEntity } from '../../domain/error.entity'
 import { Error } from '../../domain/error.value'
 
 export class PrismaRepository implements ErrorRepository {
-  public async createError ({ name, message }: { name: ErrorEntity['name'], message: ErrorEntity['message'] }): Promise<Error> {
+  public async createError ({
+    name,
+    message
+  }: {
+    name: ErrorEntity['name']
+    message: ErrorEntity['message']
+  }): Promise<Error> {
     const createdError = await prisma.error.create({
       data: {
         name: name?.value,
@@ -21,7 +27,11 @@ export class PrismaRepository implements ErrorRepository {
     return categories.map((error) => new Error(error))
   }
 
-  public async findError ({ id }: { id?: ErrorEntity['id'] }): Promise<Error | null> {
+  public async findError ({
+    id
+  }: {
+    id?: ErrorEntity['id']
+  }): Promise<Error | null> {
     const error = await prisma.error.findUnique({
       where: {
         id: id?.value

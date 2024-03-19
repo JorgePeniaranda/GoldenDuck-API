@@ -5,8 +5,17 @@ import { type Error } from '../domain/error.value'
 export class ErrorUseCase {
   constructor (private readonly categoryRepository: ErrorRepository) {}
 
-  public async createError ({ name, message }: { name: ErrorEntity['name'], message: ErrorEntity['message'] }): Promise<Error> {
-    const createError = await this.categoryRepository.createError({ name, message })
+  public async createError ({
+    name,
+    message
+  }: {
+    name: ErrorEntity['name']
+    message: ErrorEntity['message']
+  }): Promise<Error> {
+    const createError = await this.categoryRepository.createError({
+      name,
+      message
+    })
 
     return createError
   }
@@ -17,7 +26,11 @@ export class ErrorUseCase {
     return AllCategories
   }
 
-  public async findError ({ id }: { id: ErrorEntity['id'] }): Promise<Error | null> {
+  public async findError ({
+    id
+  }: {
+    id: ErrorEntity['id']
+  }): Promise<Error | null> {
     const category = await this.categoryRepository.findError({ id })
 
     return category

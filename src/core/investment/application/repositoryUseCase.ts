@@ -31,9 +31,8 @@ export class InvestmentUseCase {
   public async getAllInvestment (
     idAccount?: InvestmentEntity['idAccount']
   ): Promise<Investment[] | null> {
-    const investments = await this.investmentRepository.getAllInvestment(
-      idAccount
-    )
+    const investments =
+      await this.investmentRepository.getAllInvestment(idAccount)
 
     return investments
   }
@@ -45,13 +44,13 @@ export class InvestmentUseCase {
       throw new RequestError(ErrorsDictionary.NoParams)
     }
 
-    const investment = await this.investmentRepository.findInvestment(searchParams)
+    const investment =
+      await this.investmentRepository.findInvestment(searchParams)
 
     return investment
   }
 
-  public async cancelInvestment (
-    id: InvestmentEntity['id']): Promise<void> {
+  public async cancelInvestment (id: InvestmentEntity['id']): Promise<void> {
     await this.investmentRepository.cancelInvestment({ id })
   }
 }

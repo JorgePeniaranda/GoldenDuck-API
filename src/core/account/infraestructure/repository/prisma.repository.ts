@@ -5,7 +5,13 @@ import { Account } from '../../domain/account.value'
 import { type UserEntity } from '@/core/user/domain/user.entity'
 
 export class PrismaRepository implements AccountRepository {
-  public async createAccount ({ idUser, imgUrl }: { idUser: AccountEntity['idUser'], imgUrl?: AccountEntity['imgUrl'] }): Promise<Account> {
+  public async createAccount ({
+    idUser,
+    imgUrl
+  }: {
+    idUser: AccountEntity['idUser']
+    imgUrl?: AccountEntity['imgUrl']
+  }): Promise<Account> {
     const createdAccount = await prisma.account.create({
       data: {
         idUser: idUser.value,
@@ -26,7 +32,9 @@ export class PrismaRepository implements AccountRepository {
       }
     })
 
-    return findAccounts === null ? null : findAccounts.map(account => new Account(account))
+    return findAccounts === null
+      ? null
+      : findAccounts.map((account) => new Account(account))
   }
 
   public async findAccount ({
@@ -44,7 +52,13 @@ export class PrismaRepository implements AccountRepository {
     return findAccount === null ? null : new Account(findAccount)
   }
 
-  public async updateAccount ({ id, imgUrl }: { id: AccountEntity['id'], imgUrl: AccountEntity['imgUrl'] }): Promise<Account> {
+  public async updateAccount ({
+    id,
+    imgUrl
+  }: {
+    id: AccountEntity['id']
+    imgUrl: AccountEntity['imgUrl']
+  }): Promise<Account> {
     const updatedAccount = await prisma.account.update({
       where: {
         id: id.value

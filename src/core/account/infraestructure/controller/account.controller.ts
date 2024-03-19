@@ -30,7 +30,9 @@ export class AccountController {
   ): Promise<Response> => {
     const { idUser } = request.query
 
-    const users = await this.accountUseCase.getAllAccount(new ID(Number(idUser)))
+    const users = await this.accountUseCase.getAllAccount(
+      new ID(Number(idUser))
+    )
 
     if (users === null) {
       return response.status(404).send()
@@ -40,9 +42,7 @@ export class AccountController {
       return { ...account.toJSON(), balance: account.balance.toString() }
     })
 
-    return response
-      .json(usersToJson)
-      .status(200)
+    return response.json(usersToJson).status(200)
   }
 
   public getAccount = async (
@@ -91,8 +91,6 @@ export class AccountController {
 
     await this.accountUseCase.delete(new ID(Number(id)))
 
-    return response
-      .json()
-      .status(204)
+    return response.json().status(204)
   }
 }

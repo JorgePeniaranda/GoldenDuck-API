@@ -14,15 +14,12 @@ export interface InvestmentRepository {
     dateEnd: InvestmentEntity['dateEnd']
   }) => Promise<Investment>
   getAllInvestment: (
-    idAccount?: InvestmentEntity['idAccount']) => Promise<Investment[] | null>
+    idAccount?: InvestmentEntity['idAccount'],
+  ) => Promise<Investment[] | null>
   findInvestment: ({
     id
   }: {
     id?: InvestmentEntity['id']
   }) => Promise<Investment | null>
-  cancelInvestment: ({
-    id
-  }: {
-    id: InvestmentEntity['id']
-  }) => Promise<void>
+  cancelInvestment: ({ id }: { id: InvestmentEntity['id'] }) => Promise<void>
 }
