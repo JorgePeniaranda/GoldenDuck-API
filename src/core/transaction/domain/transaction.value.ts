@@ -21,8 +21,14 @@ export class Transaction implements TransactionEntity {
     this.from = new ID(transaction.from, `${ObjectName} -> From`)
     this.to = new ID(transaction.to, `${ObjectName} -> To`)
     this.amount = new ValidBigInt(transaction.amount, `${ObjectName} -> Amount`)
-    this.idCategory = new ID(transaction.idCategory, `${ObjectName} -> IDCategory`)
-    this.createdAt = new PastDate(transaction.createdAt, `${ObjectName} -> Date`)
+    this.idCategory = new ID(
+      transaction.idCategory,
+      `${ObjectName} -> IDCategory`
+    )
+    this.createdAt = new PastDate(
+      transaction.createdAt,
+      `${ObjectName} -> Date`
+    )
   }
 
   public toJSON (): TransactionPrimitiveEntity {

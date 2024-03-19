@@ -18,10 +18,19 @@ export class Notification implements NotificationEntity {
 
   constructor (notification: NotificationPrimitiveEntity) {
     this.id = new ID(notification.id, `${ObjectName} -> ID`)
-    this.idAccount = new ID(notification.idAccount, `${ObjectName} -> IDAccount`)
-    this.message = new ValidString(notification.message, `${ObjectName} -> Message`)
+    this.idAccount = new ID(
+      notification.idAccount,
+      `${ObjectName} -> IDAccount`
+    )
+    this.message = new ValidString(
+      notification.message,
+      `${ObjectName} -> Message`
+    )
     this.read = new ValidBoolean(notification.read, `${ObjectName} -> Read`)
-    this.createdAt = new PastDate(notification.createdAt, `${ObjectName} -> Date`)
+    this.createdAt = new PastDate(
+      notification.createdAt,
+      `${ObjectName} -> Date`
+    )
   }
 
   public toJSON (): NotificationPrimitiveEntity {

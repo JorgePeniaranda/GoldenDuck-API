@@ -19,7 +19,10 @@ export class Session implements SessionEntity {
     this.id = new ID(session.id, `${ObjectName} -> ID`)
     this.idUser = new ID(session.idUser, `${ObjectName} -> IDUser`)
     this.ip = new ValidString(session.ip, `${ObjectName} -> IP`)
-    this.userAgent = new ValidString(session.userAgent, `${ObjectName} -> UserAgent`)
+    this.userAgent = new ValidString(
+      session.userAgent,
+      `${ObjectName} -> UserAgent`
+    )
     this.createdAt = new PastDate(session.createdAt, `${ObjectName} -> Date`)
   }
 

@@ -36,7 +36,10 @@ export class User implements UserEntity {
     this.lastName = new Alphabetic(user.lastName, `${ObjectName} -> LastName`)
     this.dni = new DNI(user.dni, `${ObjectName} -> DNI`)
     this.email = new Email(user.email, `${ObjectName} -> Email`)
-    this.phoneNumber = new PhoneNumber(user.phoneNumber, `${ObjectName} -> PhoneNumber`)
+    this.phoneNumber = new PhoneNumber(
+      user.phoneNumber,
+      `${ObjectName} -> PhoneNumber`
+    )
     this.password = new Password(user.password, `${ObjectName} -> Password`)
     this.address = new AlphaNumeric(user.address, `${ObjectName} -> Address`)
     this.birthDate = new BirthDate(user.birthDate, `${ObjectName} -> BirthDate`)

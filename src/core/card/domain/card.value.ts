@@ -23,9 +23,15 @@ export class Card implements CardEntity {
     this.idAccount = new ID(card.idAccount, `${ObjectName} -> IDAccount`)
     this.number = new CardNumber(card.number, `${ObjectName} -> Number`)
     this.cvv = new CVV(card.cvv, `${ObjectName} -> CVV`)
-    this.expiration = new ValidDate(card.expiration, `${ObjectName} -> Expiration`)
+    this.expiration = new ValidDate(
+      card.expiration,
+      `${ObjectName} -> Expiration`
+    )
     this.createdAt = new PastDate(card.createdAt, `${ObjectName} -> Date`)
-    this.updatedDate = new PastDate(card.updatedDate, `${ObjectName} -> UpdatedDate`)
+    this.updatedDate = new PastDate(
+      card.updatedDate,
+      `${ObjectName} -> UpdatedDate`
+    )
     this.deleted = new ValidBoolean(card.deleted, `${ObjectName} -> Deleted`)
   }
 

@@ -16,7 +16,10 @@ export class Category implements CategoryEntity {
   constructor (category: CategoryPrimitiveEntity) {
     this.id = new ID(category.id, `${ObjectName} -> ID`)
     this.name = new Alphabetic(category.name, `${ObjectName} -> Name`)
-    this.deleted = new ValidBoolean(category.deleted, `${ObjectName} -> Deleted`)
+    this.deleted = new ValidBoolean(
+      category.deleted,
+      `${ObjectName} -> Deleted`
+    )
   }
 
   public toJSON (): CategoryPrimitiveEntity {

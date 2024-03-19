@@ -19,6 +19,8 @@ export class AccountController {
       return response.status(404).send()
     }
 
-    return response.json({ ...user.toJSON(), balance: user?.balance.toString() }).status(200)
+    return response
+      .json({ ...user.toJSON(), balance: user?.balance.toString() })
+      .status(200)
   }
 }

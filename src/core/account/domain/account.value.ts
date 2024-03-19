@@ -23,11 +23,18 @@ export class Account implements AccountEntity {
     this.id = new ID(account.id, `${ObjectName} -> ID`)
     this.idUser = new ID(account.idUser, `${ObjectName} -> IDUser`)
     this.balance = new ValidBigInt(account.balance, `${ObjectName} -> Balance`)
-    this.imgUrl = account.imgUrl === null || (account.imgUrl) === undefined
-      ? null
-      : new URL(account.imgUrl, `${ObjectName} -> ImgUrl`)
-    this.updatedAt = new PastDate(account.updatedAt, `${ObjectName} -> UpdatedAt`)
-    this.createdAt = new PastDate(account.createdAt, `${ObjectName} -> CreatedAt`)
+    this.imgUrl =
+      account.imgUrl === null || account.imgUrl === undefined
+        ? null
+        : new URL(account.imgUrl, `${ObjectName} -> ImgUrl`)
+    this.updatedAt = new PastDate(
+      account.updatedAt,
+      `${ObjectName} -> UpdatedAt`
+    )
+    this.createdAt = new PastDate(
+      account.createdAt,
+      `${ObjectName} -> CreatedAt`
+    )
     this.deleted = new ValidBoolean(account.deleted, `${ObjectName} -> Deleted`)
   }
 
