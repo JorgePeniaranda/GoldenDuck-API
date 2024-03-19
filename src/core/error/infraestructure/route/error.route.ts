@@ -3,14 +3,14 @@ import { PrismaRepository } from '../repository/prisma.repository'
 import { ErrorUseCase } from '../../application/errorUseCase'
 import { ErrorController } from '../controller/error.controller'
 
-export const CardRouter = Router()
+export const ErrorRouter = Router()
 
 const Repository = new PrismaRepository()
 const UseCase = new ErrorUseCase(Repository)
 const Controller = new ErrorController(UseCase)
 
-CardRouter.get('/', Controller.getAllError)
-CardRouter.post('/', Controller.createError)
+ErrorRouter.get('/', Controller.getAllError)
+ErrorRouter.post('/', Controller.createError)
 
-CardRouter.get('/:id', Controller.findError)
-CardRouter.delete('/:id', Controller.deleteError)
+ErrorRouter.get('/:id', Controller.findError)
+ErrorRouter.delete('/:id', Controller.deleteError)

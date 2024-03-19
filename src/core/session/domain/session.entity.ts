@@ -12,15 +12,15 @@ import { type PrimitiveValidString } from '@/valueObjects/string/string/string.p
 export interface SessionEntity {
   id: ID
   idUser: UserEntity['id']
-  ip: ValidString
-  userAgent: ValidString
+  ip?: ValidString | null
+  userAgent?: ValidString | null
   createdAt: PastDate
 }
 
 export interface SessionPrimitiveEntity {
   id: PrimitiveID['id']
   idUser: UserPrimitiveEntity['id']
-  ip: PrimitiveValidString['string']
-  userAgent: PrimitiveValidString['string']
+  ip?: PrimitiveValidString['string'] | null
+  userAgent?: PrimitiveValidString['string'] | null
   createdAt: PrimitivePastDate['pastDate']
 }
