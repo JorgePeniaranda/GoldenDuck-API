@@ -15,22 +15,12 @@ export class Session implements SessionEntity {
   readonly userAgent: SessionEntity['userAgent']
   readonly createdAt: SessionEntity['createdAt']
 
-  constructor (session: SessionEntity) {
-    this.id = session.id
-    this.idUser = session.idUser
-    this.ip = session.ip
-    this.userAgent = session.userAgent
-    this.createdAt = session.createdAt
-  }
-
-  public create (session: SessionPrimitiveEntity): Session {
-    return new Session({
-      id: new ID(session.id, `${ObjectName} -> ID`),
-      idUser: new ID(session.idUser, `${ObjectName} -> IDUser`),
-      ip: new ValidString(session.ip, `${ObjectName} -> IP`),
-      userAgent: new ValidString(session.userAgent, `${ObjectName} -> UserAgent`),
-      createdAt: new PastDate(session.createdAt, `${ObjectName} -> Date`)
-    })
+  constructor (session: SessionPrimitiveEntity) {
+    this.id = new ID(session.id, `${ObjectName} -> ID`)
+    this.idUser = new ID(session.idUser, `${ObjectName} -> IDUser`)
+    this.ip = new ValidString(session.ip, `${ObjectName} -> IP`)
+    this.userAgent = new ValidString(session.userAgent, `${ObjectName} -> UserAgent`)
+    this.createdAt = new PastDate(session.createdAt, `${ObjectName} -> Date`)
   }
 
   public toJSON (): SessionPrimitiveEntity {

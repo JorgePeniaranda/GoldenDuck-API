@@ -30,42 +30,21 @@ export class User implements UserEntity {
   public deleted: UserEntity['deleted']
   public role: UserEntity['role']
 
-  constructor (user: UserEntity) {
-    this.id = user.id
-    this.name = user.name
-    this.lastName = user.lastName
-    this.dni = user.dni
-    this.email = user.email
-    this.phoneNumber = user.phoneNumber
-    this.password = user.password
-    this.address = user.address
-    this.birthDate = user.birthDate
-    this.sex = user.sex
-    this.updatedAt = user.updatedAt
-    this.createdAt = user.createdAt
-    this.deleted = user.deleted
-    this.role = user.role
-  }
-
-  public static create (user: UserPrimitiveEntity): User {
-    const createdUser = new User({
-      id: new ID(user.id, `${ObjectName} -> ID`),
-      name: new Alphabetic(user.name, `${ObjectName} -> Name`),
-      lastName: new Alphabetic(user.lastName, `${ObjectName} -> LastName`),
-      dni: new DNI(user.dni, `${ObjectName} -> DNI`),
-      email: new Email(user.email, `${ObjectName} -> Email`),
-      phoneNumber: new PhoneNumber(user.phoneNumber, `${ObjectName} -> PhoneNumber`),
-      password: new Password(user.password, `${ObjectName} -> Password`),
-      address: new AlphaNumeric(user.address, `${ObjectName} -> Address`),
-      birthDate: new BirthDate(user.birthDate, `${ObjectName} -> BirthDate`),
-      sex: new Sex(user.sex, `${ObjectName} -> Sex`),
-      updatedAt: new PastDate(user.updatedAt, `${ObjectName} -> UpdatedAt`),
-      createdAt: new PastDate(user.createdAt, `${ObjectName} -> CreatedAt`),
-      deleted: new ValidBoolean(user.deleted, `${ObjectName} -> Deleted`),
-      role: new Role(user.role, `${ObjectName} -> Role`)
-    })
-
-    return createdUser
+  constructor (user: UserPrimitiveEntity) {
+    this.id = new ID(user.id, `${ObjectName} -> ID`)
+    this.name = new Alphabetic(user.name, `${ObjectName} -> Name`)
+    this.lastName = new Alphabetic(user.lastName, `${ObjectName} -> LastName`)
+    this.dni = new DNI(user.dni, `${ObjectName} -> DNI`)
+    this.email = new Email(user.email, `${ObjectName} -> Email`)
+    this.phoneNumber = new PhoneNumber(user.phoneNumber, `${ObjectName} -> PhoneNumber`)
+    this.password = new Password(user.password, `${ObjectName} -> Password`)
+    this.address = new AlphaNumeric(user.address, `${ObjectName} -> Address`)
+    this.birthDate = new BirthDate(user.birthDate, `${ObjectName} -> BirthDate`)
+    this.sex = new Sex(user.sex, `${ObjectName} -> Sex`)
+    this.updatedAt = new PastDate(user.updatedAt, `${ObjectName} -> UpdatedAt`)
+    this.createdAt = new PastDate(user.createdAt, `${ObjectName} -> CreatedAt`)
+    this.deleted = new ValidBoolean(user.deleted, `${ObjectName} -> Deleted`)
+    this.role = new Role(user.role, `${ObjectName} -> Role`)
   }
 
   public toJSON (): UserPrimitiveEntity {

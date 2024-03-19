@@ -16,24 +16,13 @@ export class Transaction implements TransactionEntity {
   readonly idCategory: TransactionEntity['idCategory']
   readonly createdAt: TransactionEntity['createdAt']
 
-  constructor (transaction: TransactionEntity) {
-    this.id = transaction.id
-    this.from = transaction.from
-    this.to = transaction.to
-    this.amount = transaction.amount
-    this.idCategory = transaction.idCategory
-    this.createdAt = transaction.createdAt
-  }
-
-  public create (transaction: TransactionPrimitiveEntity): Transaction {
-    return new Transaction({
-      id: new ID(transaction.id, `${ObjectName} -> ID`),
-      from: new ID(transaction.from, `${ObjectName} -> From`),
-      to: new ID(transaction.to, `${ObjectName} -> To`),
-      amount: new ValidBigInt(transaction.amount, `${ObjectName} -> Amount`),
-      idCategory: new ID(transaction.idCategory, `${ObjectName} -> IDCategory`),
-      createdAt: new PastDate(transaction.createdAt, `${ObjectName} -> Date`)
-    })
+  constructor (transaction: TransactionPrimitiveEntity) {
+    this.id = new ID(transaction.id, `${ObjectName} -> ID`)
+    this.from = new ID(transaction.from, `${ObjectName} -> From`)
+    this.to = new ID(transaction.to, `${ObjectName} -> To`)
+    this.amount = new ValidBigInt(transaction.amount, `${ObjectName} -> Amount`)
+    this.idCategory = new ID(transaction.idCategory, `${ObjectName} -> IDCategory`)
+    this.createdAt = new PastDate(transaction.createdAt, `${ObjectName} -> Date`)
   }
 
   public toJSON (): TransactionPrimitiveEntity {

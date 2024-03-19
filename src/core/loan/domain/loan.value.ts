@@ -15,24 +15,13 @@ export class Loan implements LoanEntity {
   readonly createdAt: LoanEntity['createdAt']
   readonly dateEnd: LoanEntity['dateEnd']
 
-  constructor (loan: LoanEntity) {
-    this.id = loan.id
-    this.idAccount = loan.idAccount
-    this.amount = loan.amount
-    this.interest = loan.interest
-    this.createdAt = loan.createdAt
-    this.dateEnd = loan.dateEnd
-  }
-
-  public create (loan: LoanPrimitiveEntity): Loan {
-    return new Loan({
-      id: new ID(loan.id, `${ObjectName} -> ID`),
-      idAccount: new ID(loan.idAccount, `${ObjectName} -> IDAccount`),
-      amount: new ValidBigInt(loan.amount, `${ObjectName} -> Amount`),
-      interest: new Float(loan.interest, `${ObjectName} -> Interest`),
-      createdAt: new PastDate(loan.createdAt, `${ObjectName} -> Date`),
-      dateEnd: new ValidDate(loan.dateEnd, `${ObjectName} -> DateEnd`)
-    })
+  constructor (loan: LoanPrimitiveEntity) {
+    this.id = new ID(loan.id, `${ObjectName} -> ID`)
+    this.idAccount = new ID(loan.idAccount, `${ObjectName} -> IDAccount`)
+    this.amount = new ValidBigInt(loan.amount, `${ObjectName} -> Amount`)
+    this.interest = new Float(loan.interest, `${ObjectName} -> Interest`)
+    this.createdAt = new PastDate(loan.createdAt, `${ObjectName} -> Date`)
+    this.dateEnd = new ValidDate(loan.dateEnd, `${ObjectName} -> DateEnd`)
   }
 
   public toJSON (): LoanPrimitiveEntity {

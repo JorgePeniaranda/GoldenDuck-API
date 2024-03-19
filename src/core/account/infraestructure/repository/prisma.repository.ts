@@ -50,7 +50,7 @@ export class PrismaRepository implements AccountRepository {
       return null
     }
 
-    const account = Account.create(findAccount)
+    const account = new Account(findAccount)
 
     return account
   }

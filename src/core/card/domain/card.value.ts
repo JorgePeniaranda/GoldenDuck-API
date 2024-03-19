@@ -18,28 +18,15 @@ export class Card implements CardEntity {
   readonly updatedDate: CardEntity['updatedDate']
   readonly deleted: CardEntity['deleted']
 
-  constructor (card: CardEntity) {
-    this.id = card.id
-    this.idAccount = card.idAccount
-    this.number = card.number
-    this.cvv = card.cvv
-    this.expiration = card.expiration
-    this.createdAt = card.createdAt
-    this.updatedDate = card.updatedDate
-    this.deleted = card.deleted
-  }
-
-  public static create (card: CardPrimitiveEntity): Card {
-    return new Card({
-      id: new ID(card.id, `${ObjectName} -> ID`),
-      idAccount: new ID(card.idAccount, `${ObjectName} -> IDAccount`),
-      number: new CardNumber(card.number, `${ObjectName} -> Number`),
-      cvv: new CVV(card.cvv, `${ObjectName} -> CVV`),
-      expiration: new ValidDate(card.expiration, `${ObjectName} -> Expiration`),
-      createdAt: new PastDate(card.createdAt, `${ObjectName} -> Date`),
-      updatedDate: new PastDate(card.updatedDate, `${ObjectName} -> UpdatedDate`),
-      deleted: new ValidBoolean(card.deleted, `${ObjectName} -> Deleted`)
-    })
+  constructor (card: CardPrimitiveEntity) {
+    this.id = new ID(card.id, `${ObjectName} -> ID`)
+    this.idAccount = new ID(card.idAccount, `${ObjectName} -> IDAccount`)
+    this.number = new CardNumber(card.number, `${ObjectName} -> Number`)
+    this.cvv = new CVV(card.cvv, `${ObjectName} -> CVV`)
+    this.expiration = new ValidDate(card.expiration, `${ObjectName} -> Expiration`)
+    this.createdAt = new PastDate(card.createdAt, `${ObjectName} -> Date`)
+    this.updatedDate = new PastDate(card.updatedDate, `${ObjectName} -> UpdatedDate`)
+    this.deleted = new ValidBoolean(card.deleted, `${ObjectName} -> Deleted`)
   }
 
   public toJSON (): CardPrimitiveEntity {

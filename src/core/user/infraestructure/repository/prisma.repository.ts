@@ -61,7 +61,7 @@ export class PrismaRepository implements UserRepository {
       return null
     }
 
-    const user = User.create(findUser)
+    const user = new User(findUser)
 
     return user
   }

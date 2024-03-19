@@ -18,24 +18,13 @@ export class Investment implements InvestmentEntity {
   readonly createdAt: InvestmentEntity['createdAt']
   readonly dateEnd: InvestmentEntity['dateEnd']
 
-  constructor (investment: InvestmentEntity) {
-    this.id = investment.id
-    this.idAccount = investment.idAccount
-    this.amount = investment.amount
-    this.interest = investment.interest
-    this.createdAt = investment.createdAt
-    this.dateEnd = investment.dateEnd
-  }
-
-  public create (investment: InvestmentPrimitiveEntity): Investment {
-    return new Investment({
-      id: new ID(investment.id, `${ObjectName} -> ID`),
-      idAccount: new ID(investment.idAccount, `${ObjectName} -> IDAccount`),
-      amount: new ValidBigInt(investment.amount, `${ObjectName} -> Date`),
-      interest: new Float(investment.interest, `${ObjectName} -> Interest`),
-      createdAt: new PastDate(investment.createdAt, `${ObjectName} -> Date`),
-      dateEnd: new ValidDate(investment.dateEnd, `${ObjectName} -> DateEnd`)
-    })
+  constructor (investment: InvestmentPrimitiveEntity) {
+    this.id = new ID(investment.id, `${ObjectName} -> ID`)
+    this.idAccount = new ID(investment.idAccount, `${ObjectName} -> IDAccount`)
+    this.amount = new ValidBigInt(investment.amount, `${ObjectName} -> Date`)
+    this.interest = new Float(investment.interest, `${ObjectName} -> Interest`)
+    this.createdAt = new PastDate(investment.createdAt, `${ObjectName} -> Date`)
+    this.dateEnd = new ValidDate(investment.dateEnd, `${ObjectName} -> DateEnd`)
   }
 
   public toJSON (): InvestmentPrimitiveEntity {

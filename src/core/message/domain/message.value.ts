@@ -18,26 +18,14 @@ export class Message implements MessageEntity {
   readonly createdAt: MessageEntity['createdAt']
   readonly deleted: MessageEntity['deleted']
 
-  constructor (message: MessageEntity) {
-    this.id = message.id
-    this.from = message.from
-    this.to = message.to
-    this.message = message.message
-    this.read = message.read
-    this.createdAt = message.createdAt
-    this.deleted = message.deleted
-  }
-
-  public create (message: MessagePrimitiveEntity): Message {
-    return new Message({
-      id: new ID(message.id, `${ObjectName} -> ID`),
-      from: new ID(message.from, `${ObjectName} -> From`),
-      to: new ID(message.to, `${ObjectName} -> To`),
-      message: new ValidString(message.message, `${ObjectName} -> Message`),
-      read: new ValidBoolean(message.read, `${ObjectName} -> Read`),
-      createdAt: new PastDate(message.createdAt, `${ObjectName} -> Date`),
-      deleted: new ValidBoolean(message.deleted, `${ObjectName} -> Deleted`)
-    })
+  constructor (message: MessagePrimitiveEntity) {
+    this.id = new ID(message.id, `${ObjectName} -> ID`)
+    this.from = new ID(message.from, `${ObjectName} -> From`)
+    this.to = new ID(message.to, `${ObjectName} -> To`)
+    this.message = new ValidString(message.message, `${ObjectName} -> Message`)
+    this.read = new ValidBoolean(message.read, `${ObjectName} -> Read`)
+    this.createdAt = new PastDate(message.createdAt, `${ObjectName} -> Date`)
+    this.deleted = new ValidBoolean(message.deleted, `${ObjectName} -> Deleted`)
   }
 
   public toJSON (): MessagePrimitiveEntity {

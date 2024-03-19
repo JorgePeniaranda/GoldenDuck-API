@@ -13,22 +13,12 @@ export class Error implements ErrorEntity {
   public createdAt: ErrorEntity['createdAt']
   public deleted: ErrorEntity['deleted']
 
-  constructor (user: ErrorEntity) {
-    this.id = user.id
-    this.name = user.name
-    this.message = user.message
-    this.createdAt = user.createdAt
-    this.deleted = user.deleted
-  }
-
-  public create (error: ErrorPrimitiveEntity): Error {
-    return new Error({
-      id: new ID(error.id, `${ObjectName} -> ID`),
-      name: new ValidString(error.name, `${ObjectName} -> Name`),
-      message: new ValidString(error.message, `${ObjectName} -> Message`),
-      createdAt: new PastDate(error.createdAt, `${ObjectName} -> Date`),
-      deleted: new ValidBoolean(error.deleted, `${ObjectName} -> Deleted`)
-    })
+  constructor (error: ErrorPrimitiveEntity) {
+    this.id = new ID(error.id, `${ObjectName} -> ID`)
+    this.name = new ValidString(error.name, `${ObjectName} -> Name`)
+    this.message = new ValidString(error.message, `${ObjectName} -> Message`)
+    this.createdAt = new PastDate(error.createdAt, `${ObjectName} -> Date`)
+    this.deleted = new ValidBoolean(error.deleted, `${ObjectName} -> Deleted`)
   }
 
   public toJSON (): ErrorPrimitiveEntity {
