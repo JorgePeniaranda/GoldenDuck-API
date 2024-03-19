@@ -1,5 +1,5 @@
 import { ValidationDictionary } from '@/messages/validations'
-import { checkPasswordStrong } from '@/utils'
+import { checkPasswordStrong } from '@/utils/regex'
 import { type ZodType, z } from 'zod'
 
 const minLength = 8

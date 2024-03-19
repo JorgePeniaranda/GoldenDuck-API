@@ -1,4 +1,7 @@
-import { type AccountEntity, type AccountPrimitiveEntity } from '@/core/account/domain/account.entity'
+import {
+  type AccountEntity,
+  type AccountPrimitiveEntity
+} from '@/core/account/domain/account.entity'
 import { type PrimitiveBalance } from '@/core/account/domain/valueObjects/balance/Balance.primitive'
 import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.primitive'
 import { type PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
@@ -16,6 +19,7 @@ export interface LoanEntity {
   date: PastDate
   dateEnd: ValidDate
 }
+
 export interface LoanPrimitiveEntity {
   id: PrimitiveID['id']
   idAccount: AccountPrimitiveEntity['id']

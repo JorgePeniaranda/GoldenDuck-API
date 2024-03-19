@@ -10,7 +10,10 @@ import { type PrimitiveCVV } from './valueObjects/cvv/cvv.primitive'
 import { type PrimitiveCardNumber } from './valueObjects/cardNumber/CardNumber.primitive'
 import { type ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
 import { type PrimitiveValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.primitive'
-import { type AccountEntity, type AccountPrimitiveEntity } from '@/core/account/domain/account.entity'
+import {
+  type AccountEntity,
+  type AccountPrimitiveEntity
+} from '@/core/account/domain/account.entity'
 
 export interface CardEntity {
   id: ID

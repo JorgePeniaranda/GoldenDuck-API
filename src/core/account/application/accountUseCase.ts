@@ -20,8 +20,6 @@ export class AccountUseCase {
   }
 
   public async delete (account: Account): Promise<void> {
-    account.deleted = true
-
     await this.accountRepository.deleteAccount(account)
   }
 

@@ -1,7 +1,7 @@
 import { ErrorsDictionary } from '../messages/errors'
 import { type Request, type NextFunction } from 'express'
 import { ReasonPhrases, StatusCodes } from 'http-status-codes'
-import { type CustomResponse, type ErrorResponse } from '..'
+import { type CustomResponse, type ErrorResponse } from '../types/response'
 
 export function ErrorHandler (
   error: any,

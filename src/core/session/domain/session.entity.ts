@@ -1,4 +1,7 @@
-import { type UserEntity, type UserPrimitiveEntity } from '@/core/user/domain/user.entity'
+import {
+  type UserEntity,
+  type UserPrimitiveEntity
+} from '@/core/user/domain/user.entity'
 import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.primitive'
 import { type PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
 import { type PrimitiveID } from '@/valueObjects/number/ID/ID.primitive'

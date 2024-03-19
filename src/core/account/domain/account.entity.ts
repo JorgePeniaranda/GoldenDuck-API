@@ -8,7 +8,10 @@ import { type PrimitiveURL } from '@/valueObjects/string/url/url.primitive'
 import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.primitive'
 import { type ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
 import { type PrimitiveValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.primitive'
-import { type UserEntity, type UserPrimitiveEntity } from '@/core/user/domain/user.entity'
+import {
+  type UserEntity,
+  type UserPrimitiveEntity
+} from '@/core/user/domain/user.entity'
 
 export interface AccountEntity {
   id: ID

@@ -28,6 +28,12 @@ export class UserController {
       return response.status(404).send()
     }
 
-    return response.json({ ...user?.toJSON(), dni: user.dni.toString(), phoneNumber: user.phoneNumber.toString() }).status(200)
+    return response
+      .json({
+        ...user?.toJSON(),
+        dni: user.dni.toString(),
+        phoneNumber: user.phoneNumber.toString()
+      })
+      .status(200)
   }
 }

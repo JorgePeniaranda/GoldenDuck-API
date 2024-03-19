@@ -11,6 +11,7 @@ import { BirthDate } from './valueObjects/birthDate/BirthDate.value'
 import { PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
 import { Role } from '@/valueObjects/enum/Role/Role.value'
 import { Sex } from '@/valueObjects/enum/Sex/Sex.value'
+import { ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
 
 export class User implements UserEntity {
   public readonly id: UserEntity['id']
@@ -59,7 +60,7 @@ export class User implements UserEntity {
       sex: new Sex(user.sex),
       updatedAt: new PastDate(user.updatedAt),
       createdAt: new PastDate(user.createdAt),
-      deleted: user.deleted,
+      deleted: new ValidBoolean(user.deleted),
       role: new Role(user.role)
     })
 
@@ -80,7 +81,7 @@ export class User implements UserEntity {
       sex: this.sex.value,
       updatedAt: this.updatedAt.value,
       createdAt: this.createdAt.value,
-      deleted: this.deleted,
+      deleted: this.deleted.value,
       role: this.role.value
     }
   }
