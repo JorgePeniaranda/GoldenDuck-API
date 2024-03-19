@@ -13,11 +13,17 @@ export interface MessageRepository {
   }) => Promise<Message>
   findMessage: ({ id }: { id?: MessageEntity['id'] }) => Promise<Message | null>
   getAllConversations: (
-    idAccount?: MessageEntity['to']
+    idAccount?: MessageEntity['to'],
   ) => Promise<Message[] | null>
   getConversationWith: (
-    idAccount?: MessageEntity['from']
+    idAccount?: MessageEntity['from'],
   ) => Promise<Message[] | null>
-  updateMessage: ({ id, message }: { id: MessageEntity['id'], message: MessageEntity['message'] }) => Promise<Message>
+  updateMessage: ({
+    id,
+    message
+  }: {
+    id: MessageEntity['id']
+    message: MessageEntity['message']
+  }) => Promise<Message>
   deleteMessage: (id: MessageEntity['id']) => Promise<void>
 }

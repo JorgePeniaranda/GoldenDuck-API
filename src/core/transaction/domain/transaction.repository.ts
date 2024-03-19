@@ -13,7 +13,9 @@ export interface TransactionRepository {
     amount: TransactionEntity['amount']
     idCategory: TransactionEntity['idCategory']
   }) => Promise<Transaction>
-  getAllTransaction: (idAccount?: TransactionEntity['from'] | TransactionEntity['to']) => Promise<Transaction[] | null>
+  getAllTransaction: (
+    idAccount?: TransactionEntity['from'] | TransactionEntity['to'],
+  ) => Promise<Transaction[] | null>
   findTransaction: ({
     id
   }: {

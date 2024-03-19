@@ -8,8 +8,21 @@ import { PhoneNumber } from '../../domain/valueObjects/phoneNumber/phoneNumber.v
 export class UserController {
   constructor (private readonly userUseCase: UserUseCase) {}
 
-  public createUser = async (request: Request, response: Response): Promise<Response> => {
-    const { name, lastName, dni, email, phoneNumber, password, address, birthDate, sex } = request.body
+  public createUser = async (
+    request: Request,
+    response: Response
+  ): Promise<Response> => {
+    const {
+      name,
+      lastName,
+      dni,
+      email,
+      phoneNumber,
+      password,
+      address,
+      birthDate,
+      sex
+    } = request.body
 
     const createdUser = await this.userUseCase.createUser({
       name,
@@ -30,7 +43,10 @@ export class UserController {
     return response.json(createdUser).status(201)
   }
 
-  public updateUser = async (request: Request, response: Response): Promise<Response> => {
+  public updateUser = async (
+    request: Request,
+    response: Response
+  ): Promise<Response> => {
     const { id, email, phoneNumber, password } = request.body
 
     const updatedUser = await this.userUseCase.updateUser({
@@ -47,7 +63,10 @@ export class UserController {
     return response.json(updatedUser).status(200)
   }
 
-  public deleteUser = async (request: Request, response: Response): Promise<Response> => {
+  public deleteUser = async (
+    request: Request,
+    response: Response
+  ): Promise<Response> => {
     const { id } = request.params
 
     await this.userUseCase.deleteUser(new ID(Number(id)))

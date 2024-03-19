@@ -44,7 +44,9 @@ export class SessionController {
   ): Promise<Response> => {
     const { id } = request.params
 
-    const session = await this.sessionUseCase.findSession({ id: new ID(Number(id)) })
+    const session = await this.sessionUseCase.findSession({
+      id: new ID(Number(id))
+    })
 
     if (session === null) {
       response.status(404).send()

@@ -38,9 +38,13 @@ export class PrismaRepository implements MessageRepository {
     return message === null ? null : new Message(message)
   }
 
-  public async updateMessage (
-    { id, message }: { id: MessageEntity['id'], message: MessageEntity['message'] }
-  ): Promise<Message> {
+  public async updateMessage ({
+    id,
+    message
+  }: {
+    id: MessageEntity['id']
+    message: MessageEntity['message']
+  }): Promise<Message> {
     const updatedMessage = await prisma.message.update({
       where: {
         id: id.value
@@ -78,9 +82,7 @@ export class PrismaRepository implements MessageRepository {
     return messages.map((message) => new Message(message))
   }
 
-  public async deleteMessage (
-    id: MessageEntity['id']
-  ): Promise<void> {
+  public async deleteMessage (id: MessageEntity['id']): Promise<void> {
     await prisma.message.update({
       where: {
         id: id.value

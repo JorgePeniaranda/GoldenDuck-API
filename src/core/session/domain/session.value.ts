@@ -18,13 +18,14 @@ export class Session implements SessionEntity {
   constructor (session: SessionPrimitiveEntity) {
     this.id = new ID(session.id, `${ObjectName} -> ID`)
     this.idUser = new ID(session.idUser, `${ObjectName} -> IDUser`)
-    this.ip = session.ip === null || session.ip === undefined ? null : new ValidString(session.ip, `${ObjectName} -> IP`)
-    this.userAgent = session.userAgent === null || session.userAgent === undefined
-      ? null
-      : new ValidString(
-        session.userAgent,
-      `${ObjectName} -> UserAgent`
-      )
+    this.ip =
+      session.ip === null || session.ip === undefined
+        ? null
+        : new ValidString(session.ip, `${ObjectName} -> IP`)
+    this.userAgent =
+      session.userAgent === null || session.userAgent === undefined
+        ? null
+        : new ValidString(session.userAgent, `${ObjectName} -> UserAgent`)
     this.createdAt = new PastDate(session.createdAt, `${ObjectName} -> Date`)
   }
 

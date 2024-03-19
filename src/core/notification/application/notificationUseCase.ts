@@ -14,16 +14,21 @@ export class NotificationUseCase {
     idAccount: NotificationEntity['idAccount']
     message: NotificationEntity['message']
   }): Promise<Notification> {
-    const createdNotification = await this.messageRepository.createNotification({
-      idAccount,
-      message
-    })
+    const createdNotification = await this.messageRepository.createNotification(
+      {
+        idAccount,
+        message
+      }
+    )
 
     return createdNotification
   }
 
-  public async getAllNotification (idAccount: NotificationEntity['idAccount']): Promise<Notification[] | null> {
-    const allNotifications = await this.messageRepository.getAllNotification(idAccount)
+  public async getAllNotification (
+    idAccount: NotificationEntity['idAccount']
+  ): Promise<Notification[] | null> {
+    const allNotifications =
+      await this.messageRepository.getAllNotification(idAccount)
 
     return allNotifications
   }
@@ -35,8 +40,7 @@ export class NotificationUseCase {
       throw new RequestError(ErrorsDictionary.NoParams)
     }
 
-    const message =
-      await this.messageRepository.findNotification(searchParams)
+    const message = await this.messageRepository.findNotification(searchParams)
 
     return message
   }

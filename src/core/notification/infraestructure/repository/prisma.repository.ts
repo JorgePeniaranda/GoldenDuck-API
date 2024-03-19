@@ -47,9 +47,7 @@ export class PrismaRepository implements NotificationRepository {
     return notification === null ? null : new Notification(notification)
   }
 
-  public async readNotification (
-    id: NotificationEntity['id']
-  ): Promise<void> {
+  public async readNotification (id: NotificationEntity['id']): Promise<void> {
     await prisma.notification.update({
       where: {
         id: id.value

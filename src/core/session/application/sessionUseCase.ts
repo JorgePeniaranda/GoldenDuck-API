@@ -23,7 +23,9 @@ export class SessionUseCase {
     return createdSession
   }
 
-  public async getAllSession (idUser: SessionEntity['idUser']): Promise<Session[] | null> {
+  public async getAllSession (
+    idUser: SessionEntity['idUser']
+  ): Promise<Session[] | null> {
     const AllCategories = await this.sessionRepository.getAllSession(idUser)
 
     return AllCategories

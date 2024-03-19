@@ -32,8 +32,7 @@ export class MessageUseCase {
       throw new RequestError(ErrorsDictionary.NoParams)
     }
 
-    const message =
-      await this.messageRepository.findMessage(searchParams)
+    const message = await this.messageRepository.findMessage(searchParams)
 
     return message
   }
@@ -41,8 +40,7 @@ export class MessageUseCase {
   public async getAllConversations (
     idAccount?: MessageEntity['from']
   ): Promise<Message[] | null> {
-    const messages =
-      await this.messageRepository.getAllConversations(idAccount)
+    const messages = await this.messageRepository.getAllConversations(idAccount)
 
     return messages
   }
@@ -50,8 +48,7 @@ export class MessageUseCase {
   public async getConversationWith (
     idAccount?: MessageEntity['to']
   ): Promise<Message[] | null> {
-    const messages =
-      await this.messageRepository.getConversationWith(idAccount)
+    const messages = await this.messageRepository.getConversationWith(idAccount)
 
     return messages
   }

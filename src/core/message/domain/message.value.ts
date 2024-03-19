@@ -24,7 +24,10 @@ export class Message implements MessageEntity {
     this.to = new ID(message.to, `${ObjectName} -> To`)
     this.message = new ValidString(message.message, `${ObjectName} -> Message`)
     this.read = new ValidBoolean(message.read, `${ObjectName} -> Read`)
-    this.createdAt = new PastDate(message.createdAt, `${ObjectName} -> CreatedAt`)
+    this.createdAt = new PastDate(
+      message.createdAt,
+      `${ObjectName} -> CreatedAt`
+    )
     this.deleted = new ValidBoolean(message.deleted, `${ObjectName} -> Deleted`)
   }
 

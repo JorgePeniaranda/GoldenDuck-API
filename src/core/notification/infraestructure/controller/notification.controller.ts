@@ -64,9 +64,7 @@ export class NotificationController {
   ): Promise<Response> => {
     const { id } = request.params
 
-    await this.notificationUseCase.readNotification(
-      new ID(Number(id))
-    )
+    await this.notificationUseCase.readNotification(new ID(Number(id)))
 
     return response.status(204).send()
   }

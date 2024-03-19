@@ -53,9 +53,7 @@ export class PrismaRepository implements LoanRepository {
     return loan === null ? null : new Loan(loan)
   }
 
-  public async cancelLoan (
-    id: LoanEntity['id']
-  ): Promise<void> {
+  public async cancelLoan (id: LoanEntity['id']): Promise<void> {
     await prisma.loan.update({
       where: {
         id: id.value

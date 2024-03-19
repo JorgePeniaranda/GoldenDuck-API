@@ -25,7 +25,10 @@ export class Investment implements InvestmentEntity {
     this.idAccount = new ID(investment.idAccount, `${ObjectName} -> IDAccount`)
     this.amount = new ValidBigInt(investment.amount, `${ObjectName} -> Date`)
     this.interest = new Float(investment.interest, `${ObjectName} -> Interest`)
-    this.createdAt = new PastDate(investment.createdAt, `${ObjectName} -> CreatedAt`)
+    this.createdAt = new PastDate(
+      investment.createdAt,
+      `${ObjectName} -> CreatedAt`
+    )
     this.dateEnd = new ValidDate(investment.dateEnd, `${ObjectName} -> DateEnd`)
     this.canceled = new ValidBoolean(
       investment.canceled,

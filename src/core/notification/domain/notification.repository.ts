@@ -9,7 +9,9 @@ export interface NotificationRepository {
     idAccount: NotificationEntity['idAccount']
     message: NotificationEntity['message']
   }) => Promise<Notification>
-  getAllNotification: (idAccount: NotificationEntity['idAccount']) => Promise<Notification[] | null >
+  getAllNotification: (
+    idAccount: NotificationEntity['idAccount'],
+  ) => Promise<Notification[] | null>
   findNotification: ({
     id
   }: {

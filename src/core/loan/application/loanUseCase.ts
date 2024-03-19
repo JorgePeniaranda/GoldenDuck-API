@@ -31,8 +31,7 @@ export class LoanUseCase {
   public async getAllLoan (
     idAccount?: LoanEntity['idAccount']
   ): Promise<Loan[] | null> {
-    const loans =
-      await this.loanRepository.getAllLoan(idAccount)
+    const loans = await this.loanRepository.getAllLoan(idAccount)
 
     return loans
   }
@@ -44,8 +43,7 @@ export class LoanUseCase {
       throw new RequestError(ErrorsDictionary.NoParams)
     }
 
-    const loan =
-      await this.loanRepository.findLoan(searchParams)
+    const loan = await this.loanRepository.findLoan(searchParams)
 
     return loan
   }

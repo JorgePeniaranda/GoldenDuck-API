@@ -13,9 +13,7 @@ export interface LoanRepository {
     interest: LoanEntity['interest']
     dateEnd: LoanEntity['dateEnd']
   }) => Promise<Loan>
-  getAllLoan: (
-    idAccount?: LoanEntity['idAccount'],
-  ) => Promise<Loan[] | null>
+  getAllLoan: (idAccount?: LoanEntity['idAccount']) => Promise<Loan[] | null>
   findLoan: ({ id }: { id?: LoanEntity['id'] }) => Promise<Loan | null>
   cancelLoan: (id: LoanEntity['id']) => Promise<void>
 }

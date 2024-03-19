@@ -18,12 +18,13 @@ export class TransactionUseCase {
     amount: TransactionEntity['amount']
     idCategory: TransactionEntity['idCategory']
   }): Promise<Transaction> {
-    const createdTransaction = await this.transactionRepository.createTransaction({
-      from,
-      to,
-      amount,
-      idCategory
-    })
+    const createdTransaction =
+      await this.transactionRepository.createTransaction({
+        from,
+        to,
+        amount,
+        idCategory
+      })
 
     return createdTransaction
   }
