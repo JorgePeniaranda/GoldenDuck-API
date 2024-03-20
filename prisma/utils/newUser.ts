@@ -22,6 +22,10 @@ import { $Enums } from '@prisma/client'
 export const newUser = async (amount: number): Promise<number[]> => {
   const listID = [] as number[]
   for (let i = 0; i < amount; i++) {
+    const randomDate = faker.date.past()
+    const salt = bcrypt.genSaltSync(10)
+    const password = bcrypt.hashSync('¿¡TEST123test!?', salt) // faker.internet.password()
+
     const { id } = await prisma.user.create({
       data: {
         name: faker.person.firstName(),
@@ -35,11 +39,14 @@ export const newUser = async (amount: number): Promise<number[]> => {
           min: 1000000000,
           max: 9999999999
         }),
-        password: bcrypt.hashSync('¿¡TEST123test!?'), // faker.internet.password()
+        password,
+        salt,
         address: faker.location.streetAddress(),
         birthDate: faker.date.birthdate(),
         sex: faker.helpers.enumValue($Enums.sex),
-        role: faker.helpers.enumValue($Enums.role)
+        role: faker.helpers.enumValue($Enums.role),
+        updatedAt: randomDate,
+        createdAt: randomDate
       },
       select: {
         id: true

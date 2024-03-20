@@ -18,42 +18,66 @@ enum sex {
   FEMALE
 }
 
+model Activity {
+  id       Int      @id @default(autoincrement())
+  idUser   Int?     @map("id_user")
+  action   String
+  details  String?
+  createAt DateTime @default(now()) @map("create_at")
+
+  // Relations
+  user User? @relation(fields: [idUser], references: [id])
+}
+
 model User {
-  id          Int       @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   name        String
   lastName    String
   dni         BigInt
   email       String
-  phoneNumber BigInt
+  phoneNumber BigInt   @map("phone_number")
   password    String
+  salt        String
   address     String
-  birthDate   DateTime
+  birthDate   DateTime @map("birth_date")
   sex         sex
-  updatedAt   DateTime  @default(now())
-  createdAt   DateTime  @default(now())
-  deleted     Boolean   @default(false)
-  role        role      @default(USER)
-  account     Account[]
-  sessions    Session[]
+  updatedAt   DateTime @default(now()) @map("updated_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+  deleted     Boolean  @default(false)
+  role        role     @default(USER)
+
+  // Relations
+  account    Account[]
+  sessions   Session[]
+  activities Activity[]
 }
 
 model Session {
-  id        Int      @id @default(autoincrement())
-  idUser    Int
-  ip        String?
-  userAgent String?
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [idUser], references: [id])
+  id         Int       @id @default(autoincrement())
+  idUser     Int       @map("id_user")
+  ip         String?
+  userAgent  String?   @map("user_agent")
+  location   String?
+  deviceType String?   @map("device_type")
+  token      String
+  active     Boolean   @default(true)
+  logoutAt   DateTime? @map("logout_at")
+  createdAt  DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  user User @relation(fields: [idUser], references: [id])
 }
 
 model Account {
-  id               Int            @id @default(autoincrement())
-  idUser           Int
-  balance          BigInt         @default(0)
-  imgUrl           String?
-  updatedAt        DateTime       @default(now())
-  createdAt        DateTime       @default(now())
-  deleted          Boolean        @default(false)
+  id        Int      @id @default(autoincrement())
+  idUser    Int      @map("id_user")
+  balance   BigInt   @default(0)
+  imgUrl    String?  @map("img_url")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  deleted   Boolean  @default(false)
+
+  // Relations
   user             User           @relation(fields: [idUser], references: [id])
   notifications    Notification[]
   messagesTo       Message[]      @relation(name: "toAccount")
@@ -66,86 +90,107 @@ model Account {
 }
 
 model Message {
-  id          Int      @id @default(autoincrement())
-  from        Int
-  to          Int
-  message     String
-  read        Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now())
-  deleted     Boolean  @default(false)
-  accountTo   Account  @relation(name: "toAccount", fields: [to], references: [id])
-  accountFrom Account  @relation(name: "fromAccount", fields: [from], references: [id])
+  id        Int      @id @default(autoincrement())
+  from      Int
+  to        Int
+  message   String
+  read      Boolean  @default(false)
+  updatedAt DateTime @default(now()) @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  deleted   Boolean  @default(false)
+
+  // Relations
+  accountTo   Account @relation(name: "toAccount", fields: [to], references: [id])
+  accountFrom Account @relation(name: "fromAccount", fields: [from], references: [id])
 }
 
 model Notification {
   id        Int      @id @default(autoincrement())
-  idAccount Int
+  idAccount Int      @map("id_account")
   message   String
   read      Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  account   Account  @relation(fields: [idAccount], references: [id])
+  updatedAt DateTime @default(now()) @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  account Account @relation(fields: [idAccount], references: [id])
 }
 
 model Card {
-  id          Int      @id @default(autoincrement())
-  idAccount   Int
-  number      BigInt
-  cvv         Int
-  expiration  DateTime
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now())
-  deleted     Boolean  @default(false)
-  account     Account  @relation(fields: [idAccount], references: [id])
+  id         Int      @id @default(autoincrement())
+  idAccount  Int      @map("id_account")
+  number     BigInt
+  cvv        Int
+  expiration DateTime
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @default(now()) @map("updated_at")
+  deleted    Boolean  @default(false)
+
+  // Relations
+  account Account @relation(fields: [idAccount], references: [id])
 }
 
 model Category {
-  id           Int           @id @default(autoincrement())
-  name         String        @unique
-  deleted      Boolean       @default(false)
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  deleted   Boolean  @default(false)
+  updatedAt DateTime @default(now()) @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
   transactions Transaction[]
 }
 
 model Transaction {
-  id          Int       @id @default(autoincrement())
-  from        Int
-  to          Int
-  amount      BigInt
-  idCategory  Int?
-  createdAt   DateTime  @default(now())
+  id         Int      @id @default(autoincrement())
+  from       Int
+  to         Int
+  amount     BigInt
+  idCategory Int?     @map("id_category")
+  updatedAt  DateTime @default(now()) @map("updated_at")
+  createdAt  DateTime @default(now()) @map("created_at")
+  canceled   Boolean  @default(false)
+
+  // Relations
   accountTo   Account   @relation(name: "toAccount", fields: [to], references: [id])
   accountFrom Account   @relation(name: "fromAccount", fields: [from], references: [id])
-  canceled    Boolean   @default(false)
   category    Category? @relation(fields: [idCategory], references: [id])
 }
 
 model Loan {
   id        Int      @id @default(autoincrement())
-  idAccount Int
+  idAccount Int      @map("id_account")
   amount    BigInt
   interest  Float
-  createdAt DateTime @default(now())
-  dateEnd   DateTime
-  canceled Boolean  @default(false)
-  account   Account  @relation(fields: [idAccount], references: [id])
+  dateEnd   DateTime @map("date_end")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  canceled  Boolean  @default(false)
+
+  // Relations
+  account Account @relation(fields: [idAccount], references: [id])
 }
 
 model Investment {
   id        Int      @id @default(autoincrement())
-  idAccount Int
+  idAccount Int      @map("id_account")
   amount    BigInt
   interest  Float
-  createdAt DateTime @default(now())
-  dateEnd   DateTime
-  canceled Boolean  @default(false)
-  account   Account  @relation(fields: [idAccount], references: [id])
+  dateEnd   DateTime @map("date_end")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  canceled  Boolean  @default(false)
+
+  // Relations
+  account Account @relation(fields: [idAccount], references: [id])
 }
 
 model Error {
   id        Int      @id @default(autoincrement())
   name      String?
   message   String?
-  createdAt DateTime @default(now())
+  stack     String?
+  updatedAt DateTime @default(now()) @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
   deleted   Boolean  @default(false)
 }

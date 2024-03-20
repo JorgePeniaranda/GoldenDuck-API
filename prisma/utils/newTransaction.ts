@@ -7,6 +7,8 @@ export const newTransaction = async (
 ): Promise<number[]> => {
   const listID = [] as number[]
   for (let i = 0; i < amount; i++) {
+    const randomDate = faker.date.past()
+
     const { id } = await prisma.transaction.create({
       data: {
         from: idUser,
@@ -14,7 +16,9 @@ export const newTransaction = async (
         amount: faker.number.int({
           min: 0,
           max: 100000
-        })
+        }),
+        updatedAt: randomDate,
+        createdAt: randomDate
       },
       select: {
         id: true

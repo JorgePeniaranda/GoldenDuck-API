@@ -7,6 +7,8 @@ export const newInvestment = async (
 ): Promise<number[]> => {
   const listID = [] as number[]
   for (let i = 0; i < amount; i++) {
+    const randomDate = faker.date.past()
+
     const { id } = await prisma.investment.create({
       data: {
         idAccount,
@@ -18,8 +20,9 @@ export const newInvestment = async (
           min: 1.3,
           max: 10
         }),
-        createdAt: faker.date.past(),
-        dateEnd: faker.date.future()
+        dateEnd: faker.date.future(),
+        updatedAt: randomDate,
+        createdAt: randomDate
       },
       select: {
         id: true

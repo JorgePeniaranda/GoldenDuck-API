@@ -1,20 +1,17 @@
 import { faker } from '@faker-js/faker'
 import { prisma } from '../../src/libs/prisma'
 
-export const newNotification = async (
-  idAccount: number,
+export const newActivity = async (
+  idUser: number,
   amount: number
 ): Promise<number[]> => {
   const listID = [] as number[]
   for (let i = 0; i < amount; i++) {
-    const randomDate = faker.date.past()
-
-    const { id } = await prisma.notification.create({
+    const { id } = await prisma.activity.create({
       data: {
-        idAccount,
-        message: faker.lorem.text(),
-        updatedAt: randomDate,
-        createdAt: randomDate
+        idUser,
+        action: faker.helpers.arrayElement(['GET', 'POST', 'PUT', 'PATCH', 'DELETE']),
+        details: faker.lorem.text()
       },
       select: {
         id: true

@@ -10,6 +10,7 @@ import { newTransaction } from './utils/newTransaction'
 import { newLoan } from './utils/newLoan'
 import { newInvestment } from './utils/newInvestment'
 import { newError } from './utils/newError'
+import { newActivity } from './utils/newActivity'
 
 const prisma = new PrismaClient()
 
@@ -18,17 +19,18 @@ async function main (amount: number): Promise<void> {
 
   // create data for user
   const dataUser = users.map(async (idUser) => {
-    await newSession(idUser, 5) // (idUser, #) -> number of sessions per user
-    const accounts = await newAccount(idUser, 2) // (idUser, #) -> number of accounts per user
+    await newSession(idUser, 10) // (idUser, #) -> number of sessions per user
+    const accounts = await newAccount(idUser, 3) // (idUser, #) -> number of accounts per user
+    await newActivity(idUser, 10) // (idAccount, #) -> number of activity per account
 
     // create data for each account from user
     const dataAccount = accounts.map(async (idAccount) => {
-      await newMessage(idAccount, 5) // (idAccount, #) -> number of messages per account
-      await newNotification(idAccount, 5) // (idAccount, #) -> number of messages per account
-      await newCard(idAccount, 5) // (idAccount, #) -> number of cards per account
-      await newTransaction(idAccount, 5) // (idAccount, #) -> number of transactions per account
-      await newLoan(idAccount, 5) // (idAccount, #) -> number of loans per account
-      await newInvestment(idAccount, 5) // (idAccount, #) -> number of investments per account
+      await newMessage(idAccount, 10) // (idAccount, #) -> number of messages per account
+      await newNotification(idAccount, 10) // (idAccount, #) -> number of messages per account
+      await newCard(idAccount, 10) // (idAccount, #) -> number of cards per account
+      await newTransaction(idAccount, 10) // (idAccount, #) -> number of transactions per account
+      await newLoan(idAccount, 10) // (idAccount, #) -> number of loans per account
+      await newInvestment(idAccount, 10) // (idAccount, #) -> number of investments per account
     })
     await Promise.all(dataAccount)
   })
@@ -36,8 +38,8 @@ async function main (amount: number): Promise<void> {
   await Promise.all(dataUser)
 
   // create categories and errors messages
-  await newCategory(5)
-  await newError(5)
+  await newCategory(50)
+  await newError(50)
 }
 
 main(10)

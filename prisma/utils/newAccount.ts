@@ -7,6 +7,8 @@ export const newAccount = async (
 ): Promise<number[]> => {
   const listID = [] as number[]
   for (let i = 0; i < amount; i++) {
+    const randomDate = faker.date.past()
+
     const { id } = await prisma.account.create({
       data: {
         idUser,
@@ -14,7 +16,9 @@ export const newAccount = async (
         balance: faker.number.int({
           min: 0,
           max: 1000000
-        })
+        }),
+        updatedAt: randomDate,
+        createdAt: randomDate
       },
       select: {
         id: true

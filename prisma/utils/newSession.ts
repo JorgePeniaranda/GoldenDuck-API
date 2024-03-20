@@ -7,12 +7,17 @@ export const newSession = async (
 ): Promise<number[]> => {
   const listID = [] as number[]
   for (let i = 0; i < amount; i++) {
+    const randomDate = faker.date.past()
+
     const { id } = await prisma.session.create({
       data: {
         idUser,
         ip: faker.internet.ip(),
         userAgent: faker.internet.userAgent(),
-        createdAt: faker.date.past()
+        location: faker.location.direction(),
+        deviceType: faker.internet.mac(),
+        token: faker.string.uuid(),
+        createdAt: randomDate
       },
       select: {
         id: true
