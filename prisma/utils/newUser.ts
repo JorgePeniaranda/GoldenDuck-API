@@ -46,7 +46,8 @@ export const newUser = async (amount: number): Promise<number[]> => {
         sex: faker.helpers.enumValue($Enums.sex),
         role: faker.helpers.enumValue($Enums.role),
         updatedAt: randomDate,
-        createdAt: randomDate
+        createdAt: randomDate,
+        actived: true // faker.datatype.boolean()
       },
       select: {
         id: true

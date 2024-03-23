@@ -21,6 +21,8 @@ import { type Alphabetic } from '@/valueObjects/string/alphabetic/alphabetic.val
 import { type PrimitiveAlphabetic } from '@/valueObjects/string/alphabetic/alphabetic.primitive'
 import { type AlphaNumeric } from '@/valueObjects/string/alphaNumeric/alphaNumeric.value'
 import { type PrimitiveAlphaNumeric } from '@/valueObjects/string/alphaNumeric/alphaNumeric.primitive'
+import { type ValidString } from '@/valueObjects/string/string/String.value'
+import { type PrimitiveValidString } from '@/valueObjects/string/string/string.primitive'
 
 export interface UserEntity {
   id: ID
@@ -30,11 +32,13 @@ export interface UserEntity {
   email: Email
   phoneNumber: PhoneNumber
   password: Password
+  salt: ValidString
   address: AlphaNumeric
   birthDate: BirthDate
   sex: Sex
   updatedAt: PastDate
   createdAt: PastDate
+  actived: ValidBoolean
   deleted: ValidBoolean
   role: Role
 }
@@ -47,11 +51,13 @@ export interface UserPrimitiveEntity {
   email: PrimitiveEmail['email']
   phoneNumber: PrimitivePhoneNumber['phoneNumber']
   password: PrimitivePassword['password']
+  salt: PrimitiveValidString['string']
   address: PrimitiveAlphaNumeric['alphaNumeric']
   birthDate: PrimitivePastDate['pastDate']
   sex: PrimitiveSex['sex']
   updatedAt: PrimitivePastDate['pastDate']
   createdAt: PrimitivePastDate['pastDate']
+  actived: PrimitiveValidBoolean['boolean']
   deleted: PrimitiveValidBoolean['boolean']
   role: PrimitiveRole['role']
 }

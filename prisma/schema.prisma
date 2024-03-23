@@ -43,6 +43,7 @@ model User {
   sex         sex
   updatedAt   DateTime @default(now()) @map("updated_at")
   createdAt   DateTime @default(now()) @map("created_at")
+  actived     Boolean  @default(false)
   deleted     Boolean  @default(false)
   role        role     @default(USER)
 
