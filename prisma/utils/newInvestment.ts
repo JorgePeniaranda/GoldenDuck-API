@@ -1,0 +1,38 @@
+import { faker } from '@faker-js/faker';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
+export const newInvestment = async (
+  idAccount: number,
+  amount: number,
+): Promise<number[]> => {
+  const listID = [] as number[];
+  for (let i = 0; i < amount; i++) {
+    const randomDate = faker.date.past();
+
+    const { id } = await prisma.investment.create({
+      data: {
+        idAccount,
+        amount: faker.number.int({
+          min: 0,
+          max: 100000,
+        }),
+        interest: faker.number.float({
+          min: 1.3,
+          max: 10,
+        }),
+        dateEnd: faker.date.future(),
+        updatedAt: randomDate,
+        createdAt: randomDate,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    listID.push(id);
+  }
+
+  return listID;
+};
