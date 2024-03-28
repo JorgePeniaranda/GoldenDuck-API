@@ -34,5 +34,13 @@
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "target": "ES2021"
+  },
+  "compileOnSave": true,
+  "include": ["index.ts", "./src/**/*"],
+  "exclude": ["node_modules"],
+  "buildOptions": {
+    "outdir": "./dist",
+    "rootDir": "./src",
+    "incremental": true
   }
 }
