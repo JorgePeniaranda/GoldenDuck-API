@@ -1,7 +1,7 @@
-import { NestFactory } from '@nestjs/core'
 import { ValidationPipe } from '@nestjs/common'
-import { UserModule } from './user/infraestructure/module/app.module'
+import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import { UserModule } from './user/app.module'
 
 async function bootstrap (): Promise<void> {
   const appOptions = { cors: true }
@@ -15,7 +15,7 @@ async function bootstrap (): Promise<void> {
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('api', app, document)
 
-  app.useGlobalPipes(new ValidationPipe())
+  app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true, forbidUnknownValues: true }))
   await app.listen(3000)
 }
 

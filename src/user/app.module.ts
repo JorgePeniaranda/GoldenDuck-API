@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
-import { UserUseCase } from '../../application/usecase/user.usecase'
-import { UserController } from '../controller/user.controller'
-import { UserRepositoryPrismaMySQL } from '../repository/UserRepositoryPrismaMySQL'
+import { UserRepositoryPrismaMySQL } from './data-access/user-prisma-mysql.repository'
+import { UserUseCase } from './domain/service/user.service'
+import { UserController } from './entry-points/user.controller'
 
 @Module({
   controllers: [UserController],

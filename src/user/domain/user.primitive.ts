@@ -1,29 +1,20 @@
+import { type User } from '@prisma/client'
+
 export interface UserPrimitive {
-  id: number
-  name: string
-  lastName: string
-  dni: number | bigint
-  email: string
-  phoneNumber: number | bigint
-  password: string
-  salt: string
-  address: string
-  birthDate: Date
-  sex: UserSex
-  updatedAt: Date
-  createdAt: Date
-  actived: boolean
-  deleted: boolean
-  role: UserRoles
-}
-
-export enum UserSex {
-  MALE = 'MALE',
-  FEMALE = 'FEMALE'
-}
-
-export enum UserRoles {
-  ADMIN = 'ADMIN',
-  SUPPORT = 'SUPPORT',
-  USER = 'USER'
+  id: User['id']
+  name: User['name']
+  lastName: User['lastName']
+  dni: User['dni']
+  email: User['email']
+  phoneNumber: User['phoneNumber']
+  password: User['password']
+  salt: User['salt']
+  address: User['address']
+  birthDate: User['birthDate']
+  sex: User['sex']
+  updatedAt: User['updatedAt']
+  createdAt: User['createdAt']
+  actived: User['actived']
+  deleted: User['deleted']
+  role: User['role']
 }
