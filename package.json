@@ -21,7 +21,7 @@
   ],
   "main": "index.ts",
   "engines": {
-    "node": ">20"
+    "node": ">18"
   },
   "scripts": {
     "dev": "nodemon index.ts",
