@@ -1,7 +1,8 @@
 import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
-import { UserModule } from './user/app.module'
+import { UserModule } from './core/user/app.module'
+import './utils/fixes'
 
 async function bootstrap (): Promise<void> {
   const appOptions = { cors: true }

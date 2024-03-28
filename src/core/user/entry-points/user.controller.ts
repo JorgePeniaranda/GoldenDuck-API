@@ -1,4 +1,3 @@
-import { type User } from '@/user/domain/user.entity'
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { ApiCreatedResponse, ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateUserDTO } from '../domain/dto/create-user.dto'
@@ -7,6 +6,7 @@ import { FindUserDTO } from '../domain/dto/find-user.dto'
 import { IDUserDTO } from '../domain/dto/id-user.dto'
 import { UpdateUserDTO } from '../domain/dto/update-user.dto'
 import { UserUseCase } from '../domain/service/user.service'
+import { type User } from '../domain/user.entity'
 import { type UserPrimitive } from '../domain/user.primitive'
 import { UserResponse } from './user.response'
 

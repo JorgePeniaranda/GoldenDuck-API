@@ -25,6 +25,8 @@
         "./src/*"
       ]
     },
+    "types": ["custom-types"],
+    "typeRoots": ["./src/types"],
     "removeComments": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
