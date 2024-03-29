@@ -1,3 +1,4 @@
+import { Tracking } from '@/utils/decorators'
 import { Injectable } from '@nestjs/common'
 import { PrismaClient } from '@prisma/client'
 import { type CreateUserDTO } from '../domain/dto/create-user.dto'
@@ -12,6 +13,7 @@ const prisma = new PrismaClient()
 
 @Injectable()
 export class UserRepositoryPrismaMySQL implements UserRepository {
+  @Tracking()
   public async createUser (data: CreateUserDTO): Promise<User> {
     const createdUser = await prisma.user.create({
       data
@@ -20,6 +22,7 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     return new User(createdUser)
   }
 
+  @Tracking()
   public async updateUser ({ id }: IDUserDTO, data: UpdateUserDTO): Promise<User> {
     const updatedUser = await prisma.user.update({
       where: {
@@ -39,6 +42,7 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     return new User(updatedUser)
   }
 
+  @Tracking()
   public async deleteUser ({ id }: IDUserDTO, data: DeleteUserDTO): Promise<void> {
     await prisma.user.update({
       where: {
@@ -52,6 +56,7 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     })
   }
 
+  @Tracking()
   public async findUser ({
     dni,
     email,
@@ -75,6 +80,7 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     return new User(findUser)
   }
 
+  @Tracking()
   public async findUserByID ({
     id
   }: IDUserDTO): Promise<User | null> {

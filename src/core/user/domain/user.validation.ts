@@ -9,7 +9,7 @@ export class UserValidations implements UserPrimitive {
     type: Number
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
-  readonly id: UserPrimitive['id']
+    id: UserPrimitive['id']
 
   /* ---------- NAME ---------- */
   @ApiProperty({
@@ -39,7 +39,7 @@ export class UserValidations implements UserPrimitive {
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @Min(10000000)
   @Max(99999999)
-  readonly dni: UserPrimitive['dni']
+    dni: UserPrimitive['dni']
 
   /* ---------- EMAIL ---------- */
   @ApiProperty({
@@ -96,7 +96,7 @@ export class UserValidations implements UserPrimitive {
   })
   @IsDate()
   @MaxDate(new Date(new Date().setFullYear(new Date().getFullYear() - 18))) // 18 years old
-  readonly birthDate: UserPrimitive['birthDate']
+    birthDate: UserPrimitive['birthDate']
 
   /* ---------- SEX ---------- */
   @ApiProperty({
@@ -104,7 +104,7 @@ export class UserValidations implements UserPrimitive {
     type: Date
   })
   @IsString()
-  readonly sex: UserPrimitive['sex']
+    sex: UserPrimitive['sex']
 
   /* ---------- UPDATED AT ---------- */
   @ApiProperty({
@@ -113,7 +113,7 @@ export class UserValidations implements UserPrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
-  readonly updatedAt: UserPrimitive['updatedAt']
+    updatedAt: UserPrimitive['updatedAt']
 
   /* ---------- CREATED AT ---------- */
   @ApiProperty({
@@ -122,7 +122,7 @@ export class UserValidations implements UserPrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
-  readonly createdAt: UserPrimitive['createdAt']
+    createdAt: UserPrimitive['createdAt']
 
   /* ---------- ACTIVED ---------- */
   @ApiProperty({
