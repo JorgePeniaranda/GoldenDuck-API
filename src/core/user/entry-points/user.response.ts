@@ -7,7 +7,7 @@ export class UserResponse {
     example: 1,
     type: Number
   })
-  readonly id: UserPrimitive['id']
+    id: UserPrimitive['id']
 
   /* ---------- NAME ---------- */
   @ApiProperty({
@@ -28,7 +28,7 @@ export class UserResponse {
     example: 12345678,
     type: BigInt
   })
-  readonly dni: UserPrimitive['dni']
+    dni: UserPrimitive['dni']
 
   /* ---------- EMAIL ---------- */
   @ApiProperty({
@@ -49,7 +49,6 @@ export class UserResponse {
     example: '¿¡TEST123test!?',
     type: String
   })
-  @ApiProperty()
     password: UserPrimitive['password']
 
   /* ---------- ADDRESS ---------- */
@@ -64,28 +63,28 @@ export class UserResponse {
     example: new Date('2000-01-01'),
     type: Date
   })
-  readonly birthDate: UserPrimitive['birthDate']
+    birthDate: UserPrimitive['birthDate']
 
   /* ---------- SEX ---------- */
   @ApiProperty({
     example: 'MALE',
     type: Date
   })
-  readonly sex: UserPrimitive['sex']
+    sex: UserPrimitive['sex']
 
   /* ---------- UPDATED AT ---------- */
   @ApiProperty({
     example: new Date(),
     type: Date
   })
-  readonly updatedAt: UserPrimitive['updatedAt']
+    updatedAt: UserPrimitive['updatedAt']
 
   /* ---------- CREATED AT ---------- */
   @ApiProperty({
     example: new Date(),
     type: Date
   })
-  readonly createdAt: UserPrimitive['createdAt']
+    createdAt: UserPrimitive['createdAt']
 
   /* ---------- ACTIVED ---------- */
   @ApiProperty({

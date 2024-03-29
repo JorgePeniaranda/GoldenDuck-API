@@ -7,10 +7,10 @@ import { type User } from './user.entity'
 
 export interface UserRepository {
   createUser: (user: CreateUserDTO) => Promise<User>
-  findUser: (params: FindUserDTO) => Promise<User>
+  findUser: (params: FindUserDTO) => Promise<User | null>
   findUserByID: ({
     id
-  }: IDUserDTO) => Promise<User>
+  }: IDUserDTO) => Promise<User | null>
   updateUser: (id: IDUserDTO, user: UpdateUserDTO) => Promise<User>
   deleteUser: (id: IDUserDTO, data: DeleteUserDTO) => Promise<void>
 }

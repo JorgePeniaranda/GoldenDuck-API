@@ -75,6 +75,7 @@ export class UserValidations implements UserPrimitive {
   })
     password: UserPrimitive['password']
 
+  /* ---------- SALT ---------- */
   @IsString()
     salt: string
 

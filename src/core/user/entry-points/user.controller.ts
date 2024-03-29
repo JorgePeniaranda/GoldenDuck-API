@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from '@nestjs/common'
 import { ApiCreatedResponse, ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateUserDTO } from '../domain/dto/create-user.dto'
 import { DeleteUserDTO } from '../domain/dto/delete-user.dto'
@@ -30,7 +30,13 @@ export class UserController {
   })
   @Get('/:id')
   async findUserByID (@Body() params: FindUserDTO): Promise<object> {
-    return await this.userUseCase.findUser(params)
+    const user = await this.userUseCase.findUser(params)
+
+    if (user === null) {
+      throw new NotFoundException('User not found')
+    }
+
+    return user
   }
 
   @ApiOkResponse({

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { PrismaClient } from '@prisma/client'
 import { type CreateUserDTO } from '../domain/dto/create-user.dto'
 import { type DeleteUserDTO } from '../domain/dto/delete-user.dto'
@@ -40,20 +40,6 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
   }
 
   public async deleteUser ({ id }: IDUserDTO, data: DeleteUserDTO): Promise<void> {
-    const user = await prisma.user.findUnique({
-      where: {
-        id,
-        deleted: false
-      },
-      select: {
-        password: true
-      }
-    })
-
-    if (data.password === user?.password) {
-      throw new UnauthorizedException('Password') // change to custom message
-    }
-
     await prisma.user.update({
       where: {
         id,
@@ -70,7 +56,7 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     dni,
     email,
     phoneNumber
-  }: FindUserDTO): Promise<User> {
+  }: FindUserDTO): Promise<User | null> {
     const findUser = await prisma.user.findFirst({
       where: {
         OR: [
@@ -83,7 +69,7 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     })
 
     if (findUser === null) {
-      throw new NotFoundException('User not found') // change to custom message
+      return null
     }
 
     return new User(findUser)
@@ -91,7 +77,7 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
 
   public async findUserByID ({
     id
-  }: IDUserDTO): Promise<User> {
+  }: IDUserDTO): Promise<User | null> {
     const findUser = await prisma.user.findUnique({
       where: {
         id,
@@ -100,7 +86,7 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     })
 
     if (findUser === null) {
-      throw new NotFoundException('User not found') // change to custom message
+      return null
     }
 
     return new User(findUser)
