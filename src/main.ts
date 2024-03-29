@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { UserModule } from './core/user/app.module'
 import './utils/fixes'
+import { findAvailablePort } from './utils/server'
 
 async function bootstrap (): Promise<void> {
   const appOptions = { cors: true }
@@ -17,7 +18,8 @@ async function bootstrap (): Promise<void> {
   SwaggerModule.setup('api', app, document)
 
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true, forbidUnknownValues: true }))
-  await app.listen(3000)
+
+  await findAvailablePort(app, 3000)
 }
 
 bootstrap() // eslint-disable-line @typescript-eslint/no-floating-promises
