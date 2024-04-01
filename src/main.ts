@@ -1,13 +1,13 @@
 import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
-import { UserModule } from './core/user/app.module'
+import { AppModule } from './app.module'
 import './utils/fixes'
 import { findAvailablePort } from './utils/server'
 
 async function bootstrap (): Promise<void> {
   const appOptions = { cors: true }
-  const app = await NestFactory.create(UserModule, appOptions)
+  const app = await NestFactory.create(AppModule, appOptions)
 
   const config = new DocumentBuilder()
     .setTitle('Golden Duck')

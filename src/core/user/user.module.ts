@@ -8,6 +8,7 @@ import { UserController } from './entry-points/user.controller'
   providers: [UserUseCase, {
     provide: 'UserRepository',
     useClass: UserRepositoryPrismaMySQL
-  }]
+  }],
+  exports: [UserUseCase]
 })
 export class UserModule {}

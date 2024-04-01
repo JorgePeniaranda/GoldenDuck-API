@@ -23,6 +23,11 @@ export class UserUseCase {
   }
 
   @Tracking()
+  async findUserByID (id: IDUserDTO): Promise<User | null> {
+    return await this.userRepository.findUserByID(id)
+  }
+
+  @Tracking()
   activateUser (): void {
 
   }

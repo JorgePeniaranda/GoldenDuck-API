@@ -1,4 +1,4 @@
 import { PickType } from '@nestjs/swagger'
-import { UserValidations } from '../user.validation'
+import { UserDTO } from '../user.dto'
 
-export class DeleteUserDTO extends PickType(UserValidations, ['password']) { }
+export class DeleteUserDTO extends PickType(UserDTO, ['password']) { }
