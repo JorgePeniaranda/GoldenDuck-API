@@ -2,6 +2,7 @@ import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { AppModule } from './app.module'
+import { DEFAULT_APP_PORT } from './constants'
 import './utils/fixes'
 import { findAvailablePort } from './utils/server'
 
@@ -19,7 +20,7 @@ async function bootstrap (): Promise<void> {
 
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true, forbidUnknownValues: true }))
 
-  await findAvailablePort(app, 3000)
+  await findAvailablePort(app, DEFAULT_APP_PORT)
 }
 
 bootstrap() // eslint-disable-line @typescript-eslint/no-floating-promises
