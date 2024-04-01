@@ -1,4 +1,3 @@
-import { Tracking } from '@/utils/decorators'
 import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from '@nestjs/common'
 import { ApiCreatedResponse, ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateUserDTO } from '../domain/dto/create-user.dto'
@@ -21,7 +20,6 @@ export class UserController {
     type: UserResponse
   })
   @Post()
-  @Tracking()
   async createUser (@Body() user: CreateUserDTO): Promise<User> {
     return await this.userUseCase.createUser(user)
   }
@@ -31,7 +29,6 @@ export class UserController {
     type: UserResponse
   })
   @Get('/:id')
-  @Tracking()
   async findUser (@Body() params: FindUserDTO): Promise<object> {
     const user = await this.userUseCase.findUser(params)
 
@@ -47,7 +44,6 @@ export class UserController {
     type: UserResponse
   })
   @Put('/:id')
-  @Tracking()
   async updateUser (@Param('id') id: IDUserDTO, @Body() data: UpdateUserDTO): Promise<UserPrimitive> {
     return await this.userUseCase.updateUser(id, data)
   }
@@ -62,7 +58,6 @@ export class UserController {
   })
   @ApiResponse({})
   @Delete('/:id')
-  @Tracking()
   async deleteUser (@Param() id: IDUserDTO, @Body() data: DeleteUserDTO): Promise<void> {
     await this.userUseCase.deleteUser(id, data)
   }
