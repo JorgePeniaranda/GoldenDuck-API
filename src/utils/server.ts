@@ -14,12 +14,21 @@ export const getEnvValue = (envName: string, defaultValue?: string): string => {
   throw new Error('env error config: ' + envName)
 }
 
-export const findAvailablePort = async (server: INestApplication, port: number): Promise<number> => {
-  server.listen(port).catch(async (error) => {
+export const findAvailablePort = async (server: INestApplication, port: number | string): Promise<number> => {
+  if (typeof port === 'string') {
+    port = parseInt(port)
+  }
+
+  if (Number.isNaN(port) || port < 0) {
+    Logger.error('Invalid port number', 'NestApplication')
+    throw new Error('Invalid port number')
+  }
+
+  server.listen(port).then(() => {
+    Logger.log(`Running on port: ${port}`, 'NestApplication')
+  }).catch(async (error) => {
     if (error.code === 'EADDRINUSE') {
-      await findAvailablePort(server, port + 1).then((AvaliblePort) => {
-        Logger.log(`Running on port ${AvaliblePort}`, 'NestApplication')
-      })
+      await findAvailablePort(server, port + 1)
     }
   })
 

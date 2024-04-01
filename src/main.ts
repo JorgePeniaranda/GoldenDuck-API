@@ -4,7 +4,9 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { AppModule } from './app.module'
 import { DEFAULT_APP_PORT } from './constants'
 import './utils/fixes'
-import { findAvailablePort } from './utils/server'
+import { findAvailablePort, getEnvValue } from './utils/server'
+
+const port = getEnvValue('APP_PORT', String(DEFAULT_APP_PORT))
 
 async function bootstrap (): Promise<void> {
   const appOptions = { cors: true }
@@ -20,7 +22,7 @@ async function bootstrap (): Promise<void> {
 
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true, forbidUnknownValues: true }))
 
-  await findAvailablePort(app, DEFAULT_APP_PORT)
+  await findAvailablePort(app, port)
 }
 
 bootstrap() // eslint-disable-line @typescript-eslint/no-floating-promises
