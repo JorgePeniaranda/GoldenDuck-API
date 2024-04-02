@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Post
+} from '@nestjs/common'
 import { ApiResponse, ApiTags } from '@nestjs/swagger'
 import { type Category } from '../domain/category.entity'
 import { type CategoryPrimitive } from '../domain/category.primitive'
@@ -33,7 +42,9 @@ export class CategoryController {
   }
 
   @Get('/:id')
-  async getCategory (@Param('id', new ParseIntPipe()) id: CategoryPrimitive['id']): Promise<Category> {
+  async getCategory (
+    @Param('id', new ParseIntPipe()) id: CategoryPrimitive['id']
+  ): Promise<Category> {
     const category = await this.categoryService.find(id)
 
     if (category === null) {
@@ -44,7 +55,9 @@ export class CategoryController {
   }
 
   @Delete('/:id')
-  async deleteCategory (@Param('id', new ParseIntPipe()) id: CategoryPrimitive['id']): Promise<void> {
+  async deleteCategory (
+    @Param('id', new ParseIntPipe()) id: CategoryPrimitive['id']
+  ): Promise<void> {
     await this.categoryService.delete(id)
   }
 }

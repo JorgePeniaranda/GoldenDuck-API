@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Post
+} from '@nestjs/common'
 import { ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateSessionDTO } from '../domain/dto/create-session'
 import { SessionService } from '../domain/service/session.service'
@@ -33,7 +42,9 @@ export class SessionController {
   }
 
   @Get('/:id')
-  async getSession (@Param('id', new ParseIntPipe()) id: SessionPrimitive['id']): Promise<Session> {
+  async getSession (
+    @Param('id', new ParseIntPipe()) id: SessionPrimitive['id']
+  ): Promise<Session> {
     const session = await this.sessionService.find(id)
 
     if (session === null) {
@@ -44,7 +55,9 @@ export class SessionController {
   }
 
   @Delete('/:id')
-  async deleteSession (@Param('id', new ParseIntPipe()) id: SessionPrimitive['id']): Promise<void> {
+  async deleteSession (
+    @Param('id', new ParseIntPipe()) id: SessionPrimitive['id']
+  ): Promise<void> {
     await this.sessionService.delete(id)
   }
 }

@@ -6,7 +6,10 @@ import { type CreateErrorDTO } from '../dto/create-category'
 
 @Injectable()
 export class CategoryService {
-  constructor (@Inject('CategoryRepository') private readonly categoryRepository: CategoryRepository) {}
+  constructor (
+    @Inject('CategoryRepository')
+    private readonly categoryRepository: CategoryRepository
+  ) {}
 
   public async create (data: CreateErrorDTO): Promise<Category> {
     return await this.categoryRepository.create(data)

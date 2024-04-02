@@ -6,9 +6,13 @@ import { ErrorController } from './entry-points/error.controller'
 
 @Module({
   controllers: [ErrorController],
-  providers: [ErrorService, {
-    provide: 'ErrorRepository',
-    useClass: ErrorRepositoryPrismaMySQL
-  }, PrismaService]
+  providers: [
+    ErrorService,
+    {
+      provide: 'ErrorRepository',
+      useClass: ErrorRepositoryPrismaMySQL
+    },
+    PrismaService
+  ]
 })
 export class ErrorModule {}

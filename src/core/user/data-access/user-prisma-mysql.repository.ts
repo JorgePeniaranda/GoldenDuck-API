@@ -20,7 +20,10 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     return new User(createdUser)
   }
 
-  public async updateUser ({ id }: IDUserDTO, data: UpdateUserDTO): Promise<User> {
+  public async updateUser (
+    { id }: IDUserDTO,
+    data: UpdateUserDTO
+  ): Promise<User> {
     const updatedUser = await prisma.user.update({
       where: {
         id
@@ -39,7 +42,10 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     return new User(updatedUser)
   }
 
-  public async deleteUser ({ id }: IDUserDTO, data: DeleteUserDTO): Promise<void> {
+  public async deleteUser (
+    { id }: IDUserDTO,
+    data: DeleteUserDTO
+  ): Promise<void> {
     await prisma.user.update({
       where: {
         id,
@@ -59,11 +65,7 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
   }: FindUserDTO): Promise<User | null> {
     const findUser = await prisma.user.findFirst({
       where: {
-        OR: [
-          { dni },
-          { email },
-          { phoneNumber }
-        ],
+        OR: [{ dni }, { email }, { phoneNumber }],
         deleted: false
       }
     })
@@ -75,9 +77,7 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     return new User(findUser)
   }
 
-  public async findUserByID ({
-    id
-  }: IDUserDTO): Promise<User | null> {
+  public async findUserByID ({ id }: IDUserDTO): Promise<User | null> {
     const findUser = await prisma.user.findUnique({
       where: {
         id,

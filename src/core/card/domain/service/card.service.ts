@@ -7,7 +7,9 @@ import { type CreateCardDTO } from '../dto/create-card'
 
 @Injectable()
 export class CardService {
-  constructor (@Inject('CardRepository') private readonly cardRepository: CardRepository) {}
+  constructor (
+    @Inject('CardRepository') private readonly cardRepository: CardRepository
+  ) {}
 
   public async create (data: CreateCardDTO): Promise<Card> {
     return await this.cardRepository.create(data)

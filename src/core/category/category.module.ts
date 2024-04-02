@@ -6,9 +6,13 @@ import { CategoryController } from './entry-points/category.controller'
 
 @Module({
   controllers: [CategoryController],
-  providers: [CategoryService, {
-    provide: 'CategoryRepository',
-    useClass: CategoryRepositoryPrismaMySQL
-  }, PrismaService]
+  providers: [
+    CategoryService,
+    {
+      provide: 'CategoryRepository',
+      useClass: CategoryRepositoryPrismaMySQL
+    },
+    PrismaService
+  ]
 })
 export class CategoryModule {}

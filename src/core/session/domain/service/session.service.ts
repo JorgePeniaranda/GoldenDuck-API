@@ -6,7 +6,10 @@ import { SessionRepository } from '../session.repository'
 
 @Injectable()
 export class SessionService {
-  constructor (@Inject('SessionRepository') private readonly sessionRepository: SessionRepository) {}
+  constructor (
+    @Inject('SessionRepository')
+    private readonly sessionRepository: SessionRepository
+  ) {}
 
   public async create (data: CreateSessionDTO): Promise<Session> {
     return await this.sessionRepository.create(data)

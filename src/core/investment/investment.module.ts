@@ -6,9 +6,13 @@ import { InvestmentController } from './entry-points/investment.controller'
 
 @Module({
   controllers: [InvestmentController],
-  providers: [InvestmentService, {
-    provide: 'InvestmentRepository',
-    useClass: InvestmentRepositoryPrismaMySQL
-  }, PrismaService]
+  providers: [
+    InvestmentService,
+    {
+      provide: 'InvestmentRepository',
+      useClass: InvestmentRepositoryPrismaMySQL
+    },
+    PrismaService
+  ]
 })
 export class InvestmentModule {}

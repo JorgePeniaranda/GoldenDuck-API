@@ -6,9 +6,13 @@ import { TransactionController } from './entry-points/transaction.controller'
 
 @Module({
   controllers: [TransactionController],
-  providers: [TransactionService, {
-    provide: 'TransactionRepository',
-    useClass: TransactionRepositoryPrismaMySQL
-  }, PrismaService]
+  providers: [
+    TransactionService,
+    {
+      provide: 'TransactionRepository',
+      useClass: TransactionRepositoryPrismaMySQL
+    },
+    PrismaService
+  ]
 })
 export class TransactionModule {}

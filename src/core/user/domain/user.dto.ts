@@ -1,5 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsAlpha, IsAlphanumeric, IsBoolean, IsDate, IsEmail, IsNotEmpty, IsNumber, IsPositive, IsString, IsStrongPassword, Max, MaxDate, Min } from 'class-validator'
+import {
+  IsAlpha,
+  IsAlphanumeric,
+  IsBoolean,
+  IsDate,
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsPositive,
+  IsString,
+  IsStrongPassword,
+  Max,
+  MaxDate,
+  Min
+} from 'class-validator'
 import { type UserPrimitive } from './user.primitive'
 
 export class UserDTO implements UserPrimitive {

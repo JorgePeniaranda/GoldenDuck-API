@@ -18,14 +18,16 @@ export class LoanRepositoryPrismaMySQL implements LoanRepository {
     return new Loan(newLoan)
   }
 
-  public async getAll (idAccount: AccountPrimitive['id']): Promise<Loan[] | null> {
+  public async getAll (
+    idAccount: AccountPrimitive['id']
+  ): Promise<Loan[] | null> {
     const loans = await this.prisma.loan.findMany({
       where: {
         idAccount
       }
     })
 
-    return loans.map(loan => new Loan(loan))
+    return loans.map((loan) => new Loan(loan))
   }
 
   public async find (id: LoanPrimitive['id']): Promise<Loan | null> {

@@ -13,6 +13,19 @@ import { TransactionModule } from './core/transaction/transactions.module'
 import { UserModule } from './core/user/user.module'
 
 @Module({
-  imports: [AuthModule, UserModule, SessionModule, AccountModule, CardModule, MessageModule, NotificationModule, TransactionModule, LoanModule, InvestmentModule, CategoryModule, ErrorModule]
+  imports: [
+    AuthModule,
+    UserModule,
+    SessionModule,
+    AccountModule,
+    CardModule,
+    MessageModule,
+    NotificationModule,
+    TransactionModule,
+    LoanModule,
+    InvestmentModule,
+    CategoryModule,
+    ErrorModule
+  ]
 })
 export class AppModule {}

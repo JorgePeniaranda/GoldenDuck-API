@@ -17,12 +17,20 @@ async function bootstrap (): Promise<void> {
   app.enableCors()
   app.use(helmet())
   app.use(compression())
-  app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true, forbidUnknownValues: true }))
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      forbidUnknownValues: true
+    })
+  )
 
   /* add documentation */
   const config = new DocumentBuilder()
     .setTitle('Golden Duck')
-    .setDescription('Online banking platform for money management, investments, and essential service payments.')
+    .setDescription(
+      'Online banking platform for money management, investments, and essential service payments.'
+    )
     .setVersion('3.0')
     .build()
   const document = SwaggerModule.createDocument(app, config)

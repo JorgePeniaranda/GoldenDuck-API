@@ -18,14 +18,16 @@ export class InvestmentRepositoryPrismaMySQL implements InvestmentRepository {
     return new Investment(newInvestment)
   }
 
-  public async getAll (idAccount: AccountPrimitive['id']): Promise<Investment[] | null> {
+  public async getAll (
+    idAccount: AccountPrimitive['id']
+  ): Promise<Investment[] | null> {
     const investments = await this.prisma.loan.findMany({
       where: {
         idAccount
       }
     })
 
-    return investments.map(investment => new Investment(investment))
+    return investments.map((investment) => new Investment(investment))
   }
 
   public async find (id: InvestmentPrimitive['id']): Promise<Investment | null> {

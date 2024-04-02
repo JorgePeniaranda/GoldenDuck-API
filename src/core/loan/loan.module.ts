@@ -6,9 +6,13 @@ import { LoanController } from './entry-points/loan.controller'
 
 @Module({
   controllers: [LoanController],
-  providers: [LoanService, {
-    provide: 'LoanRepository',
-    useClass: LoanRepositoryPrismaMySQL
-  }, PrismaService]
+  providers: [
+    LoanService,
+    {
+      provide: 'LoanRepository',
+      useClass: LoanRepositoryPrismaMySQL
+    },
+    PrismaService
+  ]
 })
 export class LoanModule {}

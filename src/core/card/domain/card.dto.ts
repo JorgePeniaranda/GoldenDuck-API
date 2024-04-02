@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsBoolean, IsDate, IsNumber, IsPositive, IsString, Length, MaxDate } from 'class-validator'
+import {
+  IsBoolean,
+  IsDate,
+  IsNumber,
+  IsPositive,
+  IsString,
+  Length,
+  MaxDate
+} from 'class-validator'
 import { type CardPrimitive } from './card.primitive'
 
 export class CardDTO implements CardPrimitive {

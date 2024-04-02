@@ -8,7 +8,10 @@ import { MessageRepository } from '../messages.repository'
 
 @Injectable()
 export class MessageService {
-  constructor (@Inject('MessageRepository') private readonly transactionRepository: MessageRepository) {}
+  constructor (
+    @Inject('MessageRepository')
+    private readonly transactionRepository: MessageRepository
+  ) {}
 
   public async create (data: CreateMessageDTO): Promise<Message> {
     return await this.transactionRepository.create(data)
@@ -22,7 +25,10 @@ export class MessageService {
     return await this.transactionRepository.find(id)
   }
 
-  public async update (id: MessagePrimitive['id'], data: UpdateMessageDTO): Promise<Message | null> {
+  public async update (
+    id: MessagePrimitive['id'],
+    data: UpdateMessageDTO
+  ): Promise<Message | null> {
     return await this.transactionRepository.update(id, data)
   }
 

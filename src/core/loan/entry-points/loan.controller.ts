@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Post
+} from '@nestjs/common'
 import { ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateLoanDTO } from '../domain/dto/create-loan'
 import { type Loan } from '../domain/loan.entity'
@@ -33,7 +42,9 @@ export class LoanController {
   }
 
   @Get('/:id')
-  async getLoan (@Param('id', new ParseIntPipe()) id: LoanPrimitive['id']): Promise<Loan> {
+  async getLoan (
+    @Param('id', new ParseIntPipe()) id: LoanPrimitive['id']
+  ): Promise<Loan> {
     const loan = await this.loanService.find(id)
 
     if (loan === null) {
@@ -44,7 +55,9 @@ export class LoanController {
   }
 
   @Delete('/:id')
-  async deleteLoan (@Param('id', new ParseIntPipe()) id: LoanPrimitive['id']): Promise<void> {
+  async deleteLoan (
+    @Param('id', new ParseIntPipe()) id: LoanPrimitive['id']
+  ): Promise<void> {
     await this.loanService.delete(id)
   }
 }

@@ -18,20 +18,21 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
     return new Transaction(newTransaction)
   }
 
-  public async getAll (id: AccountPrimitive['id']): Promise<Transaction[] | null> {
+  public async getAll (
+    id: AccountPrimitive['id']
+  ): Promise<Transaction[] | null> {
     const transactions = await this.prisma.transaction.findMany({
       where: {
-        OR: [
-          { from: id },
-          { to: id }
-        ]
+        OR: [{ from: id }, { to: id }]
       }
     })
 
-    return transactions.map(transaction => new Transaction(transaction))
+    return transactions.map((transaction) => new Transaction(transaction))
   }
 
-  public async find (id: TransactionPrimitive['id']): Promise<Transaction | null> {
+  public async find (
+    id: TransactionPrimitive['id']
+  ): Promise<Transaction | null> {
     const transaction = await this.prisma.transaction.findUnique({
       where: {
         id

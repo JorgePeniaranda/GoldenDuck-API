@@ -6,9 +6,13 @@ import { SessionController } from './entry-points/session.controller'
 
 @Module({
   controllers: [SessionController],
-  providers: [SessionService, {
-    provide: 'SessionRepository',
-    useClass: SessionRepositoryPrismaMySQL
-  }, PrismaService]
+  providers: [
+    SessionService,
+    {
+      provide: 'SessionRepository',
+      useClass: SessionRepositoryPrismaMySQL
+    },
+    PrismaService
+  ]
 })
 export class SessionModule {}

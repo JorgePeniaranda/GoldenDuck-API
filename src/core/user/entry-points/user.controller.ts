@@ -1,5 +1,19 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from '@nestjs/common'
-import { ApiCreatedResponse, ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+  Put
+} from '@nestjs/common'
+import {
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiResponse,
+  ApiTags
+} from '@nestjs/swagger'
 import { CreateUserDTO } from '../domain/dto/create-user.dto'
 import { DeleteUserDTO } from '../domain/dto/delete-user.dto'
 import { FindUserDTO } from '../domain/dto/find-user.dto'
@@ -44,7 +58,10 @@ export class UserController {
     type: UserResponse
   })
   @Put('/:id')
-  async updateUser (@Param('id') id: IDUserDTO, @Body() data: UpdateUserDTO): Promise<UserPrimitive> {
+  async updateUser (
+    @Param('id') id: IDUserDTO,
+      @Body() data: UpdateUserDTO
+  ): Promise<UserPrimitive> {
     return await this.userUseCase.updateUser(id, data)
   }
 
@@ -58,7 +75,10 @@ export class UserController {
   })
   @ApiResponse({})
   @Delete('/:id')
-  async deleteUser (@Param() id: IDUserDTO, @Body() data: DeleteUserDTO): Promise<void> {
+  async deleteUser (
+    @Param() id: IDUserDTO,
+      @Body() data: DeleteUserDTO
+  ): Promise<void> {
     await this.userUseCase.deleteUser(id, data)
   }
 }

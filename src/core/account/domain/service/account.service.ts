@@ -8,7 +8,10 @@ import { type UpdateAccountDTO } from '../dto/update-account'
 
 @Injectable()
 export class AccountService {
-  constructor (@Inject('AccountRepository') private readonly accountRepository: AccountRepository) {}
+  constructor (
+    @Inject('AccountRepository')
+    private readonly accountRepository: AccountRepository
+  ) {}
 
   public async create (data: CreateAccountDTO): Promise<Account> {
     return await this.accountRepository.create(data)
@@ -22,7 +25,10 @@ export class AccountService {
     return await this.accountRepository.find(id)
   }
 
-  public async update (id: AccountPrimitive['id'], account: UpdateAccountDTO): Promise<Account> {
+  public async update (
+    id: AccountPrimitive['id'],
+    account: UpdateAccountDTO
+  ): Promise<Account> {
     return await this.accountRepository.update(id, account)
   }
 

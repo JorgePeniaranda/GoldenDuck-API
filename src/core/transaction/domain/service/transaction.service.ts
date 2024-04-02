@@ -7,17 +7,24 @@ import { TransactionRepository } from '../transaction.repository'
 
 @Injectable()
 export class TransactionService {
-  constructor (@Inject('TransactionRepository') private readonly transactionRepository: TransactionRepository) {}
+  constructor (
+    @Inject('TransactionRepository')
+    private readonly transactionRepository: TransactionRepository
+  ) {}
 
   public async create (data: CreateTransactionDTO): Promise<Transaction> {
     return await this.transactionRepository.create(data)
   }
 
-  public async getAll (id: AccountPrimitive['id']): Promise<Transaction[] | null> {
+  public async getAll (
+    id: AccountPrimitive['id']
+  ): Promise<Transaction[] | null> {
     return await this.transactionRepository.getAll(id)
   }
 
-  public async find (id: TransactionPrimitive['id']): Promise<Transaction | null> {
+  public async find (
+    id: TransactionPrimitive['id']
+  ): Promise<Transaction | null> {
     return await this.transactionRepository.find(id)
   }
 

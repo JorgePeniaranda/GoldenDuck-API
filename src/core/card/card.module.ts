@@ -6,9 +6,13 @@ import { CardController } from './entry-points/card.controller'
 
 @Module({
   controllers: [CardController],
-  providers: [CardService, {
-    provide: 'CardRepository',
-    useClass: CardRepositoryPrismaMySQL
-  }, PrismaService]
+  providers: [
+    CardService,
+    {
+      provide: 'CardRepository',
+      useClass: CardRepositoryPrismaMySQL
+    },
+    PrismaService
+  ]
 })
 export class CardModule {}

@@ -9,7 +9,9 @@ import { UserRepository } from '../user.repository'
 
 @Injectable()
 export class UserUseCase {
-  constructor (@Inject('UserRepository') private readonly userRepository: UserRepository) {}
+  constructor (
+    @Inject('UserRepository') private readonly userRepository: UserRepository
+  ) {}
 
   async createUser (user: CreateUserDTO): Promise<User> {
     return await this.userRepository.createUser(user)
@@ -23,9 +25,7 @@ export class UserUseCase {
     return await this.userRepository.findUserByID(id)
   }
 
-  activateUser (): void {
-
-  }
+  activateUser (): void {}
 
   async updateUser (id: IDUserDTO, data: UpdateUserDTO): Promise<User> {
     return await this.userRepository.updateUser(id, data)

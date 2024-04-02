@@ -7,17 +7,24 @@ import { NotificationRepository } from '../notification.repository'
 
 @Injectable()
 export class NotificationService {
-  constructor (@Inject('NotificationRepository') private readonly notificationRepository: NotificationRepository) {}
+  constructor (
+    @Inject('NotificationRepository')
+    private readonly notificationRepository: NotificationRepository
+  ) {}
 
   public async create (data: CreateNotificationDTO): Promise<Notification> {
     return await this.notificationRepository.create(data)
   }
 
-  public async getAll (id: AccountPrimitive['id']): Promise<Notification[] | null> {
+  public async getAll (
+    id: AccountPrimitive['id']
+  ): Promise<Notification[] | null> {
     return await this.notificationRepository.getAll(id)
   }
 
-  public async find (id: TransactionPrimitive['id']): Promise<Notification | null> {
+  public async find (
+    id: TransactionPrimitive['id']
+  ): Promise<Notification | null> {
     return await this.notificationRepository.find(id)
   }
 

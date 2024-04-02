@@ -6,9 +6,13 @@ import { MessageController } from './entry-points/messages.controller'
 
 @Module({
   controllers: [MessageController],
-  providers: [MessageService, {
-    provide: 'MessageRepository',
-    useClass: MessageRepositoryPrismaMySQL
-  }, PrismaService]
+  providers: [
+    MessageService,
+    {
+      provide: 'MessageRepository',
+      useClass: MessageRepositoryPrismaMySQL
+    },
+    PrismaService
+  ]
 })
 export class MessageModule {}

@@ -8,8 +8,10 @@ import { Token } from '../token.entity'
 
 @Injectable()
 export class AuthUseCase {
-  constructor (private readonly userUseCase: UserUseCase,
-    private readonly jwtService: JwtService) {}
+  constructor (
+    private readonly userUseCase: UserUseCase,
+    private readonly jwtService: JwtService
+  ) {}
 
   async validateUser (email: string, password: string): Promise<User | null> {
     const user = await this.userUseCase.findUser({ email })

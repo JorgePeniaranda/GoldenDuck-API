@@ -7,13 +7,18 @@ import { InvestmentRepository } from '../investment.repository'
 
 @Injectable()
 export class InvestmentService {
-  constructor (@Inject('InvestmentRepository') private readonly investmentRepository: InvestmentRepository) {}
+  constructor (
+    @Inject('InvestmentRepository')
+    private readonly investmentRepository: InvestmentRepository
+  ) {}
 
   public async create (data: CreateInvestmentDTO): Promise<Investment> {
     return await this.investmentRepository.create(data)
   }
 
-  public async getAll (id: AccountPrimitive['id']): Promise<Investment[] | null> {
+  public async getAll (
+    id: AccountPrimitive['id']
+  ): Promise<Investment[] | null> {
     return await this.investmentRepository.getAll(id)
   }
 

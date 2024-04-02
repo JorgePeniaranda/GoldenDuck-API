@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Post
+} from '@nestjs/common'
 import { ApiResponse, ApiTags } from '@nestjs/swagger'
 import { type Card } from '../domain/card.entity'
 import { type CardPrimitive } from '../domain/card.primitive'
@@ -33,7 +42,9 @@ export class CardController {
   }
 
   @Get('/:id')
-  async getCard (@Param('id', new ParseIntPipe()) id: CardPrimitive['id']): Promise<Card> {
+  async getCard (
+    @Param('id', new ParseIntPipe()) id: CardPrimitive['id']
+  ): Promise<Card> {
     const transaction = await this.cardService.find(id)
 
     if (transaction === null) {
@@ -44,7 +55,9 @@ export class CardController {
   }
 
   @Delete('/:id')
-  async deleteCard (@Param('id', new ParseIntPipe()) id: CardPrimitive['id']): Promise<void> {
+  async deleteCard (
+    @Param('id', new ParseIntPipe()) id: CardPrimitive['id']
+  ): Promise<void> {
     await this.cardService.delete(id)
   }
 }

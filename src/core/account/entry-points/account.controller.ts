@@ -1,4 +1,14 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post, Put } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put
+} from '@nestjs/common'
 import { ApiResponse, ApiTags } from '@nestjs/swagger'
 
 import { IDUserDTO } from '@/core/user/domain/dto/id-user.dto'
@@ -36,7 +46,9 @@ export class AccountController {
   }
 
   @Get('/:id')
-  async getAccount (@Param('id', new ParseIntPipe()) id: AccountPrimitive['id']): Promise<Account> {
+  async getAccount (
+    @Param('id', new ParseIntPipe()) id: AccountPrimitive['id']
+  ): Promise<Account> {
     const account = await this.accountService.find(id)
 
     if (account === null) {
@@ -47,7 +59,10 @@ export class AccountController {
   }
 
   @Put('/config/image')
-  async configAccount (@Param('id', new ParseIntPipe()) id: AccountPrimitive['id'], @Body() data: UpdateAccountDTO): Promise<Account> {
+  async configAccount (
+    @Param('id', new ParseIntPipe()) id: AccountPrimitive['id'],
+      @Body() data: UpdateAccountDTO
+  ): Promise<Account> {
     const account = await this.accountService.update(id, data)
 
     if (account === null) {
@@ -58,7 +73,9 @@ export class AccountController {
   }
 
   @Delete('/:id')
-  async deleteAccount (@Param('id', new ParseIntPipe()) id: AccountPrimitive['id']): Promise<void> {
+  async deleteAccount (
+    @Param('id', new ParseIntPipe()) id: AccountPrimitive['id']
+  ): Promise<void> {
     await this.accountService.delete(id)
   }
 }

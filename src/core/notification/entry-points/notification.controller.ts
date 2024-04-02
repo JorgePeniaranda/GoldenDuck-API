@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Post
+} from '@nestjs/common'
 import { ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateNotificationDTO } from '../domain/dto/create-notification'
 import { type Notification } from '../domain/notification.entity'
@@ -15,7 +24,9 @@ export class NotificationController {
   constructor (private readonly notificationService: NotificationService) {}
 
   @Get()
-  async getAllTransaction (@Body() id: NotificationPrimitive['id']): Promise<Notification[]> {
+  async getAllTransaction (
+    @Body() id: NotificationPrimitive['id']
+  ): Promise<Notification[]> {
     const notifications = await this.notificationService.getAll(id)
 
     if (notifications === null) {
@@ -26,14 +37,18 @@ export class NotificationController {
   }
 
   @Post()
-  async createAccount (@Body() data: CreateNotificationDTO): Promise<Notification> {
+  async createAccount (
+    @Body() data: CreateNotificationDTO
+  ): Promise<Notification> {
     const notification = await this.notificationService.create(data)
 
     return notification
   }
 
   @Get('/:id')
-  async getTransaction (@Param('id', new ParseIntPipe()) id: NotificationPrimitive['id']): Promise<Notification> {
+  async getTransaction (
+    @Param('id', new ParseIntPipe()) id: NotificationPrimitive['id']
+  ): Promise<Notification> {
     const transaction = await this.notificationService.find(id)
 
     if (transaction === null) {
@@ -44,7 +59,9 @@ export class NotificationController {
   }
 
   @Delete('/:id')
-  async deleteTransaction (@Param('id', new ParseIntPipe()) id: NotificationPrimitive['id']): Promise<void> {
+  async deleteTransaction (
+    @Param('id', new ParseIntPipe()) id: NotificationPrimitive['id']
+  ): Promise<void> {
     await this.notificationService.delete(id)
   }
 }

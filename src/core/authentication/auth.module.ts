@@ -9,13 +9,16 @@ import { LocalStrategy } from './domain/service/local.strategy'
 import { AuthController } from './entry-points/auth.controller'
 
 @Module({
-  imports: [UserModule, PassportModule,
+  imports: [
+    UserModule,
+    PassportModule,
     JwtModule.register({
       secret: getEnvValue('JWT_SECRET'),
       signOptions: {
         expiresIn: getEnvValue('JWT_EXPIRATION_TIME')
       }
-    })],
+    })
+  ],
   controllers: [AuthController],
   providers: [AuthUseCase, LocalStrategy, JwtStrategy]
 })

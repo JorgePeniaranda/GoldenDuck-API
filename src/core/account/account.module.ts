@@ -6,9 +6,13 @@ import { AccountController } from './entry-points/account.controller'
 
 @Module({
   controllers: [AccountController],
-  providers: [AccountService, {
-    provide: 'AccountRepository',
-    useClass: AccountRepositoryPrismaMySQL
-  }, PrismaService]
+  providers: [
+    AccountService,
+    {
+      provide: 'AccountRepository',
+      useClass: AccountRepositoryPrismaMySQL
+    },
+    PrismaService
+  ]
 })
 export class AccountModule {}

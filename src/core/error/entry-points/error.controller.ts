@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Post
+} from '@nestjs/common'
 import { ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateErrorDTO } from '../domain/dto/create-error'
 import { type Error } from '../domain/error.entity'
@@ -33,7 +42,9 @@ export class ErrorController {
   }
 
   @Get('/:id')
-  async getError (@Param('id', new ParseIntPipe()) id: ErrorPrimitive['id']): Promise<Error> {
+  async getError (
+    @Param('id', new ParseIntPipe()) id: ErrorPrimitive['id']
+  ): Promise<Error> {
     const error = await this.errorService.find(id)
 
     if (error === null) {
@@ -44,7 +55,9 @@ export class ErrorController {
   }
 
   @Delete('/:id')
-  async deleteError (@Param('id', new ParseIntPipe()) id: ErrorPrimitive['id']): Promise<void> {
+  async deleteError (
+    @Param('id', new ParseIntPipe()) id: ErrorPrimitive['id']
+  ): Promise<void> {
     await this.errorService.delete(id)
   }
 }

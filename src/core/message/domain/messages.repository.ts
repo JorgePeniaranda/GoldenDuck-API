@@ -8,6 +8,9 @@ export interface MessageRepository {
   create: (transaction: CreateMessageDTO) => Promise<Message>
   getAll: (id: AccountPrimitive['id']) => Promise<Message[] | null>
   find: (id: MessagePrimitive['id']) => Promise<Message | null>
-  update: (id: MessagePrimitive['id'], message: UpdateMessageDTO) => Promise<Message | null>
+  update: (
+    id: MessagePrimitive['id'],
+    message: UpdateMessageDTO,
+  ) => Promise<Message | null>
   delete: (id: MessagePrimitive['id']) => Promise<void>
 }

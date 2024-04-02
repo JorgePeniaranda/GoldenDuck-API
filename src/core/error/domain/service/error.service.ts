@@ -6,7 +6,10 @@ import { ErrorRepository } from '../error.repository'
 
 @Injectable()
 export class ErrorService {
-  constructor (@Inject('ErrorRepository') private readonly errorRepository: ErrorRepository) {}
+  constructor (
+    @Inject('ErrorRepository')
+    private readonly errorRepository: ErrorRepository
+  ) {}
 
   public async create (data: CreateErrorDTO): Promise<Error> {
     return await this.errorRepository.create(data)

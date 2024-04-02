@@ -6,9 +6,13 @@ import { NotificationController } from './entry-points/notification.controller'
 
 @Module({
   controllers: [NotificationController],
-  providers: [NotificationService, {
-    provide: 'NotificationRepository',
-    useClass: NotificationRepositoryPrismaMySQL
-  }, PrismaService]
+  providers: [
+    NotificationService,
+    {
+      provide: 'NotificationRepository',
+      useClass: NotificationRepositoryPrismaMySQL
+    },
+    PrismaService
+  ]
 })
 export class NotificationModule {}

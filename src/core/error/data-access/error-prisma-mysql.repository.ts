@@ -20,7 +20,7 @@ export class ErrorRepositoryPrismaMySQL implements ErrorRepository {
   public async getAll (): Promise<Error[] | null> {
     const errors = await this.prisma.error.findMany()
 
-    return errors.map(error => new Error(error))
+    return errors.map((error) => new Error(error))
   }
 
   public async find (id: ErrorPrimitive['id']): Promise<Error | null> {
