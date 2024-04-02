@@ -134,9 +134,9 @@ model Card {
 model Category {
   id        Int      @id @default(autoincrement())
   name      String   @unique
-  deleted   Boolean  @default(false)
   updatedAt DateTime @default(now()) @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
+  deleted   Boolean  @default(false)
 
   // Relations
   transactions Transaction[]
