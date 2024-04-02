@@ -9,6 +9,7 @@ export class AccountDTO implements AccountPrimitive {
     type: Number
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
+  @IsPositive()
     id: AccountPrimitive['id']
 
   /* ---------- NAME ---------- */

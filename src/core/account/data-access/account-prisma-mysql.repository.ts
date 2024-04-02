@@ -2,9 +2,9 @@ import { PrismaService } from '@/core/shared/prisma.repository'
 import { type IDUserDTO } from '@/core/user/domain/dto/id-user.dto'
 import { Injectable } from '@nestjs/common'
 import { Account } from '../domain/account.entity'
+import { type AccountPrimitive } from '../domain/account.primitive'
 import { type AccountRepository } from '../domain/account.repository'
 import { type CreateAccountDTO } from '../domain/dto/create-account'
-import { type IDAccountDTO } from '../domain/dto/id-account'
 import { type UpdateAccountDTO } from '../domain/dto/update-account'
 
 @Injectable()
@@ -29,7 +29,7 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
     return accounts.map(account => new Account(account))
   }
 
-  public async find ({ id }: IDAccountDTO): Promise<Account | null> {
+  public async find (id: AccountPrimitive['id']): Promise<Account | null> {
     const account = await this.prisma.account.findUnique({
       where: {
         id
@@ -39,7 +39,7 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
     return account !== null ? new Account(account) : null
   }
 
-  public async update ({ id }: IDAccountDTO, account: UpdateAccountDTO): Promise<Account> {
+  public async update (id: AccountPrimitive['id'], account: UpdateAccountDTO): Promise<Account> {
     const updatedAccount = await this.prisma.account.update({
       where: {
         id
@@ -50,7 +50,7 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
     return new Account(updatedAccount)
   }
 
-  public async delete ({ id }: IDAccountDTO): Promise<void> {
+  public async delete (id: AccountPrimitive['id']): Promise<void> {
     await this.prisma.account.update({
       where: {
         id

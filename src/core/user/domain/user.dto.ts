@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsAlpha, IsAlphanumeric, IsBoolean, IsDate, IsEmail, IsNotEmpty, IsNumber, IsString, IsStrongPassword, Max, MaxDate, Min } from 'class-validator'
+import { IsAlpha, IsAlphanumeric, IsBoolean, IsDate, IsEmail, IsNotEmpty, IsNumber, IsPositive, IsString, IsStrongPassword, Max, MaxDate, Min } from 'class-validator'
 import { type UserPrimitive } from './user.primitive'
 
 export class UserDTO implements UserPrimitive {
@@ -9,6 +9,7 @@ export class UserDTO implements UserPrimitive {
     type: Number
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
+  @IsPositive()
     id: UserPrimitive['id']
 
   /* ---------- NAME ---------- */
