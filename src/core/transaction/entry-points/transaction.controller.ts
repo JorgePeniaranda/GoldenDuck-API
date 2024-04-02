@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post } from '@nestjs/common'
 import { ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateTransactionDTO } from '../domain/dto/create-transaction'
-import { TransactionService } from '../domain/service/account.service'
+import { TransactionService } from '../domain/service/transaction.service'
 import { type Transaction } from '../domain/transaction.entity'
 import { type TransactionPrimitive } from '../domain/transaction.primitive'
 import { TransactionResponse } from './transaction.response'
