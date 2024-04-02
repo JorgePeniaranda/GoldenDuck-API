@@ -1,4 +1,3 @@
-import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
 import { ApiProperty } from '@nestjs/swagger'
 import { IsBoolean, IsDate, IsNumber, IsPositive, IsString, MaxDate } from 'class-validator'
 import { type TransactionPrimitive } from './transaction.primitive'
@@ -55,7 +54,7 @@ export class TransactionDTO implements TransactionPrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
-    createdAt: AccountPrimitive['createdAt']
+    createdAt: TransactionPrimitive['createdAt']
 
   /* ---------- DELETED ---------- */
   @ApiProperty({
@@ -64,7 +63,7 @@ export class TransactionDTO implements TransactionPrimitive {
   })
   @IsString()
   @IsBoolean()
-    canceled: boolean
+    canceled: TransactionPrimitive['canceled']
 
   constructor (transaction: TransactionPrimitive) {
     this.id = transaction.id
