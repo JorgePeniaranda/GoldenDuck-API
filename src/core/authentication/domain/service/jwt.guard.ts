@@ -1,4 +1,4 @@
-import { IS_PUBLIC_ENDPOINT_KEY } from '@/constants'
+import { IS_PUBLIC_ENDPOINT_KEY } from '@/constants/app'
 import { type ExecutionContext, Injectable } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { AuthGuard } from '@nestjs/passport'

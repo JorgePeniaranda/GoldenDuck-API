@@ -4,11 +4,9 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import compression from 'compression'
 import helmet from 'helmet'
 import { AppModule } from './app.module'
-import { DEFAULT_APP_PORT } from './constants'
+import { env } from './constants/env'
 import './utils/fixes'
-import { findAvailablePort, getEnvValue } from './utils/server'
-
-const port = getEnvValue('APP_PORT', String(DEFAULT_APP_PORT))
+import { findAvailablePort } from './utils/server'
 
 async function bootstrap (): Promise<void> {
   const app = await NestFactory.create(AppModule)
@@ -37,7 +35,7 @@ async function bootstrap (): Promise<void> {
   SwaggerModule.setup('api', app, document)
 
   /* start server */
-  await findAvailablePort(app, port)
+  await findAvailablePort(app, env.APP_PORT)
 }
 
 bootstrap() // eslint-disable-line @typescript-eslint/no-floating-promises

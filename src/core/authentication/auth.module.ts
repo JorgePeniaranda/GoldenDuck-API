@@ -1,4 +1,4 @@
-import { getEnvValue } from '@/utils/server'
+import { env } from '@/constants/env'
 import { Module } from '@nestjs/common'
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
@@ -13,9 +13,9 @@ import { AuthController } from './entry-points/auth.controller'
     UserModule,
     PassportModule,
     JwtModule.register({
-      secret: getEnvValue('JWT_SECRET'),
+      secret: env.JWT_SECRET,
       signOptions: {
-        expiresIn: getEnvValue('JWT_EXPIRATION_TIME')
+        expiresIn: env.JWT_EXPIRATION_TIME
       }
     })
   ],
