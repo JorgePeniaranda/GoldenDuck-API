@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { type InvestmentPrimitive } from '../domain/investment.primitive'
 
-export class LoanResponse implements InvestmentPrimitive {
+export class InvestmentResponse implements InvestmentPrimitive {
   /* ---------- ID ---------- */
   @ApiProperty({
     example: 1,

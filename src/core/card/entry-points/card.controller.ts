@@ -45,13 +45,13 @@ export class CardController {
   async getCard (
     @Param('id', new ParseIntPipe()) id: CardPrimitive['id']
   ): Promise<Card> {
-    const transaction = await this.cardService.find(id)
+    const card = await this.cardService.find(id)
 
-    if (transaction === null) {
+    if (card === null) {
       throw new NotFoundException()
     }
 
-    return transaction
+    return card
   }
 
   @Delete('/:id')

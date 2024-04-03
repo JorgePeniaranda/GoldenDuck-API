@@ -1,7 +1,7 @@
 import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
 import { PrismaService } from '@/core/shared/prisma.repository'
 import { Injectable } from '@nestjs/common'
-import { type CreateInvestmentDTO } from '../domain/dto/create-loan'
+import { type CreateInvestmentDTO } from '../domain/dto/create-investment'
 import { Investment } from '../domain/investment.entity'
 import { type InvestmentPrimitive } from '../domain/investment.primitive'
 import { type InvestmentRepository } from '../domain/investment.repository'

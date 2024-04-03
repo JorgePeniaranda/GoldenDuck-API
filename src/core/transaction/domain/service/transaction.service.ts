@@ -14,6 +14,8 @@ export class TransactionService {
 
   public async create (data: CreateTransactionDTO): Promise<Transaction> {
     return await this.transactionRepository.create(data)
+
+    // TO-DO: remover dinero de la cuenta de origen
   }
 
   public async getAll (
@@ -30,5 +32,7 @@ export class TransactionService {
 
   public async delete (id: TransactionPrimitive['id']): Promise<void> {
     await this.transactionRepository.delete(id)
+
+    // TO-DO: devolver dinero a la cuenta de origen
   }
 }

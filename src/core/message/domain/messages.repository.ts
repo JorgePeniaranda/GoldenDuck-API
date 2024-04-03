@@ -5,7 +5,7 @@ import { type Message } from './messages.entity'
 import { type MessagePrimitive } from './messages.primitive'
 
 export interface MessageRepository {
-  create: (transaction: CreateMessageDTO) => Promise<Message>
+  create: (data: CreateMessageDTO) => Promise<Message>
   getAll: (id: AccountPrimitive['id']) => Promise<Message[] | null>
   find: (id: MessagePrimitive['id']) => Promise<Message | null>
   update: (

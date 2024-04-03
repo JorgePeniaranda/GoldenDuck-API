@@ -35,7 +35,10 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
   ): Promise<Transaction | null> {
     const transaction = await this.prisma.transaction.findUnique({
       where: {
-        id
+        id,
+        accountFrom: {
+          id: 2
+        }
       }
     })
 
@@ -43,9 +46,12 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
   }
 
   public async delete (id: TransactionPrimitive['id']): Promise<void> {
-    await this.prisma.transaction.delete({
+    await this.prisma.transaction.update({
       where: {
         id
+      },
+      data: {
+        canceled: true
       }
     })
   }

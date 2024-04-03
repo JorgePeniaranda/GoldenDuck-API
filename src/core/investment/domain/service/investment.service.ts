@@ -1,6 +1,6 @@
 import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
 import { Inject, Injectable } from '@nestjs/common'
-import { type CreateInvestmentDTO } from '../dto/create-loan'
+import { type CreateInvestmentDTO } from '../dto/create-investment'
 import { type Investment } from '../investment.entity'
 import { type InvestmentPrimitive } from '../investment.primitive'
 import { InvestmentRepository } from '../investment.repository'

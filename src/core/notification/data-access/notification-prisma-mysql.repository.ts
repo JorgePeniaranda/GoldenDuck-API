@@ -1,9 +1,9 @@
 import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
 import { PrismaService } from '@/core/shared/prisma.repository'
-import { type TransactionPrimitive } from '@/core/transaction/domain/transaction.primitive'
 import { Injectable } from '@nestjs/common'
 import { type CreateNotificationDTO } from '../domain/dto/create-notification'
 import { Notification } from '../domain/notification.entity'
+import { type NotificationPrimitive } from '../domain/notification.primitive'
 import { type NotificationRepository } from '../domain/notification.repository'
 
 @Injectable()
@@ -32,7 +32,7 @@ implements NotificationRepository {
   }
 
   public async find (
-    id: TransactionPrimitive['id']
+    id: NotificationPrimitive['id']
   ): Promise<Notification | null> {
     const notification = await this.prisma.notification.findUnique({
       where: {
@@ -43,7 +43,7 @@ implements NotificationRepository {
     return notification !== null ? new Notification(notification) : null
   }
 
-  public async delete (id: TransactionPrimitive['id']): Promise<void> {
+  public async delete (id: NotificationPrimitive['id']): Promise<void> {
     await this.prisma.transaction.delete({
       where: {
         id

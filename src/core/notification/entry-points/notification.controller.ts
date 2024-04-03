@@ -49,13 +49,13 @@ export class NotificationController {
   async getTransaction (
     @Param('id', new ParseIntPipe()) id: NotificationPrimitive['id']
   ): Promise<Notification> {
-    const transaction = await this.notificationService.find(id)
+    const notification = await this.notificationService.find(id)
 
-    if (transaction === null) {
+    if (notification === null) {
       throw new NotFoundException()
     }
 
-    return transaction
+    return notification
   }
 
   @Delete('/:id')
