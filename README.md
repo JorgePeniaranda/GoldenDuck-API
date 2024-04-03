@@ -28,6 +28,8 @@ This project is intended for educational and illustrative purposes only and is n
   <img src="https://standardjs.com/android-chrome-192x192.png" height="40" alt="standardjs logo"  />
   <img width="12" />
   <img src="https://jestjs.io/img/jest.png" height="40" alt="jest logo"  />
+  <img width="12" />
+	<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" height="40" alt="docker logo"  />
 </div>
 
 ## Requirements to Start GoldenDuck
