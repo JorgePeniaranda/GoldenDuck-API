@@ -13,6 +13,8 @@ export class LoanService {
 
   public async create (data: CreateLoanDTO): Promise<Loan> {
     return await this.loanRepository.create(data)
+
+    // TO-DO: remove money from account
   }
 
   public async getAll (id: AccountPrimitive['id']): Promise<Loan[] | null> {
@@ -25,5 +27,7 @@ export class LoanService {
 
   public async delete (id: LoanPrimitive['id']): Promise<void> {
     await this.loanRepository.delete(id)
+
+    // TO-DO: add money to account
   }
 }

@@ -13,6 +13,8 @@ export class SessionService {
 
   public async create (data: CreateSessionDTO): Promise<Session> {
     return await this.sessionRepository.create(data)
+
+    // TO-DO: send notification to account device and account email
   }
 
   public async getAll (): Promise<Session[] | null> {

@@ -14,6 +14,8 @@ export class NotificationService {
 
   public async create (data: CreateNotificationDTO): Promise<Notification> {
     return await this.notificationRepository.create(data)
+
+    // TO-DO: send notification to account device
   }
 
   public async getAll (
@@ -30,5 +32,7 @@ export class NotificationService {
 
   public async delete (id: TransactionPrimitive['id']): Promise<void> {
     await this.notificationRepository.delete(id)
+
+    // TO-DO: remove notification from account device
   }
 }

@@ -15,6 +15,8 @@ export class AccountService {
 
   public async create (data: CreateAccountDTO): Promise<Account> {
     return await this.accountRepository.create(data)
+
+    // TO-DO: send notification to user email
   }
 
   public async getAll (id: IDUserDTO): Promise<Account[] | null> {

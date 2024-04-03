@@ -29,6 +29,8 @@ export class UserUseCase {
 
   async updateUser (id: IDUserDTO, data: UpdateUserDTO): Promise<User> {
     return await this.userRepository.updateUser(id, data)
+
+    // TO-DO: send notification to account email
   }
 
   async deleteUser (id: IDUserDTO, data: DeleteUserDTO): Promise<void> {
