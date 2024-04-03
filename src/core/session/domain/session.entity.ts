@@ -1,26 +1,27 @@
-import {
-  type UserEntity,
-  type UserPrimitiveEntity
-} from '@/core/user/domain/user.entity'
-import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.primitive'
-import { type PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
-import { type PrimitiveID } from '@/valueObjects/number/ID/ID.primitive'
-import { type ID } from '@/valueObjects/number/ID/ID.value'
-import { type ValidString } from '@/valueObjects/string/string/String.value'
-import { type PrimitiveValidString } from '@/valueObjects/string/string/string.primitive'
+import { type SessionPrimitive } from './session.primitive'
 
-export interface SessionEntity {
-  id: ID
-  idUser: UserEntity['id']
-  ip?: ValidString | null
-  userAgent?: ValidString | null
-  createdAt: PastDate
-}
+export class Session implements SessionPrimitive {
+  id: SessionPrimitive['id']
+  idUser: SessionPrimitive['idUser']
+  ip: SessionPrimitive['ip']
+  userAgent: SessionPrimitive['userAgent']
+  location: SessionPrimitive['location']
+  deviceType: SessionPrimitive['deviceType']
+  token: SessionPrimitive['token']
+  active: SessionPrimitive['active']
+  logoutAt: SessionPrimitive['logoutAt']
+  createdAt: SessionPrimitive['createdAt']
 
-export interface SessionPrimitiveEntity {
-  id: PrimitiveID['id']
-  idUser: UserPrimitiveEntity['id']
-  ip?: PrimitiveValidString['string'] | null
-  userAgent?: PrimitiveValidString['string'] | null
-  createdAt: PrimitivePastDate['pastDate']
+  constructor (transaction: SessionPrimitive) {
+    this.id = transaction.id
+    this.idUser = transaction.idUser
+    this.ip = transaction.ip
+    this.userAgent = transaction.userAgent
+    this.location = transaction.location
+    this.deviceType = transaction.deviceType
+    this.token = transaction.token
+    this.active = transaction.active
+    this.logoutAt = transaction.logoutAt
+    this.createdAt = transaction.createdAt
+  }
 }

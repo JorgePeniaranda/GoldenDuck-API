@@ -1,34 +1,21 @@
-import {
-  type AccountEntity,
-  type AccountPrimitiveEntity
-} from '@/core/account/domain/account.entity'
-import {
-  type CategoryEntity,
-  type CategoryPrimitiveEntity
-} from '@/core/category/domain/category.entity'
-import { type PrimitiveValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.primitive'
-import { type ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
-import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.primitive'
-import { type PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
-import { type PrimitiveID } from '@/valueObjects/number/ID/ID.primitive'
-import { type ID } from '@/valueObjects/number/ID/ID.value'
+import { type TransactionPrimitive } from './transaction.primitive'
 
-export interface TransactionEntity {
-  id: ID
-  from: AccountEntity['id']
-  to: AccountEntity['id']
-  amount: AccountEntity['balance']
-  idCategory?: CategoryEntity['id'] | null
-  createdAt: PastDate
-  canceled: ValidBoolean
-}
+export class Transaction implements TransactionPrimitive {
+  public id: TransactionPrimitive['id']
+  public from: TransactionPrimitive['from']
+  public to: TransactionPrimitive['to']
+  public amount: TransactionPrimitive['amount']
+  public idCategory?: TransactionPrimitive['idCategory']
+  public createdAt: TransactionPrimitive['createdAt']
+  public canceled: TransactionPrimitive['canceled']
 
-export interface TransactionPrimitiveEntity {
-  id: PrimitiveID['id']
-  from: AccountPrimitiveEntity['id']
-  to: AccountPrimitiveEntity['id']
-  amount: AccountPrimitiveEntity['balance']
-  idCategory?: CategoryPrimitiveEntity['id'] | null
-  createdAt: PrimitivePastDate['pastDate']
-  canceled: PrimitiveValidBoolean['boolean']
+  constructor (transaction: TransactionPrimitive) {
+    this.id = transaction.id
+    this.from = transaction.from
+    this.to = transaction.to
+    this.amount = transaction.amount
+    this.idCategory = transaction.idCategory
+    this.createdAt = transaction.createdAt
+    this.canceled = transaction.canceled
+  }
 }

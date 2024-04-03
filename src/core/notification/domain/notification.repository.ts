@@ -1,21 +1,11 @@
-import { type NotificationEntity } from './notification.entity'
-import { type Notification } from './notification.value'
+import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
+import { type CreateNotificationDTO } from './dto/create-notification'
+import { type Notification } from './notification.entity'
+import { type NotificationPrimitive } from './notification.primitive'
 
 export interface NotificationRepository {
-  createNotification: ({
-    idAccount,
-    message
-  }: {
-    idAccount: NotificationEntity['idAccount']
-    message: NotificationEntity['message']
-  }) => Promise<Notification>
-  getAllNotification: (
-    idAccount: NotificationEntity['idAccount'],
-  ) => Promise<Notification[] | null>
-  findNotification: ({
-    id
-  }: {
-    id?: NotificationEntity['id']
-  }) => Promise<Notification | null>
-  readNotification: (id: NotificationEntity['id']) => Promise<void>
+  create: (data: CreateNotificationDTO) => Promise<Notification>
+  getAll: (id: AccountPrimitive['id']) => Promise<Notification[] | null>
+  find: (id: NotificationPrimitive['id']) => Promise<Notification | null>
+  delete: (id: NotificationPrimitive['id']) => Promise<void>
 }

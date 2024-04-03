@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql
+    container_name: database
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+      MYSQL_DATABASE: $DB_NAME
+    ports:
+      - $DB_PUBLIC_PORT:$DB_PORT
+    healthcheck:
+      test: "exit 0"
+  apps:
+    build: .
+    container_name: api
+    depends_on:
+      db:
+        condition: service_healthy
+    links:
+      - db
+    ports:
+      - $APP_PUBLIC_PORT:$APP_PORT
+    restart: always

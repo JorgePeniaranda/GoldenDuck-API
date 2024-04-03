@@ -1,13 +1,15 @@
-import { faker } from '@faker-js/faker'
-import { prisma } from '../../src/libs/prisma'
+import { faker } from '@faker-js/faker';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export const newSession = async (
   idUser: number,
-  amount: number
+  amount: number,
 ): Promise<number[]> => {
-  const listID = [] as number[]
+  const listID = [] as number[];
   for (let i = 0; i < amount; i++) {
-    const randomDate = faker.date.past()
+    const randomDate = faker.date.past();
 
     const { id } = await prisma.session.create({
       data: {
@@ -17,15 +19,15 @@ export const newSession = async (
         location: faker.location.direction(),
         deviceType: faker.internet.mac(),
         token: faker.string.uuid(),
-        createdAt: randomDate
+        createdAt: randomDate,
       },
       select: {
-        id: true
-      }
-    })
+        id: true,
+      },
+    });
 
-    listID.push(id)
+    listID.push(id);
   }
 
-  return listID
-}
+  return listID;
+};

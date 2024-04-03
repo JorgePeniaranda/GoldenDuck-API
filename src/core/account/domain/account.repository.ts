@@ -1,23 +1,16 @@
-import { type UserEntity } from '@/core/user/domain/user.entity'
-import { type AccountEntity } from './account.entity'
-import { type Account } from './account.value'
+import { type IDUserDTO } from '@/core/user/domain/dto/id-user.dto'
+import { type Account } from './account.entity'
+import { type AccountPrimitive } from './account.primitive'
+import { type CreateAccountDTO } from './dto/create-account'
+import { type UpdateAccountDTO } from './dto/update-account'
 
 export interface AccountRepository {
-  createAccount: ({
-    idUser,
-    imgUrl
-  }: {
-    idUser: AccountEntity['idUser']
-    imgUrl?: AccountEntity['imgUrl']
-  }) => Promise<Account>
-  getAllAccounts: (idUser: UserEntity['id']) => Promise<Account[] | null>
-  findAccount: ({ id }: { id?: AccountEntity['id'] }) => Promise<Account | null>
-  updateAccount: ({
-    id,
-    imgUrl
-  }: {
-    id: AccountEntity['id']
-    imgUrl: AccountEntity['imgUrl']
-  }) => Promise<Account>
-  deleteAccount: (id: AccountEntity['id']) => Promise<void>
+  create: (data: CreateAccountDTO) => Promise<Account>
+  getAll: (id: IDUserDTO) => Promise<Account[] | null>
+  find: (id: AccountPrimitive['id']) => Promise<Account | null>
+  update: (
+    id: AccountPrimitive['id'],
+    account: UpdateAccountDTO,
+  ) => Promise<Account>
+  delete: (id: AccountPrimitive['id']) => Promise<void>
 }

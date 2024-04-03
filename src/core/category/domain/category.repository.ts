@@ -1,24 +1,10 @@
-import { type CategoryEntity } from './category.entity'
-import { type Category } from './category.value'
+import { type Category } from './category.entity'
+import { type CategoryPrimitive } from './category.primitive'
+import { type CreateErrorDTO } from './dto/create-category'
 
 export interface CategoryRepository {
-  createCategory: ({
-    name
-  }: {
-    name: CategoryEntity['name']
-  }) => Promise<Category>
-  getAllCategory: () => Promise<Category[] | null>
-  findCategory: ({
-    id
-  }: {
-    id?: CategoryEntity['id']
-  }) => Promise<Category | null>
-  updateCategory: ({
-    id,
-    name
-  }: {
-    id: CategoryEntity['id']
-    name: CategoryEntity['name']
-  }) => Promise<Category>
-  deleteCategory: ({ id }: { id: CategoryEntity['id'] }) => Promise<void>
+  create: (data: CreateErrorDTO) => Promise<Category>
+  getAll: () => Promise<Category[] | null>
+  find: (id: CategoryPrimitive['id']) => Promise<Category | null>
+  delete: (id: CategoryPrimitive['id']) => Promise<void>
 }

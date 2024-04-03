@@ -1,25 +1,11 @@
-import { type InvestmentEntity } from './investment.entity'
-import { type Investment } from './investment.value'
+import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
+import { type CreateInvestmentDTO } from './dto/create-investment'
+import { type Investment } from './investment.entity'
+import { type InvestmentPrimitive } from './investment.primitive'
 
 export interface InvestmentRepository {
-  createInvestment: ({
-    idAccount,
-    amount,
-    interest,
-    dateEnd
-  }: {
-    idAccount: InvestmentEntity['idAccount']
-    amount: InvestmentEntity['amount']
-    interest: InvestmentEntity['interest']
-    dateEnd: InvestmentEntity['dateEnd']
-  }) => Promise<Investment>
-  getAllInvestment: (
-    idAccount?: InvestmentEntity['idAccount'],
-  ) => Promise<Investment[] | null>
-  findInvestment: ({
-    id
-  }: {
-    id?: InvestmentEntity['id']
-  }) => Promise<Investment | null>
-  cancelInvestment: ({ id }: { id: InvestmentEntity['id'] }) => Promise<void>
+  create: (loan: CreateInvestmentDTO) => Promise<Investment>
+  getAll: (id: AccountPrimitive['id']) => Promise<Investment[] | null>
+  find: (id: InvestmentPrimitive['id']) => Promise<Investment | null>
+  delete: (id: InvestmentPrimitive['id']) => Promise<void>
 }

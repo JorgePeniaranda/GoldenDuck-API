@@ -1,9 +1,0 @@
-@token = 1234567890
-@protocol = http
-@hostname = localhost
-@port = 3000
-@host = {{hostname}}:{{port}}
-@contentType = application/json
-
-GET {{protocol}}://{{host}}/user?id=1
-Content-Type: {{contentType}}

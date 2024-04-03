@@ -1,16 +1,10 @@
-import { type SessionEntity } from './session.entity'
-import { type Session } from './session.value'
+import { type CreateSessionDTO } from './dto/create-session'
+import { type Session } from './session.entity'
+import { type SessionPrimitive } from './session.primitive'
 
 export interface SessionRepository {
-  registerSession: ({
-    idUser,
-    ip,
-    userAgent
-  }: {
-    idUser: SessionEntity['idUser']
-    ip: SessionEntity['ip']
-    userAgent: SessionEntity['userAgent']
-  }) => Promise<Session>
-  getAllSession: (idUser: SessionEntity['idUser']) => Promise<Session[]>
-  findSession: ({ id }: { id?: SessionEntity['id'] }) => Promise<Session | null>
+  create: (data: CreateSessionDTO) => Promise<Session>
+  getAll: () => Promise<Session[] | null>
+  find: (id: SessionPrimitive['id']) => Promise<Session | null>
+  delete: (id: SessionPrimitive['id']) => Promise<void>
 }

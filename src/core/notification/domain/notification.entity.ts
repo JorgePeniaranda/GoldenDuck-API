@@ -1,30 +1,19 @@
-import {
-  type AccountEntity,
-  type AccountPrimitiveEntity
-} from '@/core/account/domain/account.entity'
-import { type PrimitiveValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.primitive'
-import { type ValidBoolean } from '@/valueObjects/boolean/validBoolean/Boolean.value'
-import { type PrimitivePastDate } from '@/valueObjects/date/PastDate/PastDate.primitive'
-import { type PastDate } from '@/valueObjects/date/PastDate/PastDate.value'
-import { type PrimitiveID } from '@/valueObjects/number/ID/ID.primitive'
-import { type ID } from '@/valueObjects/number/ID/ID.value'
-import { type ValidString } from '@/valueObjects/string/string/String.value'
-import { type PrimitiveValidString } from '@/valueObjects/string/string/string.primitive'
+import { type NotificationPrimitive } from './notification.primitive'
 
-export interface NotificationEntity {
-  id: ID
-  idAccount: AccountEntity['id']
-  message: ValidString
-  read: ValidBoolean
-  updatedAt: PastDate
-  createdAt: PastDate
-}
+export class Notification implements NotificationPrimitive {
+  public id: NotificationPrimitive['id']
+  public idAccount: NotificationPrimitive['idAccount']
+  public message: NotificationPrimitive['message']
+  public read: NotificationPrimitive['read']
+  public updatedAt: NotificationPrimitive['updatedAt']
+  public createdAt: NotificationPrimitive['createdAt']
 
-export interface NotificationPrimitiveEntity {
-  id: PrimitiveID['id']
-  idAccount: AccountPrimitiveEntity['id']
-  message: PrimitiveValidString['string']
-  read: PrimitiveValidBoolean['boolean']
-  updatedAt: PrimitivePastDate['pastDate']
-  createdAt: PrimitivePastDate['pastDate']
+  constructor (notification: Notification) {
+    this.id = notification.id
+    this.idAccount = notification.idAccount
+    this.message = notification.message
+    this.read = notification.read
+    this.updatedAt = notification.updatedAt
+    this.createdAt = notification.createdAt
+  }
 }

@@ -1,15 +1,10 @@
-import { type ErrorEntity } from './error.entity'
-import { type Error } from './error.value'
+import { type CreateErrorDTO } from './dto/create-error'
+import { type Error } from './error.entity'
+import { type ErrorPrimitive } from './error.primitive'
 
 export interface ErrorRepository {
-  createError: ({
-    name,
-    message
-  }: {
-    name: ErrorEntity['name']
-    message: ErrorEntity['message']
-  }) => Promise<Error>
-  getAllError: () => Promise<Error[] | null>
-  findError: ({ id }: { id?: ErrorEntity['id'] }) => Promise<Error | null>
-  deleteError: ({ id }: { id: ErrorEntity['id'] }) => Promise<void>
+  create: (data: CreateErrorDTO) => Promise<Error>
+  getAll: () => Promise<Error[] | null>
+  find: (id: ErrorPrimitive['id']) => Promise<Error | null>
+  delete: (id: ErrorPrimitive['id']) => Promise<void>
 }
