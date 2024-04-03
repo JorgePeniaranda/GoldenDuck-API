@@ -11,7 +11,8 @@ export const getEnvValue = (envName: string, defaultValue?: string): string => {
     return defaultValue
   }
 
-  throw new Error('env error config: ' + envName)
+  Logger.error('Improper configuration of environment variable: ' + envName)
+  throw new Error('Improper configuration of environment variable: ' + envName)
 }
 
 export const findAvailablePort = async (
@@ -36,6 +37,7 @@ export const findAvailablePort = async (
       if (error.code === 'EADDRINUSE') {
         await findAvailablePort(server, port + 1)
       }
+      throw error
     })
 
   return port
