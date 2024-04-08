@@ -1,8 +1,10 @@
 import { type User } from '@/core/user/domain/user.entity'
-import { Controller, Post, Request, UseGuards } from '@nestjs/common'
+import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
+import { JwtPayload } from '../domain/payload.entity'
 import { LocalAuthGuard } from '../domain/service/auth.guard'
 import { AuthUseCase } from '../domain/service/auth.service'
+import { JwtAuthGuard } from '../domain/service/jwt.guard'
 import { type Token } from '../domain/token.entity'
 
 @ApiTags('Auth')
@@ -16,8 +18,10 @@ export class AuthController {
     return await this.authService.login(req.user)
   }
 
-  // @Get()
-  // async getProfile (@Request() req: { user: JwtPayload }): Promise<JwtPayload> {
-  //   return req.user
-  // }
+  /* test */
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  async getProfile (@Request() req: { user: JwtPayload }): Promise<JwtPayload> {
+    return req.user
+  }
 }

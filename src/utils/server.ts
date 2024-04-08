@@ -1,3 +1,5 @@
+import { ErrorsMessages } from '@/messages/error'
+import { ServerMessages } from '@/messages/server'
 import { type INestApplication, Logger } from '@nestjs/common'
 
 export const getEnvValue = (envName: string, defaultValue?: string): string => {
@@ -11,8 +13,8 @@ export const getEnvValue = (envName: string, defaultValue?: string): string => {
     return defaultValue
   }
 
-  Logger.error('Improper configuration of environment variable: ' + envName)
-  throw new Error('Improper configuration of environment variable: ' + envName)
+  Logger.error(ErrorsMessages.EnvironmentVariableError(envName))
+  throw new Error(ErrorsMessages.EnvironmentVariableError(envName))
 }
 
 export const findAvailablePort = async (
@@ -24,14 +26,14 @@ export const findAvailablePort = async (
   }
 
   if (Number.isNaN(port) || port < 0) {
-    Logger.error('Invalid port number', 'NestApplication')
-    throw new Error('Invalid port number')
+    Logger.error(ErrorsMessages.InvalidPortValue, 'NestApplication')
+    throw new Error(ErrorsMessages.InvalidPortValue)
   }
 
   server
     .listen(port)
     .then(() => {
-      Logger.log(`Running on port: ${port}`, 'NestApplication')
+      Logger.log(ServerMessages.AppRunning, 'NestApplication')
     })
     .catch(async (error) => {
       if (error.code === 'EADDRINUSE') {
