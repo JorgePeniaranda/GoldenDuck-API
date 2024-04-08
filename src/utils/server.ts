@@ -35,7 +35,7 @@ export const findAvailablePort = async (
     })
     .catch(async (error) => {
       if (error.code === 'EADDRINUSE') {
-        await findAvailablePort(server, port + 1)
+        return await findAvailablePort(server, port + 1)
       }
       throw error
     })
