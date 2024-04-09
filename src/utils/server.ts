@@ -10,6 +10,7 @@ export const getEnvValue = (envName: string, defaultValue?: string): string => {
   }
 
   if (typeof defaultValue === 'string') {
+    Logger.warn(ErrorsMessages.NoVariableEnv(envName))
     return defaultValue
   }
 
@@ -19,7 +20,7 @@ export const getEnvValue = (envName: string, defaultValue?: string): string => {
 
 export const findAvailablePort = async (
   server: INestApplication,
-  port: number | string,
+  port: number | string
 ): Promise<number> => {
   if (typeof port === 'string') {
     port = parseInt(port)
@@ -32,7 +33,7 @@ export const findAvailablePort = async (
 
   server
     .listen(port)
-    .then((port) => {
+    .then(() => {
       Logger.log(ServerMessages.AppRunning(port), 'NestApplication')
     })
     .catch(async (error) => {
