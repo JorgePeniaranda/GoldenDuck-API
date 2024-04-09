@@ -19,7 +19,7 @@ export const getEnvValue = (envName: string, defaultValue?: string): string => {
 
 export const findAvailablePort = async (
   server: INestApplication,
-  port: number | string
+  port: number | string,
 ): Promise<number> => {
   if (typeof port === 'string') {
     port = parseInt(port)
@@ -32,8 +32,8 @@ export const findAvailablePort = async (
 
   server
     .listen(port)
-    .then(() => {
-      Logger.log(ServerMessages.AppRunning, 'NestApplication')
+    .then((port) => {
+      Logger.log(ServerMessages.AppRunning(port), 'NestApplication')
     })
     .catch(async (error) => {
       if (error.code === 'EADDRINUSE') {
