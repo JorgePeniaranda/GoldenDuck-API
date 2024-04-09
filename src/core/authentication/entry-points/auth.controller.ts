@@ -1,7 +1,7 @@
 import { type User } from '@/core/user/domain/user.entity'
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
-import { JwtPayload } from '../domain/payload.entity'
+import { type JwtPayload } from '../domain/payload.entity'
 import { LocalAuthGuard } from '../domain/service/auth.guard'
 import { AuthUseCase } from '../domain/service/auth.service'
 import { JwtAuthGuard } from '../domain/service/jwt.guard'

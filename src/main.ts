@@ -4,6 +4,12 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import compression from 'compression'
 import helmet from 'helmet'
 import { AppModule } from './app.module'
+import {
+  APP_DESCRIPTION,
+  APP_NAME,
+  APP_VERSION,
+  SWAGGER_PATH
+} from './constants'
 import { env } from './constants/env'
 import './utils/fixes'
 import { findAvailablePort } from './utils/server'
@@ -25,14 +31,12 @@ async function bootstrap (): Promise<void> {
 
   /* add documentation */
   const config = new DocumentBuilder()
-    .setTitle('Golden Duck')
-    .setDescription(
-      'Online banking platform for money management, investments, and essential service payments.'
-    )
-    .setVersion('3.0')
+    .setTitle(APP_NAME)
+    .setDescription(APP_DESCRIPTION)
+    .setVersion(APP_VERSION)
     .build()
   const document = SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('api', app, document)
+  SwaggerModule.setup(SWAGGER_PATH, app, document)
 
   /* start server */
   await findAvailablePort(app, env.APP_PORT)

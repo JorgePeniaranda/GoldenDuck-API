@@ -7,12 +7,12 @@ import { type MessagePrimitive } from '../messages.primitive'
 import { MessageRepository } from '../messages.repository'
 
 /*
-*  TO-DO:
-*   - Implement socket.io to send messages in real time
-*   - return messages with format:
-*    > list of last messages by account
-*    > messages by conversation
-*/
+ *  TO-DO:
+ *   - Implement socket.io to send messages in real time
+ *   - return messages with format:
+ *    > list of last messages by account
+ *    > messages by conversation
+ */
 
 @Injectable()
 export class MessageService {

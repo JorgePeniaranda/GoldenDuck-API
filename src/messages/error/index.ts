@@ -7,5 +7,5 @@ export const ErrorsMessages = {
   Invalid: (name: string) => `${name}: inválido`,
   NotFound: (name: string) => `${name}: no encontrado`,
   NoVariableEnv: (variable: string): string =>
-    `No se ha encontrado la variable de entorno "${variable}"`,
+    `No se ha encontrado la variable de entorno "${variable}"`
 }
