@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { PrismaService } from '../shared/prisma.repository'
+import { PrismaService } from '../../services/prisma.service'
 import { SessionRepositoryPrismaMySQL } from './data-access/session-prisma-mysql.repository'
 import { SessionService } from './domain/service/session.service'
 import { SessionController } from './entry-points/session.controller'

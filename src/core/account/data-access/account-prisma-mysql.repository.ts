@@ -1,5 +1,5 @@
-import { PrismaService } from '@/core/shared/prisma.repository'
 import { type IDUserDTO } from '@/core/user/domain/dto/id-user.dto'
+import { PrismaService } from '@/services/prisma.service'
 import { Injectable } from '@nestjs/common'
 import { Account } from '../domain/account.entity'
 import { type AccountPrimitive } from '../domain/account.primitive'

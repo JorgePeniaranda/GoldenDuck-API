@@ -1,5 +1,5 @@
 import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
-import { PrismaService } from '@/core/shared/prisma.repository'
+import { PrismaService } from '@/services/prisma.service'
 import { Injectable } from '@nestjs/common'
 import { type CreateTransactionDTO } from '../domain/dto/create-transaction'
 import { Transaction } from '../domain/transaction.entity'

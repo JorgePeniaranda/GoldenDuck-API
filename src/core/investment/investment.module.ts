@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { PrismaService } from '../shared/prisma.repository'
+import { PrismaService } from '../../services/prisma.service'
 import { InvestmentRepositoryPrismaMySQL } from './data-access/investment-prisma-mysql.repository'
 import { InvestmentService } from './domain/service/investment.service'
 import { InvestmentController } from './entry-points/investment.controller'

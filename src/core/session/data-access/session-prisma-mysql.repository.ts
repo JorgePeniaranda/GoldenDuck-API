@@ -1,4 +1,4 @@
-import { PrismaService } from '@/core/shared/prisma.repository'
+import { PrismaService } from '@/services/prisma.service'
 import { Injectable } from '@nestjs/common'
 import { type CreateSessionDTO } from '../domain/dto/create-session'
 import { Session } from '../domain/session.entity'

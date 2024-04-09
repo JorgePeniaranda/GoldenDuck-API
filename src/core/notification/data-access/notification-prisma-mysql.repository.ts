@@ -1,5 +1,5 @@
 import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
-import { PrismaService } from '@/core/shared/prisma.repository'
+import { PrismaService } from '@/services/prisma.service'
 import { Injectable } from '@nestjs/common'
 import { type CreateNotificationDTO } from '../domain/dto/create-notification'
 import { Notification } from '../domain/notification.entity'

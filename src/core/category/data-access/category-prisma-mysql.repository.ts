@@ -1,4 +1,4 @@
-import { PrismaService } from '@/core/shared/prisma.repository'
+import { PrismaService } from '@/services/prisma.service'
 import { Injectable } from '@nestjs/common'
 import { Category } from '../domain/category.entity'
 import { type CategoryPrimitive } from '../domain/category.primitive'

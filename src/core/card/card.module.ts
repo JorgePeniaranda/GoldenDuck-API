@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { PrismaService } from '../shared/prisma.repository'
+import { PrismaService } from '../../services/prisma.service'
 import { CardRepositoryPrismaMySQL } from './data-access/card-prisma-mysql.repository'
 import { CardService } from './domain/service/card.service'
 import { CardController } from './entry-points/card.controller'

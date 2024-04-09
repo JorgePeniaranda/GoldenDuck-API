@@ -1,4 +1,4 @@
-import { PrismaService } from '@/core/shared/prisma.repository'
+import { PrismaService } from '@/services/prisma.service'
 import { Injectable } from '@nestjs/common'
 import { type CreateErrorDTO } from '../domain/dto/create-error'
 import { Error } from '../domain/error.entity'
