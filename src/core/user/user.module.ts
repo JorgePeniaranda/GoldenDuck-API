@@ -1,3 +1,4 @@
+import { PrismaService } from '@/services/prisma.service'
 import { Module } from '@nestjs/common'
 import { UserRepositoryPrismaMySQL } from './data-access/user-prisma-mysql.repository'
 import { UserUseCase } from './domain/service/user.service'
@@ -10,7 +11,8 @@ import { UserController } from './entry-points/user.controller'
     {
       provide: 'UserRepository',
       useClass: UserRepositoryPrismaMySQL
-    }
+    },
+    PrismaService
   ],
   exports: [UserUseCase]
 })

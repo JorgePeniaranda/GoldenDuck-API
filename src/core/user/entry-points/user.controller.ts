@@ -5,8 +5,9 @@ import {
   Get,
   NotFoundException,
   Param,
-  Post,
-  Put
+  ParseIntPipe,
+  Patch,
+  Post
 } from '@nestjs/common'
 import {
   ApiCreatedResponse,
@@ -17,7 +18,6 @@ import {
 import { CreateUserDTO } from '../domain/dto/create-user.dto'
 import { DeleteUserDTO } from '../domain/dto/delete-user.dto'
 import { FindUserDTO } from '../domain/dto/find-user.dto'
-import { IDUserDTO } from '../domain/dto/id-user.dto'
 import { UpdateUserDTO } from '../domain/dto/update-user.dto'
 import { UserUseCase } from '../domain/service/user.service'
 import { type User } from '../domain/user.entity'
@@ -42,12 +42,13 @@ export class UserController {
     description: 'Found User',
     type: UserResponse
   })
-  @Get('/:id')
+  @Post('/find')
   async findUser (@Body() params: FindUserDTO): Promise<object> {
+    // <- dudoso (get con body??)
     const user = await this.userUseCase.findUser(params)
 
     if (user === null) {
-      throw new NotFoundException('User not found')
+      throw new NotFoundException()
     }
 
     return user
@@ -57,18 +58,18 @@ export class UserController {
     description: 'Updated User',
     type: UserResponse
   })
-  @Put('/:id')
+  @Patch('/:id')
   async updateUser (
-    @Param('id') id: IDUserDTO,
+    @Param('id', ParseIntPipe) id: UserPrimitive['id'],
       @Body() data: UpdateUserDTO
   ): Promise<UserPrimitive> {
     return await this.userUseCase.updateUser(id, data)
   }
 
-  // @Patch('/:id')
-  // async activateUser (): Promise<User> {
-  //   return await this.userUseCase.findUser(params)
-  // }
+  @Get('/activate/:id')
+  async activateUser (): Promise<{ '🤠': string }> {
+    return { '🤠': 'HOLA MUNDO!' } // <- falta implementar
+  }
 
   @ApiOkResponse({
     description: 'User Deleted'
@@ -76,7 +77,7 @@ export class UserController {
   @ApiResponse({})
   @Delete('/:id')
   async deleteUser (
-    @Param() id: IDUserDTO,
+    @Param('id', ParseIntPipe) id: UserPrimitive['id'],
       @Body() data: DeleteUserDTO
   ): Promise<void> {
     await this.userUseCase.deleteUser(id, data)
