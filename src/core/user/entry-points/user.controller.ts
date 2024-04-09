@@ -1,3 +1,4 @@
+import { UserErrorsMessages } from '@/messages/error/user'
 import {
   Body,
   Controller,
@@ -48,7 +49,7 @@ export class UserController {
     const user = await this.userUseCase.findUser(params)
 
     if (user === null) {
-      throw new NotFoundException()
+      throw new NotFoundException(UserErrorsMessages.UserNotFound)
     }
 
     return user

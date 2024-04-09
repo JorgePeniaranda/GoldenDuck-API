@@ -1,5 +1,7 @@
 import { UserErrorsMessages } from '@/messages/error/user'
+import { Password } from '@/value-objects/password'
 import {
+  ConflictException,
   Inject,
   Injectable,
   NotFoundException,
@@ -9,7 +11,7 @@ import { type CreateUserDTO } from '../dto/create-user.dto'
 import { type DeleteUserDTO } from '../dto/delete-user.dto'
 import { type FindUserDTO } from '../dto/find-user.dto'
 import { type UpdateUserDTO } from '../dto/update-user.dto'
-import { type User } from '../user.entity'
+import { User } from '../user.entity'
 import { type UserPrimitive } from '../user.primitive'
 import { UserRepository } from '../user.repository'
 
@@ -20,7 +22,27 @@ export class UserUseCase {
   ) {}
 
   async createUser (user: CreateUserDTO): Promise<User> {
-    return await this.userRepository.createUser(user)
+    const checkUser = await this.userRepository.findUser({
+      dni: user.dni,
+      email: user.email,
+      phoneNumber: user.phoneNumber
+    })
+
+    if (checkUser !== null) {
+      throw new ConflictException(UserErrorsMessages.UserAlreadyExist)
+    }
+
+    const password = new Password(user.password)
+
+    const newUser = User.create({
+      ...user,
+      password: password.value,
+      salt: password.salt
+    })
+
+    // TO-DO: send notification with url to email
+
+    return await this.userRepository.createUser(newUser)
   }
 
   async findUser (params: FindUserDTO): Promise<User | null> {

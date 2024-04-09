@@ -1,6 +1,5 @@
 import { PrismaService } from '@/services/prisma.service'
 import { Injectable } from '@nestjs/common'
-import { type CreateUserDTO } from '../domain/dto/create-user.dto'
 import { type FindUserDTO } from '../domain/dto/find-user.dto'
 import { User } from '../domain/user.entity'
 import { type UserPrimitive } from '../domain/user.primitive'
@@ -10,9 +9,9 @@ import { type UserRepository } from '../domain/user.repository'
 export class UserRepositoryPrismaMySQL implements UserRepository {
   constructor (private readonly prisma: PrismaService) {}
 
-  public async createUser (data: CreateUserDTO): Promise<User> {
+  public async createUser (user: User): Promise<User> {
     const createdUser = await this.prisma.user.create({
-      data
+      data: { ...user.toJSON(), id: undefined }
     })
 
     return new User(createdUser)

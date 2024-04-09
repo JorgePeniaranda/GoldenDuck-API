@@ -8,7 +8,6 @@ export class CreateUserDTO extends PickType(UserDTO, [
   'email',
   'phoneNumber',
   'password',
-  'salt',
   'address',
   'birthDate',
   'sex',

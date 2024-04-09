@@ -4,6 +4,7 @@ import {
   IsAlphanumeric,
   IsBoolean,
   IsDate,
+  IsDateString,
   IsEmail,
   IsNotEmpty,
   IsNumber,
@@ -109,8 +110,7 @@ export class UserDTO implements UserPrimitive {
     example: new Date('2000-01-01'),
     type: Date
   })
-  @IsDate()
-  @MaxDate(new Date(new Date().setFullYear(new Date().getFullYear() - 18))) // 18 years old
+  @IsDateString({})
     birthDate: UserPrimitive['birthDate']
 
   /* ---------- SEX ---------- */
