@@ -28,7 +28,7 @@ implements NotificationRepository {
       }
     })
 
-    return notifications.map((notification) => new Notification(notification))
+    return notifications.map(notification => new Notification(notification))
   }
 
   public async find (

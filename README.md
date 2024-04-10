@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://goldenduck.vercel.app/" target="_blank">
-        <img src="/GoldenDuck.webp" alt="Golden-Duck Logo" />
+        <img src="/assets/GoldenDuck.webp" alt="Golden-Duck Logo" />
   </a>
 </div>
 

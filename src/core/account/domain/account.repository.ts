@@ -10,7 +10,7 @@ export interface AccountRepository {
   find: (id: AccountPrimitive['id']) => Promise<Account | null>
   update: (
     id: AccountPrimitive['id'],
-    account: UpdateAccountDTO,
+    account: UpdateAccountDTO
   ) => Promise<Account>
   delete: (id: AccountPrimitive['id']) => Promise<void>
 }

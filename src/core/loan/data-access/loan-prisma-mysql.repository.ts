@@ -27,7 +27,7 @@ export class LoanRepositoryPrismaMySQL implements LoanRepository {
       }
     })
 
-    return loans.map((loan) => new Loan(loan))
+    return loans.map(loan => new Loan(loan))
   }
 
   public async find (id: LoanPrimitive['id']): Promise<Loan | null> {

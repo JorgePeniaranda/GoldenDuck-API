@@ -25,7 +25,7 @@ export class MessageRepositoryPrismaMySQL implements MessageRepository {
       }
     })
 
-    return messages.map((message) => new Message(message))
+    return messages.map(message => new Message(message))
   }
 
   public async find (id: MessagePrimitive['id']): Promise<Message | null> {

@@ -27,7 +27,7 @@ export class CardRepositoryPrismaMySQL implements CardRepository {
       }
     })
 
-    return cards.map((card) => new Card(card))
+    return cards.map(card => new Card(card))
   }
 
   public async find (id: CardPrimitive['id']): Promise<Card | null> {
