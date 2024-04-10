@@ -38,11 +38,7 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     })
   }
 
-  public async findUser ({
-    dni,
-    email,
-    phoneNumber
-  }: FindUserDTO): Promise<User | null> {
+  public async findUser ({ dni, email, phoneNumber }: FindUserDTO): Promise<User | null> {
     const findUser = await this.prisma.user.findFirst({
       where: {
         OR: [{ dni }, { email }, { phoneNumber }],

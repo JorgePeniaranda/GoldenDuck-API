@@ -14,7 +14,7 @@ export class AuthUseCase {
   ) {}
 
   async validateUser (email: string, password: string): Promise<User | null> {
-    const user = await this.userUseCase.findUser({ email })
+    const user = await this.userUseCase.findOne({ email })
 
     if (user !== null && bcrypt.compareSync(password, user.password)) {
       return user

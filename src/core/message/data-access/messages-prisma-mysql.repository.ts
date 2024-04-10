@@ -38,10 +38,7 @@ export class MessageRepositoryPrismaMySQL implements MessageRepository {
     return message !== null ? new Message(message) : null
   }
 
-  public async update (
-    id: MessagePrimitive['id'],
-    data: UpdateMessageDTO
-  ): Promise<Message | null> {
+  public async update (id: MessagePrimitive['id'], data: UpdateMessageDTO): Promise<Message | null> {
     const updatedMessage = await this.prisma.message.update({
       where: {
         id

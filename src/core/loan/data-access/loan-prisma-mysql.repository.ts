@@ -18,9 +18,7 @@ export class LoanRepositoryPrismaMySQL implements LoanRepository {
     return new Loan(newLoan)
   }
 
-  public async findAll (
-    idAccount: AccountPrimitive['id']
-  ): Promise<Loan[] | null> {
+  public async findAll (idAccount: AccountPrimitive['id']): Promise<Loan[] | null> {
     const loans = await this.prisma.loan.findMany({
       where: {
         idAccount

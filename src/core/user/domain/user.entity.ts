@@ -1,14 +1,7 @@
 import { Password } from '@/value-objects/password'
 import { UserRoles, type UserPrimitive } from './user.primitive'
 
-const optionalProperties = [
-  'id',
-  'updatedAt',
-  'createdAt',
-  'actived',
-  'deleted',
-  'role'
-] as const
+const optionalProperties = ['id', 'updatedAt', 'createdAt', 'actived', 'deleted', 'role'] as const
 
 export class User implements UserPrimitive {
   readonly #id: UserPrimitive['id']

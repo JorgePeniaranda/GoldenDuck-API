@@ -1,14 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  NotFoundException,
-  Param,
-  ParseIntPipe,
-  Post,
-  Put
-} from '@nestjs/common'
+import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post, Put } from '@nestjs/common'
 import { ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateMessageDTO } from '../domain/dto/create-transaction'
 import { type Message } from '../domain/messages.entity'
@@ -25,9 +15,7 @@ export class MessageController {
   constructor (private readonly messageService: MessageService) {}
 
   @Get()
-  async getAllTransaction (
-    @Body() id: MessagePrimitive['id']
-  ): Promise<Message[]> {
+  async getAllTransaction (@Body() id: MessagePrimitive['id']): Promise<Message[]> {
     const messages = await this.messageService.findAll(id)
 
     if (messages === null) {
@@ -45,9 +33,7 @@ export class MessageController {
   }
 
   @Get('/:id')
-  async getTransaction (
-    @Param('id', new ParseIntPipe()) id: MessagePrimitive['id']
-  ): Promise<Message> {
+  async getTransaction (@Param('id', new ParseIntPipe()) id: MessagePrimitive['id']): Promise<Message> {
     const message = await this.messageService.findOne(id)
 
     if (message === null) {
@@ -72,9 +58,7 @@ export class MessageController {
   }
 
   @Delete('/:id')
-  async deleteTransaction (
-    @Param('id', new ParseIntPipe()) id: MessagePrimitive['id']
-  ): Promise<void> {
+  async deleteTransaction (@Param('id', new ParseIntPipe()) id: MessagePrimitive['id']): Promise<void> {
     await this.messageService.delete(id)
   }
 }

@@ -7,9 +7,7 @@ import { LoanRepository } from '../loan.repository'
 
 @Injectable()
 export class LoanService {
-  constructor (
-    @Inject('LoanRepository') private readonly loanRepository: LoanRepository
-  ) {}
+  constructor (@Inject('LoanRepository') private readonly loanRepository: LoanRepository) {}
 
   public async create (data: CreateLoanDTO): Promise<Loan> {
     return await this.loanRepository.create(data)

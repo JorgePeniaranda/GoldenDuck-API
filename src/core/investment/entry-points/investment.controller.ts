@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  NotFoundException,
-  Param,
-  ParseIntPipe,
-  Post
-} from '@nestjs/common'
+import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post } from '@nestjs/common'
 import { ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateInvestmentDTO } from '../domain/dto/create-investment'
 import { type Investment } from '../domain/investment.entity'
@@ -24,9 +15,7 @@ export class InvestmentController {
   constructor (private readonly investmentService: InvestmentService) {}
 
   @Get()
-  async getAllInvestment (
-    @Body() id: InvestmentPrimitive['id']
-  ): Promise<Investment[]> {
+  async getAllInvestment (@Body() id: InvestmentPrimitive['id']): Promise<Investment[]> {
     const investment = await this.investmentService.findAll(id)
 
     if (investment === null) {
@@ -37,18 +26,14 @@ export class InvestmentController {
   }
 
   @Post()
-  async createInvestment (
-    @Body() data: CreateInvestmentDTO
-  ): Promise<Investment> {
+  async createInvestment (@Body() data: CreateInvestmentDTO): Promise<Investment> {
     const investment = await this.investmentService.create(data)
 
     return investment
   }
 
   @Get('/:id')
-  async getInvestment (
-    @Param('id', new ParseIntPipe()) id: InvestmentPrimitive['id']
-  ): Promise<Investment> {
+  async getInvestment (@Param('id', new ParseIntPipe()) id: InvestmentPrimitive['id']): Promise<Investment> {
     const investment = await this.investmentService.findOne(id)
 
     if (investment === null) {
@@ -59,9 +44,7 @@ export class InvestmentController {
   }
 
   @Delete('/:id')
-  async deleteInvestment (
-    @Param('id', new ParseIntPipe()) id: InvestmentPrimitive['id']
-  ): Promise<void> {
+  async deleteInvestment (@Param('id', new ParseIntPipe()) id: InvestmentPrimitive['id']): Promise<void> {
     await this.investmentService.delete(id)
   }
 }

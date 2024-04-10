@@ -39,10 +39,7 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
     return account !== null ? new Account(account) : null
   }
 
-  public async update (
-    id: AccountPrimitive['id'],
-    account: UpdateAccountDTO
-  ): Promise<Account> {
+  public async update (id: AccountPrimitive['id'], account: UpdateAccountDTO): Promise<Account> {
     const updatedAccount = await this.prisma.account.update({
       where: {
         id

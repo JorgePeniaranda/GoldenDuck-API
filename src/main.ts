@@ -4,12 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import compression from 'compression'
 import helmet from 'helmet'
 import { AppModule } from './app.module'
-import {
-  APP_DESCRIPTION,
-  APP_NAME,
-  APP_VERSION,
-  SWAGGER_PATH
-} from './constants'
+import { APP_DESCRIPTION, APP_NAME, APP_VERSION, SWAGGER_PATH } from './constants'
 import { env } from './constants/env'
 import './utils/fixes'
 import { findAvailablePort } from './utils/server'

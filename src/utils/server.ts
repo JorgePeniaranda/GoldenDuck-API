@@ -18,10 +18,7 @@ export const getEnvValue = (envName: string, defaultValue?: string): string => {
   throw new Error(ErrorsMessages.EnvironmentVariableError(envName))
 }
 
-export const findAvailablePort = async (
-  server: INestApplication,
-  port: number | string
-): Promise<number> => {
+export const findAvailablePort = async (server: INestApplication, port: number | string): Promise<number> => {
   if (typeof port === 'string') {
     port = parseInt(port)
   }

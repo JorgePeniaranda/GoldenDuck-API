@@ -18,15 +18,11 @@ export class NotificationService {
     // TO-DO: send notification to account device
   }
 
-  public async findAll (
-    id: AccountPrimitive['id']
-  ): Promise<Notification[] | null> {
+  public async findAll (id: AccountPrimitive['id']): Promise<Notification[] | null> {
     return await this.notificationRepository.findAll(id)
   }
 
-  public async findOne (
-    id: TransactionPrimitive['id']
-  ): Promise<Notification | null> {
+  public async findOne (id: TransactionPrimitive['id']): Promise<Notification | null> {
     return await this.notificationRepository.findOne(id)
   }
 

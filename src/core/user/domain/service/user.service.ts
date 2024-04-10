@@ -1,12 +1,6 @@
 import { UserErrorsMessages } from '@/messages/error/user'
 import { Password } from '@/value-objects/password'
-import {
-  ConflictException,
-  Inject,
-  Injectable,
-  NotFoundException,
-  UnauthorizedException
-} from '@nestjs/common'
+import { ConflictException, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
 import { type CreateUserDTO } from '../dto/create-user.dto'
 import { type DeleteUserDTO } from '../dto/delete-user.dto'
 import { type FindUserDTO } from '../dto/find-user.dto'
@@ -17,9 +11,7 @@ import { UserRepository } from '../user.repository'
 
 @Injectable()
 export class UserUseCase {
-  constructor (
-    @Inject('UserRepository') private readonly userRepository: UserRepository
-  ) {}
+  constructor (@Inject('UserRepository') private readonly userRepository: UserRepository) {}
 
   async createUser (user: CreateUserDTO): Promise<User> {
     const checkUser = await this.userRepository.findOne({
@@ -55,10 +47,7 @@ export class UserUseCase {
 
   activateUser (): void {}
 
-  async updateUser (
-    id: UserPrimitive['id'],
-    data: UpdateUserDTO
-  ): Promise<User> {
+  async updateUser (id: UserPrimitive['id'], data: UpdateUserDTO): Promise<User> {
     const user = await this.userRepository.findOneByID(id)
 
     if (user === null) {
@@ -78,10 +67,7 @@ export class UserUseCase {
     // TO-DO: send notification to account email
   }
 
-  async deleteUser (
-    id: UserPrimitive['id'],
-    data: DeleteUserDTO
-  ): Promise<void> {
+  async deleteUser (id: UserPrimitive['id'], data: DeleteUserDTO): Promise<void> {
     const user = await this.userRepository.findOneByID(id)
 
     if (user === null) {

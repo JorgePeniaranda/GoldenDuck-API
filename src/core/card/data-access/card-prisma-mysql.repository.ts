@@ -18,9 +18,7 @@ export class CardRepositoryPrismaMySQL implements CardRepository {
     return new Card(newCard)
   }
 
-  public async findAll (
-    idAccount: AccountPrimitive['id']
-  ): Promise<Card[] | null> {
+  public async findAll (idAccount: AccountPrimitive['id']): Promise<Card[] | null> {
     const cards = await this.prisma.card.findMany({
       where: {
         idAccount

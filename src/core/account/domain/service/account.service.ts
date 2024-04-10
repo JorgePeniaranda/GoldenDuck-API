@@ -27,10 +27,7 @@ export class AccountService {
     return await this.accountRepository.findOne(id)
   }
 
-  public async update (
-    id: AccountPrimitive['id'],
-    account: UpdateAccountDTO
-  ): Promise<Account> {
+  public async update (id: AccountPrimitive['id'], account: UpdateAccountDTO): Promise<Account> {
     return await this.accountRepository.update(id, account)
   }
 

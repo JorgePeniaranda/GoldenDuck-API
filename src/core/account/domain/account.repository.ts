@@ -8,9 +8,6 @@ export interface AccountRepository {
   create: (data: CreateAccountDTO) => Promise<Account>
   findAll: (id: IDUserDTO) => Promise<Account[] | null>
   findOne: (id: AccountPrimitive['id']) => Promise<Account | null>
-  update: (
-    id: AccountPrimitive['id'],
-    account: UpdateAccountDTO
-  ) => Promise<Account>
+  update: (id: AccountPrimitive['id'], account: UpdateAccountDTO) => Promise<Account>
   delete: (id: AccountPrimitive['id']) => Promise<void>
 }

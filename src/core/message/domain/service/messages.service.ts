@@ -35,10 +35,7 @@ export class MessageService {
     return await this.transactionRepository.findOne(id)
   }
 
-  public async update (
-    id: MessagePrimitive['id'],
-    data: UpdateMessageDTO
-  ): Promise<Message | null> {
+  public async update (id: MessagePrimitive['id'], data: UpdateMessageDTO): Promise<Message | null> {
     return await this.transactionRepository.update(id, data)
   }
 
