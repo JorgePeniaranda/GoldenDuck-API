@@ -27,7 +27,7 @@ export class TransactionController {
   async getAllTransaction (
     @Body() id: TransactionPrimitive['id']
   ): Promise<Transaction[]> {
-    const transactions = await this.transactionService.getAll(id)
+    const transactions = await this.transactionService.findAll(id)
 
     if (transactions === null) {
       return []
@@ -49,7 +49,7 @@ export class TransactionController {
   async getTransaction (
     @Param('id', new ParseIntPipe()) id: TransactionPrimitive['id']
   ): Promise<Transaction> {
-    const transaction = await this.transactionService.find(id)
+    const transaction = await this.transactionService.findOne(id)
 
     if (transaction === null) {
       throw new NotFoundException()

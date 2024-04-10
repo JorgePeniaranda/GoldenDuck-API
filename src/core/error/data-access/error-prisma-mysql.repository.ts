@@ -17,13 +17,13 @@ export class ErrorRepositoryPrismaMySQL implements ErrorRepository {
     return new Error(newTransaction)
   }
 
-  public async getAll (): Promise<Error[] | null> {
+  public async findAll (): Promise<Error[] | null> {
     const errors = await this.prisma.error.findMany()
 
     return errors.map(error => new Error(error))
   }
 
-  public async find (id: ErrorPrimitive['id']): Promise<Error | null> {
+  public async findOne (id: ErrorPrimitive['id']): Promise<Error | null> {
     const error = await this.prisma.error.findUnique({
       where: {
         id

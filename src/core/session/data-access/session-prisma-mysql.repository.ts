@@ -17,13 +17,13 @@ export class SessionRepositoryPrismaMySQL implements SessionRepository {
     return new Session(newSession)
   }
 
-  public async getAll (): Promise<Session[] | null> {
+  public async findAll (): Promise<Session[] | null> {
     const sessions = await this.prisma.session.findMany()
 
     return sessions.map(session => new Session(session))
   }
 
-  public async find (id: SessionPrimitive['id']): Promise<Session | null> {
+  public async findOne (id: SessionPrimitive['id']): Promise<Session | null> {
     const session = await this.prisma.session.findUnique({
       where: {
         id

@@ -22,7 +22,7 @@ export class UserUseCase {
   ) {}
 
   async createUser (user: CreateUserDTO): Promise<User> {
-    const checkUser = await this.userRepository.findUser({
+    const checkUser = await this.userRepository.findOne({
       dni: user.dni,
       email: user.email,
       phoneNumber: user.phoneNumber
@@ -45,12 +45,12 @@ export class UserUseCase {
     return await this.userRepository.createUser(newUser)
   }
 
-  async findUser (params: FindUserDTO): Promise<User | null> {
-    return await this.userRepository.findUser(params)
+  async findOne (params: FindUserDTO): Promise<User | null> {
+    return await this.userRepository.findOne(params)
   }
 
-  async findUserByID (id: UserPrimitive['id']): Promise<User | null> {
-    return await this.userRepository.findUserByID(id)
+  async findOneByID (id: UserPrimitive['id']): Promise<User | null> {
+    return await this.userRepository.findOneByID(id)
   }
 
   activateUser (): void {}
@@ -59,7 +59,7 @@ export class UserUseCase {
     id: UserPrimitive['id'],
     data: UpdateUserDTO
   ): Promise<User> {
-    const user = await this.userRepository.findUserByID(id)
+    const user = await this.userRepository.findOneByID(id)
 
     if (user === null) {
       throw new NotFoundException(UserErrorsMessages.UserNotFound)
@@ -82,7 +82,7 @@ export class UserUseCase {
     id: UserPrimitive['id'],
     data: DeleteUserDTO
   ): Promise<void> {
-    const user = await this.userRepository.findUserByID(id)
+    const user = await this.userRepository.findOneByID(id)
 
     if (user === null) {
       throw new NotFoundException(UserErrorsMessages.UserNotFound)

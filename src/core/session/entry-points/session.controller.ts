@@ -25,7 +25,7 @@ export class SessionController {
 
   @Get()
   async getAllSession (): Promise<Session[]> {
-    const sessions = await this.sessionService.getAll()
+    const sessions = await this.sessionService.findAll()
 
     if (sessions === null) {
       return []
@@ -45,7 +45,7 @@ export class SessionController {
   async getSession (
     @Param('id', new ParseIntPipe()) id: SessionPrimitive['id']
   ): Promise<Session> {
-    const session = await this.sessionService.find(id)
+    const session = await this.sessionService.findOne(id)
 
     if (session === null) {
       throw new NotFoundException()

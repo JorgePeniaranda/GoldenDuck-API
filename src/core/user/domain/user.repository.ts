@@ -4,8 +4,8 @@ import { type UserPrimitive } from './user.primitive'
 
 export interface UserRepository {
   createUser: (user: User) => Promise<User>
-  findUser: (params: FindUserDTO) => Promise<User | null>
-  findUserByID: (id: UserPrimitive['id']) => Promise<User | null>
+  findOne: (params: FindUserDTO) => Promise<User | null>
+  findOneByID: (id: UserPrimitive['id']) => Promise<User | null>
   updateUser: (user: User) => Promise<User>
   deleteUser: (user: User) => Promise<void>
 }

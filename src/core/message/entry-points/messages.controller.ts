@@ -28,7 +28,7 @@ export class MessageController {
   async getAllTransaction (
     @Body() id: MessagePrimitive['id']
   ): Promise<Message[]> {
-    const messages = await this.messageService.getAll(id)
+    const messages = await this.messageService.findAll(id)
 
     if (messages === null) {
       return []
@@ -48,7 +48,7 @@ export class MessageController {
   async getTransaction (
     @Param('id', new ParseIntPipe()) id: MessagePrimitive['id']
   ): Promise<Message> {
-    const message = await this.messageService.find(id)
+    const message = await this.messageService.findOne(id)
 
     if (message === null) {
       throw new NotFoundException()

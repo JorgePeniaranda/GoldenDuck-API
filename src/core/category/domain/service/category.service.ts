@@ -15,12 +15,12 @@ export class CategoryService {
     return await this.categoryRepository.create(data)
   }
 
-  public async getAll (): Promise<Category[] | null> {
-    return await this.categoryRepository.getAll()
+  public async findAll (): Promise<Category[] | null> {
+    return await this.categoryRepository.findAll()
   }
 
-  public async find (id: CategoryPrimitive['id']): Promise<Category | null> {
-    return await this.categoryRepository.find(id)
+  public async findOne (id: CategoryPrimitive['id']): Promise<Category | null> {
+    return await this.categoryRepository.findOne(id)
   }
 
   public async delete (id: CategoryPrimitive['id']): Promise<void> {

@@ -17,12 +17,12 @@ export class LoanService {
     // TO-DO: remove money from account
   }
 
-  public async getAll (id: AccountPrimitive['id']): Promise<Loan[] | null> {
-    return await this.loanRepository.getAll(id)
+  public async findAll (id: AccountPrimitive['id']): Promise<Loan[] | null> {
+    return await this.loanRepository.findAll(id)
   }
 
-  public async find (id: LoanPrimitive['id']): Promise<Loan | null> {
-    return await this.loanRepository.find(id)
+  public async findOne (id: LoanPrimitive['id']): Promise<Loan | null> {
+    return await this.loanRepository.findOne(id)
   }
 
   public async delete (id: LoanPrimitive['id']): Promise<void> {

@@ -19,14 +19,14 @@ export class InvestmentService {
     // TO-DO: add event to event to add money to account when investment is finished
   }
 
-  public async getAll (
+  public async findAll (
     id: AccountPrimitive['id']
   ): Promise<Investment[] | null> {
-    return await this.investmentRepository.getAll(id)
+    return await this.investmentRepository.findAll(id)
   }
 
-  public async find (id: InvestmentPrimitive['id']): Promise<Investment | null> {
-    return await this.investmentRepository.find(id)
+  public async findOne (id: InvestmentPrimitive['id']): Promise<Investment | null> {
+    return await this.investmentRepository.findOne(id)
   }
 
   public async delete (id: InvestmentPrimitive['id']): Promise<void> {

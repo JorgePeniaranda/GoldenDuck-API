@@ -18,7 +18,7 @@ export class InvestmentRepositoryPrismaMySQL implements InvestmentRepository {
     return new Investment(newInvestment)
   }
 
-  public async getAll (
+  public async findAll (
     idAccount: AccountPrimitive['id']
   ): Promise<Investment[] | null> {
     const investments = await this.prisma.loan.findMany({
@@ -30,7 +30,7 @@ export class InvestmentRepositoryPrismaMySQL implements InvestmentRepository {
     return investments.map(investment => new Investment(investment))
   }
 
-  public async find (id: InvestmentPrimitive['id']): Promise<Investment | null> {
+  public async findOne (id: InvestmentPrimitive['id']): Promise<Investment | null> {
     const investment = await this.prisma.loan.findUnique({
       where: {
         id

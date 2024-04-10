@@ -23,3 +23,5 @@ export const Tracking = (): ((...args: any[]) => any) => {
     return descriptor
   }
 }
+
+// export const Test = (...args: string[]) => SetMetadata('test', args);

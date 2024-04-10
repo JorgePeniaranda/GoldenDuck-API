@@ -19,12 +19,12 @@ export class AccountService {
     // TO-DO: send notification to user email
   }
 
-  public async getAll (id: IDUserDTO): Promise<Account[] | null> {
-    return await this.accountRepository.getAll(id)
+  public async findAll (id: IDUserDTO): Promise<Account[] | null> {
+    return await this.accountRepository.findAll(id)
   }
 
-  public async find (id: AccountPrimitive['id']): Promise<Account | null> {
-    return await this.accountRepository.find(id)
+  public async findOne (id: AccountPrimitive['id']): Promise<Account | null> {
+    return await this.accountRepository.findOne(id)
   }
 
   public async update (

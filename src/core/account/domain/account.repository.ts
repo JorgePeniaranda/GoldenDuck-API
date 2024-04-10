@@ -6,8 +6,8 @@ import { type UpdateAccountDTO } from './dto/update-account'
 
 export interface AccountRepository {
   create: (data: CreateAccountDTO) => Promise<Account>
-  getAll: (id: IDUserDTO) => Promise<Account[] | null>
-  find: (id: AccountPrimitive['id']) => Promise<Account | null>
+  findAll: (id: IDUserDTO) => Promise<Account[] | null>
+  findOne: (id: AccountPrimitive['id']) => Promise<Account | null>
   update: (
     id: AccountPrimitive['id'],
     account: UpdateAccountDTO

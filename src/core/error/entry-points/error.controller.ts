@@ -25,7 +25,7 @@ export class ErrorController {
 
   @Get()
   async getAllError (): Promise<Error[]> {
-    const errors = await this.errorService.getAll()
+    const errors = await this.errorService.findAll()
 
     if (errors === null) {
       return []
@@ -45,7 +45,7 @@ export class ErrorController {
   async getError (
     @Param('id', new ParseIntPipe()) id: ErrorPrimitive['id']
   ): Promise<Error> {
-    const error = await this.errorService.find(id)
+    const error = await this.errorService.findOne(id)
 
     if (error === null) {
       throw new NotFoundException()

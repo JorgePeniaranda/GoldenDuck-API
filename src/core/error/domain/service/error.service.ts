@@ -15,12 +15,12 @@ export class ErrorService {
     return await this.errorRepository.create(data)
   }
 
-  public async getAll (): Promise<Error[] | null> {
-    return await this.errorRepository.getAll()
+  public async findAll (): Promise<Error[] | null> {
+    return await this.errorRepository.findAll()
   }
 
-  public async find (id: ErrorPrimitive['id']): Promise<Error | null> {
-    return await this.errorRepository.find(id)
+  public async findOne (id: ErrorPrimitive['id']): Promise<Error | null> {
+    return await this.errorRepository.findOne(id)
   }
 
   public async delete (id: ErrorPrimitive['id']): Promise<void> {

@@ -5,7 +5,7 @@ import { type TransactionPrimitive } from './transaction.primitive'
 
 export interface TransactionRepository {
   create: (data: CreateTransactionDTO) => Promise<Transaction>
-  getAll: (id: AccountPrimitive['id']) => Promise<Transaction[] | null>
-  find: (id: TransactionPrimitive['id']) => Promise<Transaction | null>
+  findAll: (id: AccountPrimitive['id']) => Promise<Transaction[] | null>
+  findOne: (id: TransactionPrimitive['id']) => Promise<Transaction | null>
   delete: (id: TransactionPrimitive['id']) => Promise<void>
 }

@@ -25,7 +25,7 @@ export class LoanController {
 
   @Get()
   async getAllLoan (@Body() id: LoanPrimitive['id']): Promise<Loan[]> {
-    const loans = await this.loanService.getAll(id)
+    const loans = await this.loanService.findAll(id)
 
     if (loans === null) {
       return []
@@ -45,7 +45,7 @@ export class LoanController {
   async getLoan (
     @Param('id', new ParseIntPipe()) id: LoanPrimitive['id']
   ): Promise<Loan> {
-    const loan = await this.loanService.find(id)
+    const loan = await this.loanService.findOne(id)
 
     if (loan === null) {
       throw new NotFoundException()

@@ -17,12 +17,12 @@ export class SessionService {
     // TO-DO: send notification to account device and account email
   }
 
-  public async getAll (): Promise<Session[] | null> {
-    return await this.sessionRepository.getAll()
+  public async findAll (): Promise<Session[] | null> {
+    return await this.sessionRepository.findAll()
   }
 
-  public async find (id: SessionPrimitive['id']): Promise<Session | null> {
-    return await this.sessionRepository.find(id)
+  public async findOne (id: SessionPrimitive['id']): Promise<Session | null> {
+    return await this.sessionRepository.findOne(id)
   }
 
   public async delete (id: SessionPrimitive['id']): Promise<void> {

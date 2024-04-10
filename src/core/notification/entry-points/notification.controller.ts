@@ -27,7 +27,7 @@ export class NotificationController {
   async getAllTransaction (
     @Body() id: NotificationPrimitive['id']
   ): Promise<Notification[]> {
-    const notifications = await this.notificationService.getAll(id)
+    const notifications = await this.notificationService.findAll(id)
 
     if (notifications === null) {
       return []
@@ -49,7 +49,7 @@ export class NotificationController {
   async getTransaction (
     @Param('id', new ParseIntPipe()) id: NotificationPrimitive['id']
   ): Promise<Notification> {
-    const notification = await this.notificationService.find(id)
+    const notification = await this.notificationService.findOne(id)
 
     if (notification === null) {
       throw new NotFoundException()

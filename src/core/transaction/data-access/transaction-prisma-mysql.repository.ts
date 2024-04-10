@@ -18,7 +18,7 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
     return new Transaction(newTransaction)
   }
 
-  public async getAll (
+  public async findAll (
     id: AccountPrimitive['id']
   ): Promise<Transaction[] | null> {
     const transactions = await this.prisma.transaction.findMany({
@@ -30,7 +30,7 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
     return transactions.map(transaction => new Transaction(transaction))
   }
 
-  public async find (
+  public async findOne (
     id: TransactionPrimitive['id']
   ): Promise<Transaction | null> {
     const transaction = await this.prisma.transaction.findUnique({

@@ -5,7 +5,7 @@ import { type NotificationPrimitive } from './notification.primitive'
 
 export interface NotificationRepository {
   create: (data: CreateNotificationDTO) => Promise<Notification>
-  getAll: (id: AccountPrimitive['id']) => Promise<Notification[] | null>
-  find: (id: NotificationPrimitive['id']) => Promise<Notification | null>
+  findAll: (id: AccountPrimitive['id']) => Promise<Notification[] | null>
+  findOne: (id: NotificationPrimitive['id']) => Promise<Notification | null>
   delete: (id: NotificationPrimitive['id']) => Promise<void>
 }

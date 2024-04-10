@@ -27,7 +27,7 @@ export class InvestmentController {
   async getAllInvestment (
     @Body() id: InvestmentPrimitive['id']
   ): Promise<Investment[]> {
-    const investment = await this.investmentService.getAll(id)
+    const investment = await this.investmentService.findAll(id)
 
     if (investment === null) {
       return []
@@ -49,7 +49,7 @@ export class InvestmentController {
   async getInvestment (
     @Param('id', new ParseIntPipe()) id: InvestmentPrimitive['id']
   ): Promise<Investment> {
-    const investment = await this.investmentService.find(id)
+    const investment = await this.investmentService.findOne(id)
 
     if (investment === null) {
       throw new NotFoundException()

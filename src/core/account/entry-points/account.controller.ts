@@ -29,7 +29,7 @@ export class AccountController {
 
   @Get()
   async getAllAccount (@Body() id: IDUserDTO): Promise<Account[]> {
-    const accounts = await this.accountService.getAll(id)
+    const accounts = await this.accountService.findAll(id)
 
     if (accounts === null) {
       return []
@@ -49,7 +49,7 @@ export class AccountController {
   async getAccount (
     @Param('id', new ParseIntPipe()) id: AccountPrimitive['id']
   ): Promise<Account> {
-    const account = await this.accountService.find(id)
+    const account = await this.accountService.findOne(id)
 
     if (account === null) {
       throw new NotFoundException()

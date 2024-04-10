@@ -19,7 +19,7 @@ implements NotificationRepository {
     return new Notification(newNotification)
   }
 
-  public async getAll (
+  public async findAll (
     idAccount: AccountPrimitive['id']
   ): Promise<Notification[] | null> {
     const notifications = await this.prisma.notification.findMany({
@@ -31,7 +31,7 @@ implements NotificationRepository {
     return notifications.map(notification => new Notification(notification))
   }
 
-  public async find (
+  public async findOne (
     id: NotificationPrimitive['id']
   ): Promise<Notification | null> {
     const notification = await this.prisma.notification.findUnique({

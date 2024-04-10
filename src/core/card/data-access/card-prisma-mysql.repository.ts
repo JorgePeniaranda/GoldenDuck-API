@@ -18,7 +18,7 @@ export class CardRepositoryPrismaMySQL implements CardRepository {
     return new Card(newCard)
   }
 
-  public async getAll (
+  public async findAll (
     idAccount: AccountPrimitive['id']
   ): Promise<Card[] | null> {
     const cards = await this.prisma.card.findMany({
@@ -30,7 +30,7 @@ export class CardRepositoryPrismaMySQL implements CardRepository {
     return cards.map(card => new Card(card))
   }
 
-  public async find (id: CardPrimitive['id']): Promise<Card | null> {
+  public async findOne (id: CardPrimitive['id']): Promise<Card | null> {
     const card = await this.prisma.card.findUnique({
       where: {
         id

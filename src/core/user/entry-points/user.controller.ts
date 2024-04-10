@@ -46,7 +46,7 @@ export class UserController {
   @Post('/find')
   async findUser (@Body() params: FindUserDTO): Promise<object> {
     // <- dudoso (get con body??)
-    const user = await this.userUseCase.findUser(params)
+    const user = await this.userUseCase.findOne(params)
 
     if (user === null) {
       throw new NotFoundException(UserErrorsMessages.UserNotFound)

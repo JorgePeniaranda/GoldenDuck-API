@@ -5,7 +5,7 @@ import { type CreateCardDTO } from './dto/create-card'
 
 export interface CardRepository {
   create: (data: CreateCardDTO) => Promise<Card>
-  getAll: (id: AccountPrimitive['id']) => Promise<Card[] | null>
-  find: (id: CardPrimitive['id']) => Promise<Card | null>
+  findAll: (id: AccountPrimitive['id']) => Promise<Card[] | null>
+  findOne: (id: CardPrimitive['id']) => Promise<Card | null>
   delete: (id: CardPrimitive['id']) => Promise<void>
 }

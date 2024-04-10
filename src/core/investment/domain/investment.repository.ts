@@ -5,7 +5,7 @@ import { type InvestmentPrimitive } from './investment.primitive'
 
 export interface InvestmentRepository {
   create: (loan: CreateInvestmentDTO) => Promise<Investment>
-  getAll: (id: AccountPrimitive['id']) => Promise<Investment[] | null>
-  find: (id: InvestmentPrimitive['id']) => Promise<Investment | null>
+  findAll: (id: AccountPrimitive['id']) => Promise<Investment[] | null>
+  findOne: (id: InvestmentPrimitive['id']) => Promise<Investment | null>
   delete: (id: InvestmentPrimitive['id']) => Promise<void>
 }
