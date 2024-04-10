@@ -10,7 +10,7 @@ export interface MessageRepository {
   find: (id: MessagePrimitive['id']) => Promise<Message | null>
   update: (
     id: MessagePrimitive['id'],
-    message: UpdateMessageDTO,
+    message: UpdateMessageDTO
   ) => Promise<Message | null>
   delete: (id: MessagePrimitive['id']) => Promise<void>
 }

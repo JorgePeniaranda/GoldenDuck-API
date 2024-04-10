@@ -36,7 +36,7 @@ export const findAvailablePort = async (
     .then(() => {
       Logger.log(ServerMessages.AppRunning(port), 'NestApplication')
     })
-    .catch(async (error) => {
+    .catch(async error => {
       if (error.code === 'EADDRINUSE') {
         return await findAvailablePort(server, port + 1)
       }

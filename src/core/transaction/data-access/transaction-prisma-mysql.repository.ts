@@ -27,7 +27,7 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
       }
     })
 
-    return transactions.map((transaction) => new Transaction(transaction))
+    return transactions.map(transaction => new Transaction(transaction))
   }
 
   public async find (

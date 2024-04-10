@@ -26,7 +26,7 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
       }
     })
 
-    return accounts.map((account) => new Account(account))
+    return accounts.map(account => new Account(account))
   }
 
   public async find (id: AccountPrimitive['id']): Promise<Account | null> {
