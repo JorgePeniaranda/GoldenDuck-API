@@ -1,0 +1,10 @@
+@token = 1234567890
+@protocol = http
+@hostname = localhost
+@port = 3000
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+
+GET https://www.google.com/
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
