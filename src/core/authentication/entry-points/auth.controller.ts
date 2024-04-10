@@ -1,10 +1,10 @@
 import { type User } from '@/core/user/domain/user.entity'
+import { LocalAuthGuard } from '@/guard/auth.guard'
+import { JwtAuthGuard } from '@/guard/jwt.guard'
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { type JwtPayload } from '../domain/payload.entity'
-import { LocalAuthGuard } from '../domain/service/auth.guard'
 import { AuthUseCase } from '../domain/service/auth.service'
-import { JwtAuthGuard } from '../domain/service/jwt.guard'
 import { type Token } from '../domain/token.entity'
 
 @ApiTags('Auth')
