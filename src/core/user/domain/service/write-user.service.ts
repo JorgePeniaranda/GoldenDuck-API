@@ -9,14 +9,13 @@ import {
 } from '@nestjs/common'
 import { type CreateUserDTO } from '../dto/create-user.dto'
 import { type DeleteUserDTO } from '../dto/delete-user.dto'
-import { type FindUserDTO } from '../dto/find-user.dto'
 import { type UpdateUserDTO } from '../dto/update-user.dto'
 import { User } from '../user.entity'
 import { type UserPrimitive } from '../user.primitive'
 import { UserRepository } from '../user.repository'
 
 @Injectable()
-export class UserUseCase {
+export class WriteUserService {
   constructor (@Inject('UserRepository') private readonly userRepository: UserRepository) {}
 
   async createUser (user: CreateUserDTO): Promise<User> {
@@ -41,14 +40,6 @@ export class UserUseCase {
     // TO-DO: send notification with url to email
 
     return await this.userRepository.createUser(newUser)
-  }
-
-  async findOne (params: FindUserDTO): Promise<User | null> {
-    return await this.userRepository.findOne(params)
-  }
-
-  async findOneByID (id: UserPrimitive['id']): Promise<User | null> {
-    return await this.userRepository.findOneByID(id)
   }
 
   activateUser (): void {}
