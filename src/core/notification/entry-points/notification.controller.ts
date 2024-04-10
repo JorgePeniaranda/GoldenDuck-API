@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Post
+} from '@nestjs/common'
 import { ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateNotificationDTO } from '../domain/dto/create-notification'
 import { type Notification } from '../domain/notification.entity'
@@ -33,7 +42,9 @@ export class NotificationController {
   }
 
   @Get('/:id')
-  async getTransaction (@Param('id', new ParseIntPipe()) id: NotificationPrimitive['id']): Promise<Notification> {
+  async getTransaction (
+    @Param('id', new ParseIntPipe()) id: NotificationPrimitive['id']
+  ): Promise<Notification> {
     const notification = await this.notificationService.findOne(id)
 
     if (notification === null) {
@@ -44,7 +55,9 @@ export class NotificationController {
   }
 
   @Delete('/:id')
-  async deleteTransaction (@Param('id', new ParseIntPipe()) id: NotificationPrimitive['id']): Promise<void> {
+  async deleteTransaction (
+    @Param('id', new ParseIntPipe()) id: NotificationPrimitive['id']
+  ): Promise<void> {
     await this.notificationService.delete(id)
   }
 }

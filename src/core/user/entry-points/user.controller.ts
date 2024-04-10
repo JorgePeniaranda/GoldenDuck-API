@@ -1,5 +1,15 @@
 import { UserErrorsMessages } from '@/messages/error/user'
-import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Patch, Post } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post
+} from '@nestjs/common'
 import { ApiCreatedResponse, ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateUserDTO } from '../domain/dto/create-user.dto'
 import { DeleteUserDTO } from '../domain/dto/delete-user.dto'
@@ -61,7 +71,10 @@ export class UserController {
   })
   @ApiResponse({})
   @Delete('/:id')
-  async deleteUser (@Param('id', ParseIntPipe) id: UserPrimitive['id'], @Body() data: DeleteUserDTO): Promise<void> {
+  async deleteUser (
+    @Param('id', ParseIntPipe) id: UserPrimitive['id'],
+      @Body() data: DeleteUserDTO
+  ): Promise<void> {
     await this.userUseCase.deleteUser(id, data)
   }
 }

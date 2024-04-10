@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Post
+} from '@nestjs/common'
 import { ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateTransactionDTO } from '../domain/dto/create-transaction'
 import { TransactionService } from '../domain/service/transaction.service'
@@ -33,7 +42,9 @@ export class TransactionController {
   }
 
   @Get('/:id')
-  async getTransaction (@Param('id', new ParseIntPipe()) id: TransactionPrimitive['id']): Promise<Transaction> {
+  async getTransaction (
+    @Param('id', new ParseIntPipe()) id: TransactionPrimitive['id']
+  ): Promise<Transaction> {
     const transaction = await this.transactionService.findOne(id)
 
     if (transaction === null) {
@@ -44,7 +55,9 @@ export class TransactionController {
   }
 
   @Delete('/:id')
-  async deleteTransaction (@Param('id', new ParseIntPipe()) id: TransactionPrimitive['id']): Promise<void> {
+  async deleteTransaction (
+    @Param('id', new ParseIntPipe()) id: TransactionPrimitive['id']
+  ): Promise<void> {
     await this.transactionService.delete(id)
   }
 }

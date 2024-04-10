@@ -1,6 +1,12 @@
 import { UserErrorsMessages } from '@/messages/error/user'
 import { Password } from '@/value-objects/password'
-import { ConflictException, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
+import {
+  ConflictException,
+  Inject,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException
+} from '@nestjs/common'
 import { type CreateUserDTO } from '../dto/create-user.dto'
 import { type DeleteUserDTO } from '../dto/delete-user.dto'
 import { type FindUserDTO } from '../dto/find-user.dto'
