@@ -6,7 +6,7 @@ import { JwtPayload } from '../payload.entity'
 import { Token } from '../token.entity'
 
 @Injectable()
-export class AuthUseCase {
+export class AuthService {
   constructor (
     private readonly readUserService: ReadUserService,
     private readonly jwtService: JwtService
