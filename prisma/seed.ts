@@ -1,16 +1,16 @@
 import { PrismaClient } from '@prisma/client';
-import { newUser } from './utils/newUser';
-import { newSession } from './utils/newSession';
 import { newAccount } from './utils/newAccount';
-import { newMessage } from './utils/newMessage';
-import { newNotification } from './utils/newNotification';
+import { newActivity } from './utils/newActivity';
 import { newCard } from './utils/newCard';
 import { newCategory } from './utils/newCategory';
-import { newTransaction } from './utils/newTransaction';
-import { newLoan } from './utils/newLoan';
-import { newInvestment } from './utils/newInvestment';
 import { newError } from './utils/newError';
-import { newActivity } from './utils/newActivity';
+import { newInvestment } from './utils/newInvestment';
+import { newLoan } from './utils/newLoan';
+import { newMessage } from './utils/newMessage';
+import { newNotification } from './utils/newNotification';
+import { newSession } from './utils/newSession';
+import { newTransaction } from './utils/newTransaction';
+import { newUser } from './utils/newUser';
 
 const prisma = new PrismaClient();
 
@@ -21,12 +21,12 @@ async function main(amount: number): Promise<void> {
   const dataUser = users.map(async (idUser) => {
     await newSession(idUser, 10); // (idUser, #) -> number of sessions per user
     const accounts = await newAccount(idUser, 3); // (idUser, #) -> number of accounts per user
+    await newMessage(idUser, 10); // (idAccount, #) -> number of messages per account
+    await newNotification(idUser, 10); // (idAccount, #) -> number of messages per account
     await newActivity(idUser, 10); // (idAccount, #) -> number of activity per account
 
     // create data for each account from user
     const dataAccount = accounts.map(async (idAccount) => {
-      await newMessage(idAccount, 10); // (idAccount, #) -> number of messages per account
-      await newNotification(idAccount, 10); // (idAccount, #) -> number of messages per account
       await newCard(idAccount, 10); // (idAccount, #) -> number of cards per account
       await newTransaction(idAccount, 10); // (idAccount, #) -> number of transactions per account
       await newLoan(idAccount, 10); // (idAccount, #) -> number of loans per account

@@ -51,6 +51,9 @@ model User {
   // Relations
   account    Account[]
   sessions   Session[]
+  notifications    Notification[]
+  messagesSend       Message[]      @relation(name: "idSender")
+  messagesReceived     Message[]      @relation(name: "idReceiver")
   activities Activity[]
 }
 
@@ -80,20 +83,17 @@ model Account {
 
   // Relations
   user             User           @relation(fields: [idUser], references: [id])
-  notifications    Notification[]
-  messagesTo       Message[]      @relation(name: "toAccount")
-  messagesFrom     Message[]      @relation(name: "fromAccount")
   cards            Card[]
-  transactionsTo   Transaction[]  @relation(name: "toAccount")
-  transactionsFrom Transaction[]  @relation(name: "fromAccount")
+  transactionsSend   Transaction[]  @relation(name: "idSender")
+  transactionsReceived Transaction[]  @relation(name: "idReceiver")
   loans            Loan[]
   investments      Investment[]
 }
 
 model Message {
   id        Int      @id @default(autoincrement())
-  from      Int
-  to        Int
+  idSender      Int
+  idReceiver        Int
   message   String
   read      Boolean  @default(false)
   updatedAt DateTime @updatedAt
@@ -101,20 +101,20 @@ model Message {
   deleted   Boolean  @default(false)
 
   // Relations
-  accountTo   Account @relation(name: "toAccount", fields: [to], references: [id])
-  accountFrom Account @relation(name: "fromAccount", fields: [from], references: [id])
+  Sender   User @relation(name: "idSender", fields: [idSender], references: [id])
+  Receiver User @relation(name: "idReceiver", fields: [idReceiver], references: [id])
 }
 
 model Notification {
   id        Int      @id @default(autoincrement())
-  idAccount Int      @map("id_account")
+  idUser Int      @map("id_account")
   message   String
   read      Boolean  @default(false)
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now()) @map("created_at")
 
   // Relations
-  account Account @relation(fields: [idAccount], references: [id])
+  user User @relation(fields: [idUser], references: [id])
 }
 
 model Card {
@@ -144,8 +144,8 @@ model Category {
 
 model Transaction {
   id         Int      @id @default(autoincrement())
-  from       Int
-  to         Int
+  idSender       Int
+  idReceiver         Int
   amount     BigInt
   idCategory Int?     @map("id_category")
   updatedAt  DateTime @updatedAt
@@ -153,8 +153,8 @@ model Transaction {
   canceled   Boolean  @default(false)
 
   // Relations
-  accountTo   Account   @relation(name: "toAccount", fields: [to], references: [id])
-  accountFrom Account   @relation(name: "fromAccount", fields: [from], references: [id])
+  Sender   Account   @relation(name: "idSender", fields: [idSender], references: [id])
+  Receiver Account   @relation(name: "idReceiver", fields: [idReceiver], references: [id])
   category    Category? @relation(fields: [idCategory], references: [id])
 }
 
