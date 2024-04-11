@@ -1,3 +1,4 @@
+import { EventsMap } from '@/constants/events'
 import { type IDUserDTO } from '@/core/user/domain/dto/id-user.dto'
 import { Inject, Injectable } from '@nestjs/common'
 import { OnEvent } from '@nestjs/event-emitter'
@@ -14,7 +15,7 @@ export class AccountService {
     private readonly accountRepository: AccountRepository
   ) {}
 
-  @OnEvent('user.registered')
+  @OnEvent(EventsMap.USER_CREATED)
   public async create (data: CreateAccountDTO): Promise<Account> {
     return await this.accountRepository.create(data)
 

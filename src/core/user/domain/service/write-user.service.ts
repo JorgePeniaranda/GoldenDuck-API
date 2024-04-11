@@ -1,3 +1,4 @@
+import { EventsMap } from '@/constants/events'
 import { UserErrorsMessages } from '@/messages/error/user'
 import { Password } from '@/value-objects/password'
 import {
@@ -39,7 +40,7 @@ export class WriteUserService {
 
     const userCreated = await this.userRepository.createUser(newUser)
 
-    this.eventEmitter.emit('user.registered', { idUser: userCreated.id })
+    this.eventEmitter.emit(EventsMap.USER_CREATED, { idUser: userCreated.id })
     // TO-DO: send notification with url to email
 
     return userCreated
