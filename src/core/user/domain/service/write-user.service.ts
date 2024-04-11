@@ -43,7 +43,7 @@ export class WriteUserService {
   activateUser (): void {}
 
   async updateUser (id: UserPrimitive['id'], data: UpdateUserDTO): Promise<User> {
-    const user = await this.userRepository.findOneByID(id)
+    const user = await this.userRepository.findByID(id)
 
     if (user === null) {
       throw new NotFoundException(UserErrorsMessages.UserNotFound)
@@ -64,7 +64,7 @@ export class WriteUserService {
   }
 
   async deleteUser (id: UserPrimitive['id'], data: DeleteUserDTO): Promise<void> {
-    const user = await this.userRepository.findOneByID(id)
+    const user = await this.userRepository.findByID(id)
 
     if (user === null) {
       throw new NotFoundException(UserErrorsMessages.UserNotFound)

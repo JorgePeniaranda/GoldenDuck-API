@@ -15,7 +15,7 @@ export class ReadUserService {
     return await this.userRepository.findOne(params)
   }
 
-  async findOneByID (id: UserPrimitive['id']): Promise<User | null> {
-    return await this.userRepository.findOneByID(id)
+  async findByID (id: UserPrimitive['id']): Promise<User | null> {
+    return await this.userRepository.findByID(id)
   }
 }

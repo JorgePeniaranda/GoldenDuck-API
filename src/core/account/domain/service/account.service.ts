@@ -19,7 +19,7 @@ export class AccountService {
 
   @OnEvent(EventsMap.USER_CREATED)
   public async create (data: CreateAccountDTO): Promise<Account> {
-    const checkUser = await this.readUserService.findOneByID(data.idUser)
+    const checkUser = await this.readUserService.findByID(data.idUser)
 
     if (checkUser === null) {
       throw new NotFoundException(UserErrorsMessages.UserNotFound)
@@ -36,13 +36,17 @@ export class AccountService {
     return await this.accountRepository.findAll(idUser)
   }
 
-  public async findOne (id: AccountPrimitive['id']): Promise<Account | null> {
-    return await this.accountRepository.findOne(id)
+  public async findOne (idUser: AccountPrimitive['idUser'], index: AccountPrimitive['id']): Promise<Account | null> {
+    return await this.accountRepository.findOne(idUser, index)
+  }
+
+  public async findByID (id: AccountPrimitive['id']): Promise<Account | null> {
+    return await this.accountRepository.findByID(id)
   }
 
   @OnEvent(EventsMap.INCREMENT_BALANCE)
   public async increaseBalance (id: AccountPrimitive['id'], amount: AccountPrimitive['balance']): Promise<Account> {
-    const account = await this.accountRepository.findOne(id)
+    const account = await this.accountRepository.findByID(id)
 
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.AccountNotFound)
@@ -57,7 +61,7 @@ export class AccountService {
 
   @OnEvent(EventsMap.DECREMENT_BALANCE)
   public async decrementBalance (id: AccountPrimitive['id'], amount: AccountPrimitive['balance']): Promise<Account> {
-    const account = await this.accountRepository.findOne(id)
+    const account = await this.accountRepository.findByID(id)
 
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.AccountNotFound)
@@ -71,7 +75,7 @@ export class AccountService {
   }
 
   public async delete (id: AccountPrimitive['id']): Promise<void> {
-    const account = await this.accountRepository.findOne(id)
+    const account = await this.accountRepository.findByID(id)
 
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.AccountNotFound)

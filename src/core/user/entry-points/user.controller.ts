@@ -35,7 +35,7 @@ export class UserController {
   @ApiBearerAuth()
   @Get('/')
   async findOne (@Request() UserData: { user: JwtPayload }): Promise<User> {
-    const user = await this.readUserService.findOneByID(UserData.user.id)
+    const user = await this.readUserService.findByID(UserData.user.id)
 
     if (user === null) {
       throw new NotFoundException(UserErrorsMessages.UserNotFound)

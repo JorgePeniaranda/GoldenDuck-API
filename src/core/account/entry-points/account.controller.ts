@@ -43,8 +43,8 @@ export class AccountController {
   }
 
   @Get('/:id')
-  async findOne (@Param('id', new ParseIntPipe()) id: AccountPrimitive['id']): Promise<Account> {
-    const account = await this.accountService.findOne(id)
+  async findOne (@Request() UserData: { user: JwtPayload }, @Param('id', new ParseIntPipe()) id: AccountPrimitive['id']): Promise<Account> {
+    const account = await this.accountService.findOne(UserData.user.id, id)
 
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.AccountNotFound)
