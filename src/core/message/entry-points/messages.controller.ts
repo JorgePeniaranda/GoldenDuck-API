@@ -9,7 +9,7 @@ import {
   Post,
   Put
 } from '@nestjs/common'
-import { ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateMessageDTO } from '../domain/dto/create-transaction'
 import { type Message } from '../domain/messages.entity'
 import { type MessagePrimitive } from '../domain/messages.primitive'
@@ -20,6 +20,7 @@ import { MessageResponse } from './messages.response'
   type: MessageResponse
 })
 @ApiTags('Message')
+@ApiBearerAuth()
 @Controller('message')
 export class MessageController {
   constructor (private readonly messageService: MessageService) {}

@@ -8,7 +8,7 @@ import {
   ParseIntPipe,
   Post
 } from '@nestjs/common'
-import { ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { type Card } from '../domain/card.entity'
 import { type CardPrimitive } from '../domain/card.primitive'
 import { CreateCardDTO } from '../domain/dto/create-card'
@@ -19,6 +19,7 @@ import { CardResponse } from './card.response'
   type: CardResponse
 })
 @ApiTags('Card')
+@ApiBearerAuth()
 @Controller('card')
 export class CardController {
   constructor (private readonly cardService: CardService) {}

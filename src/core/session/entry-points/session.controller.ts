@@ -8,7 +8,7 @@ import {
   ParseIntPipe,
   Post
 } from '@nestjs/common'
-import { ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateSessionDTO } from '../domain/dto/create-session'
 import { SessionService } from '../domain/service/session.service'
 import { type Session } from '../domain/session.entity'
@@ -19,6 +19,7 @@ import { SessionResponse } from './session.response'
   type: SessionResponse
 })
 @ApiTags('Session')
+@ApiBearerAuth()
 @Controller('session')
 export class SessionController {
   constructor (private readonly sessionService: SessionService) {}

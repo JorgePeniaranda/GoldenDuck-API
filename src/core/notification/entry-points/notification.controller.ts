@@ -8,7 +8,7 @@ import {
   ParseIntPipe,
   Post
 } from '@nestjs/common'
-import { ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateNotificationDTO } from '../domain/dto/create-notification'
 import { type Notification } from '../domain/notification.entity'
 import { type NotificationPrimitive } from '../domain/notification.primitive'
@@ -19,6 +19,7 @@ import { NotificationResponse } from './notification.response'
   type: NotificationResponse
 })
 @ApiTags('Notification')
+@ApiBearerAuth()
 @Controller('notification')
 export class NotificationController {
   constructor (private readonly notificationService: NotificationService) {}

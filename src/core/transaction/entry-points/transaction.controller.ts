@@ -8,7 +8,7 @@ import {
   ParseIntPipe,
   Post
 } from '@nestjs/common'
-import { ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateTransactionDTO } from '../domain/dto/create-transaction'
 import { TransactionService } from '../domain/service/transaction.service'
 import { type Transaction } from '../domain/transaction.entity'
@@ -19,6 +19,7 @@ import { TransactionResponse } from './transaction.response'
   type: TransactionResponse
 })
 @ApiTags('Transaction')
+@ApiBearerAuth()
 @Controller('transaction')
 export class TransactionController {
   constructor (private readonly transactionService: TransactionService) {}

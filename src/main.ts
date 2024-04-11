@@ -6,14 +6,18 @@ import helmet from 'helmet'
 import { AppModule } from './app.module'
 import { APP_DESCRIPTION, APP_NAME, APP_VERSION, SWAGGER_PATH } from './constants'
 import { env } from './constants/env'
+import { AuthModule } from './core/authentication/auth.module'
+import { JwtAuthGuard } from './guard/jwt.guard'
 import './utils/fixes'
 import { findAvailablePort } from './utils/server'
 
 async function bootstrap (): Promise<void> {
   const app = await NestFactory.create(AppModule)
+  const guard = app.select(AuthModule).get(JwtAuthGuard)
 
   /* configure project */
-  app.enableCors()
+  app.useGlobalGuards(guard)
+  // app.enableCors()
   app.use(helmet())
   app.use(compression())
   app.useGlobalPipes(
@@ -29,6 +33,7 @@ async function bootstrap (): Promise<void> {
     .setTitle(APP_NAME)
     .setDescription(APP_DESCRIPTION)
     .setVersion(APP_VERSION)
+    .addBearerAuth()
     .build()
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup(SWAGGER_PATH, app, document)

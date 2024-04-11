@@ -8,7 +8,7 @@ import {
   ParseIntPipe,
   Post
 } from '@nestjs/common'
-import { ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateLoanDTO } from '../domain/dto/create-loan'
 import { type Loan } from '../domain/loan.entity'
 import { type LoanPrimitive } from '../domain/loan.primitive'
@@ -19,6 +19,7 @@ import { LoanResponse } from './loan.response'
   type: LoanResponse
 })
 @ApiTags('Loan')
+@ApiBearerAuth()
 @Controller('loan')
 export class LoanController {
   constructor (private readonly loanService: LoanService) {}

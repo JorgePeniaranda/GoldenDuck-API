@@ -7,13 +7,11 @@ import {
   Param,
   ParseIntPipe,
   Post,
-  Request,
-  UseGuards
+  Request
 } from '@nestjs/common'
-import { ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 
 import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
-import { JwtAuthGuard } from '@/guard/jwt.guard'
 import { AccountErrorsMessages } from '@/messages/error/account'
 import { type Account } from '../domain/account.entity'
 import { type AccountPrimitive } from '../domain/account.primitive'
@@ -25,11 +23,11 @@ import { AccountResponse } from './account.response'
   type: AccountResponse
 })
 @ApiTags('Account')
+@ApiBearerAuth()
 @Controller('account')
 export class AccountController {
   constructor (private readonly accountService: AccountService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   async findAll (@Request() UserData: { user: JwtPayload }): Promise<Account[]> {
     const accounts = await this.accountService.findAll(UserData.user.id)

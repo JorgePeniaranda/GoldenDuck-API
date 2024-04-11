@@ -8,7 +8,7 @@ import {
   ParseIntPipe,
   Post
 } from '@nestjs/common'
-import { ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { type Category } from '../domain/category.entity'
 import { type CategoryPrimitive } from '../domain/category.primitive'
 import { CreateErrorDTO } from '../domain/dto/create-category'
@@ -19,6 +19,7 @@ import { CategoryResponse } from './category.response'
   type: CategoryResponse
 })
 @ApiTags('Category')
+@ApiBearerAuth()
 @Controller('category')
 export class CategoryController {
   constructor (private readonly categoryService: CategoryService) {}
