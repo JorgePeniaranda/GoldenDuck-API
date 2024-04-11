@@ -40,7 +40,17 @@ export class WriteUserService {
     return userCreated
   }
 
-  activateUser (): void {}
+  async activateUser (id: UserPrimitive['id']): Promise<User> {
+    const user = await this.userRepository.findByID(id)
+
+    if (user === null) {
+      throw new NotFoundException(UserErrorsMessages.UserNotFound)
+    }
+
+    user.actived = true
+
+    return await this.userRepository.updateUser(user)
+  }
 
   async updateUser (id: UserPrimitive['id'], data: UpdateUserDTO): Promise<User> {
     const user = await this.userRepository.findByID(id)

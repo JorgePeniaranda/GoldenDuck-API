@@ -71,18 +71,19 @@ export class UserController {
     return await this.writeUserService.updateUser(id, data)
   }
 
-  @Public()
-  @Get('/activate/:token')
-  async activateUser (@Param('token') token: string): Promise<{ '🤠': string }> {
-    return { '🤠': token } // <- falta implementar
+  @Get('/activate')
+  async activateUser (@Request() UserData: { user: JwtPayload }): Promise<'🤠'> {
+    await this.writeUserService.activateUser(UserData.user.id)
+
+    return '🤠'
   }
 
   @ApiBearerAuth()
   @Delete('/:id')
   async deleteUser (
-    @Param('id', ParseIntPipe) id: UserPrimitive['id'],
+    @Request() UserData: { user: JwtPayload },
       @Body() data: DeleteUserDTO
   ): Promise<void> {
-    await this.writeUserService.deleteUser(id, data)
+    await this.writeUserService.deleteUser(UserData.user.id, data)
   }
 }
