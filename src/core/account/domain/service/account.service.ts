@@ -51,6 +51,8 @@ export class AccountService {
     account.incrementBalance(amount)
 
     return await this.accountRepository.update(account)
+
+    // TO-DO: send notification to user email
   }
 
   @OnEvent(EventsMap.DECREMENT_BALANCE)
@@ -64,6 +66,8 @@ export class AccountService {
     account.decrementBalance(amount)
 
     return await this.accountRepository.update(account)
+
+    // TO-DO: send notification to user email
   }
 
   public async delete (id: AccountPrimitive['id']): Promise<void> {

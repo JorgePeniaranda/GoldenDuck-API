@@ -61,7 +61,8 @@ export class WriteUserService {
     if (data.phoneNumber !== undefined) user.phoneNumber = data.phoneNumber
     if (data.password !== undefined) user.password = data.password
     if (data.address !== undefined) user.address = data.address
-    if (data.role !== undefined) user.role = data.role
+    if (data.imgUrl !== undefined) user.imgUrl = data.imgUrl
+    if (data.role !== undefined) user.role = data.role // ??
 
     return await this.userRepository.updateUser(user)
 
