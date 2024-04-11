@@ -7,6 +7,7 @@ import {
   NotFoundException,
   UnauthorizedException
 } from '@nestjs/common'
+import { EventEmitter2 } from '@nestjs/event-emitter'
 import { type CreateUserDTO } from '../dto/create-user.dto'
 import { type DeleteUserDTO } from '../dto/delete-user.dto'
 import { type UpdateUserDTO } from '../dto/update-user.dto'
@@ -16,7 +17,7 @@ import { UserRepository } from '../user.repository'
 
 @Injectable()
 export class WriteUserService {
-  constructor (@Inject('UserRepository') private readonly userRepository: UserRepository) {}
+  constructor (@Inject('UserRepository') private readonly userRepository: UserRepository, private readonly eventEmitter: EventEmitter2) {}
 
   async createUser (user: CreateUserDTO): Promise<User> {
     const checkUser = await this.userRepository.findOne({
@@ -30,16 +31,18 @@ export class WriteUserService {
     }
 
     const password = new Password(user.password)
-
     const newUser = User.create({
       ...user,
       password: password.value,
       salt: password.salt
     })
 
+    const userCreated = await this.userRepository.createUser(newUser)
+
+    this.eventEmitter.emit('user.registered', { idUser: userCreated.id })
     // TO-DO: send notification with url to email
 
-    return await this.userRepository.createUser(newUser)
+    return userCreated
   }
 
   activateUser (): void {}
