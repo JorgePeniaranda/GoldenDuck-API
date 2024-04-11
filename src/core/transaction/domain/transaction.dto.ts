@@ -12,23 +12,23 @@ export class TransactionDTO implements TransactionPrimitive {
   @IsPositive()
     id: TransactionPrimitive['id']
 
-  /* ---------- FROM ---------- */
+  /* ---------- ID-SENDER ---------- */
   @ApiProperty({
     example: 1,
     type: Number
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
-    from: TransactionPrimitive['from']
+    idSender: TransactionPrimitive['idSender']
 
-  /* ---------- TO ---------- */
+  /* ---------- ID-RECEIVER ---------- */
   @ApiProperty({
     example: 1,
     type: Number
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
-    to: TransactionPrimitive['to']
+    idReceiver: TransactionPrimitive['idReceiver']
 
   /* ---------- AMOUNT ---------- */
   @ApiProperty({
@@ -67,8 +67,8 @@ export class TransactionDTO implements TransactionPrimitive {
 
   constructor (transaction: TransactionPrimitive) {
     this.id = transaction.id
-    this.from = transaction.from
-    this.to = transaction.to
+    this.idSender = transaction.idSender
+    this.idReceiver = transaction.idReceiver
     this.amount = transaction.amount
     this.idCategory = transaction.idCategory
     this.createdAt = transaction.createdAt

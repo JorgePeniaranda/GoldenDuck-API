@@ -15,14 +15,14 @@ export class TransactionResponse implements TransactionPrimitive {
     example: 1,
     type: Number
   })
-    from: TransactionPrimitive['from']
+    idSender: TransactionPrimitive['idSender']
 
   /* ---------- TO ---------- */
   @ApiProperty({
     example: 1,
     type: Number
   })
-    to: TransactionPrimitive['to']
+    idReceiver: TransactionPrimitive['idReceiver']
 
   /* ---------- AMOUNT ---------- */
   @ApiProperty({
@@ -54,8 +54,8 @@ export class TransactionResponse implements TransactionPrimitive {
 
   constructor (transaction: TransactionPrimitive) {
     this.id = transaction.id
-    this.from = transaction.from
-    this.to = transaction.to
+    this.idSender = transaction.idSender
+    this.idReceiver = transaction.idReceiver
     this.amount = transaction.amount
     this.idCategory = transaction.idCategory
     this.createdAt = transaction.createdAt

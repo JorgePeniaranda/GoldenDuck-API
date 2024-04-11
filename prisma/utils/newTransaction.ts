@@ -13,8 +13,8 @@ export const newTransaction = async (
 
     const { id } = await prisma.transaction.create({
       data: {
-        from: idUser,
-        to: idUser,
+        idSender: idUser,
+        idReceiver: idUser,
         amount: faker.number.int({
           min: 0,
           max: 100000,

@@ -2,8 +2,8 @@ import { type TransactionPrimitive } from './transaction.primitive'
 
 export class Transaction implements TransactionPrimitive {
   public id: TransactionPrimitive['id']
-  public from: TransactionPrimitive['from']
-  public to: TransactionPrimitive['to']
+  public idSender: TransactionPrimitive['idSender']
+  public idReceiver: TransactionPrimitive['idReceiver']
   public amount: TransactionPrimitive['amount']
   public idCategory?: TransactionPrimitive['idCategory']
   public createdAt: TransactionPrimitive['createdAt']
@@ -11,8 +11,8 @@ export class Transaction implements TransactionPrimitive {
 
   constructor (transaction: TransactionPrimitive) {
     this.id = transaction.id
-    this.from = transaction.from
-    this.to = transaction.to
+    this.idSender = transaction.idSender
+    this.idReceiver = transaction.idReceiver
     this.amount = transaction.amount
     this.idCategory = transaction.idCategory
     this.createdAt = transaction.createdAt

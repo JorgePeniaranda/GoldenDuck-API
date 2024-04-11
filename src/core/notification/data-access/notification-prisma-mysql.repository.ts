@@ -17,10 +17,10 @@ export class NotificationRepositoryPrismaMySQL implements NotificationRepository
     return new Notification(newNotification)
   }
 
-  public async findAll (idAccount: AccountPrimitive['id']): Promise<Notification[] | null> {
+  public async findAll (idUser: AccountPrimitive['id']): Promise<Notification[] | null> {
     const notifications = await this.prisma.notification.findMany({
       where: {
-        idAccount
+        idUser
       }
     })
 

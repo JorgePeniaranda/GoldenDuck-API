@@ -20,7 +20,7 @@ export class NotificationResponse implements NotificationPrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
-    idAccount: NotificationPrimitive['idAccount']
+    idUser: NotificationPrimitive['idUser']
 
   /* ---------- MESSAGE ---------- */
   @ApiProperty({
@@ -58,7 +58,7 @@ export class NotificationResponse implements NotificationPrimitive {
 
   constructor (transaction: NotificationPrimitive) {
     this.id = transaction.id
-    this.idAccount = transaction.idAccount
+    this.idUser = transaction.idUser
     this.message = transaction.message
     this.updatedAt = transaction.updatedAt
     this.createdAt = transaction.createdAt

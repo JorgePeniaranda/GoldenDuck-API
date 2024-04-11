@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export const newNotification = async (
-  idAccount: number,
+  idUser: number,
   amount: number,
 ): Promise<number[]> => {
   const listID = [] as number[];
@@ -13,7 +13,7 @@ export const newNotification = async (
 
     const { id } = await prisma.notification.create({
       data: {
-        idAccount,
+        idUser,
         message: faker.lorem.text(),
         updatedAt: randomDate,
         createdAt: randomDate,

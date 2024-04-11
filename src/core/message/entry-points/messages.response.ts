@@ -10,19 +10,19 @@ export class MessageResponse implements MessagePrimitive {
   })
     id: MessagePrimitive['id']
 
-  /* ---------- FROM ---------- */
+  /* ---------- idSender ---------- */
   @ApiProperty({
     example: 1,
     type: Number
   })
-    from: MessagePrimitive['from']
+    idSender: MessagePrimitive['idSender']
 
-  /* ---------- TO ---------- */
+  /* ---------- idReceiver ---------- */
   @ApiProperty({
     example: 1,
     type: Number
   })
-    to: MessagePrimitive['to']
+    idReceiver: MessagePrimitive['idReceiver']
 
   /* ---------- MESSAGE ---------- */
   @ApiProperty({
@@ -61,8 +61,8 @@ export class MessageResponse implements MessagePrimitive {
 
   constructor (transaction: MessagePrimitive) {
     this.id = transaction.id
-    this.from = transaction.from
-    this.to = transaction.to
+    this.idSender = transaction.idSender
+    this.idReceiver = transaction.idReceiver
     this.message = transaction.message
     this.read = transaction.read
     this.updatedAt = transaction.updatedAt

@@ -2,8 +2,8 @@ import { type MessagePrimitive } from './messages.primitive'
 
 export class Message implements MessagePrimitive {
   id: MessagePrimitive['id']
-  from: MessagePrimitive['from']
-  to: MessagePrimitive['to']
+  idSender: MessagePrimitive['idSender']
+  idReceiver: MessagePrimitive['idReceiver']
   message: MessagePrimitive['message']
   read: MessagePrimitive['read']
   updatedAt: MessagePrimitive['updatedAt']
@@ -12,8 +12,8 @@ export class Message implements MessagePrimitive {
 
   constructor (props: MessagePrimitive) {
     this.id = props.id
-    this.from = props.from
-    this.to = props.to
+    this.idSender = props.idSender
+    this.idReceiver = props.idReceiver
     this.message = props.message
     this.read = props.read
     this.updatedAt = props.updatedAt
