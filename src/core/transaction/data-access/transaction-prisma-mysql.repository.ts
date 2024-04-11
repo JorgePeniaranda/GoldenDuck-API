@@ -21,7 +21,7 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
   public async findAll (id: AccountPrimitive['id']): Promise<Transaction[] | null> {
     const transactions = await this.prisma.transaction.findMany({
       where: {
-        OR: [{ from: id }, { to: id }]
+        OR: [{ idSender: id }, { idReceiver: id }]
       }
     })
 
@@ -32,7 +32,7 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
     const transaction = await this.prisma.transaction.findUnique({
       where: {
         id,
-        accountFrom: {
+        Sender: {
           id: 2
         }
       }

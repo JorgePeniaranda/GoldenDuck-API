@@ -2,7 +2,7 @@ import { type Notification } from '@prisma/client'
 
 export interface NotificationPrimitive {
   id: Notification['id']
-  idAccount: Notification['idAccount']
+  idUser: Notification['idUser']
   message: Notification['message']
   read: Notification['read']
   updatedAt: Notification['updatedAt']

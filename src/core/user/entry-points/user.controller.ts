@@ -1,5 +1,5 @@
 import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
-import { JwtAuthGuard } from '@/guard/jwt.guard'
+import { Public } from '@/decorators/public.decorator'
 import { UserErrorsMessages } from '@/messages/error/user'
 import {
   Body,
@@ -11,10 +11,9 @@ import {
   ParseIntPipe,
   Patch,
   Post,
-  Request,
-  UseGuards
+  Request
 } from '@nestjs/common'
-import { ApiCreatedResponse, ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateUserDTO } from '../domain/dto/create-user.dto'
 import { DeleteUserDTO } from '../domain/dto/delete-user.dto'
 import { FindUserDTO } from '../domain/dto/find-user.dto'
@@ -25,56 +24,48 @@ import { type User } from '../domain/user.entity'
 import { type UserPrimitive } from '../domain/user.primitive'
 import { UserResponse } from './user.response'
 
+@ApiResponse({
+  type: UserResponse
+})
 @ApiTags('User')
 @Controller('user')
 export class UserController {
-  constructor (private readonly writeUserService: WriteUserService, private readonly readUserService: ReadUserService) {}
+  constructor (
+    private readonly writeUserService: WriteUserService,
+    private readonly readUserService: ReadUserService
+  ) {}
 
-  @ApiOkResponse({
-    description: 'Updated User',
-    type: UserResponse
-  })
-  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Get('/')
   async findOne (@Request() UserData: { user: JwtPayload }): Promise<User> {
-    const user = await this.readUserService.findOneByID(UserData.user.id)
+    const user = await this.readUserService.findByID(UserData.user.id)
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.UserNotFound)
+      throw new NotFoundException(UserErrorsMessages.NotFound)
     }
 
     return user
   }
 
-  @ApiCreatedResponse({
-    description: 'Created User',
-    type: UserResponse
-  })
+  @ApiBearerAuth()
   @Post()
   async createUser (@Body() user: CreateUserDTO): Promise<User> {
     return await this.writeUserService.createUser(user)
   }
 
-  @ApiOkResponse({
-    description: 'Found User',
-    type: UserResponse
-  })
+  @Public()
   @Post('/find')
   async findUser (@Body() params: FindUserDTO): Promise<object> {
     const user = await this.readUserService.findOne(params)
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.UserNotFound)
+      throw new NotFoundException(UserErrorsMessages.NotFound)
     }
 
     return user
   }
 
-  @ApiOkResponse({
-    description: 'Updated User',
-    type: UserResponse
-  })
-  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Patch('/:id')
   async updateUser (
     @Param('id', ParseIntPipe) id: UserPrimitive['id'],
@@ -83,20 +74,19 @@ export class UserController {
     return await this.writeUserService.updateUser(id, data)
   }
 
-  @Get('/activate/:id')
-  async activateUser (): Promise<{ '🤠': string }> {
-    return { '🤠': 'HOLA MUNDO!' } // <- falta implementar
+  @Get('/activate')
+  async activateUser (@Request() UserData: { user: JwtPayload }): Promise<'🤠'> {
+    await this.writeUserService.activateUser(UserData.user.id)
+
+    return '🤠'
   }
 
-  @ApiOkResponse({
-    description: 'User Deleted'
-  })
-  @ApiResponse({})
+  @ApiBearerAuth()
   @Delete('/:id')
   async deleteUser (
-    @Param('id', ParseIntPipe) id: UserPrimitive['id'],
+    @Request() UserData: { user: JwtPayload },
       @Body() data: DeleteUserDTO
   ): Promise<void> {
-    await this.writeUserService.deleteUser(id, data)
+    await this.writeUserService.deleteUser(UserData.user.id, data)
   }
 }

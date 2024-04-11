@@ -17,7 +17,10 @@ import { UserRepository } from '../user.repository'
 
 @Injectable()
 export class WriteUserService {
-  constructor (@Inject('UserRepository') private readonly userRepository: UserRepository, private readonly eventEmitter: EventEmitter2) {}
+  constructor (
+    @Inject('UserRepository') private readonly userRepository: UserRepository,
+    private readonly eventEmitter: EventEmitter2
+  ) {}
 
   async createUser (user: CreateUserDTO): Promise<User> {
     const checkUser = await this.userRepository.findOne({
@@ -27,7 +30,7 @@ export class WriteUserService {
     })
 
     if (checkUser !== null) {
-      throw new ConflictException(UserErrorsMessages.UserAlreadyExist)
+      throw new ConflictException(UserErrorsMessages.AlreadyExist)
     }
 
     const newUser = User.create(user)
@@ -40,13 +43,23 @@ export class WriteUserService {
     return userCreated
   }
 
-  activateUser (): void {}
-
-  async updateUser (id: UserPrimitive['id'], data: UpdateUserDTO): Promise<User> {
-    const user = await this.userRepository.findOneByID(id)
+  async activateUser (id: UserPrimitive['id']): Promise<User> {
+    const user = await this.userRepository.findByID(id)
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.UserNotFound)
+      throw new NotFoundException(UserErrorsMessages.NotFound)
+    }
+
+    user.actived = true
+
+    return await this.userRepository.updateUser(user)
+  }
+
+  async updateUser (id: UserPrimitive['id'], data: UpdateUserDTO): Promise<User> {
+    const user = await this.userRepository.findByID(id)
+
+    if (user === null) {
+      throw new NotFoundException(UserErrorsMessages.NotFound)
     }
 
     if (data.name !== undefined) user.name = data.name
@@ -64,14 +77,14 @@ export class WriteUserService {
   }
 
   async deleteUser (id: UserPrimitive['id'], data: DeleteUserDTO): Promise<void> {
-    const user = await this.userRepository.findOneByID(id)
+    const user = await this.userRepository.findByID(id)
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.UserNotFound)
+      throw new NotFoundException(UserErrorsMessages.NotFound)
     }
 
     if (!user.comparePassword(data.password)) {
-      throw new UnauthorizedException(UserErrorsMessages.UserNotFound)
+      throw new UnauthorizedException(UserErrorsMessages.NotFound)
     }
 
     await this.userRepository.deleteUser(user)

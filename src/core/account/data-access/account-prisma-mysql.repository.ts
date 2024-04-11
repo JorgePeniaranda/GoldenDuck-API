@@ -22,17 +22,34 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
   public async findAll (idUser: AccountPrimitive['idUser']): Promise<Account[]> {
     const accounts = await this.prisma.account.findMany({
       where: {
-        idUser
+        idUser,
+        deleted: false
       }
     })
 
     return accounts.map(account => new Account(account))
   }
 
-  public async findOne (id: AccountPrimitive['id']): Promise<Account | null> {
+  public async findOne (idUser: AccountPrimitive['idUser'], index: number): Promise<Account | null> {
+    const account = await this.prisma.account.findMany({
+      where: {
+        idUser,
+        deleted: false
+      },
+      skip: index,
+      take: 1
+    })
+
+    if (account[0] === undefined) return null
+
+    return new Account(account[0])
+  }
+
+  public async findByID (id: AccountPrimitive['id']): Promise<Account | null> {
     const account = await this.prisma.account.findUnique({
       where: {
-        id
+        id,
+        deleted: false
       }
     })
 

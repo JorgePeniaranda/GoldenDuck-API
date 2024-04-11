@@ -1,3 +1,4 @@
+import { Public } from '@/decorators/public.decorator'
 import {
   Body,
   Controller,
@@ -8,7 +9,7 @@ import {
   ParseIntPipe,
   Post
 } from '@nestjs/common'
-import { ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateErrorDTO } from '../domain/dto/create-error'
 import { type Error } from '../domain/error.entity'
 import { type ErrorPrimitive } from '../domain/error.primitive'
@@ -23,6 +24,7 @@ import { ErrorResponse } from './error.response'
 export class ErrorController {
   constructor (private readonly errorService: ErrorService) {}
 
+  @ApiBearerAuth()
   @Get()
   async getAllError (): Promise<Error[]> {
     const errors = await this.errorService.findAll()
@@ -34,6 +36,7 @@ export class ErrorController {
     return errors
   }
 
+  @Public()
   @Post()
   async createError (@Body() data: CreateErrorDTO): Promise<Error> {
     const error = await this.errorService.create(data)
@@ -41,6 +44,7 @@ export class ErrorController {
     return error
   }
 
+  @ApiBearerAuth()
   @Get('/:id')
   async getError (@Param('id', new ParseIntPipe()) id: ErrorPrimitive['id']): Promise<Error> {
     const error = await this.errorService.findOne(id)
@@ -52,6 +56,7 @@ export class ErrorController {
     return error
   }
 
+  @ApiBearerAuth()
   @Delete('/:id')
   async deleteError (@Param('id', new ParseIntPipe()) id: ErrorPrimitive['id']): Promise<void> {
     await this.errorService.delete(id)

@@ -1,7 +1,4 @@
-import {
-  Inject,
-  Injectable
-} from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { type FindUserDTO } from '../dto/find-user.dto'
 import { type User } from '../user.entity'
 import { type UserPrimitive } from '../user.primitive'
@@ -15,7 +12,7 @@ export class ReadUserService {
     return await this.userRepository.findOne(params)
   }
 
-  async findOneByID (id: UserPrimitive['id']): Promise<User | null> {
-    return await this.userRepository.findOneByID(id)
+  async findByID (id: UserPrimitive['id']): Promise<User | null> {
+    return await this.userRepository.findByID(id)
   }
 }

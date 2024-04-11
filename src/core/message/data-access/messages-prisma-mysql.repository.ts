@@ -21,7 +21,7 @@ export class MessageRepositoryPrismaMySQL implements MessageRepository {
   public async findAll (id: AccountPrimitive['id']): Promise<Message[] | null> {
     const messages = await this.prisma.message.findMany({
       where: {
-        OR: [{ from: id }, { to: id }]
+        OR: [{ idSender: id }, { idReceiver: id }]
       }
     })
 

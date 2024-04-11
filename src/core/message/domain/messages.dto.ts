@@ -13,14 +13,14 @@ export class MessageDTO implements MessagePrimitive {
   @IsPositive()
     id: MessagePrimitive['id']
 
-  /* ---------- FROM ---------- */
+  /* ---------- idSender ---------- */
   @ApiProperty({
     example: 1,
     type: Number
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
-    from: MessagePrimitive['from']
+    idSender: MessagePrimitive['idSender']
 
   /* ---------- TO ---------- */
   @ApiProperty({
@@ -29,7 +29,7 @@ export class MessageDTO implements MessagePrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
-    to: MessagePrimitive['to']
+    idReceiver: MessagePrimitive['idReceiver']
 
   /* ---------- MESSAGE ---------- */
   @ApiProperty({
@@ -76,8 +76,8 @@ export class MessageDTO implements MessagePrimitive {
 
   constructor (transaction: MessagePrimitive) {
     this.id = transaction.id
-    this.from = transaction.from
-    this.to = transaction.to
+    this.idSender = transaction.idSender
+    this.idReceiver = transaction.idReceiver
     this.message = transaction.message
     this.read = transaction.read
     this.updatedAt = transaction.updatedAt

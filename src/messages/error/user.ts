@@ -1,5 +1,5 @@
 export const UserErrorsMessages = {
-  UserNotFound: 'User not found',
-  UserAlreadyExist: 'User already exist',
+  NotFound: 'User not found',
+  AlreadyExist: 'User already exist',
   PasswordNotMatch: 'Password not match'
 }

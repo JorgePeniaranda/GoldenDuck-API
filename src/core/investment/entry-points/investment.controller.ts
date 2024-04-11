@@ -8,7 +8,7 @@ import {
   ParseIntPipe,
   Post
 } from '@nestjs/common'
-import { ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateInvestmentDTO } from '../domain/dto/create-investment'
 import { type Investment } from '../domain/investment.entity'
 import { type InvestmentPrimitive } from '../domain/investment.primitive'
@@ -19,6 +19,7 @@ import { InvestmentResponse } from './investment.response'
   type: InvestmentResponse
 })
 @ApiTags('Investment')
+@ApiBearerAuth()
 @Controller('investment')
 export class InvestmentController {
   constructor (private readonly investmentService: InvestmentService) {}

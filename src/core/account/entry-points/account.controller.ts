@@ -1,5 +1,4 @@
 import {
-  Body,
   Controller,
   Delete,
   Get,
@@ -7,56 +6,62 @@ import {
   Param,
   ParseIntPipe,
   Post,
-  Request,
-  UseGuards
+  Request
 } from '@nestjs/common'
-import { ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 
 import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
-import { JwtAuthGuard } from '@/guard/jwt.guard'
 import { AccountErrorsMessages } from '@/messages/error/account'
 import { type Account } from '../domain/account.entity'
-import { type AccountPrimitive } from '../domain/account.primitive'
-import { CreateAccountDTO } from '../domain/dto/create-account'
-import { AccountService } from '../domain/service/account.service'
+import { ReadAccountService } from '../domain/service/read-account.service'
+import { WriteAccountService } from '../domain/service/write-account.service'
 import { AccountResponse } from './account.response'
 
 @ApiResponse({
   type: AccountResponse
 })
 @ApiTags('Account')
+@ApiBearerAuth()
 @Controller('account')
 export class AccountController {
-  constructor (private readonly accountService: AccountService) {}
+  constructor (
+    private readonly writeAccountService: WriteAccountService,
+    private readonly readAccountService: ReadAccountService
+  ) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   async findAll (@Request() UserData: { user: JwtPayload }): Promise<Account[]> {
-    const accounts = await this.accountService.findAll(UserData.user.id)
+    const accounts = await this.readAccountService.findAll(UserData.user.id)
 
     return accounts
   }
 
   @Post()
-  async create (@Body() data: CreateAccountDTO): Promise<Account> {
-    const account = await this.accountService.create(data)
+  async create (@Request() UserData: { user: JwtPayload }): Promise<Account> {
+    const account = await this.writeAccountService.create(UserData.user.id)
 
     return account
   }
 
-  @Get('/:id')
-  async findOne (@Param('id', new ParseIntPipe()) id: AccountPrimitive['id']): Promise<Account> {
-    const account = await this.accountService.findOne(id)
+  @Get('/:index')
+  async findOne (
+    @Request() UserData: { user: JwtPayload },
+      @Param('index', new ParseIntPipe()) index: number
+  ): Promise<Account> {
+    const account = await this.readAccountService.findOne(UserData.user.id, index)
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.AccountNotFound)
+      throw new NotFoundException(AccountErrorsMessages.NotFound)
     }
 
     return account
   }
 
-  @Delete('/:id')
-  async delete (@Param('id', new ParseIntPipe()) id: AccountPrimitive['id']): Promise<void> {
-    await this.accountService.delete(id)
+  @Delete('/:index')
+  async delete (
+    @Request() UserData: { user: JwtPayload },
+      @Param('index', new ParseIntPipe()) index: number
+  ): Promise<void> {
+    await this.writeAccountService.delete(UserData.user.id, index)
   }
 }

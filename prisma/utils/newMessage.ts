@@ -13,8 +13,8 @@ export const newMessage = async (
 
     const { id } = await prisma.message.create({
       data: {
-        from: idAccount,
-        to: idAccount,
+        idSender: idAccount,
+        idReceiver: idAccount,
         message: faker.lorem.text(),
         createdAt: randomDate,
         updatedAt: randomDate,
