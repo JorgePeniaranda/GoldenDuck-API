@@ -14,6 +14,7 @@ export class User implements UserPrimitive {
   address: UserPrimitive['address']
   readonly #birthDate: UserPrimitive['birthDate']
   readonly #sex: UserPrimitive['sex']
+  imgUrl: UserPrimitive['imgUrl']
   readonly #updatedAt: UserPrimitive['updatedAt']
   readonly #createdAt: UserPrimitive['createdAt']
   actived: UserPrimitive['actived']
@@ -31,6 +32,7 @@ export class User implements UserPrimitive {
     this.address = user.address
     this.#birthDate = user.birthDate
     this.#sex = user.sex
+    this.imgUrl = user.imgUrl
     this.#updatedAt = user.updatedAt
     this.#createdAt = user.createdAt
     this.actived = user.actived
@@ -91,6 +93,7 @@ export class User implements UserPrimitive {
       address: this.address,
       birthDate: this.birthDate,
       sex: this.sex,
+      imgUrl: this.imgUrl,
       updatedAt: this.updatedAt,
       createdAt: this.createdAt,
       actived: this.actived,
@@ -117,6 +120,7 @@ export class User implements UserPrimitive {
       address: data.address,
       birthDate: data.birthDate,
       sex: data.sex,
+      imgUrl: data.imgUrl,
       updatedAt: new Date(),
       createdAt: new Date(),
       actived: false,

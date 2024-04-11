@@ -1,12 +1,11 @@
 import { type AccountPrimitive } from './account.primitive'
 
-const optionalProperties = ['id', 'balance', 'imgUrl', 'updatedAt', 'createdAt', 'deleted'] as const
+const optionalProperties = ['id', 'balance', 'updatedAt', 'createdAt', 'deleted'] as const
 
 export class Account implements AccountPrimitive {
   readonly #id: AccountPrimitive['id']
   readonly #idUser: AccountPrimitive['idUser']
   public balance: AccountPrimitive['balance']
-  public imgUrl: AccountPrimitive['imgUrl'] // mover a user
   public updatedAt: AccountPrimitive['updatedAt']
   readonly #createdAt: AccountPrimitive['createdAt']
   public deleted: AccountPrimitive['deleted']
@@ -15,7 +14,6 @@ export class Account implements AccountPrimitive {
     this.#id = account.id
     this.#idUser = account.idUser
     this.balance = account.balance
-    this.imgUrl = account.imgUrl
     this.updatedAt = account.updatedAt
     this.#createdAt = account.createdAt
     this.deleted = account.deleted
@@ -46,7 +44,6 @@ export class Account implements AccountPrimitive {
       id: this.#id,
       idUser: this.#idUser,
       balance: this.balance,
-      imgUrl: this.imgUrl,
       updatedAt: this.updatedAt,
       createdAt: this.#createdAt,
       deleted: this.deleted
@@ -60,7 +57,6 @@ export class Account implements AccountPrimitive {
       id: 0,
       idUser: data.idUser,
       balance: 0n,
-      imgUrl: null,
       updatedAt: new Date(),
       createdAt: new Date(),
       deleted: false

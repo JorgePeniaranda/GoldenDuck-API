@@ -41,6 +41,7 @@ model User {
   address     String
   birthDate   DateTime @map("birth_date")
   sex         sex
+  imgUrl      String?  @map("img_url")
   updatedAt   DateTime @updatedAt
   createdAt   DateTime @default(now()) @map("created_at")
   actived     Boolean  @default(false)
@@ -73,7 +74,6 @@ model Account {
   id        Int      @id @default(autoincrement())
   idUser    Int      @map("id_user")
   balance   BigInt   @default(0)
-  imgUrl    String?  @map("img_url")
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now()) @map("created_at")
   deleted   Boolean  @default(false)

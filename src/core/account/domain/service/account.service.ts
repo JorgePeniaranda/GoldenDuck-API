@@ -1,5 +1,7 @@
 import { EventsMap } from '@/constants/events'
+import { ReadUserService } from '@/core/user/domain/service/read-user.service'
 import { AccountErrorsMessages } from '@/messages/error/account'
+import { UserErrorsMessages } from '@/messages/error/user'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { OnEvent } from '@nestjs/event-emitter'
 import { Account } from '../account.entity'
@@ -11,11 +13,18 @@ import { type CreateAccountDTO } from '../dto/create-account'
 export class AccountService {
   constructor (
     @Inject('AccountRepository')
-    private readonly accountRepository: AccountRepository
+    private readonly accountRepository: AccountRepository,
+    private readonly readUserService: ReadUserService
   ) {}
 
   @OnEvent(EventsMap.USER_CREATED)
   public async create (data: CreateAccountDTO): Promise<Account> {
+    const checkUser = await this.readUserService.findOneByID(data.idUser)
+
+    if (checkUser === null) {
+      throw new NotFoundException(UserErrorsMessages.UserNotFound)
+    }
+
     const account = Account.create(data)
 
     return await this.accountRepository.create(account)
