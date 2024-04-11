@@ -32,7 +32,7 @@ export class WriteAccountService {
     const account = await this.accountRepository.findByID(id)
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.AccountNotFound)
+      throw new NotFoundException(AccountErrorsMessages.NotFound)
     }
 
     account.incrementBalance(amount)
@@ -50,7 +50,7 @@ export class WriteAccountService {
     const account = await this.accountRepository.findByID(id)
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.AccountNotFound)
+      throw new NotFoundException(AccountErrorsMessages.NotFound)
     }
 
     account.decrementBalance(amount)
@@ -64,7 +64,7 @@ export class WriteAccountService {
     const account = await this.accountRepository.findOne(idUser, index)
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.AccountNotFound)
+      throw new NotFoundException(AccountErrorsMessages.NotFound)
     }
 
     await this.accountRepository.delete(account)

@@ -41,7 +41,7 @@ export class UserController {
     const user = await this.readUserService.findByID(UserData.user.id)
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.UserNotFound)
+      throw new NotFoundException(UserErrorsMessages.NotFound)
     }
 
     return user
@@ -59,7 +59,7 @@ export class UserController {
     const user = await this.readUserService.findOne(params)
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.UserNotFound)
+      throw new NotFoundException(UserErrorsMessages.NotFound)
     }
 
     return user

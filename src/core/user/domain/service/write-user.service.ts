@@ -30,7 +30,7 @@ export class WriteUserService {
     })
 
     if (checkUser !== null) {
-      throw new ConflictException(UserErrorsMessages.UserAlreadyExist)
+      throw new ConflictException(UserErrorsMessages.AlreadyExist)
     }
 
     const newUser = User.create(user)
@@ -47,7 +47,7 @@ export class WriteUserService {
     const user = await this.userRepository.findByID(id)
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.UserNotFound)
+      throw new NotFoundException(UserErrorsMessages.NotFound)
     }
 
     user.actived = true
@@ -59,7 +59,7 @@ export class WriteUserService {
     const user = await this.userRepository.findByID(id)
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.UserNotFound)
+      throw new NotFoundException(UserErrorsMessages.NotFound)
     }
 
     if (data.name !== undefined) user.name = data.name
@@ -80,11 +80,11 @@ export class WriteUserService {
     const user = await this.userRepository.findByID(id)
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.UserNotFound)
+      throw new NotFoundException(UserErrorsMessages.NotFound)
     }
 
     if (!user.comparePassword(data.password)) {
-      throw new UnauthorizedException(UserErrorsMessages.UserNotFound)
+      throw new UnauthorizedException(UserErrorsMessages.NotFound)
     }
 
     await this.userRepository.deleteUser(user)

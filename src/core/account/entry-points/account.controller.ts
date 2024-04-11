@@ -51,7 +51,7 @@ export class AccountController {
     const account = await this.readAccountService.findOne(UserData.user.id, index)
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.AccountNotFound)
+      throw new NotFoundException(AccountErrorsMessages.NotFound)
     }
 
     return account

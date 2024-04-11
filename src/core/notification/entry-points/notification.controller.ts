@@ -1,3 +1,4 @@
+import { NotificationErrorsMessages } from '@/messages/error/notification'
 import {
   Body,
   Controller,
@@ -5,11 +6,9 @@ import {
   Get,
   NotFoundException,
   Param,
-  ParseIntPipe,
-  Post
+  ParseIntPipe
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
-import { CreateNotificationDTO } from '../domain/dto/create-notification'
 import { type Notification } from '../domain/notification.entity'
 import { type NotificationPrimitive } from '../domain/notification.primitive'
 import { NotificationService } from '../domain/service/transaction.service'
@@ -35,13 +34,6 @@ export class NotificationController {
     return notifications
   }
 
-  @Post()
-  async createAccount (@Body() data: CreateNotificationDTO): Promise<Notification> {
-    const notification = await this.notificationService.create(data)
-
-    return notification
-  }
-
   @Get('/:id')
   async getTransaction (
     @Param('id', new ParseIntPipe()) id: NotificationPrimitive['id']
@@ -49,7 +41,7 @@ export class NotificationController {
     const notification = await this.notificationService.findOne(id)
 
     if (notification === null) {
-      throw new NotFoundException()
+      throw new NotFoundException(NotificationErrorsMessages.NotFound)
     }
 
     return notification
