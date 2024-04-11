@@ -2,7 +2,6 @@ import { ReadUserService } from '@/core/user/domain/service/read-user.service'
 import { type User } from '@/core/user/domain/user.entity'
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import bcrypt from 'bcryptjs'
 import { type JwtPayload } from '../payload.entity'
 import { Token } from '../token.entity'
 
@@ -16,7 +15,7 @@ export class AuthUseCase {
   async validateUser (email: string, password: string): Promise<User | null> {
     const user = await this.readUserService.findOne({ email })
 
-    if (user !== null && bcrypt.compareSync(password, user.password)) {
+    if (user !== null && user.comparePassword(password)) {
       return user
     }
 

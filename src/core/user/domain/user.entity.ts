@@ -1,7 +1,7 @@
 import { Password } from '@/value-objects/password'
 import { UserRoles, type UserPrimitive } from './user.primitive'
 
-const optionalProperties = ['id', 'updatedAt', 'createdAt', 'actived', 'deleted', 'role'] as const
+const optionalProperties = ['id', 'salt', 'updatedAt', 'createdAt', 'actived', 'deleted', 'role'] as const
 
 export class User implements UserPrimitive {
   readonly #id: UserPrimitive['id']
@@ -28,7 +28,7 @@ export class User implements UserPrimitive {
     this.#dni = user.dni
     this.email = user.email
     this.phoneNumber = user.phoneNumber
-    this.#password = new Password(user.password)
+    this.#password = new Password(user.password, user.salt)
     this.address = user.address
     this.#birthDate = user.birthDate
     this.#sex = user.sex
@@ -106,7 +106,7 @@ export class User implements UserPrimitive {
     data: Pick<Partial<UserPrimitive>, (typeof optionalProperties)[number]> &
     Omit<UserPrimitive, (typeof optionalProperties)[number]>
   ): User {
-    const password = new Password(data.password)
+    const password = Password.create(data.password)
 
     return new User({
       id: 0, // TO-DO: generate id

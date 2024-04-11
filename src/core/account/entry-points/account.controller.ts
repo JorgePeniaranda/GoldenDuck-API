@@ -6,10 +6,14 @@ import {
   NotFoundException,
   Param,
   ParseIntPipe,
-  Post
+  Post,
+  Request,
+  UseGuards
 } from '@nestjs/common'
 import { ApiResponse, ApiTags } from '@nestjs/swagger'
 
+import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
+import { JwtAuthGuard } from '@/guard/jwt.guard'
 import { AccountErrorsMessages } from '@/messages/error/account'
 import { type Account } from '../domain/account.entity'
 import { type AccountPrimitive } from '../domain/account.primitive'
@@ -25,9 +29,10 @@ import { AccountResponse } from './account.response'
 export class AccountController {
   constructor (private readonly accountService: AccountService) {}
 
-  @Post('all')
-  async findAll (@Body('idUser', new ParseIntPipe()) idUser: AccountPrimitive['idUser']): Promise<Account[]> {
-    const accounts = await this.accountService.findAll(idUser)
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  async findAll (@Request() UserData: { user: JwtPayload }): Promise<Account[]> {
+    const accounts = await this.accountService.findAll(UserData.user.id)
 
     return accounts
   }

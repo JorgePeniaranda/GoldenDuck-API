@@ -1,6 +1,5 @@
 import { EventsMap } from '@/constants/events'
 import { UserErrorsMessages } from '@/messages/error/user'
-import { Password } from '@/value-objects/password'
 import {
   ConflictException,
   Inject,
@@ -31,12 +30,7 @@ export class WriteUserService {
       throw new ConflictException(UserErrorsMessages.UserAlreadyExist)
     }
 
-    const password = new Password(user.password)
-    const newUser = User.create({
-      ...user,
-      password: password.value,
-      salt: password.salt
-    })
+    const newUser = User.create(user)
 
     const userCreated = await this.userRepository.createUser(newUser)
 

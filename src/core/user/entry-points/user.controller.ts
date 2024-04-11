@@ -1,3 +1,5 @@
+import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
+import { JwtAuthGuard } from '@/guard/jwt.guard'
 import { UserErrorsMessages } from '@/messages/error/user'
 import {
   Body,
@@ -8,7 +10,9 @@ import {
   Param,
   ParseIntPipe,
   Patch,
-  Post
+  Post,
+  Request,
+  UseGuards
 } from '@nestjs/common'
 import { ApiCreatedResponse, ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateUserDTO } from '../domain/dto/create-user.dto'
@@ -25,6 +29,22 @@ import { UserResponse } from './user.response'
 @Controller('user')
 export class UserController {
   constructor (private readonly writeUserService: WriteUserService, private readonly readUserService: ReadUserService) {}
+
+  @ApiOkResponse({
+    description: 'Updated User',
+    type: UserResponse
+  })
+  @UseGuards(JwtAuthGuard)
+  @Get('/')
+  async findOne (@Request() UserData: { user: JwtPayload }): Promise<User> {
+    const user = await this.readUserService.findOneByID(UserData.user.id)
+
+    if (user === null) {
+      throw new NotFoundException(UserErrorsMessages.UserNotFound)
+    }
+
+    return user
+  }
 
   @ApiCreatedResponse({
     description: 'Created User',
@@ -54,6 +74,7 @@ export class UserController {
     description: 'Updated User',
     type: UserResponse
   })
+  @UseGuards(JwtAuthGuard)
   @Patch('/:id')
   async updateUser (
     @Param('id', ParseIntPipe) id: UserPrimitive['id'],
