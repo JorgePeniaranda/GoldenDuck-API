@@ -1,3 +1,4 @@
+import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
 import {
   Body,
   Controller,
@@ -6,7 +7,8 @@ import {
   NotFoundException,
   Param,
   ParseIntPipe,
-  Post
+  Post,
+  Request
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateTransactionDTO } from '../domain/dto/create-transaction'
@@ -36,8 +38,10 @@ export class TransactionController {
   }
 
   @Post()
-  async createAccount (@Body() data: CreateTransactionDTO): Promise<Transaction> {
-    const transaction = await this.transactionService.create(data)
+  async createAccount (
+    @Request() UserData: { user: JwtPayload },
+      @Body() data: CreateTransactionDTO): Promise<Transaction> {
+    const transaction = await this.transactionService.create(UserData.user.id, data)
 
     return transaction
   }
