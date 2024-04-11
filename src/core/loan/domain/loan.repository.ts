@@ -5,7 +5,7 @@ import { type LoanPrimitive } from './loan.primitive'
 
 export interface LoanRepository {
   create: (loan: CreateLoanDTO) => Promise<Loan>
-  getAll: (id: AccountPrimitive['id']) => Promise<Loan[] | null>
-  find: (id: LoanPrimitive['id']) => Promise<Loan | null>
+  findAll: (id: AccountPrimitive['id']) => Promise<Loan[] | null>
+  findOne: (id: LoanPrimitive['id']) => Promise<Loan | null>
   delete: (id: LoanPrimitive['id']) => Promise<void>
 }

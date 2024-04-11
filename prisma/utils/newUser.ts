@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
-import bcrypt from 'bcryptjs';
 import { $Enums, PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
@@ -46,6 +46,7 @@ export const newUser = async (amount: number): Promise<number[]> => {
         birthDate: faker.date.birthdate(),
         sex: faker.helpers.enumValue($Enums.sex),
         role: faker.helpers.enumValue($Enums.role),
+        imgUrl: faker.image.url(),
         updatedAt: randomDate,
         createdAt: randomDate,
         actived: true, // faker.datatype.boolean()

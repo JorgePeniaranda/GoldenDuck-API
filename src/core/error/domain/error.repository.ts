@@ -4,7 +4,7 @@ import { type ErrorPrimitive } from './error.primitive'
 
 export interface ErrorRepository {
   create: (data: CreateErrorDTO) => Promise<Error>
-  getAll: () => Promise<Error[] | null>
-  find: (id: ErrorPrimitive['id']) => Promise<Error | null>
+  findAll: () => Promise<Error[] | null>
+  findOne: (id: ErrorPrimitive['id']) => Promise<Error | null>
   delete: (id: ErrorPrimitive['id']) => Promise<void>
 }

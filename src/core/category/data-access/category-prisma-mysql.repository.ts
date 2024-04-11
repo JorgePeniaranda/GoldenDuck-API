@@ -17,13 +17,13 @@ export class CategoryRepositoryPrismaMySQL implements CategoryRepository {
     return new Category(newCategory)
   }
 
-  public async getAll (): Promise<Category[] | null> {
+  public async findAll (): Promise<Category[] | null> {
     const categories = await this.prisma.category.findMany()
 
     return categories.map(category => new Category(category))
   }
 
-  public async find (id: CategoryPrimitive['id']): Promise<Category | null> {
+  public async findOne (id: CategoryPrimitive['id']): Promise<Category | null> {
     const category = await this.prisma.category.findUnique({
       where: {
         id

@@ -1,11 +1,7 @@
 import { Logger } from '@nestjs/common'
 
 export const Tracking = (): ((...args: any[]) => any) => {
-  return (
-    target: object,
-    propertyKey: string,
-    descriptor: PropertyDescriptor
-  ) => {
+  return (target: object, propertyKey: string, descriptor: PropertyDescriptor) => {
     const logger = new Logger(target.constructor.name)
     const targetFunc = descriptor.value
 
@@ -23,3 +19,5 @@ export const Tracking = (): ((...args: any[]) => any) => {
     return descriptor
   }
 }
+
+// export const Test = (...args: string[]) => SetMetadata('test', args);

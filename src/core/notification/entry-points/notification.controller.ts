@@ -24,10 +24,8 @@ export class NotificationController {
   constructor (private readonly notificationService: NotificationService) {}
 
   @Get()
-  async getAllTransaction (
-    @Body() id: NotificationPrimitive['id']
-  ): Promise<Notification[]> {
-    const notifications = await this.notificationService.getAll(id)
+  async getAllTransaction (@Body() id: NotificationPrimitive['id']): Promise<Notification[]> {
+    const notifications = await this.notificationService.findAll(id)
 
     if (notifications === null) {
       return []
@@ -37,9 +35,7 @@ export class NotificationController {
   }
 
   @Post()
-  async createAccount (
-    @Body() data: CreateNotificationDTO
-  ): Promise<Notification> {
+  async createAccount (@Body() data: CreateNotificationDTO): Promise<Notification> {
     const notification = await this.notificationService.create(data)
 
     return notification
@@ -49,7 +45,7 @@ export class NotificationController {
   async getTransaction (
     @Param('id', new ParseIntPipe()) id: NotificationPrimitive['id']
   ): Promise<Notification> {
-    const notification = await this.notificationService.find(id)
+    const notification = await this.notificationService.findOne(id)
 
     if (notification === null) {
       throw new NotFoundException()

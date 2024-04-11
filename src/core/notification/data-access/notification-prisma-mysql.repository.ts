@@ -7,8 +7,7 @@ import { type NotificationPrimitive } from '../domain/notification.primitive'
 import { type NotificationRepository } from '../domain/notification.repository'
 
 @Injectable()
-export class NotificationRepositoryPrismaMySQL
-implements NotificationRepository {
+export class NotificationRepositoryPrismaMySQL implements NotificationRepository {
   constructor (private readonly prisma: PrismaService) {}
 
   public async create (data: CreateNotificationDTO): Promise<Notification> {
@@ -19,9 +18,7 @@ implements NotificationRepository {
     return new Notification(newNotification)
   }
 
-  public async getAll (
-    idAccount: AccountPrimitive['id']
-  ): Promise<Notification[] | null> {
+  public async findAll (idAccount: AccountPrimitive['id']): Promise<Notification[] | null> {
     const notifications = await this.prisma.notification.findMany({
       where: {
         idAccount
@@ -31,9 +28,7 @@ implements NotificationRepository {
     return notifications.map(notification => new Notification(notification))
   }
 
-  public async find (
-    id: NotificationPrimitive['id']
-  ): Promise<Notification | null> {
+  public async findOne (id: NotificationPrimitive['id']): Promise<Notification | null> {
     const notification = await this.prisma.notification.findUnique({
       where: {
         id

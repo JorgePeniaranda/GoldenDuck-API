@@ -4,9 +4,9 @@ export class Password {
   #value: string
   #salt: string
 
-  constructor (value: string) {
-    this.#salt = bcrypt.genSaltSync(10)
-    this.#value = bcrypt.hashSync(value, this.#salt)
+  constructor (value: string, salt: string) {
+    this.#value = value
+    this.#salt = salt
   }
 
   get value (): string {
@@ -22,7 +22,14 @@ export class Password {
     return this.#salt
   }
 
-  compare (value: string): boolean {
+  public static create (value: string): Password {
+    const salt = bcrypt.genSaltSync(10)
+    const hash = bcrypt.hashSync(value, salt)
+
+    return new Password(hash, salt)
+  }
+
+  public compare (value: string): boolean {
     return bcrypt.compareSync(value, this.#value)
   }
 }

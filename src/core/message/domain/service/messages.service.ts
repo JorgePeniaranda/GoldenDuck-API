@@ -27,18 +27,15 @@ export class MessageService {
     // TO-DO: send notification to account
   }
 
-  public async getAll (id: AccountPrimitive['id']): Promise<Message[] | null> {
-    return await this.transactionRepository.getAll(id)
+  public async findAll (id: AccountPrimitive['id']): Promise<Message[] | null> {
+    return await this.transactionRepository.findAll(id)
   }
 
-  public async find (id: MessagePrimitive['id']): Promise<Message | null> {
-    return await this.transactionRepository.find(id)
+  public async findOne (id: MessagePrimitive['id']): Promise<Message | null> {
+    return await this.transactionRepository.findOne(id)
   }
 
-  public async update (
-    id: MessagePrimitive['id'],
-    data: UpdateMessageDTO
-  ): Promise<Message | null> {
+  public async update (id: MessagePrimitive['id'], data: UpdateMessageDTO): Promise<Message | null> {
     return await this.transactionRepository.update(id, data)
   }
 

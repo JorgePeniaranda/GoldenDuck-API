@@ -18,7 +18,7 @@ export class MessageRepositoryPrismaMySQL implements MessageRepository {
     return new Message(newMessage)
   }
 
-  public async getAll (id: AccountPrimitive['id']): Promise<Message[] | null> {
+  public async findAll (id: AccountPrimitive['id']): Promise<Message[] | null> {
     const messages = await this.prisma.message.findMany({
       where: {
         OR: [{ from: id }, { to: id }]
@@ -28,7 +28,7 @@ export class MessageRepositoryPrismaMySQL implements MessageRepository {
     return messages.map(message => new Message(message))
   }
 
-  public async find (id: MessagePrimitive['id']): Promise<Message | null> {
+  public async findOne (id: MessagePrimitive['id']): Promise<Message | null> {
     const message = await this.prisma.message.findUnique({
       where: {
         id
@@ -38,10 +38,7 @@ export class MessageRepositoryPrismaMySQL implements MessageRepository {
     return message !== null ? new Message(message) : null
   }
 
-  public async update (
-    id: MessagePrimitive['id'],
-    data: UpdateMessageDTO
-  ): Promise<Message | null> {
+  public async update (id: MessagePrimitive['id'], data: UpdateMessageDTO): Promise<Message | null> {
     const updatedMessage = await this.prisma.message.update({
       where: {
         id

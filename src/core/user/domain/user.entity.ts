@@ -1,14 +1,7 @@
 import { Password } from '@/value-objects/password'
 import { UserRoles, type UserPrimitive } from './user.primitive'
 
-const optionalProperties = [
-  'id',
-  'updatedAt',
-  'createdAt',
-  'actived',
-  'deleted',
-  'role'
-] as const
+const optionalProperties = ['id', 'salt', 'updatedAt', 'createdAt', 'actived', 'deleted', 'role'] as const
 
 export class User implements UserPrimitive {
   readonly #id: UserPrimitive['id']
@@ -21,6 +14,7 @@ export class User implements UserPrimitive {
   address: UserPrimitive['address']
   readonly #birthDate: UserPrimitive['birthDate']
   readonly #sex: UserPrimitive['sex']
+  imgUrl: UserPrimitive['imgUrl']
   readonly #updatedAt: UserPrimitive['updatedAt']
   readonly #createdAt: UserPrimitive['createdAt']
   actived: UserPrimitive['actived']
@@ -34,10 +28,11 @@ export class User implements UserPrimitive {
     this.#dni = user.dni
     this.email = user.email
     this.phoneNumber = user.phoneNumber
-    this.#password = new Password(user.password)
+    this.#password = new Password(user.password, user.salt)
     this.address = user.address
     this.#birthDate = user.birthDate
     this.#sex = user.sex
+    this.imgUrl = user.imgUrl
     this.#updatedAt = user.updatedAt
     this.#createdAt = user.createdAt
     this.actived = user.actived
@@ -98,6 +93,7 @@ export class User implements UserPrimitive {
       address: this.address,
       birthDate: this.birthDate,
       sex: this.sex,
+      imgUrl: this.imgUrl,
       updatedAt: this.updatedAt,
       createdAt: this.createdAt,
       actived: this.actived,
@@ -110,7 +106,7 @@ export class User implements UserPrimitive {
     data: Pick<Partial<UserPrimitive>, (typeof optionalProperties)[number]> &
     Omit<UserPrimitive, (typeof optionalProperties)[number]>
   ): User {
-    const password = new Password(data.password)
+    const password = Password.create(data.password)
 
     return new User({
       id: 0, // TO-DO: generate id
@@ -124,6 +120,7 @@ export class User implements UserPrimitive {
       address: data.address,
       birthDate: data.birthDate,
       sex: data.sex,
+      imgUrl: data.imgUrl,
       updatedAt: new Date(),
       createdAt: new Date(),
       actived: false,

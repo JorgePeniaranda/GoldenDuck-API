@@ -12,6 +12,7 @@ export interface UserPrimitive {
   address: User['address']
   readonly birthDate: User['birthDate']
   readonly sex: (typeof UserSex)[keyof typeof UserSex]
+  imgUrl?: User['imgUrl']
   readonly updatedAt: User['updatedAt']
   readonly createdAt: User['createdAt']
   actived: User['actived']

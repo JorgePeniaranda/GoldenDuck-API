@@ -24,10 +24,8 @@ export class InvestmentController {
   constructor (private readonly investmentService: InvestmentService) {}
 
   @Get()
-  async getAllInvestment (
-    @Body() id: InvestmentPrimitive['id']
-  ): Promise<Investment[]> {
-    const investment = await this.investmentService.getAll(id)
+  async getAllInvestment (@Body() id: InvestmentPrimitive['id']): Promise<Investment[]> {
+    const investment = await this.investmentService.findAll(id)
 
     if (investment === null) {
       return []
@@ -37,9 +35,7 @@ export class InvestmentController {
   }
 
   @Post()
-  async createInvestment (
-    @Body() data: CreateInvestmentDTO
-  ): Promise<Investment> {
+  async createInvestment (@Body() data: CreateInvestmentDTO): Promise<Investment> {
     const investment = await this.investmentService.create(data)
 
     return investment
@@ -49,7 +45,7 @@ export class InvestmentController {
   async getInvestment (
     @Param('id', new ParseIntPipe()) id: InvestmentPrimitive['id']
   ): Promise<Investment> {
-    const investment = await this.investmentService.find(id)
+    const investment = await this.investmentService.findOne(id)
 
     if (investment === null) {
       throw new NotFoundException()

@@ -4,7 +4,7 @@ import { type CreateErrorDTO } from './dto/create-category'
 
 export interface CategoryRepository {
   create: (data: CreateErrorDTO) => Promise<Category>
-  getAll: () => Promise<Category[] | null>
-  find: (id: CategoryPrimitive['id']) => Promise<Category | null>
+  findAll: () => Promise<Category[] | null>
+  findOne: (id: CategoryPrimitive['id']) => Promise<Category | null>
   delete: (id: CategoryPrimitive['id']) => Promise<void>
 }

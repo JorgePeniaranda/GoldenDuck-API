@@ -4,7 +4,7 @@ import { type SessionPrimitive } from './session.primitive'
 
 export interface SessionRepository {
   create: (data: CreateSessionDTO) => Promise<Session>
-  getAll: () => Promise<Session[] | null>
-  find: (id: SessionPrimitive['id']) => Promise<Session | null>
+  findAll: () => Promise<Session[] | null>
+  findOne: (id: SessionPrimitive['id']) => Promise<Session | null>
   delete: (id: SessionPrimitive['id']) => Promise<void>
 }

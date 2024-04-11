@@ -25,7 +25,7 @@ export class CardController {
 
   @Get()
   async getAllCard (@Body() id: CardPrimitive['id']): Promise<Card[]> {
-    const cards = await this.cardService.getAll(id)
+    const cards = await this.cardService.findAll(id)
 
     if (cards === null) {
       return []
@@ -42,10 +42,8 @@ export class CardController {
   }
 
   @Get('/:id')
-  async getCard (
-    @Param('id', new ParseIntPipe()) id: CardPrimitive['id']
-  ): Promise<Card> {
-    const card = await this.cardService.find(id)
+  async getCard (@Param('id', new ParseIntPipe()) id: CardPrimitive['id']): Promise<Card> {
+    const card = await this.cardService.findOne(id)
 
     if (card === null) {
       throw new NotFoundException()
@@ -55,9 +53,7 @@ export class CardController {
   }
 
   @Delete('/:id')
-  async deleteCard (
-    @Param('id', new ParseIntPipe()) id: CardPrimitive['id']
-  ): Promise<void> {
+  async deleteCard (@Param('id', new ParseIntPipe()) id: CardPrimitive['id']): Promise<void> {
     await this.cardService.delete(id)
   }
 }

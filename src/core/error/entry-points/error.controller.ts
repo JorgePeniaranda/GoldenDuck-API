@@ -25,7 +25,7 @@ export class ErrorController {
 
   @Get()
   async getAllError (): Promise<Error[]> {
-    const errors = await this.errorService.getAll()
+    const errors = await this.errorService.findAll()
 
     if (errors === null) {
       return []
@@ -42,10 +42,8 @@ export class ErrorController {
   }
 
   @Get('/:id')
-  async getError (
-    @Param('id', new ParseIntPipe()) id: ErrorPrimitive['id']
-  ): Promise<Error> {
-    const error = await this.errorService.find(id)
+  async getError (@Param('id', new ParseIntPipe()) id: ErrorPrimitive['id']): Promise<Error> {
+    const error = await this.errorService.findOne(id)
 
     if (error === null) {
       throw new NotFoundException()
@@ -55,9 +53,7 @@ export class ErrorController {
   }
 
   @Delete('/:id')
-  async deleteError (
-    @Param('id', new ParseIntPipe()) id: ErrorPrimitive['id']
-  ): Promise<void> {
+  async deleteError (@Param('id', new ParseIntPipe()) id: ErrorPrimitive['id']): Promise<void> {
     await this.errorService.delete(id)
   }
 }

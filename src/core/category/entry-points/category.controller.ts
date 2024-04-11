@@ -25,7 +25,7 @@ export class CategoryController {
 
   @Get()
   async getAllCategory (): Promise<Category[]> {
-    const categories = await this.categoryService.getAll()
+    const categories = await this.categoryService.findAll()
 
     if (categories === null) {
       return []
@@ -45,7 +45,7 @@ export class CategoryController {
   async getCategory (
     @Param('id', new ParseIntPipe()) id: CategoryPrimitive['id']
   ): Promise<Category> {
-    const category = await this.categoryService.find(id)
+    const category = await this.categoryService.findOne(id)
 
     if (category === null) {
       throw new NotFoundException()

@@ -8,9 +8,11 @@ import {
   IsEmail,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   IsStrongPassword,
+  IsUrl,
   Max,
   MaxDate,
   Min
@@ -121,6 +123,12 @@ export class UserDTO implements UserPrimitive {
   @IsString()
     sex: UserPrimitive['sex']
 
+  /* ---------- IMAGE URL ---------- */
+  @IsString()
+  @IsOptional()
+  @IsUrl()
+    imgUrl?: UserPrimitive['imgUrl']
+
   /* ---------- UPDATED AT ---------- */
   @ApiProperty({
     example: new Date(),
@@ -177,6 +185,7 @@ export class UserDTO implements UserPrimitive {
     this.address = user.address
     this.birthDate = user.birthDate
     this.sex = user.sex
+    this.imgUrl = user.imgUrl
     this.updatedAt = user.updatedAt
     this.createdAt = user.createdAt
     this.actived = user.actived

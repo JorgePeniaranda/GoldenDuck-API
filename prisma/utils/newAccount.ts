@@ -14,7 +14,6 @@ export const newAccount = async (
     const { id } = await prisma.account.create({
       data: {
         idUser,
-        imgUrl: faker.image.url(),
         balance: faker.number.int({
           min: 0,
           max: 1000000,

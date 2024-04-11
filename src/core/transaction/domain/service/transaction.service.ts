@@ -18,16 +18,12 @@ export class TransactionService {
     // TO-DO: remover dinero de la cuenta de origen y agregarlo a la cuenta de destino
   }
 
-  public async getAll (
-    id: AccountPrimitive['id']
-  ): Promise<Transaction[] | null> {
-    return await this.transactionRepository.getAll(id)
+  public async findAll (id: AccountPrimitive['id']): Promise<Transaction[] | null> {
+    return await this.transactionRepository.findAll(id)
   }
 
-  public async find (
-    id: TransactionPrimitive['id']
-  ): Promise<Transaction | null> {
-    return await this.transactionRepository.find(id)
+  public async findOne (id: TransactionPrimitive['id']): Promise<Transaction | null> {
+    return await this.transactionRepository.findOne(id)
   }
 
   public async delete (id: TransactionPrimitive['id']): Promise<void> {

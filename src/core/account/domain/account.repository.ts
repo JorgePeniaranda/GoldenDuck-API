@@ -1,16 +1,10 @@
-import { type IDUserDTO } from '@/core/user/domain/dto/id-user.dto'
 import { type Account } from './account.entity'
 import { type AccountPrimitive } from './account.primitive'
-import { type CreateAccountDTO } from './dto/create-account'
-import { type UpdateAccountDTO } from './dto/update-account'
 
 export interface AccountRepository {
-  create: (data: CreateAccountDTO) => Promise<Account>
-  getAll: (id: IDUserDTO) => Promise<Account[] | null>
-  find: (id: AccountPrimitive['id']) => Promise<Account | null>
-  update: (
-    id: AccountPrimitive['id'],
-    account: UpdateAccountDTO
-  ) => Promise<Account>
-  delete: (id: AccountPrimitive['id']) => Promise<void>
+  create: (data: Account) => Promise<Account>
+  findAll: (id: AccountPrimitive['idUser']) => Promise<Account[]>
+  findOne: (id: AccountPrimitive['id']) => Promise<Account | null>
+  update: (data: Account) => Promise<Account>
+  delete: (data: Account) => Promise<void>
 }
