@@ -1,31 +1,23 @@
 import { EventsMap } from '@/constants/events'
-import { ReadUserService } from '@/core/user/domain/service/read-user.service'
 import { AccountErrorsMessages } from '@/messages/error/account'
-import { UserErrorsMessages } from '@/messages/error/user'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { OnEvent } from '@nestjs/event-emitter'
 import { Account } from '../account.entity'
 import { type AccountPrimitive } from '../account.primitive'
 import { AccountRepository } from '../account.repository'
-import { type CreateAccountDTO } from '../dto/create-account'
 
 @Injectable()
 export class WriteAccountService {
   constructor (
     @Inject('AccountRepository')
-    private readonly accountRepository: AccountRepository,
-    private readonly readUserService: ReadUserService
+    private readonly accountRepository: AccountRepository
   ) {}
 
   @OnEvent(EventsMap.USER_CREATED)
-  public async create (data: CreateAccountDTO): Promise<Account> {
-    const checkUser = await this.readUserService.findByID(data.idUser)
-
-    if (checkUser === null) {
-      throw new NotFoundException(UserErrorsMessages.UserNotFound)
-    }
-
-    const account = Account.create(data)
+  public async create (idUser: AccountPrimitive['idUser']): Promise<Account> {
+    const account = Account.create({
+      idUser
+    })
 
     return await this.accountRepository.create(account)
 
@@ -62,8 +54,8 @@ export class WriteAccountService {
     // TO-DO: send notification to user email
   }
 
-  public async delete (id: AccountPrimitive['id']): Promise<void> {
-    const account = await this.accountRepository.findByID(id)
+  public async delete (idUser: AccountPrimitive['idUser'], index: number): Promise<void> {
+    const account = await this.accountRepository.findOne(idUser, index)
 
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.AccountNotFound)
