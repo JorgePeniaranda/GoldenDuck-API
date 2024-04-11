@@ -10,7 +10,7 @@ import { AccountRepository } from '../account.repository'
 import { type CreateAccountDTO } from '../dto/create-account'
 
 @Injectable()
-export class AccountService {
+export class WriteAccountService {
   constructor (
     @Inject('AccountRepository')
     private readonly accountRepository: AccountRepository,
@@ -30,18 +30,6 @@ export class AccountService {
     return await this.accountRepository.create(account)
 
     // TO-DO: send notification to user email
-  }
-
-  public async findAll (idUser: AccountPrimitive['idUser']): Promise<Account[]> {
-    return await this.accountRepository.findAll(idUser)
-  }
-
-  public async findOne (idUser: AccountPrimitive['idUser'], index: AccountPrimitive['id']): Promise<Account | null> {
-    return await this.accountRepository.findOne(idUser, index)
-  }
-
-  public async findByID (id: AccountPrimitive['id']): Promise<Account | null> {
-    return await this.accountRepository.findByID(id)
   }
 
   @OnEvent(EventsMap.INCREMENT_BALANCE)
