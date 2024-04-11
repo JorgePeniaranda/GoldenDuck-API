@@ -1,6 +1,4 @@
 import { EventsMap } from '@/constants/events'
-import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
-import { type TransactionPrimitive } from '@/core/transaction/domain/transaction.primitive'
 import { NotificationErrorsMessages } from '@/messages/error/notification'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { OnEvent } from '@nestjs/event-emitter'
@@ -9,7 +7,7 @@ import { type NotificationPrimitive } from '../notification.primitive'
 import { NotificationRepository } from '../notification.repository'
 
 @Injectable()
-export class NotificationService {
+export class WriteNotificationService {
   constructor (
     @Inject('NotificationRepository')
     private readonly notificationRepository: NotificationRepository
@@ -26,16 +24,8 @@ export class NotificationService {
     // TO-DO: send notification to account device
   }
 
-  public async findAll (id: AccountPrimitive['id']): Promise<Notification[] | null> {
-    return await this.notificationRepository.findAll(id)
-  }
-
-  public async findOne (id: TransactionPrimitive['id']): Promise<Notification | null> {
-    return await this.notificationRepository.findOne(id)
-  }
-
-  public async delete (id: TransactionPrimitive['id']): Promise<void> {
-    const notification = await this.notificationRepository.findOne(id)
+  public async delete (idUser: NotificationPrimitive['idUser'], index: number): Promise<void> {
+    const notification = await this.notificationRepository.findOne(idUser, index)
 
     if (notification === null) {
       throw new NotFoundException(NotificationErrorsMessages.NotFound)

@@ -1,3 +1,4 @@
+import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
 import { NotificationErrorsMessages } from '@/messages/error/notification'
 import {
   Body,
@@ -6,12 +7,14 @@ import {
   Get,
   NotFoundException,
   Param,
-  ParseIntPipe
+  ParseIntPipe,
+  Request
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { type Notification } from '../domain/notification.entity'
 import { type NotificationPrimitive } from '../domain/notification.primitive'
-import { NotificationService } from '../domain/service/transaction.service'
+import { ReadNotificationService } from '../domain/service/read-notification.service'
+import { WriteNotificationService } from '../domain/service/write-notification.service'
 import { NotificationResponse } from './notification.response'
 
 @ApiResponse({
@@ -21,24 +24,23 @@ import { NotificationResponse } from './notification.response'
 @ApiBearerAuth()
 @Controller('notification')
 export class NotificationController {
-  constructor (private readonly notificationService: NotificationService) {}
+  constructor (private readonly writeNotificationService: WriteNotificationService,
+    private readonly readNotificationService: ReadNotificationService
+  ) {}
 
   @Get()
   async getAllTransaction (@Body() id: NotificationPrimitive['id']): Promise<Notification[]> {
-    const notifications = await this.notificationService.findAll(id)
-
-    if (notifications === null) {
-      return []
-    }
+    const notifications = await this.readNotificationService.findAll(id)
 
     return notifications
   }
 
-  @Get('/:id')
+  @Get('/:index')
   async getTransaction (
-    @Param('id', new ParseIntPipe()) id: NotificationPrimitive['id']
+    @Request() UserData: { user: JwtPayload },
+      @Param('index', new ParseIntPipe()) index: number
   ): Promise<Notification> {
-    const notification = await this.notificationService.findOne(id)
+    const notification = await this.readNotificationService.findOne(UserData.user.id, index)
 
     if (notification === null) {
       throw new NotFoundException(NotificationErrorsMessages.NotFound)
@@ -47,10 +49,11 @@ export class NotificationController {
     return notification
   }
 
-  @Delete('/:id')
+  @Delete('/:index')
   async deleteTransaction (
-    @Param('id', new ParseIntPipe()) id: NotificationPrimitive['id']
+    @Request() UserData: { user: JwtPayload },
+      @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
-    await this.notificationService.delete(id)
+    await this.writeNotificationService.delete(UserData.user.id, index)
   }
 }
