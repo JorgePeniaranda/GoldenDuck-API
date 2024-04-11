@@ -6,16 +6,14 @@ import {
   NotFoundException,
   Param,
   ParseIntPipe,
-  Post,
-  Put
+  Post
 } from '@nestjs/common'
 import { ApiResponse, ApiTags } from '@nestjs/swagger'
 
-import { IDUserDTO } from '@/core/user/domain/dto/id-user.dto'
+import { AccountErrorsMessages } from '@/messages/error/account'
 import { type Account } from '../domain/account.entity'
 import { type AccountPrimitive } from '../domain/account.primitive'
 import { CreateAccountDTO } from '../domain/dto/create-account'
-import { UpdateAccountDTO } from '../domain/dto/update-account'
 import { AccountService } from '../domain/service/account.service'
 import { AccountResponse } from './account.response'
 
@@ -27,51 +25,33 @@ import { AccountResponse } from './account.response'
 export class AccountController {
   constructor (private readonly accountService: AccountService) {}
 
-  @Get()
-  async getAllAccount (@Body() id: IDUserDTO): Promise<Account[]> {
-    const accounts = await this.accountService.findAll(id)
-
-    if (accounts === null) {
-      return []
-    }
+  @Post('all')
+  async findAll (@Body('idUser', new ParseIntPipe()) idUser: AccountPrimitive['idUser']): Promise<Account[]> {
+    const accounts = await this.accountService.findAll(idUser)
 
     return accounts
   }
 
   @Post()
-  async createAccount (@Body() data: CreateAccountDTO): Promise<Account> {
+  async create (@Body() data: CreateAccountDTO): Promise<Account> {
     const account = await this.accountService.create(data)
 
     return account
   }
 
   @Get('/:id')
-  async getAccount (@Param('id', new ParseIntPipe()) id: AccountPrimitive['id']): Promise<Account> {
+  async findOne (@Param('id', new ParseIntPipe()) id: AccountPrimitive['id']): Promise<Account> {
     const account = await this.accountService.findOne(id)
 
     if (account === null) {
-      throw new NotFoundException()
-    }
-
-    return account
-  }
-
-  @Put('/config/image')
-  async configAccount (
-    @Param('id', new ParseIntPipe()) id: AccountPrimitive['id'],
-      @Body() data: UpdateAccountDTO
-  ): Promise<Account> {
-    const account = await this.accountService.update(id, data)
-
-    if (account === null) {
-      throw new NotFoundException()
+      throw new NotFoundException(AccountErrorsMessages.AccountNotFound)
     }
 
     return account
   }
 
   @Delete('/:id')
-  async deleteAccount (@Param('id', new ParseIntPipe()) id: AccountPrimitive['id']): Promise<void> {
+  async delete (@Param('id', new ParseIntPipe()) id: AccountPrimitive['id']): Promise<void> {
     await this.accountService.delete(id)
   }
 }

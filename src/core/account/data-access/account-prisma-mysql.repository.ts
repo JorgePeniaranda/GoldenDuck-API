@@ -1,28 +1,28 @@
-import { type IDUserDTO } from '@/core/user/domain/dto/id-user.dto'
 import { PrismaService } from '@/services/prisma.service'
 import { Injectable } from '@nestjs/common'
 import { Account } from '../domain/account.entity'
 import { type AccountPrimitive } from '../domain/account.primitive'
 import { type AccountRepository } from '../domain/account.repository'
-import { type CreateAccountDTO } from '../domain/dto/create-account'
-import { type UpdateAccountDTO } from '../domain/dto/update-account'
 
 @Injectable()
 export class AccountRepositoryPrismaMySQL implements AccountRepository {
   constructor (private readonly prisma: PrismaService) {}
 
-  public async create (data: CreateAccountDTO): Promise<Account> {
+  public async create (data: Account): Promise<Account> {
     const newAccount = await this.prisma.account.create({
-      data
+      data: {
+        ...data.toJSON(),
+        id: undefined
+      }
     })
 
     return new Account(newAccount)
   }
 
-  public async findAll ({ id }: IDUserDTO): Promise<Account[] | null> {
+  public async findAll (idUser: AccountPrimitive['idUser']): Promise<Account[]> {
     const accounts = await this.prisma.account.findMany({
       where: {
-        idUser: id
+        idUser
       }
     })
 
@@ -39,22 +39,21 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
     return account !== null ? new Account(account) : null
   }
 
-  public async update (id: AccountPrimitive['id'], account: UpdateAccountDTO): Promise<Account> {
+  public async update (account: Account): Promise<Account> {
     const updatedAccount = await this.prisma.account.update({
       where: {
-        id
+        id: account.id,
+        deleted: false
       },
-      data: account
+      data: account.toJSON()
     })
 
     return new Account(updatedAccount)
   }
 
-  public async delete (id: AccountPrimitive['id']): Promise<void> {
+  public async delete (account: Account): Promise<void> {
     await this.prisma.account.update({
-      where: {
-        id
-      },
+      where: account.toJSON(),
       data: {
         deleted: true
       }
