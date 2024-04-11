@@ -17,7 +17,10 @@ import { UserRepository } from '../user.repository'
 
 @Injectable()
 export class WriteUserService {
-  constructor (@Inject('UserRepository') private readonly userRepository: UserRepository, private readonly eventEmitter: EventEmitter2) {}
+  constructor (
+    @Inject('UserRepository') private readonly userRepository: UserRepository,
+    private readonly eventEmitter: EventEmitter2
+  ) {}
 
   async createUser (user: CreateUserDTO): Promise<User> {
     const checkUser = await this.userRepository.findOne({

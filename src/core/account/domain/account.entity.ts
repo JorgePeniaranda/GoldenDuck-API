@@ -52,7 +52,8 @@ export class Account implements AccountPrimitive {
 
   public static create (
     data: Pick<Partial<AccountPrimitive>, (typeof optionalProperties)[number]> &
-    Omit<AccountPrimitive, (typeof optionalProperties)[number]>): Account {
+    Omit<AccountPrimitive, (typeof optionalProperties)[number]>
+  ): Account {
     return new Account({
       id: 0,
       idUser: data.idUser,

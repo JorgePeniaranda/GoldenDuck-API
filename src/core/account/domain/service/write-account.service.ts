@@ -25,7 +25,10 @@ export class WriteAccountService {
   }
 
   @OnEvent(EventsMap.INCREMENT_BALANCE)
-  public async increaseBalance (id: AccountPrimitive['id'], amount: AccountPrimitive['balance']): Promise<Account> {
+  public async increaseBalance (
+    id: AccountPrimitive['id'],
+    amount: AccountPrimitive['balance']
+  ): Promise<Account> {
     const account = await this.accountRepository.findByID(id)
 
     if (account === null) {
@@ -40,7 +43,10 @@ export class WriteAccountService {
   }
 
   @OnEvent(EventsMap.DECREMENT_BALANCE)
-  public async decrementBalance (id: AccountPrimitive['id'], amount: AccountPrimitive['balance']): Promise<Account> {
+  public async decrementBalance (
+    id: AccountPrimitive['id'],
+    amount: AccountPrimitive['balance']
+  ): Promise<Account> {
     const account = await this.accountRepository.findByID(id)
 
     if (account === null) {

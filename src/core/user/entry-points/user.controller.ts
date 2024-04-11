@@ -30,7 +30,10 @@ import { UserResponse } from './user.response'
 @ApiTags('User')
 @Controller('user')
 export class UserController {
-  constructor (private readonly writeUserService: WriteUserService, private readonly readUserService: ReadUserService) {}
+  constructor (
+    private readonly writeUserService: WriteUserService,
+    private readonly readUserService: ReadUserService
+  ) {}
 
   @ApiBearerAuth()
   @Get('/')

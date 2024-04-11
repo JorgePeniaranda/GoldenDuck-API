@@ -24,7 +24,10 @@ import { AccountResponse } from './account.response'
 @ApiBearerAuth()
 @Controller('account')
 export class AccountController {
-  constructor (private readonly writeAccountService: WriteAccountService, private readonly readAccountService: ReadAccountService) {}
+  constructor (
+    private readonly writeAccountService: WriteAccountService,
+    private readonly readAccountService: ReadAccountService
+  ) {}
 
   @Get()
   async findAll (@Request() UserData: { user: JwtPayload }): Promise<Account[]> {
@@ -41,7 +44,10 @@ export class AccountController {
   }
 
   @Get('/:index')
-  async findOne (@Request() UserData: { user: JwtPayload }, @Param('index', new ParseIntPipe()) index: number): Promise<Account> {
+  async findOne (
+    @Request() UserData: { user: JwtPayload },
+      @Param('index', new ParseIntPipe()) index: number
+  ): Promise<Account> {
     const account = await this.readAccountService.findOne(UserData.user.id, index)
 
     if (account === null) {
@@ -52,7 +58,10 @@ export class AccountController {
   }
 
   @Delete('/:index')
-  async delete (@Request() UserData: { user: JwtPayload }, @Param('index', new ParseIntPipe()) index: number): Promise<void> {
+  async delete (
+    @Request() UserData: { user: JwtPayload },
+      @Param('index', new ParseIntPipe()) index: number
+  ): Promise<void> {
     await this.writeAccountService.delete(UserData.user.id, index)
   }
 }

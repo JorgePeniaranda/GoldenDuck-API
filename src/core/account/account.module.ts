@@ -7,9 +7,7 @@ import { WriteAccountService } from './domain/service/write-account.service'
 import { AccountController } from './entry-points/account.controller'
 
 @Module({
-  imports: [
-    UserModule
-  ],
+  imports: [UserModule],
   controllers: [AccountController],
   providers: [
     WriteAccountService,
@@ -20,8 +18,6 @@ import { AccountController } from './entry-points/account.controller'
     },
     PrismaService
   ],
-  exports: [
-    ReadAccountService
-  ]
+  exports: [ReadAccountService]
 })
 export class AccountModule {}

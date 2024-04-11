@@ -1,7 +1,4 @@
-import {
-  Inject,
-  Injectable
-} from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { type FindUserDTO } from '../dto/find-user.dto'
 import { type User } from '../user.entity'
 import { type UserPrimitive } from '../user.primitive'

@@ -7,9 +7,7 @@ import { WriteUserService } from './domain/service/write-user.service'
 import { UserController } from './entry-points/user.controller'
 
 @Module({
-  imports: [
-    EventEmitterModule.forRoot()
-  ],
+  imports: [EventEmitterModule.forRoot()],
   controllers: [UserController],
   providers: [
     WriteUserService,
