@@ -24,4 +24,48 @@ export class Session implements SessionPrimitive {
     this.logoutAt = transaction.logoutAt
     this.createdAt = transaction.createdAt
   }
+
+  public static create ({
+    idUser,
+    ip,
+    userAgent,
+    location,
+    deviceType,
+    token
+  }: {
+    idUser: SessionPrimitive['idUser']
+    ip: SessionPrimitive['ip']
+    userAgent: SessionPrimitive['userAgent']
+    location: SessionPrimitive['location']
+    deviceType: SessionPrimitive['deviceType']
+    token: SessionPrimitive['token']
+  }): Session {
+    return new Session({
+      id: 0,
+      idUser,
+      ip,
+      userAgent,
+      location,
+      deviceType,
+      token,
+      active: true,
+      logoutAt: null,
+      createdAt: new Date()
+    })
+  }
+
+  public toJSON (): SessionPrimitive {
+    return {
+      id: this.id,
+      idUser: this.idUser,
+      ip: this.ip,
+      userAgent: this.userAgent,
+      location: this.location,
+      deviceType: this.deviceType,
+      token: this.token,
+      active: this.active,
+      logoutAt: this.logoutAt,
+      createdAt: this.createdAt
+    }
+  }
 }

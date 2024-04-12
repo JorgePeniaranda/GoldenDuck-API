@@ -1,3 +1,4 @@
+import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
 import {
   Body,
   Controller,
@@ -7,13 +8,13 @@ import {
   NotFoundException,
   Param,
   ParseIntPipe,
-  Post
+  Post,
+  Request
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateSessionDTO } from '../domain/dto/create-session'
 import { SessionService } from '../domain/service/session.service'
 import { type Session } from '../domain/session.entity'
-import { type SessionPrimitive } from '../domain/session.primitive'
 import { SessionResponse } from './session.response'
 
 @ApiResponse({
@@ -21,31 +22,31 @@ import { SessionResponse } from './session.response'
 })
 @ApiTags('Session')
 @ApiBearerAuth()
-@Controller('session')
+@Controller('/session')
 export class SessionController {
   constructor (private readonly sessionService: SessionService) {}
 
   @Get()
-  async getAllSession (): Promise<Session[]> {
-    const sessions = await this.sessionService.findAll()
-
-    if (sessions === null) {
-      return []
-    }
+  async findAll (@Request() UserData: { user: JwtPayload }): Promise<Session[]> {
+    const sessions = await this.sessionService.findAll({
+      idUser: UserData.user.id
+    })
 
     return sessions
   }
 
   @Post()
-  async createSession (@Body() data: CreateSessionDTO): Promise<Session> {
+  async create (@Body() data: CreateSessionDTO): Promise<Session> {
     const session = await this.sessionService.create(data)
 
     return session
   }
 
-  @Get('/:id')
-  async getSession (@Param('id', new ParseIntPipe()) id: SessionPrimitive['id']): Promise<Session> {
-    const session = await this.sessionService.findOne(id)
+  @Get('/:index')
+  async findOne (
+    @Request() UserData: { user: JwtPayload },
+      @Param('index', new ParseIntPipe()) index: number): Promise<Session> {
+    const session = await this.sessionService.findOne({ idUser: UserData.user.id, index })
 
     if (session === null) {
       throw new NotFoundException()
@@ -55,8 +56,10 @@ export class SessionController {
   }
 
   @HttpCode(204)
-  @Delete('/:id')
-  async deleteSession (@Param('id', new ParseIntPipe()) id: SessionPrimitive['id']): Promise<void> {
-    await this.sessionService.delete(id)
+  @Delete('/:index')
+  async delete (
+    @Request() UserData: { user: JwtPayload },
+      @Param('index', new ParseIntPipe()) index: number): Promise<void> {
+    await this.sessionService.delete({ idUser: UserData.user.id, index })
   }
 }
