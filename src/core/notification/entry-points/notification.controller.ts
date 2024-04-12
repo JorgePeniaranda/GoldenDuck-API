@@ -24,7 +24,8 @@ import { NotificationResponse } from './notification.response'
 @ApiBearerAuth()
 @Controller('notification')
 export class NotificationController {
-  constructor (private readonly writeNotificationService: WriteNotificationService,
+  constructor (
+    private readonly writeNotificationService: WriteNotificationService,
     private readonly readNotificationService: ReadNotificationService
   ) {}
 
