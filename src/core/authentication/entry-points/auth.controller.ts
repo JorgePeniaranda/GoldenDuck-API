@@ -24,7 +24,7 @@ export class AuthController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get()
-  async getProfile (@Request() req: { user: JwtPayload }): Promise<JwtPayload> {
+  async test (@Request() req: { user: JwtPayload }): Promise<JwtPayload> {
     return req.user
   }
 }

@@ -23,30 +23,30 @@ export class WriteUserService {
     private readonly eventEmitter: EventEmitter2
   ) {}
 
-  async createUser (user: CreateUserDTO): Promise<User> {
+  async create (data: CreateUserDTO): Promise<User> {
     const checkUser = await this.userRepository.findOne({
-      dni: user.dni,
-      email: user.email,
-      phoneNumber: user.phoneNumber
+      dni: data.dni,
+      email: data.email,
+      phoneNumber: data.phoneNumber
     })
 
     if (checkUser !== null) {
       throw new ConflictException(UserErrorsMessages.AlreadyExist)
     }
 
-    const newUser = User.create(user)
+    const newUser = User.create(data)
 
-    const userCreated = await this.userRepository.createUser(newUser)
+    const user = await this.userRepository.create(newUser)
 
-    const EventData: ICreateAccountEvent = { idUser: userCreated.id }
+    const EventData: ICreateAccountEvent = { idUser: user.id }
 
     this.eventEmitter.emit(EventsMap.USER_CREATED, EventData)
     // TO-DO: send notification with url to email
 
-    return userCreated
+    return user
   }
 
-  async activateUser ({ id }: { id: UserPrimitive['id'] }): Promise<User> {
+  async activate ({ id }: { id: UserPrimitive['id'] }): Promise<User> {
     const user = await this.userRepository.findByID({ id })
 
     if (user === null) {
@@ -55,10 +55,10 @@ export class WriteUserService {
 
     user.actived = true
 
-    return await this.userRepository.updateUser(user)
+    return await this.userRepository.update(user)
   }
 
-  async updateUser ({ id, data }: { id: UserPrimitive['id'], data: UpdateUserDTO }): Promise<User> {
+  async update ({ id, data }: { id: UserPrimitive['id'], data: UpdateUserDTO }): Promise<User> {
     const user = await this.userRepository.findByID({ id })
 
     if (user === null) {
@@ -74,12 +74,12 @@ export class WriteUserService {
     if (data.imgUrl !== undefined) user.imgUrl = data.imgUrl
     if (data.role !== undefined) user.role = data.role // ??
 
-    return await this.userRepository.updateUser(user)
+    return await this.userRepository.update(user)
 
     // TO-DO: send notification to account email
   }
 
-  async deleteUser ({ id, data }: { id: UserPrimitive['id'], data: DeleteUserDTO }): Promise<void> {
+  async delete ({ id, data }: { id: UserPrimitive['id'], data: DeleteUserDTO }): Promise<void> {
     const user = await this.userRepository.findByID({ id })
 
     if (user === null) {
@@ -90,6 +90,6 @@ export class WriteUserService {
       throw new UnauthorizedException(UserErrorsMessages.NotFound)
     }
 
-    await this.userRepository.deleteUser(user)
+    await this.userRepository.delete(user)
   }
 }

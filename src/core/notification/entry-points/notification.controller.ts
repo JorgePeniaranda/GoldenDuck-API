@@ -29,14 +29,14 @@ export class NotificationController {
   ) {}
 
   @Get()
-  async getAllTransaction (@Request() UserData: { user: JwtPayload }): Promise<Notification[]> {
+  async findAll (@Request() UserData: { user: JwtPayload }): Promise<Notification[]> {
     const notifications = await this.readNotificationService.findAll({ idUser: UserData.user.id })
 
     return notifications
   }
 
   @Get('/:index')
-  async getTransaction (
+  async findOne (
     @Request() UserData: { user: JwtPayload },
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Notification> {
@@ -54,7 +54,7 @@ export class NotificationController {
 
   @HttpCode(204)
   @Delete('/:index')
-  async deleteTransaction (
+  async delete (
     @Request() UserData: { user: JwtPayload },
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {

@@ -52,8 +52,8 @@ export class UserController {
 
   @ApiBearerAuth()
   @Post()
-  async createUser (@Body() user: CreateUserDTO): Promise<User> {
-    return await this.writeUserService.createUser(user)
+  async create (@Body() user: CreateUserDTO): Promise<User> {
+    return await this.writeUserService.create(user)
   }
 
   @Public()
@@ -70,19 +70,19 @@ export class UserController {
 
   @ApiBearerAuth()
   @Patch('/:id')
-  async updateUser (
+  async update (
     @Param('id', ParseIntPipe) id: UserPrimitive['id'],
       @Body() data: UpdateUserDTO
   ): Promise<UserPrimitive> {
-    return await this.writeUserService.updateUser({
+    return await this.writeUserService.update({
       id,
       data
     })
   }
 
   @Get('/activate')
-  async activateUser (@Request() UserData: { user: JwtPayload }): Promise<'🤠'> {
-    await this.writeUserService.activateUser({
+  async activate (@Request() UserData: { user: JwtPayload }): Promise<'🤠'> {
+    await this.writeUserService.activate({
       id: UserData.user.id
     })
 
@@ -92,11 +92,11 @@ export class UserController {
   @ApiBearerAuth()
   @HttpCode(204)
   @Delete('/:id')
-  async deleteUser (
+  async delete (
     @Request() UserData: { user: JwtPayload },
       @Body() data: DeleteUserDTO
   ): Promise<void> {
-    await this.writeUserService.deleteUser({
+    await this.writeUserService.delete({
       id: UserData.user.id,
       data
     })

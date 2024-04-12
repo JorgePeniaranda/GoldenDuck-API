@@ -6,7 +6,7 @@ import { CategoryRepository } from '../category.repository'
 import { type CreateErrorDTO } from '../dto/create-category'
 
 @Injectable()
-export class CategoryService {
+export class WriteCategoryService {
   constructor (
     @Inject('CategoryRepository')
     private readonly categoryRepository: CategoryRepository
@@ -24,17 +24,6 @@ export class CategoryService {
     const category = Category.create(data)
 
     return await this.categoryRepository.create(category)
-  }
-
-  public async findAll (): Promise<Category[]> {
-    return await this.categoryRepository.findAll()
-  }
-
-  public async findOne ({ id, name }: {
-    id?: CategoryPrimitive['id']
-    name?: CategoryPrimitive['name']
-  }): Promise<Category | null> {
-    return await this.categoryRepository.findOne({ id, name })
   }
 
   public async delete ({ id }: { id: CategoryPrimitive['id'] }): Promise<void> {

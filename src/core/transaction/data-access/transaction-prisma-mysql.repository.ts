@@ -1,4 +1,3 @@
-import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
 import { PrismaService } from '@/services/prisma.service'
 import { Injectable } from '@nestjs/common'
 import { Transaction } from '../domain/transaction.entity'
@@ -20,7 +19,7 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
     return new Transaction(transaction)
   }
 
-  public async findAll (id: AccountPrimitive['id']): Promise<Transaction[]> {
+  public async findAll (id: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver']): Promise<Transaction[]> {
     const transactions = await this.prisma.transaction.findMany({
       where: {
         OR: [{ idSender: id }, { idReceiver: id }],
@@ -102,7 +101,7 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
   public async delete (data: Transaction): Promise<Transaction> {
     const transaction = await this.prisma.transaction.update({
       where: {
-        id: data.id,
+        ...data.toJSON(),
         canceled: false
       },
       data: {

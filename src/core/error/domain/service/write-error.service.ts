@@ -6,7 +6,7 @@ import { type ErrorPrimitive } from '../error.primitive'
 import { ErrorRepository } from '../error.repository'
 
 @Injectable()
-export class ErrorService {
+export class WriteErrorService {
   constructor (
     @Inject('ErrorRepository')
     private readonly errorRepository: ErrorRepository
@@ -16,14 +16,6 @@ export class ErrorService {
     const error = Error.create(data)
 
     return await this.errorRepository.create(error)
-  }
-
-  public async findAll (): Promise<Error[]> {
-    return await this.errorRepository.findAll()
-  }
-
-  public async findOne ({ id }: { id: ErrorPrimitive['id'] }): Promise<Error | null> {
-    return await this.errorRepository.findOne({ id })
   }
 
   public async delete ({ id }: { id: ErrorPrimitive['id'] }): Promise<void> {

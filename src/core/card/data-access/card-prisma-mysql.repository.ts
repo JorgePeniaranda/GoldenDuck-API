@@ -10,14 +10,14 @@ export class CardRepositoryPrismaMySQL implements CardRepository {
   constructor (private readonly prisma: PrismaService) {}
 
   public async create (data: Card): Promise<Card> {
-    const newCard = await this.prisma.card.create({
+    const card = await this.prisma.card.create({
       data: {
         ...data.toJSON(),
         id: undefined
       }
     })
 
-    return new Card(newCard)
+    return new Card(card)
   }
 
   public async findAll ({
@@ -68,7 +68,7 @@ export class CardRepositoryPrismaMySQL implements CardRepository {
   public async delete (data: Card): Promise<void> {
     await this.prisma.card.update({
       where: {
-        id: data.id,
+        ...data.toJSON(),
         deleted: false
       },
       data: {

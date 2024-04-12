@@ -13,7 +13,8 @@ import {
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateSessionDTO } from '../domain/dto/create-session'
-import { SessionService } from '../domain/service/session.service'
+import { ReadSessionService } from '../domain/service/read-session.service'
+import { WriteSessionService } from '../domain/service/write-session.service'
 import { type Session } from '../domain/session.entity'
 import { SessionResponse } from './session.response'
 
@@ -24,11 +25,11 @@ import { SessionResponse } from './session.response'
 @ApiBearerAuth()
 @Controller('/session')
 export class SessionController {
-  constructor (private readonly sessionService: SessionService) {}
+  constructor (private readonly writeSessionService: WriteSessionService, private readonly readSessionService: ReadSessionService) {}
 
   @Get()
   async findAll (@Request() UserData: { user: JwtPayload }): Promise<Session[]> {
-    const sessions = await this.sessionService.findAll({
+    const sessions = await this.readSessionService.findAll({
       idUser: UserData.user.id
     })
 
@@ -37,7 +38,7 @@ export class SessionController {
 
   @Post()
   async create (@Body() data: CreateSessionDTO): Promise<Session> {
-    const session = await this.sessionService.create(data)
+    const session = await this.writeSessionService.create(data)
 
     return session
   }
@@ -46,7 +47,7 @@ export class SessionController {
   async findOne (
     @Request() UserData: { user: JwtPayload },
       @Param('index', new ParseIntPipe()) index: number): Promise<Session> {
-    const session = await this.sessionService.findOne({ idUser: UserData.user.id, index })
+    const session = await this.readSessionService.findOne({ idUser: UserData.user.id, index })
 
     if (session === null) {
       throw new NotFoundException()
@@ -60,6 +61,6 @@ export class SessionController {
   async delete (
     @Request() UserData: { user: JwtPayload },
       @Param('index', new ParseIntPipe()) index: number): Promise<void> {
-    await this.sessionService.delete({ idUser: UserData.user.id, index })
+    await this.writeSessionService.delete({ idUser: UserData.user.id, index })
   }
 }

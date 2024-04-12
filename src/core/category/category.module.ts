@@ -1,18 +1,21 @@
 import { Module } from '@nestjs/common'
 import { PrismaService } from '../../services/prisma.service'
 import { CategoryRepositoryPrismaMySQL } from './data-access/category-prisma-mysql.repository'
-import { CategoryService } from './domain/service/category.service'
+import { ReadCategoryService } from './domain/service/read-category.service'
+import { WriteCategoryService } from './domain/service/write-category.service'
 import { CategoryController } from './entry-points/category.controller'
 
 @Module({
   controllers: [CategoryController],
   providers: [
-    CategoryService,
+    WriteCategoryService,
+    ReadCategoryService,
     {
       provide: 'CategoryRepository',
       useClass: CategoryRepositoryPrismaMySQL
     },
     PrismaService
-  ]
+  ],
+  exports: [ReadCategoryService]
 })
 export class CategoryModule {}

@@ -9,14 +9,14 @@ export class ErrorRepositoryPrismaMySQL implements ErrorRepository {
   constructor (private readonly prisma: PrismaService) {}
 
   public async create (data: Error): Promise<Error> {
-    const newTransaction = await this.prisma.error.create({
+    const error = await this.prisma.error.create({
       data: {
         ...data.toJSON(),
         id: undefined
       }
     })
 
-    return new Error(newTransaction)
+    return new Error(error)
   }
 
   public async findAll (): Promise<Error[]> {

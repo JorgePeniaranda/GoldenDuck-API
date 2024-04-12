@@ -9,14 +9,14 @@ export class CategoryRepositoryPrismaMySQL implements CategoryRepository {
   constructor (private readonly prisma: PrismaService) {}
 
   public async create (data: Category): Promise<Category> {
-    const newCategory = await this.prisma.category.create({
+    const category = await this.prisma.category.create({
       data: {
         ...data.toJSON(),
         id: undefined
       }
     })
 
-    return new Category(newCategory)
+    return new Category(category)
   }
 
   public async findAll (): Promise<Category[]> {
@@ -47,9 +47,7 @@ export class CategoryRepositoryPrismaMySQL implements CategoryRepository {
 
   public async delete (data: Category): Promise<void> {
     await this.prisma.category.delete({
-      where: {
-        id: data.id
-      }
+      where: data.toJSON()
     })
   }
 }

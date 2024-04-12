@@ -9,15 +9,15 @@ import { type NotificationRepository } from '../domain/notification.repository'
 export class NotificationRepositoryPrismaMySQL implements NotificationRepository {
   constructor (private readonly prisma: PrismaService) {}
 
-  public async create (notification: Notification): Promise<Notification> {
-    const newNotification = await this.prisma.notification.create({
+  public async create (data: Notification): Promise<Notification> {
+    const notification = await this.prisma.notification.create({
       data: {
-        ...notification.toJSON(),
+        ...data.toJSON(),
         id: undefined
       }
     })
 
-    return new Notification(newNotification)
+    return new Notification(notification)
   }
 
   public async findAll ({
@@ -65,10 +65,10 @@ export class NotificationRepositoryPrismaMySQL implements NotificationRepository
     return notification !== null ? new Notification(notification) : null
   }
 
-  public async delete (notification: Notification): Promise<void> {
+  public async delete (data: Notification): Promise<void> {
     await this.prisma.notification.update({
       where: {
-        id: notification.id,
+        ...data.toJSON(),
         read: false
       },
       data: {

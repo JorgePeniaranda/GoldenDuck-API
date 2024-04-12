@@ -14,7 +14,8 @@ import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { type Category } from '../domain/category.entity'
 import { type CategoryPrimitive } from '../domain/category.primitive'
 import { CreateErrorDTO } from '../domain/dto/create-category'
-import { CategoryService } from '../domain/service/category.service'
+import { ReadCategoryService } from '../domain/service/read-category.service'
+import { WriteCategoryService } from '../domain/service/write-category.service'
 import { CategoryResponse } from './category.response'
 
 @ApiResponse({
@@ -24,18 +25,18 @@ import { CategoryResponse } from './category.response'
 @ApiBearerAuth()
 @Controller('category')
 export class CategoryController {
-  constructor (private readonly categoryService: CategoryService) {}
+  constructor (private readonly writeCategoryService: WriteCategoryService, private readonly readCategoryService: ReadCategoryService) {}
 
   @Get()
   async findAll (): Promise<Category[]> {
-    const categories = await this.categoryService.findAll()
+    const categories = await this.readCategoryService.findAll()
 
     return categories
   }
 
   @Post()
   async create (@Body() data: CreateErrorDTO): Promise<Category> {
-    const category = await this.categoryService.create(data)
+    const category = await this.writeCategoryService.create(data)
 
     return category
   }
@@ -44,7 +45,7 @@ export class CategoryController {
   async findOne (
     @Param('id', new ParseIntPipe()) id: CategoryPrimitive['id']
   ): Promise<Category> {
-    const category = await this.categoryService.findOne({ id })
+    const category = await this.readCategoryService.findOne({ id })
 
     if (category === null) {
       throw new NotFoundException(CategoryErrorsMessages.NotFound)
@@ -58,6 +59,6 @@ export class CategoryController {
   async delete (
     @Param('id', new ParseIntPipe()) id: CategoryPrimitive['id']
   ): Promise<void> {
-    await this.categoryService.delete({ id })
+    await this.writeCategoryService.delete({ id })
   }
 }
