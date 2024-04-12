@@ -38,7 +38,9 @@ export class AccountController {
 
   @Post()
   async create (@Request() UserData: { user: JwtPayload }): Promise<Account> {
-    const account = await this.writeAccountService.create(UserData.user.id)
+    const account = await this.writeAccountService.create({
+      idUser: UserData.user.id
+    })
 
     return account
   }

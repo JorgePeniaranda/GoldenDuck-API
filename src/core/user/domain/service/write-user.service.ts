@@ -1,5 +1,6 @@
 import { EventsMap } from '@/constants/events'
 import { UserErrorsMessages } from '@/messages/error/user'
+import { type ICreateAccountEvent } from '@/types/events'
 import {
   ConflictException,
   Inject,
@@ -37,7 +38,9 @@ export class WriteUserService {
 
     const userCreated = await this.userRepository.createUser(newUser)
 
-    this.eventEmitter.emit(EventsMap.USER_CREATED, { idUser: userCreated.id })
+    const EventData: ICreateAccountEvent = { idUser: userCreated.id }
+
+    this.eventEmitter.emit(EventsMap.USER_CREATED, EventData)
     // TO-DO: send notification with url to email
 
     return userCreated

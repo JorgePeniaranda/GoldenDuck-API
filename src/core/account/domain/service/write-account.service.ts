@@ -14,8 +14,8 @@ export class WriteAccountService {
     private readonly accountRepository: AccountRepository
   ) {}
 
-  @OnEvent(EventsMap.USER_CREATED)
-  public async create (idUser: AccountPrimitive['idUser']): Promise<Account> {
+  @OnEvent(EventsMap.CREATE_ACCOUNT)
+  public async create ({ idUser }: { idUser: AccountPrimitive['idUser'] }): Promise<Account> {
     const account = Account.create({
       idUser
     })
