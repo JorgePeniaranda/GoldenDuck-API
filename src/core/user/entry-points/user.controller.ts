@@ -8,8 +8,6 @@ import {
   Get,
   HttpCode,
   NotFoundException,
-  Param,
-  ParseIntPipe,
   Patch,
   Post,
   Request
@@ -56,42 +54,21 @@ export class UserController {
     return await this.writeUserService.create(user)
   }
 
-  @Public()
-  @Post('/find')
-  async findUser (@Body() params: FindUserDTO): Promise<object> {
-    const user = await this.readUserService.findOne(params)
-
-    if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.NotFound)
-    }
-
-    return user
-  }
-
   @ApiBearerAuth()
-  @Patch('/:id')
+  @Patch()
   async update (
-    @Param('id', ParseIntPipe) id: UserPrimitive['id'],
+    @Request() UserData: { user: JwtPayload },
       @Body() data: UpdateUserDTO
   ): Promise<UserPrimitive> {
     return await this.writeUserService.update({
-      id,
+      id: UserData.user.id,
       data
     })
   }
 
-  @Get('/activate')
-  async activate (@Request() UserData: { user: JwtPayload }): Promise<'🤠'> {
-    await this.writeUserService.activate({
-      id: UserData.user.id
-    })
-
-    return '🤠'
-  }
-
   @ApiBearerAuth()
   @HttpCode(204)
-  @Delete('/:id')
+  @Delete()
   async delete (
     @Request() UserData: { user: JwtPayload },
       @Body() data: DeleteUserDTO
@@ -100,5 +77,26 @@ export class UserController {
       id: UserData.user.id,
       data
     })
+  }
+
+  @Public()
+  @HttpCode(204)
+  @Post('/find')
+  async findUser (@Body() params: FindUserDTO): Promise<void> {
+    const user = await this.readUserService.findOne(params)
+
+    if (user === null) {
+      throw new NotFoundException(UserErrorsMessages.NotFound)
+    }
+  }
+
+  @HttpCode(204)
+  @Get('/activate')
+  async activate (@Request() UserData: { user: JwtPayload }): Promise<'🤠'> {
+    await this.writeUserService.activate({
+      id: UserData.user.id
+    })
+
+    return '🤠'
   }
 }
