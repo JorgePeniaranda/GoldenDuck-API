@@ -20,4 +20,40 @@ export class Investment implements InvestmentPrimitive {
     this.createdAt = loan.createdAt
     this.canceled = loan.canceled
   }
+
+  public static create ({
+    idAccount,
+    amount,
+    interest,
+    dateEnd
+  }: {
+    idAccount: InvestmentPrimitive['idAccount']
+    amount: InvestmentPrimitive['amount']
+    interest: InvestmentPrimitive['interest']
+    dateEnd: InvestmentPrimitive['dateEnd']
+  }): Investment {
+    return new Investment({
+      id: 0,
+      idAccount,
+      amount,
+      interest,
+      dateEnd,
+      updatedAt: new Date(),
+      createdAt: new Date(),
+      canceled: false
+    })
+  }
+
+  public toJSON (): InvestmentPrimitive {
+    return {
+      id: this.id,
+      idAccount: this.idAccount,
+      amount: this.amount,
+      interest: this.interest,
+      dateEnd: this.dateEnd,
+      updatedAt: this.updatedAt,
+      createdAt: this.createdAt,
+      canceled: this.canceled
+    }
+  }
 }

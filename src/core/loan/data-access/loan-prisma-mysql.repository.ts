@@ -1,7 +1,5 @@
-import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
 import { PrismaService } from '@/services/prisma.service'
 import { Injectable } from '@nestjs/common'
-import { type CreateLoanDTO } from '../domain/dto/create-loan'
 import { Loan } from '../domain/loan.entity'
 import { type LoanPrimitive } from '../domain/loan.primitive'
 import { type LoanRepository } from '../domain/loan.repository'
@@ -10,15 +8,15 @@ import { type LoanRepository } from '../domain/loan.repository'
 export class LoanRepositoryPrismaMySQL implements LoanRepository {
   constructor (private readonly prisma: PrismaService) {}
 
-  public async create (data: CreateLoanDTO): Promise<Loan> {
-    const newLoan = await this.prisma.loan.create({
+  public async create (data: Loan): Promise<Loan> {
+    const loan = await this.prisma.loan.create({
       data
     })
 
-    return new Loan(newLoan)
+    return new Loan(loan)
   }
 
-  public async findAll (idAccount: AccountPrimitive['id']): Promise<Loan[] | null> {
+  public async findAll ({ idAccount }: { idAccount: LoanPrimitive['idAccount'] }): Promise<Loan[]> {
     const loans = await this.prisma.loan.findMany({
       where: {
         idAccount
@@ -28,7 +26,19 @@ export class LoanRepositoryPrismaMySQL implements LoanRepository {
     return loans.map(loan => new Loan(loan))
   }
 
-  public async findOne (id: LoanPrimitive['id']): Promise<Loan | null> {
+  public async findOne ({ idAccount, index }: { idAccount: LoanPrimitive['idAccount'], index: number }): Promise<Loan | null> {
+    const loan = await this.prisma.loan.findMany({
+      where: {
+        idAccount
+      },
+      skip: index,
+      take: 1
+    })
+
+    return loan[0] !== undefined ? new Loan(loan[0]) : null
+  }
+
+  public async findByID ({ id }: { id: LoanPrimitive['idAccount'] }): Promise<Loan | null> {
     const loan = await this.prisma.loan.findUnique({
       where: {
         id
@@ -38,10 +48,14 @@ export class LoanRepositoryPrismaMySQL implements LoanRepository {
     return loan !== null ? new Loan(loan) : null
   }
 
-  public async delete (id: LoanPrimitive['id']): Promise<void> {
-    await this.prisma.loan.delete({
+  public async delete (data: Loan): Promise<void> {
+    await this.prisma.loan.update({
       where: {
-        id
+        ...data.toJSON(),
+        canceled: false
+      },
+      data: {
+        canceled: true
       }
     })
   }

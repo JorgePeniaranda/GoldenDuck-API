@@ -20,4 +20,40 @@ export class Loan implements LoanPrimitive {
     this.createdAt = loan.createdAt
     this.canceled = loan.canceled
   }
+
+  public static create ({
+    idAccount,
+    amount,
+    interest,
+    dateEnd
+  }: {
+    idAccount: LoanPrimitive['idAccount']
+    amount: LoanPrimitive['amount']
+    interest: LoanPrimitive['interest']
+    dateEnd: LoanPrimitive['dateEnd']
+  }): Loan {
+    return new Loan({
+      id: 0,
+      idAccount,
+      amount,
+      interest,
+      dateEnd,
+      updatedAt: new Date(),
+      createdAt: new Date(),
+      canceled: false
+    })
+  }
+
+  public toJSON (): LoanPrimitive {
+    return {
+      id: this.id,
+      idAccount: this.idAccount,
+      amount: this.amount,
+      interest: this.interest,
+      dateEnd: this.dateEnd,
+      updatedAt: this.updatedAt,
+      createdAt: this.createdAt,
+      canceled: this.canceled
+    }
+  }
 }
