@@ -11,7 +11,10 @@ export class NotificationRepositoryPrismaMySQL implements NotificationRepository
 
   public async create (notification: Notification): Promise<Notification> {
     const newNotification = await this.prisma.notification.create({
-      data: notification.toJSON()
+      data: {
+        ...notification.toJSON(),
+        id: undefined
+      }
     })
 
     return new Notification(newNotification)

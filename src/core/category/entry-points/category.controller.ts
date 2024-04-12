@@ -1,3 +1,4 @@
+import { CategoryErrorsMessages } from '@/messages/error/category'
 import {
   Body,
   Controller,
@@ -25,40 +26,36 @@ export class CategoryController {
   constructor (private readonly categoryService: CategoryService) {}
 
   @Get()
-  async getAllCategory (): Promise<Category[]> {
+  async findAll (): Promise<Category[]> {
     const categories = await this.categoryService.findAll()
-
-    if (categories === null) {
-      return []
-    }
 
     return categories
   }
 
   @Post()
-  async createCategory (@Body() data: CreateErrorDTO): Promise<Category> {
+  async create (@Body() data: CreateErrorDTO): Promise<Category> {
     const category = await this.categoryService.create(data)
 
     return category
   }
 
   @Get('/:id')
-  async getCategory (
+  async findOne (
     @Param('id', new ParseIntPipe()) id: CategoryPrimitive['id']
   ): Promise<Category> {
-    const category = await this.categoryService.findOne(id)
+    const category = await this.categoryService.findOne({ id })
 
     if (category === null) {
-      throw new NotFoundException()
+      throw new NotFoundException(CategoryErrorsMessages.NotFound)
     }
 
     return category
   }
 
   @Delete('/:id')
-  async deleteCategory (
+  async delete (
     @Param('id', new ParseIntPipe()) id: CategoryPrimitive['id']
   ): Promise<void> {
-    await this.categoryService.delete(id)
+    await this.categoryService.delete({ id })
   }
 }

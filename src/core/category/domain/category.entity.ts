@@ -14,4 +14,24 @@ export class Category implements CategoryPrimitive {
     this.createdAt = transaction.createdAt
     this.deleted = transaction.deleted
   }
+
+  public static create ({ name }: { name: CategoryPrimitive['name'] }): Category {
+    return new Category({
+      id: 0,
+      name,
+      updatedAt: new Date(),
+      createdAt: new Date(),
+      deleted: false
+    })
+  }
+
+  public toJSON (): CategoryPrimitive {
+    return {
+      id: this.id,
+      name: this.name,
+      updatedAt: this.updatedAt,
+      createdAt: this.createdAt,
+      deleted: this.deleted
+    }
+  }
 }

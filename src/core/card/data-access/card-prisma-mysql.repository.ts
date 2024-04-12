@@ -11,7 +11,10 @@ export class CardRepositoryPrismaMySQL implements CardRepository {
 
   public async create (data: Card): Promise<Card> {
     const newCard = await this.prisma.card.create({
-      data: data.toJSON()
+      data: {
+        ...data.toJSON(),
+        id: undefined
+      }
     })
 
     return new Card(newCard)

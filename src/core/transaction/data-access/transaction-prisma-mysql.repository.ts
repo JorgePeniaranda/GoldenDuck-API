@@ -11,7 +11,10 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
 
   public async create (data: Transaction): Promise<Transaction> {
     const transaction = await this.prisma.transaction.create({
-      data: data.toJSON()
+      data: {
+        ...data.toJSON(),
+        id: undefined
+      }
     })
 
     return new Transaction(transaction)
