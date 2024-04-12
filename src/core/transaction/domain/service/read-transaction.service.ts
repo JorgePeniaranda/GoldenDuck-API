@@ -21,7 +21,7 @@ export class ReadTransactionService {
     idUser: AccountPrimitive['idUser']
     AccountIndex: AccountPrimitive['id']
   }): Promise<Transaction[]> {
-    const account = await this.readAccountService.findOne(idUser, AccountIndex)
+    const account = await this.readAccountService.findOne({ idUser, index: AccountIndex })
 
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.NotFound)
@@ -39,7 +39,7 @@ export class ReadTransactionService {
     AccountIndex: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver']
     index: number
   }): Promise<Transaction | null> {
-    const account = await this.readAccountService.findOne(idUser, AccountIndex)
+    const account = await this.readAccountService.findOne({ idUser, index: AccountIndex })
 
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.NotFound)
@@ -60,7 +60,7 @@ export class ReadTransactionService {
     AccountIndex: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver']
     index: number
   }): Promise<Transaction | null> {
-    const account = await this.readAccountService.findOne(idUser, AccountIndex)
+    const account = await this.readAccountService.findOne({ idUser, index: AccountIndex })
 
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.NotFound)
@@ -81,7 +81,7 @@ export class ReadTransactionService {
     AccountIndex: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver']
     index: number
   }): Promise<Transaction | null> {
-    const account = await this.readAccountService.findOne(idUser, AccountIndex)
+    const account = await this.readAccountService.findOne({ idUser, index: AccountIndex })
 
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.NotFound)

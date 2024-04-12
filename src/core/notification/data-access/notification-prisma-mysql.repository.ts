@@ -20,7 +20,8 @@ export class NotificationRepositoryPrismaMySQL implements NotificationRepository
   public async findAll ({ idUser }: { idUser: AccountPrimitive['idUser'] }): Promise<Notification[]> {
     const notifications = await this.prisma.notification.findMany({
       where: {
-        idUser
+        idUser,
+        read: false
       }
     })
 
@@ -33,7 +34,8 @@ export class NotificationRepositoryPrismaMySQL implements NotificationRepository
   ): Promise<Notification | null> {
     const notification = await this.prisma.notification.findMany({
       where: {
-        idUser
+        idUser,
+        read: false
       },
       skip: index,
       take: 1
@@ -45,7 +47,8 @@ export class NotificationRepositoryPrismaMySQL implements NotificationRepository
   public async findByID ({ id }: { id: NotificationPrimitive['id'] }): Promise<Notification | null> {
     const notification = await this.prisma.notification.findUnique({
       where: {
-        id
+        id,
+        read: false
       }
     })
 
@@ -55,7 +58,8 @@ export class NotificationRepositoryPrismaMySQL implements NotificationRepository
   public async delete (notification: Notification): Promise<void> {
     await this.prisma.notification.update({
       where: {
-        id: notification.id
+        id: notification.id,
+        read: false
       },
       data: {
         read: true

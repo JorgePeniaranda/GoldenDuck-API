@@ -25,13 +25,13 @@ export class WriteTransactionService {
     private readonly eventEmitter: EventEmitter2
   ) {}
 
-  public async create (
-    idUser: TransactionPrimitive['idSender'],
-    AccountIndex: number,
-    data: CreateTransactionDTO
+  public async create ({ idUser, AccountIndex, data }: {
+    idUser: TransactionPrimitive['idSender']
+    AccountIndex: number
+    data: CreateTransactionDTO }
   ): Promise<Transaction> {
-    const checkSender = await this.readAccountService.findOne(idUser, AccountIndex)
-    const checkReceiver = await this.readAccountService.findByID(data.idReceiver)
+    const checkSender = await this.readAccountService.findOne({ idUser, index: AccountIndex })
+    const checkReceiver = await this.readAccountService.findByID({ id: data.idReceiver })
 
     if (checkSender === null || checkReceiver === null) {
       throw new NotFoundException(AccountErrorsMessages.NotFound)
@@ -70,7 +70,7 @@ export class WriteTransactionService {
     AccountIndex: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver']
     index: number
   }): Promise<void> {
-    const account = await this.readAccountService.findOne(idUser, AccountIndex)
+    const account = await this.readAccountService.findOne({ idUser, index: AccountIndex })
 
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.NotFound)

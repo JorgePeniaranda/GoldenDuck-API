@@ -47,10 +47,10 @@ export class TransactionController {
   @Post()
   async create (
     @Request() UserData: { user: JwtPayload },
-      @Param('index', new ParseIntPipe()) index: number,
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Body() data: CreateTransactionDTO
   ): Promise<Transaction> {
-    const transaction = await this.writeTransactionService.create(UserData.user.id, index, data)
+    const transaction = await this.writeTransactionService.create({ idUser: UserData.user.id, AccountIndex, data })
 
     return transaction
   }
