@@ -1,6 +1,7 @@
-import { Inject, Injectable } from '@nestjs/common'
+import { ErrorErrorsMessages } from '@/messages/error/error'
+import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { type CreateErrorDTO } from '../dto/create-error'
-import { type Error } from '../error.entity'
+import { Error } from '../error.entity'
 import { type ErrorPrimitive } from '../error.primitive'
 import { ErrorRepository } from '../error.repository'
 
@@ -12,18 +13,26 @@ export class ErrorService {
   ) {}
 
   public async create (data: CreateErrorDTO): Promise<Error> {
-    return await this.errorRepository.create(data)
+    const error = Error.create(data)
+
+    return await this.errorRepository.create(error)
   }
 
-  public async findAll (): Promise<Error[] | null> {
+  public async findAll (): Promise<Error[]> {
     return await this.errorRepository.findAll()
   }
 
-  public async findOne (id: ErrorPrimitive['id']): Promise<Error | null> {
-    return await this.errorRepository.findOne(id)
+  public async findOne ({ id }: { id: ErrorPrimitive['id'] }): Promise<Error | null> {
+    return await this.errorRepository.findOne({ id })
   }
 
-  public async delete (id: ErrorPrimitive['id']): Promise<void> {
-    await this.errorRepository.delete(id)
+  public async delete ({ id }: { id: ErrorPrimitive['id'] }): Promise<void> {
+    const error = await this.errorRepository.findOne({ id })
+
+    if (error === null) {
+      throw new NotFoundException(ErrorErrorsMessages.NotFound)
+    }
+
+    await this.errorRepository.delete(error)
   }
 }

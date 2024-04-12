@@ -1,4 +1,5 @@
 import { Public } from '@/decorators/public.decorator'
+import { ErrorErrorsMessages } from '@/messages/error/error'
 import {
   Body,
   Controller,
@@ -30,10 +31,6 @@ export class ErrorController {
   async getAllError (): Promise<Error[]> {
     const errors = await this.errorService.findAll()
 
-    if (errors === null) {
-      return []
-    }
-
     return errors
   }
 
@@ -48,10 +45,10 @@ export class ErrorController {
   @ApiBearerAuth()
   @Get('/:id')
   async getError (@Param('id', new ParseIntPipe()) id: ErrorPrimitive['id']): Promise<Error> {
-    const error = await this.errorService.findOne(id)
+    const error = await this.errorService.findOne({ id })
 
     if (error === null) {
-      throw new NotFoundException()
+      throw new NotFoundException(ErrorErrorsMessages.NotFound)
     }
 
     return error
@@ -61,6 +58,6 @@ export class ErrorController {
   @HttpCode(204)
   @Delete('/:id')
   async deleteError (@Param('id', new ParseIntPipe()) id: ErrorPrimitive['id']): Promise<void> {
-    await this.errorService.delete(id)
+    await this.errorService.delete({ id })
   }
 }
