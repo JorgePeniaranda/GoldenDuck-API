@@ -6,9 +6,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   NotFoundException,
-  Param,
-  ParseIntPipe,
   Patch,
   Post,
   Request
@@ -38,7 +37,9 @@ export class UserController {
   @ApiBearerAuth()
   @Get('/')
   async findOne (@Request() UserData: { user: JwtPayload }): Promise<User> {
-    const user = await this.readUserService.findByID(UserData.user.id)
+    const user = await this.readUserService.findByID({
+      id: UserData.user.id
+    })
 
     if (user === null) {
       throw new NotFoundException(UserErrorsMessages.NotFound)
@@ -49,44 +50,53 @@ export class UserController {
 
   @ApiBearerAuth()
   @Post()
-  async createUser (@Body() user: CreateUserDTO): Promise<User> {
-    return await this.writeUserService.createUser(user)
+  async create (@Body() user: CreateUserDTO): Promise<User> {
+    return await this.writeUserService.create(user)
+  }
+
+  @ApiBearerAuth()
+  @Patch()
+  async update (
+    @Request() UserData: { user: JwtPayload },
+      @Body() data: UpdateUserDTO
+  ): Promise<UserPrimitive> {
+    return await this.writeUserService.update({
+      id: UserData.user.id,
+      data
+    })
+  }
+
+  @ApiBearerAuth()
+  @HttpCode(204)
+  @Delete()
+  async delete (
+    @Request() UserData: { user: JwtPayload },
+      @Body() data: DeleteUserDTO
+  ): Promise<void> {
+    await this.writeUserService.delete({
+      id: UserData.user.id,
+      data
+    })
   }
 
   @Public()
+  @HttpCode(204)
   @Post('/find')
-  async findUser (@Body() params: FindUserDTO): Promise<object> {
+  async findUser (@Body() params: FindUserDTO): Promise<void> {
     const user = await this.readUserService.findOne(params)
 
     if (user === null) {
       throw new NotFoundException(UserErrorsMessages.NotFound)
     }
-
-    return user
   }
 
-  @ApiBearerAuth()
-  @Patch('/:id')
-  async updateUser (
-    @Param('id', ParseIntPipe) id: UserPrimitive['id'],
-      @Body() data: UpdateUserDTO
-  ): Promise<UserPrimitive> {
-    return await this.writeUserService.updateUser(id, data)
-  }
-
+  @HttpCode(204)
   @Get('/activate')
-  async activateUser (@Request() UserData: { user: JwtPayload }): Promise<'🤠'> {
-    await this.writeUserService.activateUser(UserData.user.id)
+  async activate (@Request() UserData: { user: JwtPayload }): Promise<'🤠'> {
+    await this.writeUserService.activate({
+      id: UserData.user.id
+    })
 
     return '🤠'
-  }
-
-  @ApiBearerAuth()
-  @Delete('/:id')
-  async deleteUser (
-    @Request() UserData: { user: JwtPayload },
-      @Body() data: DeleteUserDTO
-  ): Promise<void> {
-    await this.writeUserService.deleteUser(UserData.user.id, data)
   }
 }

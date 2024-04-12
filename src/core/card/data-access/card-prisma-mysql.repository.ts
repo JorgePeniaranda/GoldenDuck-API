@@ -4,44 +4,75 @@ import { Injectable } from '@nestjs/common'
 import { Card } from '../domain/card.entity'
 import { type CardPrimitive } from '../domain/card.primitive'
 import { type CardRepository } from '../domain/card.repository'
-import { type CreateCardDTO } from '../domain/dto/create-card'
 
 @Injectable()
 export class CardRepositoryPrismaMySQL implements CardRepository {
   constructor (private readonly prisma: PrismaService) {}
 
-  public async create (data: CreateCardDTO): Promise<Card> {
-    const newCard = await this.prisma.card.create({
-      data
+  public async create (data: Card): Promise<Card> {
+    const card = await this.prisma.card.create({
+      data: {
+        ...data.toJSON(),
+        id: undefined
+      }
     })
 
-    return new Card(newCard)
+    return new Card(card)
   }
 
-  public async findAll (idAccount: AccountPrimitive['id']): Promise<Card[] | null> {
+  public async findAll ({
+    idAccount
+  }: {
+    idAccount: AccountPrimitive['id']
+  }): Promise<Card[] | null> {
     const cards = await this.prisma.card.findMany({
       where: {
-        idAccount
+        idAccount,
+        deleted: false
       }
     })
 
     return cards.map(card => new Card(card))
   }
 
-  public async findOne (id: CardPrimitive['id']): Promise<Card | null> {
+  public async findOne ({
+    idAccount,
+    index
+  }: {
+    idAccount: AccountPrimitive['id']
+    index: number
+  }): Promise<Card | null> {
+    const card = await this.prisma.card.findMany({
+      where: {
+        idAccount,
+        deleted: false
+      },
+      skip: index,
+      take: 1
+    })
+
+    return card[0] !== undefined ? new Card(card[0]) : null
+  }
+
+  public async findByID ({ id }: { id: CardPrimitive['id'] }): Promise<Card | null> {
     const card = await this.prisma.card.findUnique({
       where: {
-        id
+        id,
+        deleted: false
       }
     })
 
     return card !== null ? new Card(card) : null
   }
 
-  public async delete (id: CardPrimitive['id']): Promise<void> {
-    await this.prisma.card.delete({
+  public async delete (data: Card): Promise<void> {
+    await this.prisma.card.update({
       where: {
-        id
+        ...data.toJSON(),
+        deleted: false
+      },
+      data: {
+        deleted: true
       }
     })
   }

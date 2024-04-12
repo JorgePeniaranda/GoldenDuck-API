@@ -14,8 +14,8 @@ export class WriteAccountService {
     private readonly accountRepository: AccountRepository
   ) {}
 
-  @OnEvent(EventsMap.USER_CREATED)
-  public async create (idUser: AccountPrimitive['idUser']): Promise<Account> {
+  @OnEvent(EventsMap.CREATE_ACCOUNT)
+  public async create ({ idUser }: { idUser: AccountPrimitive['idUser'] }): Promise<Account> {
     const account = Account.create({
       idUser
     })
@@ -27,7 +27,7 @@ export class WriteAccountService {
 
   @OnEvent(EventsMap.INCREMENT_BALANCE)
   public async increaseBalance ({ id, amount }: IChangeBalanceEvent): Promise<Account> {
-    const account = await this.accountRepository.findByID(id)
+    const account = await this.accountRepository.findByID({ id })
 
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.NotFound)
@@ -42,7 +42,7 @@ export class WriteAccountService {
 
   @OnEvent(EventsMap.DECREMENT_BALANCE)
   public async decrementBalance ({ id, amount }: IChangeBalanceEvent): Promise<Account> {
-    const account = await this.accountRepository.findByID(id)
+    const account = await this.accountRepository.findByID({ id })
 
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.NotFound)
@@ -55,8 +55,14 @@ export class WriteAccountService {
     // TO-DO: send notification to user email
   }
 
-  public async delete (idUser: AccountPrimitive['idUser'], index: number): Promise<void> {
-    const account = await this.accountRepository.findOne(idUser, index)
+  public async delete ({
+    idUser,
+    index
+  }: {
+    idUser: AccountPrimitive['idUser']
+    index: number
+  }): Promise<void> {
+    const account = await this.accountRepository.findOne({ idUser, index })
 
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.NotFound)

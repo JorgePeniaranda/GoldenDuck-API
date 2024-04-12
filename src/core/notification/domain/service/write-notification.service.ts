@@ -14,10 +14,13 @@ export class WriteNotificationService {
   ) {}
 
   @OnEvent(EventsMap.CREATE_NOTIFICATION)
-  public async create (
-    idAccount: NotificationPrimitive['idUser'],
+  public async create ({
+    idAccount,
+    message
+  }: {
+    idAccount: NotificationPrimitive['idUser']
     message: NotificationPrimitive['message']
-  ): Promise<Notification> {
+  }): Promise<Notification> {
     const notification = Notification.create(idAccount, message)
 
     console.log('NUEVA NOTIFICACION PARA ' + idAccount) // TEST: remove this line
@@ -27,8 +30,14 @@ export class WriteNotificationService {
     // TO-DO: send notification to account device
   }
 
-  public async delete (idUser: NotificationPrimitive['idUser'], index: number): Promise<void> {
-    const notification = await this.notificationRepository.findOne(idUser, index)
+  public async delete ({
+    idUser,
+    index
+  }: {
+    idUser: NotificationPrimitive['idUser']
+    index: number
+  }): Promise<void> {
+    const notification = await this.notificationRepository.findOne({ idUser, index })
 
     if (notification === null) {
       throw new NotFoundException(NotificationErrorsMessages.NotFound)

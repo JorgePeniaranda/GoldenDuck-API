@@ -10,18 +10,21 @@ export class ReadAccountService {
     private readonly accountRepository: AccountRepository
   ) {}
 
-  public async findAll (idUser: AccountPrimitive['idUser']): Promise<Account[]> {
-    return await this.accountRepository.findAll(idUser)
+  public async findAll ({ idUser }: { idUser: AccountPrimitive['idUser'] }): Promise<Account[]> {
+    return await this.accountRepository.findAll({ idUser })
   }
 
-  public async findOne (
-    idUser: AccountPrimitive['idUser'],
+  public async findOne ({
+    idUser,
+    index
+  }: {
+    idUser: AccountPrimitive['idUser']
     index: AccountPrimitive['id']
-  ): Promise<Account | null> {
-    return await this.accountRepository.findOne(idUser, index)
+  }): Promise<Account | null> {
+    return await this.accountRepository.findOne({ idUser, index })
   }
 
-  public async findByID (id: AccountPrimitive['id']): Promise<Account | null> {
-    return await this.accountRepository.findByID(id)
+  public async findByID ({ id }: { id: AccountPrimitive['id'] }): Promise<Account | null> {
+    return await this.accountRepository.findByID({ id })
   }
 }

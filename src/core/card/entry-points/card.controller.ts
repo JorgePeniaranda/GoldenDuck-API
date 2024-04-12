@@ -1,18 +1,22 @@
+import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
 import {
   Body,
   Controller,
   Delete,
   Get,
+  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
-  Post
+  Post,
+  Request
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { type Card } from '../domain/card.entity'
 import { type CardPrimitive } from '../domain/card.primitive'
 import { CreateCardDTO } from '../domain/dto/create-card'
-import { CardService } from '../domain/service/card.service'
+import { ReadCardService } from '../domain/service/read-card.service'
+import { WriteCardService } from '../domain/service/write-card.service'
 import { CardResponse } from './card.response'
 
 @ApiResponse({
@@ -20,13 +24,19 @@ import { CardResponse } from './card.response'
 })
 @ApiTags('Card')
 @ApiBearerAuth()
-@Controller('card')
+@Controller('account/:AccountIndex/card')
 export class CardController {
-  constructor (private readonly cardService: CardService) {}
+  constructor (private readonly writeCardService: WriteCardService, private readonly readCardService: ReadCardService) {}
 
   @Get()
-  async getAllCard (@Body() id: CardPrimitive['id']): Promise<Card[]> {
-    const cards = await this.cardService.findAll(id)
+  async findAll (
+    @Request() UserData: { user: JwtPayload },
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: CardPrimitive['idAccount']
+  ): Promise<Card[]> {
+    const cards = await this.readCardService.findAll({
+      idUser: UserData.user.id,
+      AccountIndex
+    })
 
     if (cards === null) {
       return []
@@ -36,15 +46,27 @@ export class CardController {
   }
 
   @Post()
-  async createCard (@Body() data: CreateCardDTO): Promise<Card> {
-    const card = await this.cardService.create(data)
+  async create (
+    @Request() UserData: { user: JwtPayload },
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: CardPrimitive['idAccount'],
+      @Body() data: CreateCardDTO
+  ): Promise<Card> {
+    const card = await this.writeCardService.create({ idUser: UserData.user.id, AccountIndex, data })
 
     return card
   }
 
-  @Get('/:id')
-  async getCard (@Param('id', new ParseIntPipe()) id: CardPrimitive['id']): Promise<Card> {
-    const card = await this.cardService.findOne(id)
+  @Get('/:index')
+  async findOne (
+    @Request() UserData: { user: JwtPayload },
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: CardPrimitive['idAccount'],
+      @Param('index', new ParseIntPipe()) index: number
+  ): Promise<Card> {
+    const card = await this.readCardService.findOne({
+      idUser: UserData.user.id,
+      AccountIndex,
+      index
+    })
 
     if (card === null) {
       throw new NotFoundException()
@@ -53,8 +75,17 @@ export class CardController {
     return card
   }
 
-  @Delete('/:id')
-  async deleteCard (@Param('id', new ParseIntPipe()) id: CardPrimitive['id']): Promise<void> {
-    await this.cardService.delete(id)
+  @HttpCode(204)
+  @Delete('/:index')
+  async delete (
+    @Request() UserData: { user: JwtPayload },
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: CardPrimitive['idAccount'],
+      @Param('index', new ParseIntPipe()) index: number
+  ): Promise<void> {
+    await this.writeCardService.delete({
+      idUser: UserData.user.id,
+      AccountIndex,
+      index
+    })
   }
 }

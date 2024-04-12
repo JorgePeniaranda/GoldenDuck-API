@@ -18,4 +18,36 @@ export class Error implements ErrorPrimitive {
     this.createdAt = transaction.createdAt
     this.deleted = transaction.deleted
   }
+
+  public static create ({
+    name,
+    message,
+    stack
+  }: {
+    name: ErrorPrimitive['name']
+    message: ErrorPrimitive['message']
+    stack: ErrorPrimitive['stack']
+  }): Error {
+    return new Error({
+      id: 0,
+      name,
+      message,
+      stack,
+      updatedAt: new Date(),
+      createdAt: new Date(),
+      deleted: false
+    })
+  }
+
+  public toJSON (): ErrorPrimitive {
+    return {
+      id: this.id,
+      name: this.name,
+      message: this.message,
+      stack: this.stack,
+      updatedAt: this.updatedAt,
+      createdAt: this.createdAt,
+      deleted: this.deleted
+    }
+  }
 }

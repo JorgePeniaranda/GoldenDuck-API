@@ -9,17 +9,17 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
   constructor (private readonly prisma: PrismaService) {}
 
   public async create (data: Account): Promise<Account> {
-    const newAccount = await this.prisma.account.create({
+    const account = await this.prisma.account.create({
       data: {
         ...data.toJSON(),
         id: undefined
       }
     })
 
-    return new Account(newAccount)
+    return new Account(account)
   }
 
-  public async findAll (idUser: AccountPrimitive['idUser']): Promise<Account[]> {
+  public async findAll ({ idUser }: { idUser: AccountPrimitive['idUser'] }): Promise<Account[]> {
     const accounts = await this.prisma.account.findMany({
       where: {
         idUser,
@@ -30,7 +30,13 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
     return accounts.map(account => new Account(account))
   }
 
-  public async findOne (idUser: AccountPrimitive['idUser'], index: number): Promise<Account | null> {
+  public async findOne ({
+    idUser,
+    index
+  }: {
+    idUser: AccountPrimitive['idUser']
+    index: number
+  }): Promise<Account | null> {
     const account = await this.prisma.account.findMany({
       where: {
         idUser,
@@ -45,7 +51,7 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
     return new Account(account[0])
   }
 
-  public async findByID (id: AccountPrimitive['id']): Promise<Account | null> {
+  public async findByID ({ id }: { id: AccountPrimitive['id'] }): Promise<Account | null> {
     const account = await this.prisma.account.findUnique({
       where: {
         id,
@@ -56,21 +62,24 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
     return account !== null ? new Account(account) : null
   }
 
-  public async update (account: Account): Promise<Account> {
-    const updatedAccount = await this.prisma.account.update({
+  public async update (data: Account): Promise<Account> {
+    const account = await this.prisma.account.update({
       where: {
-        id: account.id,
+        id: data.id,
         deleted: false
       },
-      data: account.toJSON()
+      data: data.toJSON()
     })
 
-    return new Account(updatedAccount)
+    return new Account(account)
   }
 
   public async delete (account: Account): Promise<void> {
     await this.prisma.account.update({
-      where: account.toJSON(),
+      where: {
+        ...account.toJSON(),
+        deleted: false
+      },
       data: {
         deleted: true
       }

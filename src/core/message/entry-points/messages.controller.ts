@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
@@ -70,6 +71,7 @@ export class MessageController {
     return message
   }
 
+  @HttpCode(204)
   @Delete('/:id')
   async deleteTransaction (
     @Param('id', new ParseIntPipe()) id: MessagePrimitive['id']

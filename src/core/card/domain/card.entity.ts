@@ -20,4 +20,40 @@ export class Card implements CardPrimitive {
     this.updatedAt = card.updatedAt
     this.deleted = card.deleted
   }
+
+  public static create ({
+    idAccount,
+    number,
+    cvv,
+    expiration
+  }: {
+    idAccount: CardPrimitive['idAccount']
+    number: CardPrimitive['number']
+    cvv: CardPrimitive['cvv']
+    expiration: CardPrimitive['expiration']
+  }): Card {
+    return new Card({
+      id: 0,
+      idAccount,
+      number,
+      cvv,
+      expiration,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      deleted: false
+    })
+  }
+
+  public toJSON (): CardPrimitive {
+    return {
+      id: this.id,
+      idAccount: this.idAccount,
+      number: this.number,
+      cvv: this.cvv,
+      expiration: this.expiration,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+      deleted: this.deleted
+    }
+  }
 }

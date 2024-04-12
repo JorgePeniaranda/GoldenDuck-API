@@ -9,62 +9,54 @@ import { type UserRepository } from '../domain/user.repository'
 export class UserRepositoryPrismaMySQL implements UserRepository {
   constructor (private readonly prisma: PrismaService) {}
 
-  public async createUser (user: User): Promise<User> {
-    const createdUser = await this.prisma.user.create({
-      data: { ...user.toJSON(), id: undefined }
+  public async create (data: User): Promise<User> {
+    const user = await this.prisma.user.create({
+      data: { ...data.toJSON(), id: undefined }
     })
 
-    return new User(createdUser)
+    return new User(user)
   }
 
-  public async updateUser (user: User): Promise<User> {
-    const updatedUser = await this.prisma.user.update({
-      where: { id: user.id, deleted: false },
-      data: user.toJSON()
+  public async update (data: User): Promise<User> {
+    const user = await this.prisma.user.update({
+      where: { id: data.id, deleted: false },
+      data: data.toJSON()
     })
 
-    return new User(updatedUser)
-  }
-
-  public async deleteUser (user: User): Promise<void> {
-    await this.prisma.user.update({
-      where: {
-        ...user.toJSON(),
-        deleted: false
-      },
-      data: {
-        deleted: true
-      }
-    })
+    return new User(user)
   }
 
   public async findOne ({ dni, email, phoneNumber }: FindUserDTO): Promise<User | null> {
-    const findUser = await this.prisma.user.findFirst({
+    const user = await this.prisma.user.findFirst({
       where: {
         OR: [{ dni }, { email }, { phoneNumber }],
         deleted: false
       }
     })
 
-    if (findUser === null) {
-      return null
-    }
-
-    return new User(findUser)
+    return user === null ? null : new User(user)
   }
 
-  public async findByID (id: UserPrimitive['id']): Promise<User | null> {
-    const findUser = await this.prisma.user.findUnique({
+  public async findByID ({ id }: { id: UserPrimitive['id'] }): Promise<User | null> {
+    const user = await this.prisma.user.findUnique({
       where: {
         id,
         deleted: false
       }
     })
 
-    if (findUser === null) {
-      return null
-    }
+    return user === null ? null : new User(user)
+  }
 
-    return new User(findUser)
+  public async delete (data: User): Promise<void> {
+    await this.prisma.user.update({
+      where: {
+        ...data.toJSON(),
+        deleted: false
+      },
+      data: {
+        deleted: true
+      }
+    })
   }
 }

@@ -1,18 +1,23 @@
+import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
+import { InvestmentErrorsMessages } from '@/messages/error/investment'
 import {
   Body,
   Controller,
   Delete,
   Get,
+  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
-  Post
+  Post,
+  Request
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateInvestmentDTO } from '../domain/dto/create-investment'
 import { type Investment } from '../domain/investment.entity'
 import { type InvestmentPrimitive } from '../domain/investment.primitive'
-import { InvestmentService } from '../domain/service/investment.service'
+import { ReadInvestmentService } from '../domain/service/read-investment.service'
+import { WriteInvestmentService } from '../domain/service/write-investment.service'
 import { InvestmentResponse } from './investment.response'
 
 @ApiResponse({
@@ -20,45 +25,54 @@ import { InvestmentResponse } from './investment.response'
 })
 @ApiTags('Investment')
 @ApiBearerAuth()
-@Controller('investment')
+@Controller('account/:AccountIndex/investment')
 export class InvestmentController {
-  constructor (private readonly investmentService: InvestmentService) {}
+  constructor (private readonly writeInvestmentService: WriteInvestmentService, private readonly readInvestmentService: ReadInvestmentService) {}
 
   @Get()
-  async getAllInvestment (@Body() id: InvestmentPrimitive['id']): Promise<Investment[]> {
-    const investment = await this.investmentService.findAll(id)
-
-    if (investment === null) {
-      return []
-    }
+  async findAll (@Body() id: InvestmentPrimitive['id']): Promise<Investment[]> {
+    const investment = await this.readInvestmentService.findAll(id)
 
     return investment
   }
 
   @Post()
-  async createInvestment (@Body() data: CreateInvestmentDTO): Promise<Investment> {
-    const investment = await this.investmentService.create(data)
+  async create (@Body() data: CreateInvestmentDTO): Promise<Investment> {
+    const investment = await this.writeInvestmentService.create(data)
 
     return investment
   }
 
-  @Get('/:id')
-  async getInvestment (
-    @Param('id', new ParseIntPipe()) id: InvestmentPrimitive['id']
+  @Get('/:index')
+  async findOne (
+    @Request() UserData: { user: JwtPayload },
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
+      @Param('index', new ParseIntPipe()) index: number
   ): Promise<Investment> {
-    const investment = await this.investmentService.findOne(id)
+    const investment = await this.readInvestmentService.findOne({
+      idUser: UserData.user.id,
+      AccountIndex,
+      index
+    })
 
     if (investment === null) {
-      throw new NotFoundException()
+      throw new NotFoundException(InvestmentErrorsMessages.NotFound)
     }
 
     return investment
   }
 
-  @Delete('/:id')
-  async deleteInvestment (
-    @Param('id', new ParseIntPipe()) id: InvestmentPrimitive['id']
+  @HttpCode(204)
+  @Delete('/:index')
+  async delete (
+    @Request() UserData: { user: JwtPayload },
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
+      @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
-    await this.investmentService.delete(id)
+    await this.writeInvestmentService.delete({
+      idUser: UserData.user.id,
+      AccountIndex,
+      index
+    })
   }
 }

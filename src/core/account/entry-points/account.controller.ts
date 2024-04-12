@@ -2,6 +2,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
@@ -31,14 +32,18 @@ export class AccountController {
 
   @Get()
   async findAll (@Request() UserData: { user: JwtPayload }): Promise<Account[]> {
-    const accounts = await this.readAccountService.findAll(UserData.user.id)
+    const accounts = await this.readAccountService.findAll({
+      idUser: UserData.user.id
+    })
 
     return accounts
   }
 
   @Post()
   async create (@Request() UserData: { user: JwtPayload }): Promise<Account> {
-    const account = await this.writeAccountService.create(UserData.user.id)
+    const account = await this.writeAccountService.create({
+      idUser: UserData.user.id
+    })
 
     return account
   }
@@ -48,7 +53,7 @@ export class AccountController {
     @Request() UserData: { user: JwtPayload },
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Account> {
-    const account = await this.readAccountService.findOne(UserData.user.id, index)
+    const account = await this.readAccountService.findOne({ idUser: UserData.user.id, index })
 
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.NotFound)
@@ -57,11 +62,12 @@ export class AccountController {
     return account
   }
 
+  @HttpCode(204)
   @Delete('/:index')
   async delete (
     @Request() UserData: { user: JwtPayload },
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
-    await this.writeAccountService.delete(UserData.user.id, index)
+    await this.writeAccountService.delete({ idUser: UserData.user.id, index })
   }
 }

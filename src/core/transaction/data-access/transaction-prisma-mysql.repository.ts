@@ -1,4 +1,3 @@
-import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
 import { PrismaService } from '@/services/prisma.service'
 import { Injectable } from '@nestjs/common'
 import { Transaction } from '../domain/transaction.entity'
@@ -11,13 +10,16 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
 
   public async create (data: Transaction): Promise<Transaction> {
     const transaction = await this.prisma.transaction.create({
-      data: data.toJSON()
+      data: {
+        ...data.toJSON(),
+        id: undefined
+      }
     })
 
     return new Transaction(transaction)
   }
 
-  public async findAll (id: AccountPrimitive['id']): Promise<Transaction[]> {
+  public async findAll (id: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver']): Promise<Transaction[]> {
     const transactions = await this.prisma.transaction.findMany({
       where: {
         OR: [{ idSender: id }, { idReceiver: id }],
@@ -28,10 +30,13 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
     return transactions.map(transaction => new Transaction(transaction))
   }
 
-  public async findOne (
-    idAccount: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver'],
+  public async findOne ({
+    idAccount,
+    index
+  }: {
+    idAccount: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver']
     index: number
-  ): Promise<Transaction | null> {
+  }): Promise<Transaction | null> {
     const transaction = await this.prisma.transaction.findMany({
       where: {
         OR: [{ idSender: idAccount }, { idReceiver: idAccount }],
@@ -44,10 +49,13 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
     return transaction[0] !== undefined ? new Transaction(transaction[0]) : null
   }
 
-  public async findOneAsSender (
-    idSender: TransactionPrimitive['idSender'],
+  public async findOneAsSender ({
+    idSender,
+    index
+  }: {
+    idSender: TransactionPrimitive['idSender']
     index: number
-  ): Promise<Transaction | null> {
+  }): Promise<Transaction | null> {
     const transaction = await this.prisma.transaction.findMany({
       where: {
         idSender,
@@ -60,10 +68,13 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
     return transaction[0] !== undefined ? new Transaction(transaction[0]) : null
   }
 
-  public async findOneAsReceiver (
-    idReceiver: TransactionPrimitive['idReceiver'],
+  public async findOneAsReceiver ({
+    idReceiver,
+    index
+  }: {
+    idReceiver: TransactionPrimitive['idReceiver']
     index: number
-  ): Promise<Transaction | null> {
+  }): Promise<Transaction | null> {
     const transaction = await this.prisma.transaction.findMany({
       where: {
         idReceiver,
@@ -90,7 +101,7 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
   public async delete (data: Transaction): Promise<Transaction> {
     const transaction = await this.prisma.transaction.update({
       where: {
-        id: data.id,
+        ...data.toJSON(),
         canceled: false
       },
       data: {

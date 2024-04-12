@@ -1,18 +1,23 @@
+import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
+import { LoanErrorsMessages } from '@/messages/error/loan'
 import {
   Body,
   Controller,
   Delete,
   Get,
+  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
-  Post
+  Post,
+  Request
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateLoanDTO } from '../domain/dto/create-loan'
 import { type Loan } from '../domain/loan.entity'
 import { type LoanPrimitive } from '../domain/loan.primitive'
-import { LoanService } from '../domain/service/loan.service'
+import { ReadLoanService } from '../domain/service/read-loan.service'
+import { WriteLoanService } from '../domain/service/write-loan.service'
 import { LoanResponse } from './loan.response'
 
 @ApiResponse({
@@ -20,41 +25,57 @@ import { LoanResponse } from './loan.response'
 })
 @ApiTags('Loan')
 @ApiBearerAuth()
-@Controller('loan')
+@Controller('account/:AccountIndex/loan')
 export class LoanController {
-  constructor (private readonly loanService: LoanService) {}
+  constructor (
+    private readonly writeLoanService: WriteLoanService,
+    private readonly readLoanService: ReadLoanService
+  ) {}
 
   @Get()
-  async getAllLoan (@Body() id: LoanPrimitive['id']): Promise<Loan[]> {
-    const loans = await this.loanService.findAll(id)
+  async findAll (@Body() id: LoanPrimitive['id']): Promise<Loan[]> {
+    const loan = await this.readLoanService.findAll(id)
 
-    if (loans === null) {
-      return []
-    }
-
-    return loans
+    return loan
   }
 
   @Post()
-  async createLoan (@Body() data: CreateLoanDTO): Promise<Loan> {
-    const loan = await this.loanService.create(data)
+  async create (@Body() data: CreateLoanDTO): Promise<Loan> {
+    const loan = await this.writeLoanService.create(data)
 
     return loan
   }
 
-  @Get('/:id')
-  async getLoan (@Param('id', new ParseIntPipe()) id: LoanPrimitive['id']): Promise<Loan> {
-    const loan = await this.loanService.findOne(id)
+  @Get('/:index')
+  async findOne (
+    @Request() UserData: { user: JwtPayload },
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
+      @Param('index', new ParseIntPipe()) index: number
+  ): Promise<Loan> {
+    const loan = await this.readLoanService.findOne({
+      idUser: UserData.user.id,
+      AccountIndex,
+      index
+    })
 
     if (loan === null) {
-      throw new NotFoundException()
+      throw new NotFoundException(LoanErrorsMessages.NotFound)
     }
 
     return loan
   }
 
-  @Delete('/:id')
-  async deleteLoan (@Param('id', new ParseIntPipe()) id: LoanPrimitive['id']): Promise<void> {
-    await this.loanService.delete(id)
+  @HttpCode(204)
+  @Delete('/:index')
+  async delete (
+    @Request() UserData: { user: JwtPayload },
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
+      @Param('index', new ParseIntPipe()) index: number
+  ): Promise<void> {
+    await this.writeLoanService.delete({
+      idUser: UserData.user.id,
+      AccountIndex,
+      index
+    })
   }
 }

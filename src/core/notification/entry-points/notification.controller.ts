@@ -1,10 +1,10 @@
 import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
 import { NotificationErrorsMessages } from '@/messages/error/notification'
 import {
-  Body,
   Controller,
   Delete,
   Get,
+  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
@@ -12,7 +12,6 @@ import {
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { type Notification } from '../domain/notification.entity'
-import { type NotificationPrimitive } from '../domain/notification.primitive'
 import { ReadNotificationService } from '../domain/service/read-notification.service'
 import { WriteNotificationService } from '../domain/service/write-notification.service'
 import { NotificationResponse } from './notification.response'
@@ -30,18 +29,21 @@ export class NotificationController {
   ) {}
 
   @Get()
-  async getAllTransaction (@Body() id: NotificationPrimitive['id']): Promise<Notification[]> {
-    const notifications = await this.readNotificationService.findAll(id)
+  async findAll (@Request() UserData: { user: JwtPayload }): Promise<Notification[]> {
+    const notifications = await this.readNotificationService.findAll({ idUser: UserData.user.id })
 
     return notifications
   }
 
   @Get('/:index')
-  async getTransaction (
+  async findOne (
     @Request() UserData: { user: JwtPayload },
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Notification> {
-    const notification = await this.readNotificationService.findOne(UserData.user.id, index)
+    const notification = await this.readNotificationService.findOne({
+      idUser: UserData.user.id,
+      index
+    })
 
     if (notification === null) {
       throw new NotFoundException(NotificationErrorsMessages.NotFound)
@@ -50,11 +52,12 @@ export class NotificationController {
     return notification
   }
 
+  @HttpCode(204)
   @Delete('/:index')
-  async deleteTransaction (
+  async delete (
     @Request() UserData: { user: JwtPayload },
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
-    await this.writeNotificationService.delete(UserData.user.id, index)
+    await this.writeNotificationService.delete({ idUser: UserData.user.id, index })
   }
 }

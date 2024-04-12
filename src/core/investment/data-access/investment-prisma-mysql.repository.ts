@@ -1,7 +1,5 @@
-import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
 import { PrismaService } from '@/services/prisma.service'
 import { Injectable } from '@nestjs/common'
-import { type CreateInvestmentDTO } from '../domain/dto/create-investment'
 import { Investment } from '../domain/investment.entity'
 import { type InvestmentPrimitive } from '../domain/investment.primitive'
 import { type InvestmentRepository } from '../domain/investment.repository'
@@ -10,16 +8,16 @@ import { type InvestmentRepository } from '../domain/investment.repository'
 export class InvestmentRepositoryPrismaMySQL implements InvestmentRepository {
   constructor (private readonly prisma: PrismaService) {}
 
-  public async create (data: CreateInvestmentDTO): Promise<Investment> {
-    const newInvestment = await this.prisma.loan.create({
-      data
+  public async create (data: Investment): Promise<Investment> {
+    const investment = await this.prisma.investment.create({
+      data: data.toJSON()
     })
 
-    return new Investment(newInvestment)
+    return new Investment(investment)
   }
 
-  public async findAll (idAccount: AccountPrimitive['id']): Promise<Investment[] | null> {
-    const investments = await this.prisma.loan.findMany({
+  public async findAll ({ idAccount }: { idAccount: InvestmentPrimitive['idAccount'] }): Promise<Investment[]> {
+    const investments = await this.prisma.investment.findMany({
       where: {
         idAccount
       }
@@ -28,8 +26,20 @@ export class InvestmentRepositoryPrismaMySQL implements InvestmentRepository {
     return investments.map(investment => new Investment(investment))
   }
 
-  public async findOne (id: InvestmentPrimitive['id']): Promise<Investment | null> {
-    const investment = await this.prisma.loan.findUnique({
+  public async findOne ({ idAccount, index }: { idAccount: InvestmentPrimitive['idAccount'], index: number }): Promise<Investment | null> {
+    const investment = await this.prisma.investment.findMany({
+      where: {
+        idAccount
+      },
+      skip: index,
+      take: 1
+    })
+
+    return investment[0] !== undefined ? new Investment(investment[0]) : null
+  }
+
+  public async findByID ({ id }: { id: InvestmentPrimitive['idAccount'] }): Promise<Investment | null> {
+    const investment = await this.prisma.investment.findUnique({
       where: {
         id
       }
@@ -38,10 +48,14 @@ export class InvestmentRepositoryPrismaMySQL implements InvestmentRepository {
     return investment !== null ? new Investment(investment) : null
   }
 
-  public async delete (id: InvestmentPrimitive['id']): Promise<void> {
-    await this.prisma.loan.delete({
+  public async delete (data: Investment): Promise<void> {
+    await this.prisma.investment.update({
       where: {
-        id
+        ...data.toJSON(),
+        canceled: false
+      },
+      data: {
+        canceled: true
       }
     })
   }

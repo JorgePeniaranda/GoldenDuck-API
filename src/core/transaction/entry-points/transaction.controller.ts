@@ -5,6 +5,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
@@ -36,7 +37,10 @@ export class TransactionController {
     @Request() UserData: { user: JwtPayload },
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: TransactionPrimitive['id']
   ): Promise<Transaction[]> {
-    const transactions = await this.readTransactionService.findAll(UserData.user.id, AccountIndex)
+    const transactions = await this.readTransactionService.findAll({
+      idUser: UserData.user.id,
+      AccountIndex
+    })
 
     return transactions
   }
@@ -44,10 +48,14 @@ export class TransactionController {
   @Post()
   async create (
     @Request() UserData: { user: JwtPayload },
-      @Param('index', new ParseIntPipe()) index: number,
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Body() data: CreateTransactionDTO
   ): Promise<Transaction> {
-    const transaction = await this.writeTransactionService.create(UserData.user.id, index, data)
+    const transaction = await this.writeTransactionService.create({
+      idUser: UserData.user.id,
+      AccountIndex,
+      data
+    })
 
     return transaction
   }
@@ -58,11 +66,11 @@ export class TransactionController {
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Transaction> {
-    const transaction = await this.readTransactionService.findOne(
-      UserData.user.id,
+    const transaction = await this.readTransactionService.findOne({
+      idUser: UserData.user.id,
       AccountIndex,
       index
-    )
+    })
 
     if (transaction === null) {
       throw new NotFoundException(TransactionErrorsMessages.NotFound)
@@ -77,11 +85,11 @@ export class TransactionController {
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Transaction> {
-    const transaction = await this.readTransactionService.findOneAsSender(
-      UserData.user.id,
+    const transaction = await this.readTransactionService.findOneAsSender({
+      idUser: UserData.user.id,
       AccountIndex,
       index
-    )
+    })
 
     if (transaction === null) {
       throw new NotFoundException(TransactionErrorsMessages.NotFound)
@@ -96,11 +104,11 @@ export class TransactionController {
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Transaction> {
-    const transaction = await this.readTransactionService.findOneAsReceiver(
-      UserData.user.id,
+    const transaction = await this.readTransactionService.findOneAsReceiver({
+      idUser: UserData.user.id,
       AccountIndex,
       index
-    )
+    })
 
     if (transaction === null) {
       throw new NotFoundException(TransactionErrorsMessages.NotFound)
@@ -109,12 +117,13 @@ export class TransactionController {
     return transaction
   }
 
+  @HttpCode(204)
   @Delete('/:index')
   async delete (
     @Request() UserData: { user: JwtPayload },
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
-    await this.writeTransactionService.delete(UserData.user.id, AccountIndex, index)
+    await this.writeTransactionService.delete({ idUser: UserData.user.id, AccountIndex, index })
   }
 }

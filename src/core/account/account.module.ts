@@ -1,5 +1,9 @@
 import { EventsMap } from '@/constants/events'
-import { type IChangeBalanceEvent, type ITransactionEvent } from '@/types/events'
+import {
+  type IChangeBalanceEvent,
+  type ICreateAccountEvent,
+  type ITransactionEvent
+} from '@/types/events'
 import { Module } from '@nestjs/common'
 import { EventEmitter2 } from '@nestjs/event-emitter'
 import { PrismaService } from '../../services/prisma.service'
@@ -26,6 +30,10 @@ import { AccountController } from './entry-points/account.controller'
 export class AccountModule {
   constructor (private readonly eventEmitter: EventEmitter2) {
     /* @region EVENTS SUBSCRIPTION */
+
+    this.eventEmitter.on(EventsMap.USER_CREATED, (data: ICreateAccountEvent) => {
+      this.eventEmitter.emit(EventsMap.CREATE_ACCOUNT, data)
+    })
 
     this.eventEmitter.on(EventsMap.TRANSACTION_CREATED, (data: ITransactionEvent) => {
       const SenderEventData: IChangeBalanceEvent = {
