@@ -17,10 +17,13 @@ export class Notification implements NotificationPrimitive {
     this.createdAt = notification.createdAt
   }
 
-  public static create (idAccount: NotificationPrimitive['idUser'], message: NotificationPrimitive['message']): Notification {
+  public static create (
+    idUser: NotificationPrimitive['idUser'],
+    message: NotificationPrimitive['message']
+  ): Notification {
     return new Notification({
       id: 0,
-      idUser: idAccount,
+      idUser,
       message,
       read: false,
       updatedAt: new Date(),

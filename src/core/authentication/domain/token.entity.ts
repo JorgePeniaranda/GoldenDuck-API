@@ -1,7 +1,17 @@
 export class Token {
-  public readonly token: string
+  readonly #token: string
 
   constructor (token: string) {
-    this.token = token
+    this.#token = token
+  }
+
+  get token (): string {
+    return this.#token
+  }
+
+  toJSON (): { token: string } {
+    return {
+      token: this.#token
+    }
   }
 }

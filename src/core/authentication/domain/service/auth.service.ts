@@ -2,11 +2,11 @@ import { ReadUserService } from '@/core/user/domain/service/read-user.service'
 import { type User } from '@/core/user/domain/user.entity'
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import { type JwtPayload } from '../payload.entity'
+import { JwtPayload } from '../payload.entity'
 import { Token } from '../token.entity'
 
 @Injectable()
-export class AuthUseCase {
+export class AuthService {
   constructor (
     private readonly readUserService: ReadUserService,
     private readonly jwtService: JwtService
@@ -23,8 +23,8 @@ export class AuthUseCase {
   }
 
   async login (user: User): Promise<Token> {
-    const payload: JwtPayload = { id: user.id, role: user.role }
-    const token = this.jwtService.sign(payload, {
+    const payload = new JwtPayload({ id: user.id, role: user.role })
+    const token = this.jwtService.sign(payload.toJSON(), {
       subject: user.id.toString()
     })
 

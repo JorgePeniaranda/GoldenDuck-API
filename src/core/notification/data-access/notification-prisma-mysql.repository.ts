@@ -27,7 +27,10 @@ export class NotificationRepositoryPrismaMySQL implements NotificationRepository
     return notifications.map(notification => new Notification(notification))
   }
 
-  public async findOne (idUser: AccountPrimitive['idUser'], index: number): Promise<Notification | null> {
+  public async findOne (
+    idUser: AccountPrimitive['idUser'],
+    index: number
+  ): Promise<Notification | null> {
     const notification = await this.prisma.notification.findMany({
       where: {
         idUser

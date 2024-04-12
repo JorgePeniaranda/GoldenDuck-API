@@ -1,16 +1,6 @@
 import { Password } from '@/value-objects/password'
 import { UserRoles, type UserPrimitive } from './user.primitive'
 
-const optionalProperties = [
-  'id',
-  'salt',
-  'updatedAt',
-  'createdAt',
-  'actived',
-  'deleted',
-  'role'
-] as const
-
 export class User implements UserPrimitive {
   readonly #id: UserPrimitive['id']
   name: UserPrimitive['name']
@@ -110,25 +100,44 @@ export class User implements UserPrimitive {
     }
   }
 
-  static create (
-    data: Pick<Partial<UserPrimitive>, (typeof optionalProperties)[number]> &
-    Omit<UserPrimitive, (typeof optionalProperties)[number]>
-  ): User {
-    const password = Password.create(data.password)
+  static create ({
+    name,
+    lastName,
+    dni,
+    email,
+    phoneNumber,
+    password: userPassword,
+    address,
+    birthDate,
+    sex,
+    imgUrl
+  }: {
+    name: UserPrimitive['name']
+    lastName: UserPrimitive['lastName']
+    dni: UserPrimitive['dni']
+    email: UserPrimitive['email']
+    password: UserPrimitive['password']
+    phoneNumber: UserPrimitive['phoneNumber']
+    address: UserPrimitive['address']
+    birthDate: UserPrimitive['birthDate']
+    sex: UserPrimitive['sex']
+    imgUrl?: UserPrimitive['imgUrl']
+  }): User {
+    const password = Password.create(userPassword)
 
     return new User({
-      id: 0, // TO-DO: generate id
-      name: data.name,
-      lastName: data.lastName,
-      dni: data.dni,
-      email: data.email,
-      phoneNumber: data.phoneNumber,
+      id: 0,
+      name,
+      lastName,
+      dni,
+      email,
+      phoneNumber,
       password: password.value,
       salt: password.salt,
-      address: data.address,
-      birthDate: data.birthDate,
-      sex: data.sex,
-      imgUrl: data.imgUrl,
+      address,
+      birthDate,
+      sex,
+      imgUrl,
       updatedAt: new Date(),
       createdAt: new Date(),
       actived: false,

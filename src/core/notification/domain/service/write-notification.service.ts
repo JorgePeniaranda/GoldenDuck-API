@@ -14,7 +14,10 @@ export class WriteNotificationService {
   ) {}
 
   @OnEvent(EventsMap.CREATE_NOTIFICATION)
-  public async create (idAccount: NotificationPrimitive['idUser'], message: NotificationPrimitive['message']): Promise<Notification> {
+  public async create (
+    idAccount: NotificationPrimitive['idUser'],
+    message: NotificationPrimitive['message']
+  ): Promise<Notification> {
     const notification = Notification.create(idAccount, message)
 
     console.log('NUEVA NOTIFICACION PARA ' + idAccount) // TEST: remove this line

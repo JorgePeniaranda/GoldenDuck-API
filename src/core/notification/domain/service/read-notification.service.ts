@@ -14,7 +14,10 @@ export class ReadNotificationService {
     return await this.notificationRepository.findAll(id)
   }
 
-  public async findOne (idUser: NotificationPrimitive['idUser'], index: number): Promise<Notification | null> {
+  public async findOne (
+    idUser: NotificationPrimitive['idUser'],
+    index: number
+  ): Promise<Notification | null> {
     return await this.notificationRepository.findOne(idUser, index)
   }
 
