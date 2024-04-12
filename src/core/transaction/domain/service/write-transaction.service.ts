@@ -25,11 +25,15 @@ export class WriteTransactionService {
     private readonly eventEmitter: EventEmitter2
   ) {}
 
-  public async create ({ idUser, AccountIndex, data }: {
+  public async create ({
+    idUser,
+    AccountIndex,
+    data
+  }: {
     idUser: TransactionPrimitive['idSender']
     AccountIndex: number
-    data: CreateTransactionDTO }
-  ): Promise<Transaction> {
+    data: CreateTransactionDTO
+  }): Promise<Transaction> {
     const checkSender = await this.readAccountService.findOne({ idUser, index: AccountIndex })
     const checkReceiver = await this.readAccountService.findByID({ id: data.idReceiver })
 

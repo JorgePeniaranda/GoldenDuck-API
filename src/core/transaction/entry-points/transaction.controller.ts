@@ -50,7 +50,11 @@ export class TransactionController {
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Body() data: CreateTransactionDTO
   ): Promise<Transaction> {
-    const transaction = await this.writeTransactionService.create({ idUser: UserData.user.id, AccountIndex, data })
+    const transaction = await this.writeTransactionService.create({
+      idUser: UserData.user.id,
+      AccountIndex,
+      data
+    })
 
     return transaction
   }

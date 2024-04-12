@@ -10,14 +10,21 @@ export class ReadNotificationService {
     private readonly notificationRepository: NotificationRepository
   ) {}
 
-  public async findAll ({ idUser }: { idUser: NotificationPrimitive['idUser'] }): Promise<Notification[]> {
+  public async findAll ({
+    idUser
+  }: {
+    idUser: NotificationPrimitive['idUser']
+  }): Promise<Notification[]> {
     return await this.notificationRepository.findAll({ idUser })
   }
 
-  public async findOne ({ idUser, index }: {
+  public async findOne ({
+    idUser,
+    index
+  }: {
     idUser: NotificationPrimitive['idUser']
-    index: number }
-  ): Promise<Notification | null> {
+    index: number
+  }): Promise<Notification | null> {
     return await this.notificationRepository.findOne({ idUser, index })
   }
 

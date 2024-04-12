@@ -28,9 +28,7 @@ export class NotificationController {
   ) {}
 
   @Get()
-  async getAllTransaction (
-    @Request() UserData: { user: JwtPayload }
-  ): Promise<Notification[]> {
+  async getAllTransaction (@Request() UserData: { user: JwtPayload }): Promise<Notification[]> {
     const notifications = await this.readNotificationService.findAll({ idUser: UserData.user.id })
 
     return notifications
@@ -41,7 +39,10 @@ export class NotificationController {
     @Request() UserData: { user: JwtPayload },
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Notification> {
-    const notification = await this.readNotificationService.findOne({ idUser: UserData.user.id, index })
+    const notification = await this.readNotificationService.findOne({
+      idUser: UserData.user.id,
+      index
+    })
 
     if (notification === null) {
       throw new NotFoundException(NotificationErrorsMessages.NotFound)

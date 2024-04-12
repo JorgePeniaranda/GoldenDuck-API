@@ -14,10 +14,13 @@ export class ReadAccountService {
     return await this.accountRepository.findAll({ idUser })
   }
 
-  public async findOne ({ idUser, index }: {
+  public async findOne ({
+    idUser,
+    index
+  }: {
     idUser: AccountPrimitive['idUser']
-    index: AccountPrimitive['id'] }
-  ): Promise<Account | null> {
+    index: AccountPrimitive['id']
+  }): Promise<Account | null> {
     return await this.accountRepository.findOne({ idUser, index })
   }
 

@@ -17,7 +17,11 @@ export class NotificationRepositoryPrismaMySQL implements NotificationRepository
     return new Notification(newNotification)
   }
 
-  public async findAll ({ idUser }: { idUser: AccountPrimitive['idUser'] }): Promise<Notification[]> {
+  public async findAll ({
+    idUser
+  }: {
+    idUser: AccountPrimitive['idUser']
+  }): Promise<Notification[]> {
     const notifications = await this.prisma.notification.findMany({
       where: {
         idUser,
@@ -28,10 +32,13 @@ export class NotificationRepositoryPrismaMySQL implements NotificationRepository
     return notifications.map(notification => new Notification(notification))
   }
 
-  public async findOne ({ idUser, index }: {
+  public async findOne ({
+    idUser,
+    index
+  }: {
     idUser: AccountPrimitive['idUser']
-    index: number }
-  ): Promise<Notification | null> {
+    index: number
+  }): Promise<Notification | null> {
     const notification = await this.prisma.notification.findMany({
       where: {
         idUser,

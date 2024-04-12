@@ -30,7 +30,13 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
     return accounts.map(account => new Account(account))
   }
 
-  public async findOne ({ idUser, index }: { idUser: AccountPrimitive['idUser'], index: number }): Promise<Account | null> {
+  public async findOne ({
+    idUser,
+    index
+  }: {
+    idUser: AccountPrimitive['idUser']
+    index: number
+  }): Promise<Account | null> {
     const account = await this.prisma.account.findMany({
       where: {
         idUser,

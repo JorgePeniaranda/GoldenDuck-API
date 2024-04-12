@@ -55,7 +55,13 @@ export class WriteAccountService {
     // TO-DO: send notification to user email
   }
 
-  public async delete ({ idUser, index }: { idUser: AccountPrimitive['idUser'], index: number }): Promise<void> {
+  public async delete ({
+    idUser,
+    index
+  }: {
+    idUser: AccountPrimitive['idUser']
+    index: number
+  }): Promise<void> {
     const account = await this.accountRepository.findOne({ idUser, index })
 
     if (account === null) {
