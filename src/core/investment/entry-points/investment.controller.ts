@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
@@ -55,6 +56,7 @@ export class InvestmentController {
     return investment
   }
 
+  @HttpCode(204)
   @Delete('/:id')
   async deleteInvestment (
     @Param('id', new ParseIntPipe()) id: InvestmentPrimitive['id']

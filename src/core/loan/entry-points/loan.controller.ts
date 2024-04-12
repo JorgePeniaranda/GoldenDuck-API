@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
@@ -53,6 +54,7 @@ export class LoanController {
     return loan
   }
 
+  @HttpCode(204)
   @Delete('/:id')
   async deleteLoan (@Param('id', new ParseIntPipe()) id: LoanPrimitive['id']): Promise<void> {
     await this.loanService.delete(id)

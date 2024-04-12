@@ -4,6 +4,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
@@ -57,6 +58,7 @@ export class ErrorController {
   }
 
   @ApiBearerAuth()
+  @HttpCode(204)
   @Delete('/:id')
   async deleteError (@Param('id', new ParseIntPipe()) id: ErrorPrimitive['id']): Promise<void> {
     await this.errorService.delete(id)

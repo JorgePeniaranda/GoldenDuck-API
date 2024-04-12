@@ -4,6 +4,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
@@ -52,6 +53,7 @@ export class CategoryController {
     return category
   }
 
+  @HttpCode(204)
   @Delete('/:id')
   async delete (
     @Param('id', new ParseIntPipe()) id: CategoryPrimitive['id']

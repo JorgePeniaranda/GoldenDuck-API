@@ -4,6 +4,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
@@ -51,6 +52,7 @@ export class NotificationController {
     return notification
   }
 
+  @HttpCode(204)
   @Delete('/:index')
   async deleteTransaction (
     @Request() UserData: { user: JwtPayload },

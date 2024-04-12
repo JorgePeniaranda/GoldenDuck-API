@@ -4,6 +4,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
@@ -73,6 +74,7 @@ export class CardController {
     return card
   }
 
+  @HttpCode(204)
   @Delete('/:index')
   async deleteCard (
     @Request() UserData: { user: JwtPayload },

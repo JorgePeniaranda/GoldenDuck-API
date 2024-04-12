@@ -6,6 +6,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
@@ -89,6 +90,7 @@ export class UserController {
   }
 
   @ApiBearerAuth()
+  @HttpCode(204)
   @Delete('/:id')
   async deleteUser (
     @Request() UserData: { user: JwtPayload },

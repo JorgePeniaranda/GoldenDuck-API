@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
@@ -53,6 +54,7 @@ export class SessionController {
     return session
   }
 
+  @HttpCode(204)
   @Delete('/:id')
   async deleteSession (@Param('id', new ParseIntPipe()) id: SessionPrimitive['id']): Promise<void> {
     await this.sessionService.delete(id)

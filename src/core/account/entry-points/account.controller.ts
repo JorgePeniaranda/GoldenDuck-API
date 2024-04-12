@@ -2,6 +2,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
@@ -61,6 +62,7 @@ export class AccountController {
     return account
   }
 
+  @HttpCode(204)
   @Delete('/:index')
   async delete (
     @Request() UserData: { user: JwtPayload },
