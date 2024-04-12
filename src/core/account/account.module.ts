@@ -26,7 +26,23 @@ import { AccountController } from './entry-points/account.controller'
 export class AccountModule {
   constructor (private readonly eventEmitter: EventEmitter2) {
     /* @region EVENTS SUBSCRIPTION */
+
     this.eventEmitter.on(EventsMap.TRANSACTION_CREATED, (data: ITransactionEvent) => {
+      const SenderEventData: IChangeBalanceEvent = {
+        id: data.idSender,
+        amount: data.amount
+      }
+
+      const ReceiverEventData: IChangeBalanceEvent = {
+        id: data.idReceiver,
+        amount: data.amount
+      }
+
+      this.eventEmitter.emit(EventsMap.DECREMENT_BALANCE, SenderEventData)
+      this.eventEmitter.emit(EventsMap.INCREMENT_BALANCE, ReceiverEventData)
+    })
+
+    this.eventEmitter.on(EventsMap.TRANSACTION_REVERTED, (data: ITransactionEvent) => {
       const SenderEventData: IChangeBalanceEvent = {
         id: data.idSender,
         amount: data.amount

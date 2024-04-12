@@ -86,6 +86,6 @@ export class WriteTransactionService {
       amount: transaction.amount
     }
 
-    this.eventEmitter.emit(EventsMap.TRANSACTION_CREATED, EventData)
+    this.eventEmitter.emit(EventsMap.TRANSACTION_REVERTED, EventData)
   }
 }
