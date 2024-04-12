@@ -38,7 +38,9 @@ export class UserController {
   @ApiBearerAuth()
   @Get('/')
   async findOne (@Request() UserData: { user: JwtPayload }): Promise<User> {
-    const user = await this.readUserService.findByID(UserData.user.id)
+    const user = await this.readUserService.findByID({
+      id: UserData.user.id
+    })
 
     if (user === null) {
       throw new NotFoundException(UserErrorsMessages.NotFound)
@@ -71,12 +73,17 @@ export class UserController {
     @Param('id', ParseIntPipe) id: UserPrimitive['id'],
       @Body() data: UpdateUserDTO
   ): Promise<UserPrimitive> {
-    return await this.writeUserService.updateUser(id, data)
+    return await this.writeUserService.updateUser({
+      id,
+      data
+    })
   }
 
   @Get('/activate')
   async activateUser (@Request() UserData: { user: JwtPayload }): Promise<'🤠'> {
-    await this.writeUserService.activateUser(UserData.user.id)
+    await this.writeUserService.activateUser({
+      id: UserData.user.id
+    })
 
     return '🤠'
   }
@@ -87,6 +94,9 @@ export class UserController {
     @Request() UserData: { user: JwtPayload },
       @Body() data: DeleteUserDTO
   ): Promise<void> {
-    await this.writeUserService.deleteUser(UserData.user.id, data)
+    await this.writeUserService.deleteUser({
+      id: UserData.user.id,
+      data
+    })
   }
 }

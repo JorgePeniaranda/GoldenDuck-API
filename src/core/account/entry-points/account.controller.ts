@@ -31,7 +31,9 @@ export class AccountController {
 
   @Get()
   async findAll (@Request() UserData: { user: JwtPayload }): Promise<Account[]> {
-    const accounts = await this.readAccountService.findAll(UserData.user.id)
+    const accounts = await this.readAccountService.findAll({
+      idUser: UserData.user.id
+    })
 
     return accounts
   }
@@ -50,7 +52,7 @@ export class AccountController {
     @Request() UserData: { user: JwtPayload },
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Account> {
-    const account = await this.readAccountService.findOne(UserData.user.id, index)
+    const account = await this.readAccountService.findOne({ idUser: UserData.user.id, index })
 
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.NotFound)
@@ -64,6 +66,6 @@ export class AccountController {
     @Request() UserData: { user: JwtPayload },
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
-    await this.writeAccountService.delete(UserData.user.id, index)
+    await this.writeAccountService.delete({ idUser: UserData.user.id, index })
   }
 }

@@ -1,5 +1,9 @@
 import { EventsMap } from '@/constants/events'
-import { type IChangeBalanceEvent, type ICreateAccountEvent, type ITransactionEvent } from '@/types/events'
+import {
+  type IChangeBalanceEvent,
+  type ICreateAccountEvent,
+  type ITransactionEvent
+} from '@/types/events'
 import { Module } from '@nestjs/common'
 import { EventEmitter2 } from '@nestjs/event-emitter'
 import { PrismaService } from '../../services/prisma.service'

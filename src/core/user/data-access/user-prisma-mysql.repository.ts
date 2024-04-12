@@ -53,7 +53,7 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     return new User(findUser)
   }
 
-  public async findByID (id: UserPrimitive['id']): Promise<User | null> {
+  public async findByID ({ id }: { id: UserPrimitive['id'] }): Promise<User | null> {
     const findUser = await this.prisma.user.findUnique({
       where: {
         id,

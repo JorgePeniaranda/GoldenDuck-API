@@ -10,18 +10,18 @@ export class ReadNotificationService {
     private readonly notificationRepository: NotificationRepository
   ) {}
 
-  public async findAll (id: NotificationPrimitive['idUser']): Promise<Notification[]> {
-    return await this.notificationRepository.findAll(id)
+  public async findAll ({ idUser }: { idUser: NotificationPrimitive['idUser'] }): Promise<Notification[]> {
+    return await this.notificationRepository.findAll({ idUser })
   }
 
-  public async findOne (
-    idUser: NotificationPrimitive['idUser'],
-    index: number
+  public async findOne ({ idUser, index }: {
+    idUser: NotificationPrimitive['idUser']
+    index: number }
   ): Promise<Notification | null> {
-    return await this.notificationRepository.findOne(idUser, index)
+    return await this.notificationRepository.findOne({ idUser, index })
   }
 
-  public async findByID (id: NotificationPrimitive['id']): Promise<Notification | null> {
-    return await this.notificationRepository.findByID(id)
+  public async findByID ({ id }: { id: NotificationPrimitive['id'] }): Promise<Notification | null> {
+    return await this.notificationRepository.findByID({ id })
   }
 }

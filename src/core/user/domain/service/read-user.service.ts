@@ -12,7 +12,7 @@ export class ReadUserService {
     return await this.userRepository.findOne(params)
   }
 
-  async findByID (id: UserPrimitive['id']): Promise<User | null> {
-    return await this.userRepository.findByID(id)
+  async findByID ({ id }: { id: UserPrimitive['id'] }): Promise<User | null> {
+    return await this.userRepository.findByID({ id })
   }
 }

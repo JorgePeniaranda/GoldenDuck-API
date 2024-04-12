@@ -14,10 +14,13 @@ export class ReadTransactionService {
     private readonly readAccountService: ReadAccountService
   ) {}
 
-  public async findAll (
-    idUser: AccountPrimitive['idUser'],
+  public async findAll ({
+    idUser,
+    AccountIndex
+  }: {
+    idUser: AccountPrimitive['idUser']
     AccountIndex: AccountPrimitive['id']
-  ): Promise<Transaction[]> {
+  }): Promise<Transaction[]> {
     const account = await this.readAccountService.findOne(idUser, AccountIndex)
 
     if (account === null) {
@@ -27,49 +30,70 @@ export class ReadTransactionService {
     return await this.transactionRepository.findAll(account.id)
   }
 
-  public async findOne (
-    idUser: AccountPrimitive['idUser'],
-    AccountIndex: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver'],
+  public async findOne ({
+    idUser,
+    AccountIndex,
+    index
+  }: {
+    idUser: AccountPrimitive['idUser']
+    AccountIndex: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver']
     index: number
-  ): Promise<Transaction | null> {
+  }): Promise<Transaction | null> {
     const account = await this.readAccountService.findOne(idUser, AccountIndex)
 
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.NotFound)
     }
 
-    return await this.transactionRepository.findOne(account.id, index)
+    return await this.transactionRepository.findOne({
+      idAccount: account.id,
+      index
+    })
   }
 
-  public async findOneAsSender (
-    idUser: AccountPrimitive['idUser'],
-    AccountIndex: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver'],
+  public async findOneAsSender ({
+    idUser,
+    AccountIndex,
+    index
+  }: {
+    idUser: AccountPrimitive['idUser']
+    AccountIndex: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver']
     index: number
-  ): Promise<Transaction | null> {
+  }): Promise<Transaction | null> {
     const account = await this.readAccountService.findOne(idUser, AccountIndex)
 
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.NotFound)
     }
 
-    return await this.transactionRepository.findOneAsSender(account.id, index)
+    return await this.transactionRepository.findOneAsSender({
+      idSender: account.id,
+      index
+    })
   }
 
-  public async findOneAsReceiver (
-    idUser: AccountPrimitive['idUser'],
-    AccountIndex: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver'],
+  public async findOneAsReceiver ({
+    idUser,
+    AccountIndex,
+    index
+  }: {
+    idUser: AccountPrimitive['idUser']
+    AccountIndex: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver']
     index: number
-  ): Promise<Transaction | null> {
+  }): Promise<Transaction | null> {
     const account = await this.readAccountService.findOne(idUser, AccountIndex)
 
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.NotFound)
     }
 
-    return await this.transactionRepository.findOneAsReceiver(account.id, index)
+    return await this.transactionRepository.findOneAsReceiver({
+      idReceiver: account.id,
+      index
+    })
   }
 
-  public async findByID (id: TransactionPrimitive['id']): Promise<Transaction | null> {
+  public async findByID ({ id }: { id: TransactionPrimitive['id'] }): Promise<Transaction | null> {
     return await this.transactionRepository.findByID(id)
   }
 }

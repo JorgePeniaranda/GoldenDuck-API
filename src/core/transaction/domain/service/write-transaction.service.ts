@@ -61,18 +61,25 @@ export class WriteTransactionService {
     return await this.transactionRepository.create(transaction)
   }
 
-  public async delete (
-    idUser: TransactionPrimitive['idSender'],
-    AccountIndex: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver'],
+  public async delete ({
+    idUser,
+    AccountIndex,
+    index
+  }: {
+    idUser: TransactionPrimitive['idSender']
+    AccountIndex: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver']
     index: number
-  ): Promise<void> {
+  }): Promise<void> {
     const account = await this.readAccountService.findOne(idUser, AccountIndex)
 
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.NotFound)
     }
 
-    const checkTransaction = await this.transactionRepository.findOne(account.id, index)
+    const checkTransaction = await this.transactionRepository.findOne({
+      idAccount: account.id,
+      index
+    })
 
     if (checkTransaction === null) {
       throw new NotFoundException(TransactionErrorsMessages.NotFound)

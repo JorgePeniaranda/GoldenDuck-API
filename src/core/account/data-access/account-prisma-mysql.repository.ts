@@ -19,7 +19,7 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
     return new Account(newAccount)
   }
 
-  public async findAll (idUser: AccountPrimitive['idUser']): Promise<Account[]> {
+  public async findAll ({ idUser }: { idUser: AccountPrimitive['idUser'] }): Promise<Account[]> {
     const accounts = await this.prisma.account.findMany({
       where: {
         idUser,
@@ -30,7 +30,7 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
     return accounts.map(account => new Account(account))
   }
 
-  public async findOne (idUser: AccountPrimitive['idUser'], index: number): Promise<Account | null> {
+  public async findOne ({ idUser, index }: { idUser: AccountPrimitive['idUser'], index: number }): Promise<Account | null> {
     const account = await this.prisma.account.findMany({
       where: {
         idUser,
@@ -45,7 +45,7 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
     return new Account(account[0])
   }
 
-  public async findByID (id: AccountPrimitive['id']): Promise<Account | null> {
+  public async findByID ({ id }: { id: AccountPrimitive['id'] }): Promise<Account | null> {
     const account = await this.prisma.account.findUnique({
       where: {
         id,

@@ -46,8 +46,8 @@ export class WriteUserService {
     return userCreated
   }
 
-  async activateUser (id: UserPrimitive['id']): Promise<User> {
-    const user = await this.userRepository.findByID(id)
+  async activateUser ({ id }: { id: UserPrimitive['id'] }): Promise<User> {
+    const user = await this.userRepository.findByID({ id })
 
     if (user === null) {
       throw new NotFoundException(UserErrorsMessages.NotFound)
@@ -58,8 +58,8 @@ export class WriteUserService {
     return await this.userRepository.updateUser(user)
   }
 
-  async updateUser (id: UserPrimitive['id'], data: UpdateUserDTO): Promise<User> {
-    const user = await this.userRepository.findByID(id)
+  async updateUser ({ id, data }: { id: UserPrimitive['id'], data: UpdateUserDTO }): Promise<User> {
+    const user = await this.userRepository.findByID({ id })
 
     if (user === null) {
       throw new NotFoundException(UserErrorsMessages.NotFound)
@@ -79,8 +79,8 @@ export class WriteUserService {
     // TO-DO: send notification to account email
   }
 
-  async deleteUser (id: UserPrimitive['id'], data: DeleteUserDTO): Promise<void> {
-    const user = await this.userRepository.findByID(id)
+  async deleteUser ({ id, data }: { id: UserPrimitive['id'], data: DeleteUserDTO }): Promise<void> {
+    const user = await this.userRepository.findByID({ id })
 
     if (user === null) {
       throw new NotFoundException(UserErrorsMessages.NotFound)
