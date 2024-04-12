@@ -2,6 +2,7 @@ import { EventsMap } from '@/constants/events'
 import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
 import { AccountErrorsMessages } from '@/messages/error/account'
 import { TransactionErrorsMessages } from '@/messages/error/transaction'
+import { type ITransactionEvent } from '@/types/events'
 import {
   BadRequestException,
   ForbiddenException,
@@ -26,10 +27,10 @@ export class WriteTransactionService {
 
   public async create (
     idUser: TransactionPrimitive['idSender'],
-    index: number,
+    AccountIndex: number,
     data: CreateTransactionDTO
   ): Promise<Transaction> {
-    const checkSender = await this.readAccountService.findOne(idUser, index)
+    const checkSender = await this.readAccountService.findOne(idUser, AccountIndex)
     const checkReceiver = await this.readAccountService.findByID(data.idReceiver)
 
     if (checkSender === null || checkReceiver === null) {
@@ -49,22 +50,29 @@ export class WriteTransactionService {
       idSender: idUser
     })
 
-    this.eventEmitter.emit(EventsMap.TRANSACTION_CREATED, {
+    const EventData: ITransactionEvent = {
       idSender: idUser,
       idReceiver: data.idReceiver,
       amount: data.amount
-    })
+    }
+
+    this.eventEmitter.emit(EventsMap.TRANSACTION_CREATED, EventData)
 
     return await this.transactionRepository.create(transaction)
-
-    // TO-DO: remover dinero de la cuenta de origen y agregarlo a la cuenta de destino
   }
 
   public async delete (
-    idAccount: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver'],
+    idUser: TransactionPrimitive['idSender'],
+    AccountIndex: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver'],
     index: number
   ): Promise<void> {
-    const checkTransaction = await this.transactionRepository.findOne(idAccount, index)
+    const account = await this.readAccountService.findOne(idUser, AccountIndex)
+
+    if (account === null) {
+      throw new NotFoundException(AccountErrorsMessages.NotFound)
+    }
+
+    const checkTransaction = await this.transactionRepository.findOne(account.id, index)
 
     if (checkTransaction === null) {
       throw new NotFoundException(TransactionErrorsMessages.NotFound)
@@ -72,12 +80,12 @@ export class WriteTransactionService {
 
     const transaction = await this.transactionRepository.delete(checkTransaction)
 
-    this.eventEmitter.emit(EventsMap.TRANSACTION_CREATED, {
+    const EventData: ITransactionEvent = {
       idSender: transaction.idSender,
       idReceiver: transaction.idReceiver,
       amount: transaction.amount
-    })
+    }
 
-    // TO-DO: devolver dinero a la cuenta de origen y removerlo de la cuenta de destino
+    this.eventEmitter.emit(EventsMap.TRANSACTION_CREATED, EventData)
   }
 }

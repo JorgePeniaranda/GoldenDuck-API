@@ -20,7 +20,8 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
   public async findAll (id: AccountPrimitive['id']): Promise<Transaction[]> {
     const transactions = await this.prisma.transaction.findMany({
       where: {
-        OR: [{ idSender: id }, { idReceiver: id }]
+        OR: [{ idSender: id }, { idReceiver: id }],
+        canceled: false
       }
     })
 
@@ -33,7 +34,8 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
   ): Promise<Transaction | null> {
     const transaction = await this.prisma.transaction.findMany({
       where: {
-        OR: [{ idSender: idAccount }, { idReceiver: idAccount }]
+        OR: [{ idSender: idAccount }, { idReceiver: idAccount }],
+        canceled: false
       },
       skip: index,
       take: 1
@@ -48,7 +50,8 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
   ): Promise<Transaction | null> {
     const transaction = await this.prisma.transaction.findMany({
       where: {
-        idSender
+        idSender,
+        canceled: false
       },
       skip: index,
       take: 1
@@ -63,7 +66,8 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
   ): Promise<Transaction | null> {
     const transaction = await this.prisma.transaction.findMany({
       where: {
-        idReceiver
+        idReceiver,
+        canceled: false
       },
       skip: index,
       take: 1
@@ -75,7 +79,8 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
   public async findByID (id: TransactionPrimitive['id']): Promise<Transaction | null> {
     const transaction = await this.prisma.transaction.findUnique({
       where: {
-        id
+        id,
+        canceled: false
       }
     })
 
@@ -85,7 +90,8 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
   public async delete (data: Transaction): Promise<Transaction> {
     const transaction = await this.prisma.transaction.update({
       where: {
-        id: data.id
+        id: data.id,
+        canceled: false
       },
       data: {
         canceled: true

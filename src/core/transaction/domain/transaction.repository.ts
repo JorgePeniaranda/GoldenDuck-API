@@ -4,7 +4,7 @@ import { type TransactionPrimitive } from './transaction.primitive'
 
 export interface TransactionRepository {
   create: (data: Transaction) => Promise<Transaction>
-  findAll: (id: AccountPrimitive['id']) => Promise<Transaction[]>
+  findAll: (idAccount: AccountPrimitive['id']) => Promise<Transaction[]>
   findOne: (
     idSender: TransactionPrimitive['idSender'],
     index: number

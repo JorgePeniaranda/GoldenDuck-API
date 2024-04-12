@@ -121,7 +121,7 @@ export class User implements UserPrimitive {
     address: UserPrimitive['address']
     birthDate: UserPrimitive['birthDate']
     sex: UserPrimitive['sex']
-    imgUrl: UserPrimitive['imgUrl']
+    imgUrl?: UserPrimitive['imgUrl']
   }): User {
     const password = Password.create(userPassword)
 

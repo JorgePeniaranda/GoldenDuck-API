@@ -24,7 +24,7 @@ import { TransactionResponse } from './transaction.response'
 })
 @ApiTags('Transaction')
 @ApiBearerAuth()
-@Controller('account/:index/transaction')
+@Controller('account/:AccountIndex/transaction')
 export class TransactionController {
   constructor (
     private readonly readTransactionService: ReadTransactionService,
@@ -32,8 +32,11 @@ export class TransactionController {
   ) {}
 
   @Get()
-  async findAll (@Body() id: TransactionPrimitive['id']): Promise<Transaction[]> {
-    const transactions = await this.readTransactionService.findAll(id)
+  async findAll (
+    @Request() UserData: { user: JwtPayload },
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: TransactionPrimitive['id']
+  ): Promise<Transaction[]> {
+    const transactions = await this.readTransactionService.findAll(UserData.user.id, AccountIndex)
 
     return transactions
   }
@@ -52,9 +55,14 @@ export class TransactionController {
   @Get('/:index')
   async findOne (
     @Request() UserData: { user: JwtPayload },
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Transaction> {
-    const transaction = await this.readTransactionService.findOne(UserData.user.id, index)
+    const transaction = await this.readTransactionService.findOne(
+      UserData.user.id,
+      AccountIndex,
+      index
+    )
 
     if (transaction === null) {
       throw new NotFoundException(TransactionErrorsMessages.NotFound)
@@ -66,9 +74,14 @@ export class TransactionController {
   @Get('/send/:index')
   async findOneAsSender (
     @Request() UserData: { user: JwtPayload },
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Transaction> {
-    const transaction = await this.readTransactionService.findOneAsSender(UserData.user.id, index)
+    const transaction = await this.readTransactionService.findOneAsSender(
+      UserData.user.id,
+      AccountIndex,
+      index
+    )
 
     if (transaction === null) {
       throw new NotFoundException(TransactionErrorsMessages.NotFound)
@@ -80,9 +93,14 @@ export class TransactionController {
   @Get('/received/:index')
   async findOneAsReceiver (
     @Request() UserData: { user: JwtPayload },
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Transaction> {
-    const transaction = await this.readTransactionService.findOneAsReceiver(UserData.user.id, index)
+    const transaction = await this.readTransactionService.findOneAsReceiver(
+      UserData.user.id,
+      AccountIndex,
+      index
+    )
 
     if (transaction === null) {
       throw new NotFoundException(TransactionErrorsMessages.NotFound)
@@ -94,8 +112,9 @@ export class TransactionController {
   @Delete('/:index')
   async delete (
     @Request() UserData: { user: JwtPayload },
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
-    await this.writeTransactionService.delete(UserData.user.id, index)
+    await this.writeTransactionService.delete(UserData.user.id, AccountIndex, index)
   }
 }
