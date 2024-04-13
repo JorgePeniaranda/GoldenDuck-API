@@ -10,5 +10,6 @@ export const APP_INFO = {
 /* SWAGGER */
 export const SWAGGER_PATH = 'api'
 
-/* AUTHENTICATION */
+/* AUTHENTICATION - AUTHORIZATION */
 export const IS_PUBLIC_ENDPOINT_KEY = 'isPublic'
+export const ROLES_KEY = 'roles'
