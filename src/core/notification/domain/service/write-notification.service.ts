@@ -15,15 +15,15 @@ export class WriteNotificationService {
 
   @OnEvent(EventsMap.CREATE_NOTIFICATION)
   public async create ({
-    idAccount,
+    idUser,
     message
   }: {
-    idAccount: NotificationPrimitive['idUser']
+    idUser: NotificationPrimitive['idUser']
     message: NotificationPrimitive['message']
   }): Promise<Notification> {
-    const notification = Notification.create(idAccount, message)
+    const notification = Notification.create({ idUser, message })
 
-    this.eventEmitter.emit(EventsMap.NOTIFICATION_CREATED, notification)
+    this.eventEmitter.emit(EventsMap.NOTIFICATION_CREATED, notification.toJSON())
 
     return await this.notificationRepository.create(notification)
   }
@@ -43,6 +43,6 @@ export class WriteNotificationService {
 
     await this.notificationRepository.delete(notification)
 
-    this.eventEmitter.emit(EventsMap.NOTIFICATION_READED, notification)
+    this.eventEmitter.emit(EventsMap.NOTIFICATION_READED, notification.toJSON())
   }
 }

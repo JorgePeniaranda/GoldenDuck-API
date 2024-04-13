@@ -37,7 +37,7 @@ export class WriteMessageService {
       message: data.message
     })
 
-    this.eventEmitter.emit(EventsMap.MESSAGE_CREATED, message)
+    this.eventEmitter.emit(EventsMap.MESSAGE_CREATED, message.toJSON())
 
     return await this.messageRepository.create(message)
   }

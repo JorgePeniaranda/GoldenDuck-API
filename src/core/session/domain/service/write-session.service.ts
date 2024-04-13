@@ -18,7 +18,7 @@ export class WriteSessionService {
   public async create (data: CreateSessionDTO): Promise<Session> {
     const session = Session.create(data)
 
-    this.eventEmitter.emit(EventsMap.CREATE_SESSION, session)
+    this.eventEmitter.emit(EventsMap.CREATE_SESSION, session.toJSON())
 
     return await this.sessionRepository.create(session)
   }

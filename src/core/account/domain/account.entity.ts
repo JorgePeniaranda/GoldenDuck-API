@@ -35,21 +35,21 @@ export class Account implements AccountPrimitive {
     return this.#createdAt
   }
 
-  public incrementBalance (value: AccountPrimitive['balance']): void {
-    this.#balance += value
+  public incrementBalance (amount: AccountPrimitive['balance']): void {
+    this.#balance += amount
   }
 
-  public decrementBalance (value: AccountPrimitive['balance']): void {
-    this.#balance -= value
+  public decrementBalance (amount: AccountPrimitive['balance']): void {
+    this.#balance -= amount
   }
 
   public toJSON (): AccountPrimitive {
     return {
-      id: this.#id,
-      idUser: this.#idUser,
+      id: this.id,
+      idUser: this.idUser,
       balance: this.balance,
       updatedAt: this.updatedAt,
-      createdAt: this.#createdAt,
+      createdAt: this.createdAt,
       deleted: this.deleted
     }
   }

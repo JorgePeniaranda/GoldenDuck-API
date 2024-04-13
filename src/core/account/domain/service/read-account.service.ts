@@ -1,4 +1,5 @@
-import { Inject, Injectable } from '@nestjs/common'
+import { AccountErrorsMessages } from '@/messages/error/account'
+import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { type Account } from '../account.entity'
 import { type AccountPrimitive } from '../account.primitive'
 import { AccountRepository } from '../account.repository'
@@ -9,6 +10,16 @@ export class ReadAccountService {
     @Inject('AccountRepository')
     private readonly accountRepository: AccountRepository
   ) {}
+
+  public async findIDUser ({ id }: { id: AccountPrimitive['id'] }): Promise<AccountPrimitive['idUser']> {
+    const idUser = await this.accountRepository.findIDUser({ id })
+
+    if (idUser === null) {
+      throw new NotFoundException(AccountErrorsMessages.NotFound)
+    }
+
+    return idUser
+  }
 
   public async findAll ({ idUser }: { idUser: AccountPrimitive['idUser'] }): Promise<Account[]> {
     return await this.accountRepository.findAll({ idUser })

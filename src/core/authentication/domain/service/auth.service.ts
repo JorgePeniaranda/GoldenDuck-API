@@ -30,8 +30,9 @@ export class AuthService {
     const token = this.jwtService.sign(payload.toJSON(), {
       subject: user.id.toString()
     })
+    console.log(user)
 
-    this.eventEmitter.emit(EventsMap.USER_LOGGED_IN, user)
+    this.eventEmitter.emit(EventsMap.USER_LOGGED_IN, user.toJSON())
 
     return new Token(token)
   }

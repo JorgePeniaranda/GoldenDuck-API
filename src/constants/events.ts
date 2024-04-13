@@ -1,8 +1,13 @@
 export const EventsMap = {
   USER_CREATED: 'user.created',
+  USER_ACTIVATED: 'user.activated',
+  USER_PASSWORD_UPDATED: 'user.password-updated',
+  USER_DELETED: 'user.deleted',
   CREATE_ACCOUNT: 'create.account',
-  INCREMENT_BALANCE: 'account.increment-balance',
-  DECREMENT_BALANCE: 'account.decrement-balance',
+  ACCOUNT_CREATED: 'account.created',
+  ACCOUNT_INCREMENT_BALANCE: 'account.increment-balance',
+  ACCOUNT_DECREMENT_BALANCE: 'account.decrement-balance',
+  ACCOUNT_DELETED: 'account.deleted',
   CREATE_NOTIFICATION: 'create.notification',
   TRANSACTION_CREATED: 'transaction.created',
   TRANSACTION_REVERTED: 'transaction.reverted',
@@ -12,11 +17,7 @@ export const EventsMap = {
   LOAN_CANCELLED: 'loan.cancelled',
   INVESTMENT_CREATED: 'investment.created',
   INVESTMENT_CANCELLED: 'investment.cancelled',
-  USER_LOGGED_IN: 'user.logged-in',
+  USER_LOGGED_IN: 'user.logged-in', // solo manejada por session service
   NOTIFICATION_CREATED: 'notification.created',
-  NOTIFICATION_READED: 'notification.readed',
-  ACCOUNT_CREATED: 'account.created',
-  ACCOUNT_INCREMENT_BALANCE: 'account.increment-balance',
-  ACCOUNT_DECREMENT_BALANCE: 'account.decrement-balance',
-  ACCOUNT_DELETED: 'account.deleted'
+  NOTIFICATION_READED: 'notification.readed'
 } as const

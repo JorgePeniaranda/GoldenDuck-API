@@ -2,7 +2,6 @@ import { EventsMap } from '@/constants/events'
 import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
 import { AccountErrorsMessages } from '@/messages/error/account'
 import { TransactionErrorsMessages } from '@/messages/error/transaction'
-import { type ITransactionEvent } from '@/types/events'
 import {
   BadRequestException,
   ForbiddenException,
@@ -51,16 +50,11 @@ export class WriteTransactionService {
 
     const transaction = Transaction.create({
       ...data,
-      idSender: idUser
+      idSender: checkSender.id,
+      idReceiver: checkReceiver.id
     })
 
-    const EventData: ITransactionEvent = {
-      idSender: idUser,
-      idReceiver: data.idReceiver,
-      amount: data.amount
-    }
-
-    this.eventEmitter.emit(EventsMap.TRANSACTION_CREATED, EventData)
+    this.eventEmitter.emit(EventsMap.TRANSACTION_CREATED, transaction.toJSON())
 
     return await this.transactionRepository.create(transaction)
   }
@@ -91,12 +85,6 @@ export class WriteTransactionService {
 
     const transaction = await this.transactionRepository.delete(checkTransaction)
 
-    const EventData: ITransactionEvent = {
-      idSender: transaction.idSender,
-      idReceiver: transaction.idReceiver,
-      amount: transaction.amount
-    }
-
-    this.eventEmitter.emit(EventsMap.TRANSACTION_REVERTED, EventData)
+    this.eventEmitter.emit(EventsMap.TRANSACTION_REVERTED, transaction.toJSON())
   }
 }

@@ -21,7 +21,7 @@ export class WriteInvestmentService {
   public async create (data: CreateInvestmentDTO): Promise<Investment> {
     const investment = Investment.create(data)
 
-    this.eventEmitter.emit(EventsMap.INVESTMENT_CREATED, investment)
+    this.eventEmitter.emit(EventsMap.INVESTMENT_CREATED, investment.toJSON())
 
     return await this.investmentRepository.create(investment)
 
@@ -54,6 +54,6 @@ export class WriteInvestmentService {
 
     await this.investmentRepository.delete(investment)
 
-    this.eventEmitter.emit(EventsMap.INVESTMENT_CANCELLED, investment)
+    this.eventEmitter.emit(EventsMap.INVESTMENT_CANCELLED, investment.toJSON())
   }
 }

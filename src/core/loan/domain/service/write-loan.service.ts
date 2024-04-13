@@ -20,7 +20,7 @@ export class WriteLoanService {
   public async create (data: CreateLoanDTO): Promise<Loan> {
     const loan = Loan.create(data)
 
-    this.eventEmitter.emit(EventsMap.LOAN_CREATED, loan)
+    this.eventEmitter.emit(EventsMap.LOAN_CREATED, loan.toJSON())
 
     return await this.loanRepository.create(loan)
 
@@ -53,6 +53,6 @@ export class WriteLoanService {
 
     await this.loanRepository.delete(loan)
 
-    this.eventEmitter.emit(EventsMap.LOAN_CANCELLED, loan)
+    this.eventEmitter.emit(EventsMap.LOAN_CANCELLED, loan.toJSON())
   }
 }
