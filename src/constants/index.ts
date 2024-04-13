@@ -1,9 +1,11 @@
 /* APP */
-export const DEFAULT_APP_PORT = 3000
-export const APP_VERSION = '3.0.0'
-export const APP_NAME = 'Golden Duck'
-export const APP_DESCRIPTION =
+export const APP_INFO = {
+  DEFAULT_PORT: 3000,
+  VERSION: '3.0.0',
+  NAME: 'Golden Duck',
+  DESCRIPTION:
   'Online banking platform for money management, investments, and essential service payments.'
+} as const
 
 /* SWAGGER */
 export const SWAGGER_PATH = 'api'

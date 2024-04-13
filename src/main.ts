@@ -4,7 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import compression from 'compression'
 import helmet from 'helmet'
 import { AppModule } from './app.module'
-import { APP_DESCRIPTION, APP_NAME, APP_VERSION, SWAGGER_PATH } from './constants'
+import { APP_INFO, SWAGGER_PATH } from './constants'
 import { env } from './constants/env'
 import { AuthModule } from './core/authentication/auth.module'
 import { JwtAuthGuard } from './guard/jwt.guard'
@@ -30,9 +30,9 @@ async function bootstrap (): Promise<void> {
 
   /* add documentation */
   const config = new DocumentBuilder()
-    .setTitle(APP_NAME)
-    .setDescription(APP_DESCRIPTION)
-    .setVersion(APP_VERSION)
+    .setTitle(APP_INFO.NAME)
+    .setDescription(APP_INFO.DESCRIPTION)
+    .setVersion(APP_INFO.VERSION)
     .addBearerAuth()
     .build()
   const document = SwaggerModule.createDocument(app, config)
