@@ -10,7 +10,8 @@ import { NotificationRepository } from '../notification.repository'
 export class WriteNotificationService {
   constructor (
     @Inject('NotificationRepository')
-    private readonly notificationRepository: NotificationRepository, private readonly eventEmitter: EventEmitter2
+    private readonly notificationRepository: NotificationRepository,
+    private readonly eventEmitter: EventEmitter2
   ) {}
 
   @OnEvent(EventsMap.CREATE_NOTIFICATION)

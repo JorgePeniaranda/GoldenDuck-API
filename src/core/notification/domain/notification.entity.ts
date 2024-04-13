@@ -33,10 +33,13 @@ export class Notification implements NotificationPrimitive {
     return this.#createdAt
   }
 
-  public static create ({ idUser, message }: {
+  public static create ({
+    idUser,
+    message
+  }: {
     idUser: NotificationPrimitive['idUser']
-    message: NotificationPrimitive['message'] }
-  ): Notification {
+    message: NotificationPrimitive['message']
+  }): Notification {
     return new Notification({
       id: 0,
       idUser,

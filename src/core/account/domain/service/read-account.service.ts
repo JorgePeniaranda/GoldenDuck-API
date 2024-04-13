@@ -11,7 +11,11 @@ export class ReadAccountService {
     private readonly accountRepository: AccountRepository
   ) {}
 
-  public async findIDUser ({ id }: { id: AccountPrimitive['id'] }): Promise<AccountPrimitive['idUser']> {
+  public async findIDUser ({
+    id
+  }: {
+    id: AccountPrimitive['id']
+  }): Promise<AccountPrimitive['idUser']> {
     const idUser = await this.accountRepository.findIDUser({ id })
 
     if (idUser === null) {

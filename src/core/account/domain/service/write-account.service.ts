@@ -26,7 +26,10 @@ export class WriteAccountService {
   }
 
   @OnEvent(EventsMap.ACCOUNT_INCREMENT_BALANCE)
-  public async increaseBalance ({ id, amount }: {
+  public async increaseBalance ({
+    id,
+    amount
+  }: {
     id: AccountPrimitive['id']
     amount: AccountPrimitive['balance']
   }): Promise<Account> {
@@ -44,7 +47,10 @@ export class WriteAccountService {
   }
 
   @OnEvent(EventsMap.ACCOUNT_DECREMENT_BALANCE)
-  public async decrementBalance ({ id, amount }: {
+  public async decrementBalance ({
+    id,
+    amount
+  }: {
     id: AccountPrimitive['id']
     amount: AccountPrimitive['balance']
   }): Promise<Account> {

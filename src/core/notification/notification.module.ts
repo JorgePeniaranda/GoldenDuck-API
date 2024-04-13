@@ -80,61 +80,73 @@ export class NotificationModule {
     /* ------------------------- TRANSACTION EVENTS ------------------------- */
 
     this.eventEmitter.on(EventsMap.TRANSACTION_CREATED, (data: TransactionPrimitive) => {
-      this.readAccountService.findIDUser({
-        id: data.idSender
-      }).then(idUser => {
-        const senderParams: Parameters<WriteNotificationService['create']>[0] = {
-          idUser,
-          message: NotificationMessages.TransactionSent(data.idReceiver)
-        }
+      this.readAccountService
+        .findIDUser({
+          id: data.idSender
+        })
+        .then(idUser => {
+          const senderParams: Parameters<WriteNotificationService['create']>[0] = {
+            idUser,
+            message: NotificationMessages.TransactionSent(data.idReceiver)
+          }
 
-        this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, senderParams)
-      }).catch(error => {
-        throw error
-      })
+          this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, senderParams)
+        })
+        .catch(error => {
+          throw error
+        })
 
-      this.readAccountService.findIDUser({
-        id: data.idReceiver
-      }).then(idUser => {
-        const receiverParams: Parameters<WriteNotificationService['create']>[0] = {
-          idUser,
-          message: NotificationMessages.NewTransactionReceived(data.idSender)
-        }
+      this.readAccountService
+        .findIDUser({
+          id: data.idReceiver
+        })
+        .then(idUser => {
+          const receiverParams: Parameters<WriteNotificationService['create']>[0] = {
+            idUser,
+            message: NotificationMessages.NewTransactionReceived(data.idSender)
+          }
 
-        this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, receiverParams)
-      }).catch(error => {
-        throw error
-      })
+          this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, receiverParams)
+        })
+        .catch(error => {
+          throw error
+        })
     })
 
     this.eventEmitter.on(EventsMap.TRANSACTION_REVERTED, (data: TransactionPrimitive) => {
-      this.readAccountService.findIDUser({
-        id: data.idSender
-      }).then(idUser => {
-        const senderParams: Parameters<WriteNotificationService['create']>[0] = {
-          idUser,
-          message: NotificationMessages.TransactionSentRejected(data.idReceiver)
-        }
-        console.log(data.idReceiver)
-        console.log(data.idSender)
+      this.readAccountService
+        .findIDUser({
+          id: data.idSender
+        })
+        .then(idUser => {
+          const senderParams: Parameters<WriteNotificationService['create']>[0] = {
+            idUser,
+            message: NotificationMessages.TransactionSentRejected(data.idReceiver)
+          }
+          console.log(data.idReceiver)
+          console.log(data.idSender)
 
-        this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, senderParams)
-      }).catch(error => {
-        throw error
-      })
+          this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, senderParams)
+        })
+        .catch(error => {
+          throw error
+        })
 
-      this.readAccountService.findIDUser({
-        id: data.idReceiver
-      }).then(idUser => {
-        const receiverParams: Parameters<WriteNotificationService['create']>[0] = {
-          idUser,
-          message: NotificationMessages.TransactionReceivedRejected(data.idSender)
-        }
+      this.readAccountService
+        .findIDUser({
+          id: data.idReceiver
+        })
+        .then(idUser => {
+          const receiverParams: Parameters<WriteNotificationService['create']>[0] = {
+            idUser,
+            message: NotificationMessages.TransactionReceivedRejected(data.idSender)
+          }
 
-        this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, receiverParams)
-      }).catch(error => {
-        throw error
-      })
+          this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, receiverParams)
+        })
+        .catch(error => {
+          throw error
+        })
     })
 
     /* ------------------------- MESSAGE EVENTS ------------------------- */
@@ -162,65 +174,77 @@ export class NotificationModule {
     /* ------------------------- LOAN EVENTS ------------------------- */
 
     this.eventEmitter.on(EventsMap.LOAN_CREATED, (data: LoanPrimitive) => {
-      this.readAccountService.findIDUser({
-        id: data.idAccount
-      }).then(idUser => {
-        const receiverParams: Parameters<WriteNotificationService['create']>[0] = {
-          idUser,
-          message: NotificationMessages.LoanCreated
-        }
+      this.readAccountService
+        .findIDUser({
+          id: data.idAccount
+        })
+        .then(idUser => {
+          const receiverParams: Parameters<WriteNotificationService['create']>[0] = {
+            idUser,
+            message: NotificationMessages.LoanCreated
+          }
 
-        this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, receiverParams)
-      }).catch(error => {
-        throw error
-      })
+          this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, receiverParams)
+        })
+        .catch(error => {
+          throw error
+        })
     })
 
     this.eventEmitter.on(EventsMap.LOAN_CANCELLED, (data: LoanPrimitive) => {
-      this.readAccountService.findIDUser({
-        id: data.idAccount
-      }).then(idUser => {
-        const receiverParams: Parameters<WriteNotificationService['create']>[0] = {
-          idUser,
-          message: NotificationMessages.LoanCancelled
-        }
+      this.readAccountService
+        .findIDUser({
+          id: data.idAccount
+        })
+        .then(idUser => {
+          const receiverParams: Parameters<WriteNotificationService['create']>[0] = {
+            idUser,
+            message: NotificationMessages.LoanCancelled
+          }
 
-        this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, receiverParams)
-      }).catch(error => {
-        throw error
-      })
+          this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, receiverParams)
+        })
+        .catch(error => {
+          throw error
+        })
     })
 
     /* ------------------------- INVESTMENT EVENTS ------------------------- */
 
     this.eventEmitter.on(EventsMap.INVESTMENT_CREATED, (data: InvestmentPrimitive) => {
-      this.readAccountService.findIDUser({
-        id: data.idAccount
-      }).then(idUser => {
-        const receiverParams: Parameters<WriteNotificationService['create']>[0] = {
-          idUser,
-          message: NotificationMessages.InvestmentCreated
-        }
+      this.readAccountService
+        .findIDUser({
+          id: data.idAccount
+        })
+        .then(idUser => {
+          const receiverParams: Parameters<WriteNotificationService['create']>[0] = {
+            idUser,
+            message: NotificationMessages.InvestmentCreated
+          }
 
-        this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, receiverParams)
-      }).catch(error => {
-        throw error
-      })
+          this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, receiverParams)
+        })
+        .catch(error => {
+          throw error
+        })
     })
 
     this.eventEmitter.on(EventsMap.INVESTMENT_CANCELLED, (data: InvestmentPrimitive) => {
-      this.readAccountService.findIDUser({
-        id: data.idAccount
-      }).then(idUser => {
-        const receiverParams: Parameters<WriteNotificationService['create']>[0] = {
-          idUser,
-          message: NotificationMessages.InvestmentCancelled
-        }
+      this.readAccountService
+        .findIDUser({
+          id: data.idAccount
+        })
+        .then(idUser => {
+          const receiverParams: Parameters<WriteNotificationService['create']>[0] = {
+            idUser,
+            message: NotificationMessages.InvestmentCancelled
+          }
 
-        this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, receiverParams)
-      }).catch(error => {
-        throw error
-      })
+          this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, receiverParams)
+        })
+        .catch(error => {
+          throw error
+        })
     })
   }
 }
