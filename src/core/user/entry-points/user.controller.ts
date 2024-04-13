@@ -1,4 +1,4 @@
-import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
+import { type JwtPayload } from '@/core/auth/domain/payload.entity'
 import { Public } from '@/decorators/public.decorator'
 import { UserErrorsMessages } from '@/messages/error/user'
 import {

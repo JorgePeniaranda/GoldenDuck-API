@@ -5,9 +5,9 @@ import { EventEmitter2 } from '@nestjs/event-emitter'
 import { NotFoundError } from 'rxjs'
 import { type CreateMessageDTO } from '../dto/create-message'
 import { type UpdateMessageDTO } from '../dto/update-message'
-import { Message } from '../messages.entity'
-import { type MessagePrimitive } from '../messages.primitive'
-import { MessageRepository } from '../messages.repository'
+import { Message } from '../message.entity'
+import { type MessagePrimitive } from '../message.primitive'
+import { MessageRepository } from '../message.repository'
 
 /*
  *  TO-DO:

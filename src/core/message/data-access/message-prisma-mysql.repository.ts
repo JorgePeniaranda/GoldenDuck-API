@@ -1,9 +1,9 @@
 import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
 import { PrismaService } from '@/services/prisma.service'
 import { Injectable } from '@nestjs/common'
-import { Message } from '../domain/messages.entity'
-import { type MessagePrimitive } from '../domain/messages.primitive'
-import { type MessageRepository } from '../domain/messages.repository'
+import { Message } from '../domain/message.entity'
+import { type MessagePrimitive } from '../domain/message.primitive'
+import { type MessageRepository } from '../domain/message.repository'
 
 @Injectable()
 export class MessageRepositoryPrismaMySQL implements MessageRepository {

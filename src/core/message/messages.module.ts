@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common'
 import { PrismaService } from '../../services/prisma.service'
 import { UserModule } from '../user/user.module'
-import { MessageRepositoryPrismaMySQL } from './data-access/messages-prisma-mysql.repository'
+import { MessageRepositoryPrismaMySQL } from './data-access/message-prisma-mysql.repository'
 import { ReadMessageService } from './domain/service/read-messages.service'
 import { WriteMessageService } from './domain/service/write-messages.service'
-import { MessageController } from './entry-points/messages.controller'
+import { MessageController } from './entry-points/message.controller'
 
 @Module({
   imports: [UserModule],

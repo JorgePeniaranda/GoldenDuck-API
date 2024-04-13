@@ -2,9 +2,9 @@ import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
 import { ReadUserService } from '@/core/user/domain/service/read-user.service'
 import { UserErrorsMessages } from '@/messages/error/user'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
-import { type Message } from '../messages.entity'
-import { type MessagePrimitive } from '../messages.primitive'
-import { MessageRepository } from '../messages.repository'
+import { type Message } from '../message.entity'
+import { type MessagePrimitive } from '../message.primitive'
+import { MessageRepository } from '../message.repository'
 
 /*
  *  TO-DO:

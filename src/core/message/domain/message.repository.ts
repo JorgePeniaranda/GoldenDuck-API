@@ -1,5 +1,5 @@
-import { type Message } from './messages.entity'
-import { type MessagePrimitive } from './messages.primitive'
+import { type Message } from './message.entity'
+import { type MessagePrimitive } from './message.primitive'
 
 export interface MessageRepository {
   create: (data: Message) => Promise<Message>

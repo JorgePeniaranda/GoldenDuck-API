@@ -17,7 +17,7 @@ import {
   MaxDate,
   Min
 } from 'class-validator'
-import { type UserPrimitive } from './user.primitive'
+import { UserRoles, type UserPrimitive } from './user.primitive'
 
 export class UserDTO implements UserPrimitive {
   /* ---------- ID ---------- */
@@ -162,8 +162,8 @@ export class UserDTO implements UserPrimitive {
 
   /* ---------- ROLE ---------- */
   @ApiProperty({
-    example: 'USER',
-    type: String
+    enum: UserRoles,
+    example: 'USER'
   })
   @IsString()
     role: UserPrimitive['role']

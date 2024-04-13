@@ -1,4 +1,4 @@
-import { type MessagePrimitive } from './messages.primitive'
+import { type MessagePrimitive } from './message.primitive'
 
 export class Message implements MessagePrimitive {
   readonly #id: MessagePrimitive['id']

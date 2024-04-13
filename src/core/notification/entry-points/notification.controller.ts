@@ -1,4 +1,4 @@
-import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
+import { type JwtPayload } from '@/core/auth/domain/payload.entity'
 import { NotificationErrorsMessages } from '@/messages/error/notification'
 import {
   Controller,

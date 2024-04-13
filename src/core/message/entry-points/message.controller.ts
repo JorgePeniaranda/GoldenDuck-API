@@ -1,4 +1,4 @@
-import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
+import { type JwtPayload } from '@/core/auth/domain/payload.entity'
 import {
   Body,
   Controller,
@@ -15,11 +15,11 @@ import {
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateMessageDTO } from '../domain/dto/create-message'
 import { UpdateMessageDTO } from '../domain/dto/update-message'
-import { type Message } from '../domain/messages.entity'
-import { type MessagePrimitive } from '../domain/messages.primitive'
+import { type Message } from '../domain/message.entity'
+import { type MessagePrimitive } from '../domain/message.primitive'
 import { ReadMessageService } from '../domain/service/read-messages.service'
 import { WriteMessageService } from '../domain/service/write-messages.service'
-import { MessageResponse } from './messages.response'
+import { MessageResponse } from './message.response'
 
 @ApiResponse({
   type: MessageResponse

@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 
-import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
+import { type JwtPayload } from '@/core/auth/domain/payload.entity'
 import { AccountErrorsMessages } from '@/messages/error/account'
 import { type Account } from '../domain/account.entity'
 import { ReadAccountService } from '../domain/service/read-account.service'

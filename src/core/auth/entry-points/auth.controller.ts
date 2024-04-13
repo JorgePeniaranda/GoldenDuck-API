@@ -37,6 +37,10 @@ export class AuthController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get()
   async test (@Request() req: { user: JwtPayload }): Promise<JwtPayload> {
+    console.log('TIME OUT STATED')
+    this.authService.test()
+    console.log('TIME OUT IN PROGRESS')
+
     return req.user
   }
 }

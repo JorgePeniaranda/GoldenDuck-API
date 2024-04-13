@@ -4,6 +4,7 @@ import { type User } from '@/core/user/domain/user.entity'
 import { Injectable } from '@nestjs/common'
 import { EventEmitter2 } from '@nestjs/event-emitter'
 import { JwtService } from '@nestjs/jwt'
+import { SchedulerRegistry } from '@nestjs/schedule'
 import { JwtPayload } from '../payload.entity'
 import { Token } from '../token.entity'
 
@@ -12,8 +13,18 @@ export class AuthService {
   constructor (
     private readonly readUserService: ReadUserService,
     private readonly jwtService: JwtService,
-    private readonly eventEmitter: EventEmitter2
+    private readonly eventEmitter: EventEmitter2,
+    private readonly schedulerRegistry: SchedulerRegistry
   ) {}
+
+  public test (): void {
+    const callback = (): void => {
+      console.log('Interval executing at time!')
+    }
+
+    const timeout = setTimeout(callback, 5000)
+    this.schedulerRegistry.addTimeout('test', timeout)
+  }
 
   public async validateUser (email: string, password: string): Promise<User | null> {
     const user = await this.readUserService.findOne({ email })

@@ -1,5 +1,5 @@
 import { ROLES_KEY } from '@/constants'
-import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
+import { type JwtPayload } from '@/core/auth/domain/payload.entity'
 import { type UserPrimitive } from '@/core/user/domain/user.primitive'
 import { Injectable, type CanActivate, type ExecutionContext } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
