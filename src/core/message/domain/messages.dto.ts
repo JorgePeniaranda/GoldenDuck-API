@@ -1,4 +1,3 @@
-import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
 import { ApiProperty } from '@nestjs/swagger'
 import { IsBoolean, IsDate, IsNumber, IsPositive, IsString, MaxDate } from 'class-validator'
 import { type MessagePrimitive } from './messages.primitive'
@@ -22,9 +21,9 @@ export class MessageDTO implements MessagePrimitive {
   @IsPositive()
     idSender: MessagePrimitive['idSender']
 
-  /* ---------- TO ---------- */
+  /* ---------- ID RECEIVER ---------- */
   @ApiProperty({
-    example: 1,
+    example: 3,
     type: Number
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
@@ -33,7 +32,7 @@ export class MessageDTO implements MessagePrimitive {
 
   /* ---------- MESSAGE ---------- */
   @ApiProperty({
-    example: 1000,
+    example: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     type: BigInt
   })
   @IsString()
@@ -41,8 +40,8 @@ export class MessageDTO implements MessagePrimitive {
 
   /* ---------- READ ---------- */
   @ApiProperty({
-    example: 1,
-    type: Number
+    example: true,
+    type: Boolean
   })
   @IsBoolean()
     read: MessagePrimitive['read']
@@ -54,7 +53,7 @@ export class MessageDTO implements MessagePrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
-    updatedAt: AccountPrimitive['updatedAt']
+    updatedAt: MessagePrimitive['updatedAt']
 
   /* ---------- CREATED AT ---------- */
   @ApiProperty({
@@ -63,14 +62,13 @@ export class MessageDTO implements MessagePrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
-    createdAt: AccountPrimitive['createdAt']
+    createdAt: MessagePrimitive['createdAt']
 
   /* ---------- DELETED ---------- */
   @ApiProperty({
-    example: true,
+    example: false,
     type: Boolean
   })
-  @IsString()
   @IsBoolean()
     deleted: boolean
 

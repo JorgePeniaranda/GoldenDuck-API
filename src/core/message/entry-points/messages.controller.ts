@@ -1,3 +1,4 @@
+import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
 import {
   Body,
   Controller,
@@ -7,14 +8,17 @@ import {
   NotFoundException,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
-  Put
+  Request
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
-import { CreateMessageDTO } from '../domain/dto/create-transaction'
+import { CreateMessageDTO } from '../domain/dto/create-message'
+import { UpdateMessageDTO } from '../domain/dto/update-message'
 import { type Message } from '../domain/messages.entity'
 import { type MessagePrimitive } from '../domain/messages.primitive'
-import { MessageService } from '../domain/service/messages.service'
+import { ReadMessageService } from '../domain/service/read-messages.service'
+import { WriteMessageService } from '../domain/service/write-messages.service'
 import { MessageResponse } from './messages.response'
 
 @ApiResponse({
@@ -24,11 +28,13 @@ import { MessageResponse } from './messages.response'
 @ApiBearerAuth()
 @Controller('message')
 export class MessageController {
-  constructor (private readonly messageService: MessageService) {}
+  constructor (private readonly writeMessageService: WriteMessageService, private readonly readMessageService: ReadMessageService) {}
 
   @Get()
-  async getAllTransaction (@Body() id: MessagePrimitive['id']): Promise<Message[]> {
-    const messages = await this.messageService.findAll(id)
+  async findAll (
+    @Request() UserData: { user: JwtPayload }
+  ): Promise<any> {
+    const messages = await this.readMessageService.findAll({ idUser: UserData.user.id })
 
     if (messages === null) {
       return []
@@ -38,17 +44,52 @@ export class MessageController {
   }
 
   @Post()
-  async createAccount (@Body() data: CreateMessageDTO): Promise<Message> {
-    const message = await this.messageService.create(data)
+  async createAccount (
+    @Request() UserData: { user: JwtPayload },
+      @Body() data: CreateMessageDTO): Promise<Message> {
+    const message = await this.writeMessageService.create({
+      idSender: UserData.user.id,
+      data
+    })
 
     return message
   }
 
-  @Get('/:id')
-  async getTransaction (
-    @Param('id', new ParseIntPipe()) id: MessagePrimitive['id']
+  @Get('/chat')
+  async findHistory (
+    @Request() UserData: { user: JwtPayload }
+  ): Promise<Message[]> {
+    const messages = await this.readMessageService.findHistory({
+      idUser: UserData.user.id
+    })
+
+    return messages
+  }
+
+  @Get('/chat/:idTarget')
+  async findChat (
+    @Request() UserData: { user: JwtPayload },
+      @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
+  ): Promise<Message[]> {
+    const messages = await this.readMessageService.findChat({
+      idUser: UserData.user.id,
+      idTarget
+    })
+
+    return messages
+  }
+
+  @Get('/chat/:idTarget/message/:index')
+  async findOne (
+    @Request() UserData: { user: JwtPayload },
+      @Param('idTarget', new ParseIntPipe()) idTarget: number,
+      @Param('index', new ParseIntPipe()) index: number
   ): Promise<Message> {
-    const message = await this.messageService.findOne(id)
+    const message = await this.readMessageService.findOne({
+      idUser: UserData.user.id,
+      idTarget,
+      index
+    })
 
     if (message === null) {
       throw new NotFoundException()
@@ -57,12 +98,19 @@ export class MessageController {
     return message
   }
 
-  @Put('/:id')
-  async updateTransaction (
-    @Param('id', new ParseIntPipe()) id: MessagePrimitive['id'],
-      @Body() data: MessagePrimitive
+  @Patch('/chat/:idTarget/message/:index')
+  async update (
+    @Request() UserData: { user: JwtPayload },
+      @Param('idTarget', new ParseIntPipe()) idTarget: number,
+      @Param('index', new ParseIntPipe()) index: number,
+      @Body() data: UpdateMessageDTO
   ): Promise<Message> {
-    const message = await this.messageService.update(id, data)
+    const message = await this.writeMessageService.update({
+      idUser: UserData.user.id,
+      idTarget,
+      index,
+      data
+    })
 
     if (message === null) {
       throw new NotFoundException()
@@ -72,10 +120,30 @@ export class MessageController {
   }
 
   @HttpCode(204)
-  @Delete('/:id')
-  async deleteTransaction (
-    @Param('id', new ParseIntPipe()) id: MessagePrimitive['id']
+  @Delete('/chat/:idTarget/message/:index')
+  async delete (
+    @Request() UserData: { user: JwtPayload },
+      @Param('idTarget', new ParseIntPipe()) idTarget: number,
+      @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
-    await this.messageService.delete(id)
+    await this.writeMessageService.delete({
+      idUser: UserData.user.id,
+      idTarget,
+      index
+    })
+  }
+
+  @HttpCode(204)
+  @Get('/chat/:idTarget/message/:index/read')
+  async read (
+    @Request() UserData: { user: JwtPayload },
+      @Param('idTarget', new ParseIntPipe()) idTarget: number,
+      @Param('index', new ParseIntPipe()) index: number
+  ): Promise<void> {
+    await this.writeMessageService.read({
+      idUser: UserData.user.id,
+      idTarget,
+      index
+    })
   }
 }

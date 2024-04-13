@@ -1,6 +1,5 @@
 import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
 import {
-  Body,
   Controller,
   Delete,
   Get,
@@ -8,11 +7,9 @@ import {
   NotFoundException,
   Param,
   ParseIntPipe,
-  Post,
   Request
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
-import { CreateSessionDTO } from '../domain/dto/create-session'
 import { ReadSessionService } from '../domain/service/read-session.service'
 import { WriteSessionService } from '../domain/service/write-session.service'
 import { type Session } from '../domain/session.entity'
@@ -34,13 +31,6 @@ export class SessionController {
     })
 
     return sessions
-  }
-
-  @Post()
-  async create (@Body() data: CreateSessionDTO): Promise<Session> {
-    const session = await this.writeSessionService.create(data)
-
-    return session
   }
 
   @Get('/:index')

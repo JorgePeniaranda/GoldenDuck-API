@@ -1,13 +1,20 @@
-import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
-import { type CreateMessageDTO } from './dto/create-transaction'
-import { type UpdateMessageDTO } from './dto/update-transaction'
 import { type Message } from './messages.entity'
 import { type MessagePrimitive } from './messages.primitive'
 
 export interface MessageRepository {
-  create: (data: CreateMessageDTO) => Promise<Message>
-  findAll: (id: AccountPrimitive['id']) => Promise<Message[] | null>
-  findOne: (id: MessagePrimitive['id']) => Promise<Message | null>
-  update: (id: MessagePrimitive['id'], message: UpdateMessageDTO) => Promise<Message | null>
-  delete: (id: MessagePrimitive['id']) => Promise<void>
+  create: (data: Message) => Promise<Message>
+  findAll: ({ idUser }: { idUser: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver'] }) => Promise<Message[]>
+  findByID: ({ id }: { id: MessagePrimitive['id'] }) => Promise<Message | null>
+  findOne: ({ idUser, idTarget, index }: {
+    idUser: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
+    idTarget: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
+    index: number
+  }) => Promise<Message | null>
+  findChat: ({ idUser, idTarget }: {
+    idUser: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
+    idTarget: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
+  }) => Promise<Message[]>
+  findHistory: ({ idUser }: { idUser: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver'] }) => Promise<Message[]>
+  update: (data: Message) => Promise<Message | null>
+  delete: (data: Message) => Promise<void>
 }
