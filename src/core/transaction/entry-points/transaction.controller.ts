@@ -1,4 +1,4 @@
-import { type JwtPayload } from '@/core/auth/domain/payload.entity'
+import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { TransactionErrorsMessages } from '@/messages/error/transaction'
 import {
   Body,
@@ -34,7 +34,7 @@ export class TransactionController {
 
   @Get()
   async findAll (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: TransactionPrimitive['id']
   ): Promise<Transaction[]> {
     const transactions = await this.readTransactionService.findAll({
@@ -47,7 +47,7 @@ export class TransactionController {
 
   @Post()
   async create (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Body() data: CreateTransactionDTO
   ): Promise<Transaction> {
@@ -62,7 +62,7 @@ export class TransactionController {
 
   @Get('/:index')
   async findOne (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Transaction> {
@@ -81,7 +81,7 @@ export class TransactionController {
 
   @Get('/send/:index')
   async findOneAsSender (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Transaction> {
@@ -100,7 +100,7 @@ export class TransactionController {
 
   @Get('/received/:index')
   async findOneAsReceiver (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Transaction> {
@@ -120,7 +120,7 @@ export class TransactionController {
   @HttpCode(204)
   @Delete('/:index')
   async delete (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {

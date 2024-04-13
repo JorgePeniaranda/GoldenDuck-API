@@ -6,6 +6,7 @@ import { EventEmitter2 } from '@nestjs/event-emitter'
 import { JwtService } from '@nestjs/jwt'
 import { SchedulerRegistry } from '@nestjs/schedule'
 import { JwtPayload } from '../payload.entity'
+import { SessionData } from '../session-data.entity'
 import { Token } from '../token.entity'
 
 @Injectable()
@@ -38,13 +39,20 @@ export class AuthService {
 
   public async login (user: User): Promise<Token> {
     const payload = new JwtPayload({ id: user.id, role: user.role })
-    const token = this.jwtService.sign(payload.toJSON(), {
+    const jwt = this.jwtService.sign(payload.toJSON(), {
       subject: user.id.toString()
     })
-    console.log(user)
 
-    this.eventEmitter.emit(EventsMap.USER_LOGGED_IN, user.toJSON())
+    const token = new Token(jwt)
 
-    return new Token(token)
+    this.eventEmitter.emit(
+      EventsMap.USER_LOGGED_IN,
+      new SessionData({
+        token: token.token,
+        user: user.toJSON()
+      })
+    )
+
+    return token
   }
 }

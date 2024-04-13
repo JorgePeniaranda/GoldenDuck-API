@@ -1,4 +1,4 @@
-import { type JwtPayload } from '@/core/auth/domain/payload.entity'
+import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { InvestmentErrorsMessages } from '@/messages/error/investment'
 import {
   Body,
@@ -48,7 +48,7 @@ export class InvestmentController {
 
   @Get('/:index')
   async findOne (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Investment> {
@@ -68,7 +68,7 @@ export class InvestmentController {
   @HttpCode(204)
   @Delete('/:index')
   async delete (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {

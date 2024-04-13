@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 
-import { type JwtPayload } from '@/core/auth/domain/payload.entity'
+import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { AccountErrorsMessages } from '@/messages/error/account'
 import { type Account } from '../domain/account.entity'
 import { ReadAccountService } from '../domain/service/read-account.service'
@@ -31,7 +31,7 @@ export class AccountController {
   ) {}
 
   @Get()
-  async findAll (@Request() UserData: { user: JwtPayload }): Promise<Account[]> {
+  async findAll (@Request() UserData: { user: PayloadPrimitive }): Promise<Account[]> {
     const accounts = await this.readAccountService.findAll({
       idUser: UserData.user.id
     })
@@ -40,7 +40,7 @@ export class AccountController {
   }
 
   @Post()
-  async create (@Request() UserData: { user: JwtPayload }): Promise<Account> {
+  async create (@Request() UserData: { user: PayloadPrimitive }): Promise<Account> {
     const account = await this.writeAccountService.create({
       idUser: UserData.user.id
     })
@@ -50,7 +50,7 @@ export class AccountController {
 
   @Get('/:index')
   async findOne (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Account> {
     const account = await this.readAccountService.findOne({ idUser: UserData.user.id, index })
@@ -65,7 +65,7 @@ export class AccountController {
   @HttpCode(204)
   @Delete('/:index')
   async delete (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
     await this.writeAccountService.delete({ idUser: UserData.user.id, index })

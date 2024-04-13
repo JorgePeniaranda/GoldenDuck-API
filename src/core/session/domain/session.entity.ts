@@ -66,10 +66,10 @@ export class Session implements SessionPrimitive {
     token
   }: {
     idUser: SessionPrimitive['idUser']
-    ip: SessionPrimitive['ip']
-    userAgent: SessionPrimitive['userAgent']
-    location: SessionPrimitive['location']
-    deviceType: SessionPrimitive['deviceType']
+    ip?: SessionPrimitive['ip']
+    userAgent?: SessionPrimitive['userAgent']
+    location?: SessionPrimitive['location']
+    deviceType?: SessionPrimitive['deviceType']
     token: SessionPrimitive['token']
   }): Session {
     return new Session({

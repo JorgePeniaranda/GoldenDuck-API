@@ -1,23 +1,23 @@
-import { type UserPrimitive } from '@/core/user/domain/user.primitive'
+import { type PayloadPrimitive } from './primitive/payload.primitive'
 
-export class JwtPayload {
-  readonly #id: UserPrimitive['id']
-  readonly #role: UserPrimitive['role']
+export class JwtPayload implements PayloadPrimitive {
+  readonly #id: PayloadPrimitive['id']
+  readonly #role: PayloadPrimitive['role']
 
-  constructor ({ id, role }: { id: UserPrimitive['id'], role: UserPrimitive['role'] }) {
+  constructor ({ id, role }: { id: PayloadPrimitive['id'], role: PayloadPrimitive['role'] }) {
     this.#id = id
     this.#role = role
   }
 
-  get id (): UserPrimitive['id'] {
+  get id (): PayloadPrimitive['id'] {
     return this.#id
   }
 
-  get role (): UserPrimitive['role'] {
+  get role (): PayloadPrimitive['role'] {
     return this.#role
   }
 
-  toJSON (): { id: UserPrimitive['id'], role: UserPrimitive['role'] } {
+  toJSON (): PayloadPrimitive {
     return {
       id: this.id,
       role: this.role

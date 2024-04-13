@@ -4,9 +4,7 @@ import { type SchedulerRegistry } from '@nestjs/schedule'
 export class TasksService {
   private readonly logger = new Logger(TasksService.name)
 
-  constructor (
-    private readonly schedulerRegistry: SchedulerRegistry
-  ) {}
+  constructor (private readonly schedulerRegistry: SchedulerRegistry) {}
 
   deleteCron (name: string): void {
     this.schedulerRegistry.deleteCronJob(name)
@@ -42,7 +40,9 @@ export class TasksService {
 
   getIntervals (): void {
     const intervals = this.schedulerRegistry.getIntervals()
-    intervals.forEach(key => { this.logger.log(`Interval: ${key}`) })
+    intervals.forEach(key => {
+      this.logger.log(`Interval: ${key}`)
+    })
   }
 
   addTimeout (name: string, milliseconds: number): void {
@@ -61,6 +61,8 @@ export class TasksService {
 
   getTimeouts (): void {
     const timeouts = this.schedulerRegistry.getTimeouts()
-    timeouts.forEach(key => { this.logger.log(`Timeout: ${key}`) })
+    timeouts.forEach(key => {
+      this.logger.log(`Timeout: ${key}`)
+    })
   }
 }

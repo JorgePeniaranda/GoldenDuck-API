@@ -1,4 +1,4 @@
-import { type JwtPayload } from '@/core/auth/domain/payload.entity'
+import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { NotificationErrorsMessages } from '@/messages/error/notification'
 import {
   Controller,
@@ -29,7 +29,7 @@ export class NotificationController {
   ) {}
 
   @Get()
-  async findAll (@Request() UserData: { user: JwtPayload }): Promise<Notification[]> {
+  async findAll (@Request() UserData: { user: PayloadPrimitive }): Promise<Notification[]> {
     const notifications = await this.readNotificationService.findAll({ idUser: UserData.user.id })
 
     return notifications
@@ -37,7 +37,7 @@ export class NotificationController {
 
   @Get('/:index')
   async findOne (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Notification> {
     const notification = await this.readNotificationService.findOne({
@@ -55,7 +55,7 @@ export class NotificationController {
   @HttpCode(204)
   @Delete('/:index')
   async delete (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
     await this.writeNotificationService.delete({ idUser: UserData.user.id, index })

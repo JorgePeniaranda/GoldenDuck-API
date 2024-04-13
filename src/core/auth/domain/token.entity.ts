@@ -1,15 +1,17 @@
-export class Token {
-  readonly #token: string
+import { type TokenPrimitive } from './primitive/token.primitive'
 
-  constructor (token: string) {
+export class Token implements TokenPrimitive {
+  readonly #token: TokenPrimitive['token']
+
+  constructor (token: TokenPrimitive['token']) {
     this.#token = token
   }
 
-  get token (): string {
+  get token (): TokenPrimitive['token'] {
     return this.#token
   }
 
-  toJSON (): { token: string } {
+  toJSON (): TokenPrimitive {
     return {
       token: this.token
     }

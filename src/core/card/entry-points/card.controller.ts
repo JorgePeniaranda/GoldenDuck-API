@@ -1,4 +1,4 @@
-import { type JwtPayload } from '@/core/auth/domain/payload.entity'
+import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import {
   Body,
   Controller,
@@ -33,7 +33,7 @@ export class CardController {
 
   @Get()
   async findAll (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: CardPrimitive['idAccount']
   ): Promise<Card[]> {
     const cards = await this.readCardService.findAll({
@@ -50,7 +50,7 @@ export class CardController {
 
   @Post()
   async create (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: CardPrimitive['idAccount'],
       @Body() data: CreateCardDTO
   ): Promise<Card> {
@@ -65,7 +65,7 @@ export class CardController {
 
   @Get('/:index')
   async findOne (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: CardPrimitive['idAccount'],
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Card> {
@@ -85,7 +85,7 @@ export class CardController {
   @HttpCode(204)
   @Delete('/:index')
   async delete (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: CardPrimitive['idAccount'],
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {

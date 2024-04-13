@@ -4,7 +4,7 @@ export const APP_INFO = {
   VERSION: '3.0.0',
   NAME: 'Golden Duck',
   DESCRIPTION:
-  'Online banking platform for money management, investments, and essential service payments.'
+    'Online banking platform for money management, investments, and essential service payments.'
 } as const
 
 /* SWAGGER */

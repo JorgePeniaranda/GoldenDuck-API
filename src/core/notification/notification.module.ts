@@ -9,6 +9,7 @@ import { ReadAccountService } from '../account/domain/service/read-account.servi
 import { type InvestmentPrimitive } from '../investment/domain/investment.primitive'
 import { type LoanPrimitive } from '../loan/domain/loan.primitive'
 import { type MessagePrimitive } from '../message/domain/message.primitive'
+import { type SessionPrimitive } from '../session/domain/session.primitive'
 import { type TransactionPrimitive } from '../transaction/domain/transaction.primitive'
 import { type UserPrimitive } from '../user/domain/user.primitive'
 import { NotificationRepositoryPrismaMySQL } from './data-access/notification-prisma-mysql.repository'
@@ -162,9 +163,9 @@ export class NotificationModule {
 
     /* ------------------------- SESSION EVENTS ------------------------- */
 
-    this.eventEmitter.on(EventsMap.USER_LOGGED_IN, (data: UserPrimitive) => {
+    this.eventEmitter.on(EventsMap.SESSION_CREATED, (data: SessionPrimitive) => {
       const params: Parameters<WriteNotificationService['create']>[0] = {
-        idUser: data.id,
+        idUser: data.idUser,
         message: NotificationMessages.NewSession
       }
 

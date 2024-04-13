@@ -8,7 +8,7 @@ import { RolesGuard } from '@/guard/role.guard'
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common'
 import { ApiBody, ApiExcludeEndpoint, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { LoginDTO } from '../domain/dto/login.dto'
-import { type JwtPayload } from '../domain/payload.entity'
+import { type PayloadPrimitive } from '../domain/primitive/payload.primitive'
 import { AuthService } from '../domain/service/auth.service'
 import { type Token } from '../domain/token.entity'
 import { TokenResponse } from './token.response'
@@ -36,7 +36,7 @@ export class AuthController {
   @Roles(UserRoles.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get()
-  async test (@Request() req: { user: JwtPayload }): Promise<JwtPayload> {
+  async test (@Request() req: { user: PayloadPrimitive }): Promise<PayloadPrimitive> {
     console.log('TIME OUT STATED')
     this.authService.test()
     console.log('TIME OUT IN PROGRESS')

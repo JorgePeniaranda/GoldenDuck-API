@@ -1,4 +1,4 @@
-import { type JwtPayload } from '@/core/auth/domain/payload.entity'
+import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import {
   Body,
   Controller,
@@ -34,7 +34,7 @@ export class MessageController {
   ) {}
 
   @Get('all')
-  async findAll (@Request() UserData: { user: JwtPayload }): Promise<any> {
+  async findAll (@Request() UserData: { user: PayloadPrimitive }): Promise<any> {
     const messages = await this.readMessageService.findAll({ idUser: UserData.user.id })
 
     if (messages === null) {
@@ -45,7 +45,7 @@ export class MessageController {
   }
 
   @Get('history')
-  async findHistory (@Request() UserData: { user: JwtPayload }): Promise<Message[]> {
+  async findHistory (@Request() UserData: { user: PayloadPrimitive }): Promise<Message[]> {
     const messages = await this.readMessageService.findHistory({
       idUser: UserData.user.id
     })
@@ -55,7 +55,7 @@ export class MessageController {
 
   @Get('/:idTarget')
   async findChat (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('idTarget', new ParseIntPipe())
       idTarget: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
   ): Promise<Message[]> {
@@ -69,7 +69,7 @@ export class MessageController {
 
   @Post('/:idTarget')
   async createAccount (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idReceiver'],
       @Body() data: CreateMessageDTO
   ): Promise<Message> {
@@ -84,7 +84,7 @@ export class MessageController {
 
   @Get('/:idTarget/message/:index')
   async findOne (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idReceiver'],
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Message> {
@@ -103,7 +103,7 @@ export class MessageController {
 
   @Patch('/:idTarget/message/:index')
   async update (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idReceiver'],
       @Param('index', new ParseIntPipe()) index: number,
       @Body() data: UpdateMessageDTO
@@ -125,7 +125,7 @@ export class MessageController {
   @HttpCode(204)
   @Delete('/:idTarget/message/:index')
   async delete (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idReceiver'],
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
@@ -139,7 +139,7 @@ export class MessageController {
   @HttpCode(204)
   @Get('/:idTarget/message/:index/read')
   async read (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idReceiver'],
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
