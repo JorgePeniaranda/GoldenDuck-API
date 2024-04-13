@@ -26,14 +26,14 @@ import { MessageResponse } from './messages.response'
 })
 @ApiTags('Message')
 @ApiBearerAuth()
-@Controller('message')
+@Controller('chat')
 export class MessageController {
   constructor (
     private readonly writeMessageService: WriteMessageService,
     private readonly readMessageService: ReadMessageService
   ) {}
 
-  @Get()
+  @Get('all')
   async findAll (@Request() UserData: { user: JwtPayload }): Promise<any> {
     const messages = await this.readMessageService.findAll({ idUser: UserData.user.id })
 
@@ -44,20 +44,7 @@ export class MessageController {
     return messages
   }
 
-  @Post()
-  async createAccount (
-    @Request() UserData: { user: JwtPayload },
-      @Body() data: CreateMessageDTO
-  ): Promise<Message> {
-    const message = await this.writeMessageService.create({
-      idSender: UserData.user.id,
-      data
-    })
-
-    return message
-  }
-
-  @Get('/chat')
+  @Get('history')
   async findHistory (@Request() UserData: { user: JwtPayload }): Promise<Message[]> {
     const messages = await this.readMessageService.findHistory({
       idUser: UserData.user.id
@@ -66,7 +53,7 @@ export class MessageController {
     return messages
   }
 
-  @Get('/chat/:idTarget')
+  @Get('/:idTarget')
   async findChat (
     @Request() UserData: { user: JwtPayload },
       @Param('idTarget', new ParseIntPipe())
@@ -80,10 +67,25 @@ export class MessageController {
     return messages
   }
 
-  @Get('/chat/:idTarget/message/:index')
+  @Post('/:idTarget')
+  async createAccount (
+    @Request() UserData: { user: JwtPayload },
+      @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idReceiver'],
+      @Body() data: CreateMessageDTO
+  ): Promise<Message> {
+    const message = await this.writeMessageService.create({
+      idSender: UserData.user.id,
+      idTarget,
+      data
+    })
+
+    return message
+  }
+
+  @Get('/:idTarget/message/:index')
   async findOne (
     @Request() UserData: { user: JwtPayload },
-      @Param('idTarget', new ParseIntPipe()) idTarget: number,
+      @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idReceiver'],
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Message> {
     const message = await this.readMessageService.findOne({
@@ -99,10 +101,10 @@ export class MessageController {
     return message
   }
 
-  @Patch('/chat/:idTarget/message/:index')
+  @Patch('/:idTarget/message/:index')
   async update (
     @Request() UserData: { user: JwtPayload },
-      @Param('idTarget', new ParseIntPipe()) idTarget: number,
+      @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idReceiver'],
       @Param('index', new ParseIntPipe()) index: number,
       @Body() data: UpdateMessageDTO
   ): Promise<Message> {
@@ -121,10 +123,10 @@ export class MessageController {
   }
 
   @HttpCode(204)
-  @Delete('/chat/:idTarget/message/:index')
+  @Delete('/:idTarget/message/:index')
   async delete (
     @Request() UserData: { user: JwtPayload },
-      @Param('idTarget', new ParseIntPipe()) idTarget: number,
+      @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idReceiver'],
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
     await this.writeMessageService.delete({
@@ -135,10 +137,10 @@ export class MessageController {
   }
 
   @HttpCode(204)
-  @Get('/chat/:idTarget/message/:index/read')
+  @Get('/:idTarget/message/:index/read')
   async read (
     @Request() UserData: { user: JwtPayload },
-      @Param('idTarget', new ParseIntPipe()) idTarget: number,
+      @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idReceiver'],
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
     await this.writeMessageService.read({

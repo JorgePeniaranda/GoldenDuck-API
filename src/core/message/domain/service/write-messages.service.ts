@@ -21,14 +21,16 @@ export class WriteMessageService {
 
   public async create ({
     idSender,
+    idTarget,
     data
   }: {
     idSender: MessagePrimitive['idSender']
+    idTarget: MessagePrimitive['idReceiver']
     data: CreateMessageDTO
   }): Promise<Message> {
     const message = Message.create({
       idSender,
-      idReceiver: data.idReceiver,
+      idReceiver: idTarget,
       message: data.message
     })
 

@@ -19,8 +19,8 @@ export class JwtPayload {
 
   toJSON (): { id: UserPrimitive['id'], role: UserPrimitive['role'] } {
     return {
-      id: this.#id,
-      role: this.#role
+      id: this.id,
+      role: this.role
     }
   }
 }
