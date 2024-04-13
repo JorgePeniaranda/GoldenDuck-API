@@ -14,7 +14,13 @@ export class ReadSessionService {
     return await this.sessionRepository.findAll({ idUser })
   }
 
-  public async findOne ({ idUser, index }: { idUser: SessionPrimitive['idUser'], index: number }): Promise<Session | null> {
+  public async findOne ({
+    idUser,
+    index
+  }: {
+    idUser: SessionPrimitive['idUser']
+    index: number
+  }): Promise<Session | null> {
     return await this.sessionRepository.findOne({ idUser, index })
   }
 

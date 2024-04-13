@@ -25,7 +25,10 @@ import { CategoryResponse } from './category.response'
 @ApiBearerAuth()
 @Controller('category')
 export class CategoryController {
-  constructor (private readonly writeCategoryService: WriteCategoryService, private readonly readCategoryService: ReadCategoryService) {}
+  constructor (
+    private readonly writeCategoryService: WriteCategoryService,
+    private readonly readCategoryService: ReadCategoryService
+  ) {}
 
   @Get()
   async findAll (): Promise<Category[]> {
@@ -42,9 +45,7 @@ export class CategoryController {
   }
 
   @Get('/:id')
-  async findOne (
-    @Param('id', new ParseIntPipe()) id: CategoryPrimitive['id']
-  ): Promise<Category> {
+  async findOne (@Param('id', new ParseIntPipe()) id: CategoryPrimitive['id']): Promise<Category> {
     const category = await this.readCategoryService.findOne({ id })
 
     if (category === null) {
@@ -56,9 +57,7 @@ export class CategoryController {
 
   @HttpCode(204)
   @Delete('/:id')
-  async delete (
-    @Param('id', new ParseIntPipe()) id: CategoryPrimitive['id']
-  ): Promise<void> {
+  async delete (@Param('id', new ParseIntPipe()) id: CategoryPrimitive['id']): Promise<void> {
     await this.writeCategoryService.delete({ id })
   }
 }

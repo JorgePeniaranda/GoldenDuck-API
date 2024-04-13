@@ -24,7 +24,15 @@ export class WriteInvestmentService {
     // TO-DO: add event to event to add money to account when investment is finished
   }
 
-  public async delete ({ idUser, AccountIndex, index }: { idUser: InvestmentPrimitive['id'], AccountIndex: number, index: number }): Promise<void> {
+  public async delete ({
+    idUser,
+    AccountIndex,
+    index
+  }: {
+    idUser: InvestmentPrimitive['id']
+    AccountIndex: number
+    index: number
+  }): Promise<void> {
     const account = await this.readAccountService.findOne({
       idUser,
       index: AccountIndex

@@ -10,5 +10,4 @@ export class LoanResponse extends PickType(LoanDTO, [
   'updatedAt',
   'createdAt',
   'canceled'
-]) {
-}
+]) {}

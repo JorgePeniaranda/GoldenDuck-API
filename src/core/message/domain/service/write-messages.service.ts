@@ -19,7 +19,13 @@ export class WriteMessageService {
     private readonly messageRepository: MessageRepository
   ) {}
 
-  public async create ({ idSender, data }: { idSender: MessagePrimitive['idSender'], data: CreateMessageDTO }): Promise<Message> {
+  public async create ({
+    idSender,
+    data
+  }: {
+    idSender: MessagePrimitive['idSender']
+    data: CreateMessageDTO
+  }): Promise<Message> {
     const message = Message.create({
       idSender,
       idReceiver: data.idReceiver,
@@ -31,7 +37,12 @@ export class WriteMessageService {
     // TO-DO: send notification to account
   }
 
-  public async update ({ idUser, idTarget, index, data }: {
+  public async update ({
+    idUser,
+    idTarget,
+    index,
+    data
+  }: {
     idUser: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
     idTarget: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
     index: number
@@ -52,7 +63,11 @@ export class WriteMessageService {
     return await this.messageRepository.update(message)
   }
 
-  public async read ({ idUser, idTarget, index }: {
+  public async read ({
+    idUser,
+    idTarget,
+    index
+  }: {
     idUser: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
     idTarget: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
     index: number
@@ -72,7 +87,11 @@ export class WriteMessageService {
     await this.messageRepository.update(message)
   }
 
-  public async delete ({ idUser, idTarget, index }: {
+  public async delete ({
+    idUser,
+    idTarget,
+    index
+  }: {
     idUser: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
     idTarget: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
     index: number

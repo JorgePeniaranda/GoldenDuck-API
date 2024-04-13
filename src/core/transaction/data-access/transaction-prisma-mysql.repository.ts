@@ -19,7 +19,9 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
     return new Transaction(transaction)
   }
 
-  public async findAll (id: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver']): Promise<Transaction[]> {
+  public async findAll (
+    id: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver']
+  ): Promise<Transaction[]> {
     const transactions = await this.prisma.transaction.findMany({
       where: {
         OR: [{ idSender: id }, { idReceiver: id }],

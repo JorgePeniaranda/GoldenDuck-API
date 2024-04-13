@@ -8,5 +8,4 @@ export class NotificationResponse extends PickType(NotificationDTO, [
   'read',
   'updatedAt',
   'createdAt'
-]) {
-}
+]) {}

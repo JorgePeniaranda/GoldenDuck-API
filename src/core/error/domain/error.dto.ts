@@ -31,7 +31,8 @@ export class ErrorDTO implements ErrorPrimitive {
 
   /* ---------- STACK ---------- */
   @ApiProperty({
-    example: 'Error: An error occurred\n    at Function.<anonymous> (/app/src/core/error/infrastructure/error.controller.ts:12:15)',
+    example:
+      'Error: An error occurred\n    at Function.<anonymous> (/app/src/core/error/infrastructure/error.controller.ts:12:15)',
     type: String
   })
   @IsString()

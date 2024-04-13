@@ -16,7 +16,11 @@ export class InvestmentRepositoryPrismaMySQL implements InvestmentRepository {
     return new Investment(investment)
   }
 
-  public async findAll ({ idAccount }: { idAccount: InvestmentPrimitive['idAccount'] }): Promise<Investment[]> {
+  public async findAll ({
+    idAccount
+  }: {
+    idAccount: InvestmentPrimitive['idAccount']
+  }): Promise<Investment[]> {
     const investments = await this.prisma.investment.findMany({
       where: {
         idAccount
@@ -26,7 +30,13 @@ export class InvestmentRepositoryPrismaMySQL implements InvestmentRepository {
     return investments.map(investment => new Investment(investment))
   }
 
-  public async findOne ({ idAccount, index }: { idAccount: InvestmentPrimitive['idAccount'], index: number }): Promise<Investment | null> {
+  public async findOne ({
+    idAccount,
+    index
+  }: {
+    idAccount: InvestmentPrimitive['idAccount']
+    index: number
+  }): Promise<Investment | null> {
     const investment = await this.prisma.investment.findMany({
       where: {
         idAccount
@@ -38,7 +48,11 @@ export class InvestmentRepositoryPrismaMySQL implements InvestmentRepository {
     return investment[0] !== undefined ? new Investment(investment[0]) : null
   }
 
-  public async findByID ({ id }: { id: InvestmentPrimitive['idAccount'] }): Promise<Investment | null> {
+  public async findByID ({
+    id
+  }: {
+    id: InvestmentPrimitive['idAccount']
+  }): Promise<Investment | null> {
     const investment = await this.prisma.investment.findUnique({
       where: {
         id

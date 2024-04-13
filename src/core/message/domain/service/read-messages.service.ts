@@ -23,15 +23,17 @@ export class ReadMessageService {
     return await this.messageRepository.findAll({ idUser })
   }
 
-  public async findByID ({ id }: {
-    id: MessagePrimitive['id']
-  }): Promise<Message | null> {
+  public async findByID ({ id }: { id: MessagePrimitive['id'] }): Promise<Message | null> {
     return await this.messageRepository.findByID({
       id
     })
   }
 
-  public async findOne ({ idUser, idTarget, index }: {
+  public async findOne ({
+    idUser,
+    idTarget,
+    index
+  }: {
     idUser: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
     idTarget: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
     index: number
@@ -55,7 +57,9 @@ export class ReadMessageService {
     })
   }
 
-  public async findHistory ({ idUser }: {
+  public async findHistory ({
+    idUser
+  }: {
     idUser: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
   }): Promise<any> {
     return await this.messageRepository.findHistory({
@@ -63,7 +67,10 @@ export class ReadMessageService {
     })
   }
 
-  public async findChat ({ idUser, idTarget }: {
+  public async findChat ({
+    idUser,
+    idTarget
+  }: {
     idUser: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
     idTarget: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
   }): Promise<Message[]> {

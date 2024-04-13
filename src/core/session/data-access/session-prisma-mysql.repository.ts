@@ -29,7 +29,13 @@ export class SessionRepositoryPrismaMySQL implements SessionRepository {
     return sessions.map(session => new Session(session))
   }
 
-  public async findOne ({ idUser, index }: { idUser: SessionPrimitive['idUser'], index: number }): Promise<Session | null> {
+  public async findOne ({
+    idUser,
+    index
+  }: {
+    idUser: SessionPrimitive['idUser']
+    index: number
+  }): Promise<Session | null> {
     const session = await this.prisma.session.findMany({
       where: {
         idUser

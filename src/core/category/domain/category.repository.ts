@@ -4,7 +4,10 @@ import { type CategoryPrimitive } from './category.primitive'
 export interface CategoryRepository {
   create: (data: Category) => Promise<Category>
   findAll: () => Promise<Category[]>
-  findOne: ({ id, name }: {
+  findOne: ({
+    id,
+    name
+  }: {
     id?: CategoryPrimitive['id']
     name?: CategoryPrimitive['name']
   }) => Promise<Category | null>

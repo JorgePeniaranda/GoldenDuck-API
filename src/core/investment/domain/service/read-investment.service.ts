@@ -17,7 +17,15 @@ export class ReadInvestmentService {
     return await this.investmentRepository.findAll({ idAccount })
   }
 
-  public async findOne ({ idUser, AccountIndex, index }: { idUser: InvestmentPrimitive['id'], AccountIndex: number, index: number }): Promise<Investment | null> {
+  public async findOne ({
+    idUser,
+    AccountIndex,
+    index
+  }: {
+    idUser: InvestmentPrimitive['id']
+    AccountIndex: number
+    index: number
+  }): Promise<Investment | null> {
     const account = await this.readAccountService.findOne({
       idUser,
       index: AccountIndex

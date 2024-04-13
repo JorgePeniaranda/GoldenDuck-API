@@ -11,5 +11,4 @@ export class SessionResponse extends PickType(SessionDTO, [
   'active',
   'logoutAt',
   'createdAt'
-]) {
-}
+]) {}

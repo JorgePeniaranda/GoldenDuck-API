@@ -10,5 +10,4 @@ export class MessageResponse extends PickType(MessageDTO, [
   'updatedAt',
   'createdAt',
   'deleted'
-]) {
-}
+]) {}

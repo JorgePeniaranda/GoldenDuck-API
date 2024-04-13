@@ -27,7 +27,10 @@ import { InvestmentResponse } from './investment.response'
 @ApiBearerAuth()
 @Controller('account/:AccountIndex/investment')
 export class InvestmentController {
-  constructor (private readonly writeInvestmentService: WriteInvestmentService, private readonly readInvestmentService: ReadInvestmentService) {}
+  constructor (
+    private readonly writeInvestmentService: WriteInvestmentService,
+    private readonly readInvestmentService: ReadInvestmentService
+  ) {}
 
   @Get()
   async findAll (@Body() id: InvestmentPrimitive['id']): Promise<Investment[]> {

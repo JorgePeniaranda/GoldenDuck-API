@@ -22,7 +22,10 @@ import { SessionResponse } from './session.response'
 @ApiBearerAuth()
 @Controller('/session')
 export class SessionController {
-  constructor (private readonly writeSessionService: WriteSessionService, private readonly readSessionService: ReadSessionService) {}
+  constructor (
+    private readonly writeSessionService: WriteSessionService,
+    private readonly readSessionService: ReadSessionService
+  ) {}
 
   @Get()
   async findAll (@Request() UserData: { user: JwtPayload }): Promise<Session[]> {
@@ -36,7 +39,8 @@ export class SessionController {
   @Get('/:index')
   async findOne (
     @Request() UserData: { user: JwtPayload },
-      @Param('index', new ParseIntPipe()) index: number): Promise<Session> {
+      @Param('index', new ParseIntPipe()) index: number
+  ): Promise<Session> {
     const session = await this.readSessionService.findOne({ idUser: UserData.user.id, index })
 
     if (session === null) {
@@ -50,7 +54,8 @@ export class SessionController {
   @Delete('/:index')
   async delete (
     @Request() UserData: { user: JwtPayload },
-      @Param('index', new ParseIntPipe()) index: number): Promise<void> {
+      @Param('index', new ParseIntPipe()) index: number
+  ): Promise<void> {
     await this.writeSessionService.delete({ idUser: UserData.user.id, index })
   }
 }

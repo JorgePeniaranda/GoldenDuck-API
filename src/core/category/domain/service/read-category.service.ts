@@ -14,7 +14,10 @@ export class ReadCategoryService {
     return await this.categoryRepository.findAll()
   }
 
-  public async findOne ({ id, name }: {
+  public async findOne ({
+    id,
+    name
+  }: {
     id?: CategoryPrimitive['id']
     name?: CategoryPrimitive['name']
   }): Promise<Category | null> {

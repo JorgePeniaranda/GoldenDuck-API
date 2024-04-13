@@ -11,7 +11,8 @@ import { LoanRepository } from '../loan.repository'
 export class WriteLoanService {
   constructor (
     private readonly readAccountService: ReadAccountService,
-    @Inject('LoanRepository') private readonly loanRepository: LoanRepository) {}
+    @Inject('LoanRepository') private readonly loanRepository: LoanRepository
+  ) {}
 
   public async create (data: CreateLoanDTO): Promise<Loan> {
     const loan = Loan.create(data)
@@ -22,7 +23,15 @@ export class WriteLoanService {
     // TO-DO: add event to event to add money to account when investment is finished
   }
 
-  public async delete ({ idUser, AccountIndex, index }: { idUser: LoanPrimitive['id'], AccountIndex: number, index: number }): Promise<void> {
+  public async delete ({
+    idUser,
+    AccountIndex,
+    index
+  }: {
+    idUser: LoanPrimitive['id']
+    AccountIndex: number
+    index: number
+  }): Promise<void> {
     const account = await this.readAccountService.findOne({
       idUser,
       index: AccountIndex

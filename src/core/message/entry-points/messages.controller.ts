@@ -28,12 +28,13 @@ import { MessageResponse } from './messages.response'
 @ApiBearerAuth()
 @Controller('message')
 export class MessageController {
-  constructor (private readonly writeMessageService: WriteMessageService, private readonly readMessageService: ReadMessageService) {}
+  constructor (
+    private readonly writeMessageService: WriteMessageService,
+    private readonly readMessageService: ReadMessageService
+  ) {}
 
   @Get()
-  async findAll (
-    @Request() UserData: { user: JwtPayload }
-  ): Promise<any> {
+  async findAll (@Request() UserData: { user: JwtPayload }): Promise<any> {
     const messages = await this.readMessageService.findAll({ idUser: UserData.user.id })
 
     if (messages === null) {
@@ -46,7 +47,8 @@ export class MessageController {
   @Post()
   async createAccount (
     @Request() UserData: { user: JwtPayload },
-      @Body() data: CreateMessageDTO): Promise<Message> {
+      @Body() data: CreateMessageDTO
+  ): Promise<Message> {
     const message = await this.writeMessageService.create({
       idSender: UserData.user.id,
       data
@@ -56,9 +58,7 @@ export class MessageController {
   }
 
   @Get('/chat')
-  async findHistory (
-    @Request() UserData: { user: JwtPayload }
-  ): Promise<Message[]> {
+  async findHistory (@Request() UserData: { user: JwtPayload }): Promise<Message[]> {
     const messages = await this.readMessageService.findHistory({
       idUser: UserData.user.id
     })
@@ -69,7 +69,8 @@ export class MessageController {
   @Get('/chat/:idTarget')
   async findChat (
     @Request() UserData: { user: JwtPayload },
-      @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
+      @Param('idTarget', new ParseIntPipe())
+      idTarget: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
   ): Promise<Message[]> {
     const messages = await this.readMessageService.findChat({
       idUser: UserData.user.id,

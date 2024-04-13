@@ -1,6 +1,14 @@
 import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
 import { ApiProperty } from '@nestjs/swagger'
-import { IsAlpha, IsBoolean, IsDate, IsNumber, IsPositive, IsString, MaxDate } from 'class-validator'
+import {
+  IsAlpha,
+  IsBoolean,
+  IsDate,
+  IsNumber,
+  IsPositive,
+  IsString,
+  MaxDate
+} from 'class-validator'
 import { type CategoryPrimitive } from './category.primitive'
 
 export class CategoryDTO implements CategoryPrimitive {

@@ -26,7 +26,13 @@ export class LoanRepositoryPrismaMySQL implements LoanRepository {
     return loans.map(loan => new Loan(loan))
   }
 
-  public async findOne ({ idAccount, index }: { idAccount: LoanPrimitive['idAccount'], index: number }): Promise<Loan | null> {
+  public async findOne ({
+    idAccount,
+    index
+  }: {
+    idAccount: LoanPrimitive['idAccount']
+    index: number
+  }): Promise<Loan | null> {
     const loan = await this.prisma.loan.findMany({
       where: {
         idAccount

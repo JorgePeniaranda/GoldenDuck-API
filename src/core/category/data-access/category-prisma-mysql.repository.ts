@@ -20,18 +20,19 @@ export class CategoryRepositoryPrismaMySQL implements CategoryRepository {
   }
 
   public async findAll (): Promise<Category[]> {
-    const categories = await this.prisma.category.findMany(
-      {
-        where: {
-          deleted: false
-        }
+    const categories = await this.prisma.category.findMany({
+      where: {
+        deleted: false
       }
-    )
+    })
 
     return categories.map(category => new Category(category))
   }
 
-  public async findOne ({ id, name }: {
+  public async findOne ({
+    id,
+    name
+  }: {
     id?: CategoryPrimitive['id']
     name?: CategoryPrimitive['name']
   }): Promise<Category | null> {

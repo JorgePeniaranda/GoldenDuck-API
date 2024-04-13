@@ -20,7 +20,13 @@ export class WriteSessionService {
     // TO-DO: send notification to account device and account email
   }
 
-  public async delete ({ idUser, index }: { idUser: SessionPrimitive['idUser'], index: number }): Promise<void> {
+  public async delete ({
+    idUser,
+    index
+  }: {
+    idUser: SessionPrimitive['idUser']
+    index: number
+  }): Promise<void> {
     const session = await this.sessionRepository.findOne({ idUser, index })
 
     if (session === null) {

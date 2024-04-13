@@ -25,7 +25,10 @@ import { ErrorResponse } from './error.response'
 @ApiTags('Error')
 @Controller('error')
 export class ErrorController {
-  constructor (private readonly writeErrorService: WriteErrorService, private readonly readErrorService: ReadErrorService) {}
+  constructor (
+    private readonly writeErrorService: WriteErrorService,
+    private readonly readErrorService: ReadErrorService
+  ) {}
 
   @ApiBearerAuth()
   @Get()

@@ -32,14 +32,25 @@ export class MessageRepositoryPrismaMySQL implements MessageRepository {
     return messages.map(message => new Message(message))
   }
 
-  public async findOne ({ idUser, idTarget, index }: { idUser: number, idTarget: number, index: number }): Promise<Message | null> {
+  public async findOne ({
+    idUser,
+    idTarget,
+    index
+  }: {
+    idUser: number
+    idTarget: number
+    index: number
+  }): Promise<Message | null> {
     const messages = await this.prisma.message.findMany({
       where: {
-        AND: [{
-          OR: [{ idSender: idUser }, { idReceiver: idUser }]
-        }, {
-          OR: [{ idSender: idTarget }, { idReceiver: idTarget }]
-        }]
+        AND: [
+          {
+            OR: [{ idSender: idUser }, { idReceiver: idUser }]
+          },
+          {
+            OR: [{ idSender: idTarget }, { idReceiver: idTarget }]
+          }
+        ]
       },
       skip: index,
       take: 1,
@@ -61,7 +72,9 @@ export class MessageRepositoryPrismaMySQL implements MessageRepository {
     return message === null ? null : new Message(message)
   }
 
-  public async findHistory ({ idUser }: {
+  public async findHistory ({
+    idUser
+  }: {
     idUser: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
   }): Promise<any> {
     const contacts = await this.prisma.message.groupBy({
@@ -75,11 +88,14 @@ export class MessageRepositoryPrismaMySQL implements MessageRepository {
       contacts.map(async contact => {
         return await this.prisma.message.findFirst({
           where: {
-            AND: [{
-              OR: [{ idSender: contact.idSender }, { idReceiver: contact.idSender }]
-            }, {
-              OR: [{ idSender: contact.idReceiver }, { idReceiver: contact.idReceiver }]
-            }]
+            AND: [
+              {
+                OR: [{ idSender: contact.idSender }, { idReceiver: contact.idSender }]
+              },
+              {
+                OR: [{ idSender: contact.idReceiver }, { idReceiver: contact.idReceiver }]
+              }
+            ]
           }
         })
       })
@@ -96,17 +112,23 @@ export class MessageRepositoryPrismaMySQL implements MessageRepository {
     return lastMessageWithContacts
   }
 
-  public async findChat ({ idUser, idTarget }: {
+  public async findChat ({
+    idUser,
+    idTarget
+  }: {
     idUser: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
     idTarget: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
   }): Promise<Message[]> {
     const messages = await this.prisma.message.findMany({
       where: {
-        AND: [{
-          OR: [{ idSender: idUser }, { idReceiver: idUser }]
-        }, {
-          OR: [{ idSender: idTarget }, { idReceiver: idTarget }]
-        }]
+        AND: [
+          {
+            OR: [{ idSender: idUser }, { idReceiver: idUser }]
+          },
+          {
+            OR: [{ idSender: idTarget }, { idReceiver: idTarget }]
+          }
+        ]
       },
       orderBy: {
         createdAt: 'desc'

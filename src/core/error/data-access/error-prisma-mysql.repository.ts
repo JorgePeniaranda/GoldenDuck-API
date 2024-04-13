@@ -20,13 +20,11 @@ export class ErrorRepositoryPrismaMySQL implements ErrorRepository {
   }
 
   public async findAll (): Promise<Error[]> {
-    const errors = await this.prisma.error.findMany(
-      {
-        where: {
-          deleted: false
-        }
+    const errors = await this.prisma.error.findMany({
+      where: {
+        deleted: false
       }
-    )
+    })
 
     return errors.map(error => new Error(error))
   }

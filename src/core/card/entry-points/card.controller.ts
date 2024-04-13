@@ -26,7 +26,10 @@ import { CardResponse } from './card.response'
 @ApiBearerAuth()
 @Controller('account/:AccountIndex/card')
 export class CardController {
-  constructor (private readonly writeCardService: WriteCardService, private readonly readCardService: ReadCardService) {}
+  constructor (
+    private readonly writeCardService: WriteCardService,
+    private readonly readCardService: ReadCardService
+  ) {}
 
   @Get()
   async findAll (
@@ -51,7 +54,11 @@ export class CardController {
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: CardPrimitive['idAccount'],
       @Body() data: CreateCardDTO
   ): Promise<Card> {
-    const card = await this.writeCardService.create({ idUser: UserData.user.id, AccountIndex, data })
+    const card = await this.writeCardService.create({
+      idUser: UserData.user.id,
+      AccountIndex,
+      data
+    })
 
     return card
   }

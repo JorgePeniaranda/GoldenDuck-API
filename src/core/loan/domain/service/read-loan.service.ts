@@ -9,13 +9,22 @@ import { LoanRepository } from '../loan.repository'
 export class ReadLoanService {
   constructor (
     private readonly readAccountService: ReadAccountService,
-    @Inject('LoanRepository') private readonly loanRepository: LoanRepository) {}
+    @Inject('LoanRepository') private readonly loanRepository: LoanRepository
+  ) {}
 
   public async findAll (idAccount: LoanPrimitive['idAccount']): Promise<Loan[]> {
     return await this.loanRepository.findAll({ idAccount })
   }
 
-  public async findOne ({ idUser, AccountIndex, index }: { idUser: LoanPrimitive['id'], AccountIndex: number, index: number }): Promise<Loan | null> {
+  public async findOne ({
+    idUser,
+    AccountIndex,
+    index
+  }: {
+    idUser: LoanPrimitive['id']
+    AccountIndex: number
+    index: number
+  }): Promise<Loan | null> {
     const account = await this.readAccountService.findOne({
       idUser,
       index: AccountIndex
