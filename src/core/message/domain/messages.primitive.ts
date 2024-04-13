@@ -1,12 +1,12 @@
 import { type Message } from '@prisma/client'
 
 export interface MessagePrimitive {
-  id: Message['id']
-  idSender: Message['idSender']
-  idReceiver: Message['idReceiver']
+  readonly id: Message['id']
+  readonly idSender: Message['idSender']
+  readonly idReceiver: Message['idReceiver']
   message: Message['message']
   read: Message['read']
   updatedAt: Message['updatedAt']
-  createdAt: Message['createdAt']
+  readonly createdAt: Message['createdAt']
   deleted: Message['deleted']
 }

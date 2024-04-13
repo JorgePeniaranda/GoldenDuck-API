@@ -5,7 +5,7 @@ const optionalProperties = ['id', 'balance', 'updatedAt', 'createdAt', 'deleted'
 export class Account implements AccountPrimitive {
   readonly #id: AccountPrimitive['id']
   readonly #idUser: AccountPrimitive['idUser']
-  public balance: AccountPrimitive['balance']
+  #balance: AccountPrimitive['balance']
   public updatedAt: AccountPrimitive['updatedAt']
   readonly #createdAt: AccountPrimitive['createdAt']
   public deleted: AccountPrimitive['deleted']
@@ -13,7 +13,7 @@ export class Account implements AccountPrimitive {
   constructor (account: AccountPrimitive) {
     this.#id = account.id
     this.#idUser = account.idUser
-    this.balance = account.balance
+    this.#balance = account.balance
     this.updatedAt = account.updatedAt
     this.#createdAt = account.createdAt
     this.deleted = account.deleted
@@ -27,16 +27,20 @@ export class Account implements AccountPrimitive {
     return this.#idUser
   }
 
+  public get balance (): AccountPrimitive['balance'] {
+    return this.#balance
+  }
+
   public get createdAt (): AccountPrimitive['createdAt'] {
     return this.#createdAt
   }
 
   public incrementBalance (value: AccountPrimitive['balance']): void {
-    this.balance += value
+    this.#balance += value
   }
 
   public decrementBalance (value: AccountPrimitive['balance']): void {
-    this.balance -= value
+    this.#balance -= value
   }
 
   public toJSON (): AccountPrimitive {

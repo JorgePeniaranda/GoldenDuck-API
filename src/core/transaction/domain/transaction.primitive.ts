@@ -1,11 +1,11 @@
 import { type Transaction } from '@prisma/client'
 
 export interface TransactionPrimitive {
-  id: Transaction['id']
-  idSender: Transaction['idSender']
-  idReceiver: Transaction['idReceiver']
-  amount: Transaction['amount']
+  readonly id: Transaction['id']
+  readonly idSender: Transaction['idSender']
+  readonly idReceiver: Transaction['idReceiver']
+  readonly amount: Transaction['amount']
   idCategory?: Transaction['idCategory']
-  createdAt: Transaction['createdAt']
+  readonly createdAt: Transaction['createdAt']
   canceled: Transaction['canceled']
 }

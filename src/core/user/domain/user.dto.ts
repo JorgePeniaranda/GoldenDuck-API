@@ -78,8 +78,7 @@ export class UserDTO implements UserPrimitive {
     example: '@oZ5d%^*wU92',
     type: String
   })
-  @Exclude()
-  @IsString()
+  @Exclude() // fix
   @IsStrongPassword({
     minLength: 8,
     minLowercase: 1,
@@ -90,7 +89,7 @@ export class UserDTO implements UserPrimitive {
     password: UserPrimitive['password']
 
   /* ---------- SALT ---------- */
-  @Exclude()
+  @Exclude() // fix
   @IsString()
     salt: string
 

@@ -1,18 +1,26 @@
 import { type CategoryPrimitive } from './category.primitive'
 
 export class Category implements CategoryPrimitive {
-  id: CategoryPrimitive['id']
+  readonly #id: CategoryPrimitive['id']
   name: CategoryPrimitive['name']
   updatedAt: CategoryPrimitive['updatedAt']
-  createdAt: CategoryPrimitive['createdAt']
+  readonly #createdAt: CategoryPrimitive['createdAt']
   deleted: CategoryPrimitive['deleted']
 
   constructor (transaction: CategoryPrimitive) {
-    this.id = transaction.id
+    this.#id = transaction.id
     this.name = transaction.name
     this.updatedAt = transaction.updatedAt
-    this.createdAt = transaction.createdAt
+    this.#createdAt = transaction.createdAt
     this.deleted = transaction.deleted
+  }
+
+  get id (): CategoryPrimitive['id'] {
+    return this.#id
+  }
+
+  get createdAt (): CategoryPrimitive['createdAt'] {
+    return this.#createdAt
   }
 
   public static create ({ name }: { name: CategoryPrimitive['name'] }): Category {

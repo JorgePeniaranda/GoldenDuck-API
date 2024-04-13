@@ -1,22 +1,42 @@
 import { type TransactionPrimitive } from './transaction.primitive'
 
 export class Transaction implements TransactionPrimitive {
-  public id: TransactionPrimitive['id']
-  public idSender: TransactionPrimitive['idSender']
-  public idReceiver: TransactionPrimitive['idReceiver']
-  public amount: TransactionPrimitive['amount']
-  public idCategory?: TransactionPrimitive['idCategory']
-  public createdAt: TransactionPrimitive['createdAt']
-  public canceled: TransactionPrimitive['canceled']
+  readonly #id: TransactionPrimitive['id']
+  readonly #idSender: TransactionPrimitive['idSender']
+  readonly #idReceiver: TransactionPrimitive['idReceiver']
+  readonly #amount: TransactionPrimitive['amount']
+  idCategory?: TransactionPrimitive['idCategory']
+  readonly #createdAt: TransactionPrimitive['createdAt']
+  canceled: TransactionPrimitive['canceled']
 
   constructor (transaction: TransactionPrimitive) {
-    this.id = transaction.id
-    this.idSender = transaction.idSender
-    this.idReceiver = transaction.idReceiver
-    this.amount = transaction.amount
+    this.#id = transaction.id
+    this.#idSender = transaction.idSender
+    this.#idReceiver = transaction.idReceiver
+    this.#amount = transaction.amount
     this.idCategory = transaction.idCategory
-    this.createdAt = transaction.createdAt
+    this.#createdAt = transaction.createdAt
     this.canceled = transaction.canceled
+  }
+
+  get id (): TransactionPrimitive['id'] {
+    return this.#id
+  }
+
+  get idSender (): TransactionPrimitive['idSender'] {
+    return this.#idSender
+  }
+
+  get idReceiver (): TransactionPrimitive['idReceiver'] {
+    return this.#idReceiver
+  }
+
+  get amount (): TransactionPrimitive['amount'] {
+    return this.#amount
+  }
+
+  get createdAt (): TransactionPrimitive['createdAt'] {
+    return this.#createdAt
   }
 
   public static create ({

@@ -1,12 +1,12 @@
 import { type Loan } from '@prisma/client'
 
 export interface LoanPrimitive {
-  id: Loan['id']
-  idAccount: Loan['idAccount']
-  amount: Loan['amount']
-  interest: Loan['interest']
-  dateEnd: Loan['dateEnd']
+  readonly id: Loan['id']
+  readonly idAccount: Loan['idAccount']
+  readonly amount: Loan['amount']
+  readonly interest: Loan['interest']
+  readonly dateEnd: Loan['dateEnd']
   updatedAt: Loan['updatedAt']
-  createdAt: Loan['createdAt']
+  readonly createdAt: Loan['createdAt']
   canceled: Loan['canceled']
 }

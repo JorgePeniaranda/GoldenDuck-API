@@ -1,24 +1,48 @@
 import { type LoanPrimitive } from './loan.primitive'
 
 export class Loan implements LoanPrimitive {
-  id: LoanPrimitive['id']
-  idAccount: LoanPrimitive['idAccount']
-  amount: LoanPrimitive['amount']
-  interest: LoanPrimitive['interest']
-  dateEnd: LoanPrimitive['dateEnd']
+  readonly #id: LoanPrimitive['id']
+  readonly #idAccount: LoanPrimitive['idAccount']
+  readonly #amount: LoanPrimitive['amount']
+  readonly #interest: LoanPrimitive['interest']
+  readonly #dateEnd: LoanPrimitive['dateEnd']
   updatedAt: LoanPrimitive['updatedAt']
-  createdAt: LoanPrimitive['createdAt']
+  readonly #createdAt: LoanPrimitive['createdAt']
   canceled: LoanPrimitive['canceled']
 
   constructor (loan: LoanPrimitive) {
-    this.id = loan.id
-    this.idAccount = loan.idAccount
-    this.amount = loan.amount
-    this.interest = loan.interest
-    this.dateEnd = loan.dateEnd
+    this.#id = loan.id
+    this.#idAccount = loan.idAccount
+    this.#amount = loan.amount
+    this.#interest = loan.interest
+    this.#dateEnd = loan.dateEnd
     this.updatedAt = loan.updatedAt
-    this.createdAt = loan.createdAt
+    this.#createdAt = loan.createdAt
     this.canceled = loan.canceled
+  }
+
+  get id (): LoanPrimitive['id'] {
+    return this.#id
+  }
+
+  get idAccount (): LoanPrimitive['idAccount'] {
+    return this.#idAccount
+  }
+
+  get amount (): LoanPrimitive['amount'] {
+    return this.#amount
+  }
+
+  get interest (): LoanPrimitive['interest'] {
+    return this.#interest
+  }
+
+  get dateEnd (): LoanPrimitive['dateEnd'] {
+    return this.#dateEnd
+  }
+
+  get createdAt (): LoanPrimitive['createdAt'] {
+    return this.#createdAt
   }
 
   public static create ({
