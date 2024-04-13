@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsBoolean, IsDate, IsNumber, IsPositive, IsString, MaxDate } from 'class-validator'
+import { IsBoolean, IsDate, IsNumber, IsPositive, MaxDate } from 'class-validator'
 import { type InvestmentPrimitive } from './investment.primitive'
 
 export class InvestmentDTO implements InvestmentPrimitive {
@@ -14,7 +14,7 @@ export class InvestmentDTO implements InvestmentPrimitive {
 
   /* ---------- ID ACCOUNT ---------- */
   @ApiProperty({
-    example: 1,
+    example: 2,
     type: Number
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
@@ -23,7 +23,7 @@ export class InvestmentDTO implements InvestmentPrimitive {
 
   /* ---------- AMOUNT ---------- */
   @ApiProperty({
-    example: 1,
+    example: 1000,
     type: Number
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
@@ -39,7 +39,7 @@ export class InvestmentDTO implements InvestmentPrimitive {
   @IsNumber({ allowInfinity: false, allowNaN: false })
     interest: InvestmentPrimitive['interest']
 
-  /* ---------- UPDATED AT ---------- */
+  /* ---------- DATE END ---------- */
   @ApiProperty({
     example: new Date(),
     type: Date
@@ -70,7 +70,6 @@ export class InvestmentDTO implements InvestmentPrimitive {
     example: true,
     type: Boolean
   })
-  @IsString()
   @IsBoolean()
     canceled: InvestmentPrimitive['canceled']
 

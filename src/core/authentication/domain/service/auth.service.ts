@@ -12,7 +12,7 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
-  async validateUser (email: string, password: string): Promise<User | null> {
+  public async validateUser (email: string, password: string): Promise<User | null> {
     const user = await this.readUserService.findOne({ email })
 
     if (user !== null && user.comparePassword(password)) {
@@ -22,7 +22,7 @@ export class AuthService {
     return null
   }
 
-  async login (user: User): Promise<Token> {
+  public async login (user: User): Promise<Token> {
     const payload = new JwtPayload({ id: user.id, role: user.role })
     const token = this.jwtService.sign(payload.toJSON(), {
       subject: user.id.toString()

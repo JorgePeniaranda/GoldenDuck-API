@@ -20,4 +20,38 @@ export class Message implements MessagePrimitive {
     this.createdAt = props.createdAt
     this.deleted = props.deleted
   }
+
+  static create ({
+    idSender,
+    idReceiver,
+    message
+  }: {
+    idSender: MessagePrimitive['idSender']
+    idReceiver: MessagePrimitive['idReceiver']
+    message: MessagePrimitive['message']
+  }): Message {
+    return new Message({
+      id: 0,
+      idSender,
+      idReceiver,
+      message,
+      read: false,
+      updatedAt: new Date(),
+      createdAt: new Date(),
+      deleted: false
+    })
+  }
+
+  public toJSON (): MessagePrimitive {
+    return {
+      id: this.id,
+      idSender: this.idSender,
+      idReceiver: this.idReceiver,
+      message: this.message,
+      read: this.read,
+      updatedAt: this.updatedAt,
+      createdAt: this.createdAt,
+      deleted: this.deleted
+    }
+  }
 }

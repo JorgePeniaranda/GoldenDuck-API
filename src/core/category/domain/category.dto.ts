@@ -15,8 +15,8 @@ export class CategoryDTO implements CategoryPrimitive {
 
   /* ---------- NAME ---------- */
   @ApiProperty({
-    example: 1,
-    type: Number
+    example: 'Category',
+    type: String
   })
   @IsString()
   @IsAlpha()
@@ -45,7 +45,6 @@ export class CategoryDTO implements CategoryPrimitive {
     example: true,
     type: Boolean
   })
-  @IsString()
   @IsBoolean()
     deleted: boolean
 

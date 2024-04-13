@@ -3,7 +3,7 @@ import { ConflictException, Inject, Injectable, NotFoundException } from '@nestj
 import { Category } from '../category.entity'
 import { type CategoryPrimitive } from '../category.primitive'
 import { CategoryRepository } from '../category.repository'
-import { type CreateErrorDTO } from '../dto/create-category'
+import { type CreateCategoryDTO } from '../dto/create-category'
 
 @Injectable()
 export class WriteCategoryService {
@@ -12,7 +12,7 @@ export class WriteCategoryService {
     private readonly categoryRepository: CategoryRepository
   ) {}
 
-  public async create (data: CreateErrorDTO): Promise<Category> {
+  public async create (data: CreateCategoryDTO): Promise<Category> {
     const checkCategory = await this.categoryRepository.findOne({
       name: data.name
     })

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsBoolean, IsDate, IsNumber, IsPositive, IsString, Length, MaxDate } from 'class-validator'
+import { IsBoolean, IsDate, IsNumber, IsPositive, Length, MaxDate } from 'class-validator'
 import { type CardPrimitive } from './card.primitive'
 
 export class CardDTO implements CardPrimitive {
@@ -14,7 +14,7 @@ export class CardDTO implements CardPrimitive {
 
   /* ---------- IDACCOUNT ---------- */
   @ApiProperty({
-    example: 1,
+    example: 2,
     type: Number
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
@@ -23,7 +23,7 @@ export class CardDTO implements CardPrimitive {
 
   /* ---------- NUMBER ---------- */
   @ApiProperty({
-    example: 1,
+    example: 374245455400126,
     type: Number
   })
   @IsNumber()
@@ -32,7 +32,7 @@ export class CardDTO implements CardPrimitive {
 
   /* ---------- CVV ---------- */
   @ApiProperty({
-    example: 1,
+    example: 132,
     type: Number
   })
   @IsNumber()
@@ -70,7 +70,6 @@ export class CardDTO implements CardPrimitive {
     example: true,
     type: Boolean
   })
-  @IsString()
   @IsBoolean()
     deleted: boolean
 
