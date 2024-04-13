@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IsBoolean, IsDate, IsNumber, IsPositive, IsString, MaxDate } from 'class-validator'
-import { type MessagePrimitive } from './messages.primitive'
+import { type MessagePrimitive } from './message.primitive'
 
 export class MessageDTO implements MessagePrimitive {
   /* ---------- ID ---------- */

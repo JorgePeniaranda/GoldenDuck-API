@@ -1,4 +1,4 @@
-import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
+import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import {
   Controller,
   Delete,
@@ -28,7 +28,7 @@ export class SessionController {
   ) {}
 
   @Get()
-  async findAll (@Request() UserData: { user: JwtPayload }): Promise<Session[]> {
+  async findAll (@Request() UserData: { user: PayloadPrimitive }): Promise<Session[]> {
     const sessions = await this.readSessionService.findAll({
       idUser: UserData.user.id
     })
@@ -38,7 +38,7 @@ export class SessionController {
 
   @Get('/:index')
   async findOne (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Session> {
     const session = await this.readSessionService.findOne({ idUser: UserData.user.id, index })
@@ -53,7 +53,7 @@ export class SessionController {
   @HttpCode(204)
   @Delete('/:index')
   async delete (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
     await this.writeSessionService.delete({ idUser: UserData.user.id, index })

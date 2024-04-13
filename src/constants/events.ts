@@ -13,6 +13,7 @@ export const EventsMap = {
   TRANSACTION_REVERTED: 'transaction.reverted',
   MESSAGE_CREATED: 'message.created',
   CREATE_SESSION: 'create.session',
+  SESSION_CREATED: 'session.created',
   LOAN_CREATED: 'loan.created',
   LOAN_CANCELLED: 'loan.cancelled',
   INVESTMENT_CREATED: 'investment.created',

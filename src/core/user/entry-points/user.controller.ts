@@ -1,4 +1,4 @@
-import { type JwtPayload } from '@/core/authentication/domain/payload.entity'
+import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { Public } from '@/decorators/public.decorator'
 import { UserErrorsMessages } from '@/messages/error/user'
 import {
@@ -36,7 +36,7 @@ export class UserController {
 
   @ApiBearerAuth()
   @Get('/')
-  async findOne (@Request() UserData: { user: JwtPayload }): Promise<User> {
+  async findOne (@Request() UserData: { user: PayloadPrimitive }): Promise<User> {
     const user = await this.readUserService.findByID({
       id: UserData.user.id
     })
@@ -58,7 +58,7 @@ export class UserController {
   @ApiBearerAuth()
   @Patch()
   async update (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Body() data: UpdateUserDTO
   ): Promise<UserPrimitive> {
     return await this.writeUserService.update({
@@ -71,7 +71,7 @@ export class UserController {
   @HttpCode(204)
   @Delete()
   async delete (
-    @Request() UserData: { user: JwtPayload },
+    @Request() UserData: { user: PayloadPrimitive },
       @Body() data: DeleteUserDTO
   ): Promise<void> {
     await this.writeUserService.delete({
@@ -93,7 +93,7 @@ export class UserController {
 
   @HttpCode(204)
   @Get('/activate')
-  async activate (@Request() UserData: { user: JwtPayload }): Promise<'🤠'> {
+  async activate (@Request() UserData: { user: PayloadPrimitive }): Promise<'🤠'> {
     await this.writeUserService.activate({
       id: UserData.user.id
     })

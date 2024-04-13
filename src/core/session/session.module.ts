@@ -1,5 +1,8 @@
+import { EventsMap } from '@/constants/events'
 import { Module } from '@nestjs/common'
+import { EventEmitter2 } from '@nestjs/event-emitter'
 import { PrismaService } from '../../services/prisma.service'
+import { type SessionDataPrimitive } from '../auth/domain/primitive/session-data.primitive'
 import { SessionRepositoryPrismaMySQL } from './data-access/session-prisma-mysql.repository'
 import { ReadSessionService } from './domain/service/read-session.service'
 import { WriteSessionService } from './domain/service/write-session.service'
@@ -18,4 +21,19 @@ import { SessionController } from './entry-points/session.controller'
   ],
   exports: [ReadSessionService]
 })
-export class SessionModule {}
+export class SessionModule {
+  constructor (private readonly eventEmitter: EventEmitter2) {
+    /* @region EVENTS SUBSCRIPTION */
+
+    /* ------------------------- USER EVENTS ------------------------- */
+
+    this.eventEmitter.on(EventsMap.USER_LOGGED_IN, ({ user, token }: SessionDataPrimitive) => {
+      const params: Parameters<WriteSessionService['create']>[0] = {
+        idUser: user.id,
+        token
+      }
+
+      this.eventEmitter.emit(EventsMap.CREATE_SESSION, params)
+    })
+  }
+}

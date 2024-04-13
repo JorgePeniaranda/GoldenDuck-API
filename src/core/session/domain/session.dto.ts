@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsBoolean, IsDate, IsNumber, IsPositive, IsString, MaxDate } from 'class-validator'
+import {
+  IsBoolean,
+  IsDate,
+  IsNumber,
+  IsOptional,
+  IsPositive,
+  IsString,
+  MaxDate
+} from 'class-validator'
 import { type SessionPrimitive } from './session.primitive'
 
 export class SessionDTO implements SessionPrimitive {
@@ -27,6 +35,7 @@ export class SessionDTO implements SessionPrimitive {
     type: String
   })
   @IsString()
+  @IsOptional()
     ip: SessionPrimitive['ip']
 
   /* ---------- USER AGENT ---------- */
@@ -35,6 +44,7 @@ export class SessionDTO implements SessionPrimitive {
     type: String
   })
   @IsString()
+  @IsOptional()
     userAgent: SessionPrimitive['userAgent']
 
   /* ---------- LOCATION ---------- */
@@ -43,6 +53,7 @@ export class SessionDTO implements SessionPrimitive {
     type: String
   })
   @IsString()
+  @IsOptional()
     location: SessionPrimitive['location']
 
   /* ---------- DEVICETYPE ---------- */
@@ -51,6 +62,7 @@ export class SessionDTO implements SessionPrimitive {
     type: String
   })
   @IsString()
+  @IsOptional()
     deviceType: SessionPrimitive['deviceType']
 
   /* ---------- TOKEN ---------- */

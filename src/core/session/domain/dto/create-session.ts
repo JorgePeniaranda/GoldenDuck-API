@@ -1,11 +1,7 @@
-import { PickType } from '@nestjs/swagger'
+import { IntersectionType, PartialType, PickType } from '@nestjs/swagger'
 import { SessionDTO } from '../session.dto'
 
-export class CreateSessionDTO extends PickType(SessionDTO, [
-  'idUser',
-  'ip',
-  'userAgent',
-  'location',
-  'deviceType',
-  'token'
-]) {}
+export class CreateSessionDTO extends IntersectionType(
+  PickType(SessionDTO, ['idUser', 'token']),
+  PartialType(PickType(SessionDTO, ['ip', 'userAgent', 'location', 'deviceType']))
+) {}
