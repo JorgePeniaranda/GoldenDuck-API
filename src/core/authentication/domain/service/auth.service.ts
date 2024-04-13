@@ -1,6 +1,8 @@
+import { EventsMap } from '@/constants/events'
 import { ReadUserService } from '@/core/user/domain/service/read-user.service'
 import { type User } from '@/core/user/domain/user.entity'
 import { Injectable } from '@nestjs/common'
+import { EventEmitter2 } from '@nestjs/event-emitter'
 import { JwtService } from '@nestjs/jwt'
 import { JwtPayload } from '../payload.entity'
 import { Token } from '../token.entity'
@@ -9,7 +11,8 @@ import { Token } from '../token.entity'
 export class AuthService {
   constructor (
     private readonly readUserService: ReadUserService,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
+    private readonly eventEmitter: EventEmitter2
   ) {}
 
   public async validateUser (email: string, password: string): Promise<User | null> {
@@ -27,6 +30,9 @@ export class AuthService {
     const token = this.jwtService.sign(payload.toJSON(), {
       subject: user.id.toString()
     })
+    console.log(user)
+
+    this.eventEmitter.emit(EventsMap.USER_LOGGED_IN, user.toJSON())
 
     return new Token(token)
   }

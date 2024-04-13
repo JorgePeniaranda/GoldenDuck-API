@@ -76,7 +76,7 @@ export class MessageRepositoryPrismaMySQL implements MessageRepository {
     idUser
   }: {
     idUser: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
-  }): Promise<any> {
+  }): Promise<Message[]> {
     const contacts = await this.prisma.message.groupBy({
       by: ['idSender', 'idReceiver'],
       where: {
@@ -84,22 +84,25 @@ export class MessageRepositoryPrismaMySQL implements MessageRepository {
       }
     })
 
-    let lastMessageWithContacts = await Promise.all(
-      contacts.map(async contact => {
-        return await this.prisma.message.findFirst({
-          where: {
-            AND: [
-              {
-                OR: [{ idSender: contact.idSender }, { idReceiver: contact.idSender }]
-              },
-              {
-                OR: [{ idSender: contact.idReceiver }, { idReceiver: contact.idReceiver }]
-              }
-            ]
-          }
-        })
+    let lastMessageWithContacts: Message[] = []
+    for await (const contact of contacts) {
+      const message = await this.prisma.message.findFirst({
+        where: {
+          AND: [
+            {
+              OR: [{ idSender: contact.idSender }, { idReceiver: contact.idSender }]
+            },
+            {
+              OR: [{ idSender: contact.idReceiver }, { idReceiver: contact.idReceiver }]
+            }
+          ]
+        }
       })
-    )
+
+      if (message !== null) {
+        lastMessageWithContacts.push(new Message(message))
+      }
+    }
 
     lastMessageWithContacts = lastMessageWithContacts.sort((a, b) => {
       if (a !== null && b !== null) {

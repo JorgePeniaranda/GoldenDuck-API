@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common'
+import { EventEmitterModule } from '@nestjs/event-emitter'
 import { AccountModule } from './core/account/account.module'
 import { AuthModule } from './core/authentication/auth.module'
 import { CardModule } from './core/card/card.module'
@@ -14,6 +15,7 @@ import { UserModule } from './core/user/user.module'
 
 @Module({
   imports: [
+    EventEmitterModule.forRoot(),
     AuthModule,
     UserModule,
     SessionModule,

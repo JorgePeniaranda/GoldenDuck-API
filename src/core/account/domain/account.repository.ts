@@ -3,6 +3,7 @@ import { type AccountPrimitive } from './account.primitive'
 
 export interface AccountRepository {
   create: (data: Account) => Promise<Account>
+  findIDUser: ({ id }: { id: AccountPrimitive['id'] }) => Promise<AccountPrimitive['idUser'] | null>
   findAll: ({ idUser }: { idUser: AccountPrimitive['idUser'] }) => Promise<Account[]>
   findOne: ({
     idUser,

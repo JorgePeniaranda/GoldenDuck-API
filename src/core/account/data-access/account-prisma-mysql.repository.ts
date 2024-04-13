@@ -19,6 +19,20 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
     return new Account(account)
   }
 
+  public async findIDUser ({ id }: { id: AccountPrimitive['id'] }): Promise<AccountPrimitive['idUser'] | null> {
+    const idUser = await this.prisma.account.findUnique({
+      where: {
+        id,
+        deleted: false
+      },
+      select: {
+        idUser: true
+      }
+    })
+
+    return idUser === null ? null : idUser.idUser
+  }
+
   public async findAll ({ idUser }: { idUser: AccountPrimitive['idUser'] }): Promise<Account[]> {
     const accounts = await this.prisma.account.findMany({
       where: {

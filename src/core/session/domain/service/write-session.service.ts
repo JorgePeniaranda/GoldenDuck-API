@@ -1,5 +1,7 @@
+import { EventsMap } from '@/constants/events'
 import { SessionErrorsMessages } from '@/messages/error/session'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
+import { EventEmitter2 } from '@nestjs/event-emitter'
 import { type CreateSessionDTO } from '../dto/create-session'
 import { Session } from '../session.entity'
 import { type SessionPrimitive } from '../session.primitive'
@@ -9,15 +11,16 @@ import { SessionRepository } from '../session.repository'
 export class WriteSessionService {
   constructor (
     @Inject('SessionRepository')
-    private readonly sessionRepository: SessionRepository
+    private readonly sessionRepository: SessionRepository,
+    private readonly eventEmitter: EventEmitter2
   ) {}
 
   public async create (data: CreateSessionDTO): Promise<Session> {
     const session = Session.create(data)
 
-    return await this.sessionRepository.create(session)
+    this.eventEmitter.emit(EventsMap.CREATE_SESSION, session.toJSON())
 
-    // TO-DO: send notification to account device and account email
+    return await this.sessionRepository.create(session)
   }
 
   public async delete ({

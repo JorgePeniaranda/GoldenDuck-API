@@ -1,6 +1,5 @@
 import { EventsMap } from '@/constants/events'
 import { UserErrorsMessages } from '@/messages/error/user'
-import { type ICreateAccountEvent } from '@/types/events'
 import {
   ConflictException,
   Inject,
@@ -38,9 +37,7 @@ export class WriteUserService {
 
     const user = await this.userRepository.create(newUser)
 
-    const EventData: ICreateAccountEvent = { idUser: user.id }
-
-    this.eventEmitter.emit(EventsMap.USER_CREATED, EventData)
+    this.eventEmitter.emit(EventsMap.USER_CREATED, user.toJSON())
     // TO-DO: send notification with url to email
 
     return user
@@ -54,6 +51,8 @@ export class WriteUserService {
     }
 
     user.actived = true
+
+    this.eventEmitter.emit(EventsMap.USER_ACTIVATED, user.toJSON())
 
     return await this.userRepository.update(user)
   }
@@ -69,7 +68,10 @@ export class WriteUserService {
     if (data.lastName !== undefined) user.lastName = data.lastName
     if (data.email !== undefined) user.email = data.email
     if (data.phoneNumber !== undefined) user.phoneNumber = data.phoneNumber
-    if (data.password !== undefined) user.password = data.password
+    if (data.password !== undefined) {
+      user.password = data.password
+      this.eventEmitter.emit(EventsMap.USER_PASSWORD_UPDATED, user.toJSON())
+    }
     if (data.address !== undefined) user.address = data.address
     if (data.imgUrl !== undefined) user.imgUrl = data.imgUrl
     if (data.role !== undefined) user.role = data.role // ??
@@ -89,6 +91,8 @@ export class WriteUserService {
     if (!user.comparePassword(data.password)) {
       throw new UnauthorizedException(UserErrorsMessages.NotFound)
     }
+
+    this.eventEmitter.emit(EventsMap.USER_DELETED, user.toJSON())
 
     await this.userRepository.delete(user)
   }

@@ -61,7 +61,7 @@ export class ReadMessageService {
     idUser
   }: {
     idUser: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
-  }): Promise<any> {
+  }): Promise<Message[]> {
     return await this.messageRepository.findHistory({
       idUser
     })

@@ -2,7 +2,7 @@ import { Password } from '@/value-objects/password'
 import { UserRoles, type UserPrimitive } from './user.primitive'
 
 export class User implements UserPrimitive {
-  readonly #id: UserPrimitive['id']
+  id: UserPrimitive['id']
   name: UserPrimitive['name']
   lastName: UserPrimitive['lastName']
   readonly #dni: UserPrimitive['dni']
@@ -20,7 +20,7 @@ export class User implements UserPrimitive {
   role: UserPrimitive['role']
 
   constructor (user: UserPrimitive) {
-    this.#id = user.id
+    this.id = user.id
     this.name = user.name
     this.lastName = user.lastName
     this.#dni = user.dni
@@ -36,10 +36,6 @@ export class User implements UserPrimitive {
     this.actived = user.actived
     this.deleted = user.deleted
     this.role = user.role
-  }
-
-  get id (): UserPrimitive['id'] {
-    return this.#id
   }
 
   get dni (): UserPrimitive['dni'] {

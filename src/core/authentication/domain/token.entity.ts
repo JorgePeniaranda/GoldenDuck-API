@@ -11,7 +11,7 @@ export class Token {
 
   toJSON (): { token: string } {
     return {
-      token: this.#token
+      token: this.token
     }
   }
 }

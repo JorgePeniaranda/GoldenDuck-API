@@ -1,5 +1,7 @@
+import { EventsMap } from '@/constants/events'
 import { MessageErrorsMessages } from '@/messages/error/message'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
+import { EventEmitter2 } from '@nestjs/event-emitter'
 import { NotFoundError } from 'rxjs'
 import { type CreateMessageDTO } from '../dto/create-message'
 import { type UpdateMessageDTO } from '../dto/update-message'
@@ -16,25 +18,28 @@ import { MessageRepository } from '../messages.repository'
 export class WriteMessageService {
   constructor (
     @Inject('MessageRepository')
-    private readonly messageRepository: MessageRepository
+    private readonly messageRepository: MessageRepository,
+    private readonly eventEmitter: EventEmitter2
   ) {}
 
   public async create ({
     idSender,
+    idTarget,
     data
   }: {
     idSender: MessagePrimitive['idSender']
+    idTarget: MessagePrimitive['idReceiver']
     data: CreateMessageDTO
   }): Promise<Message> {
     const message = Message.create({
       idSender,
-      idReceiver: data.idReceiver,
+      idReceiver: idTarget,
       message: data.message
     })
 
-    return await this.messageRepository.create(message)
+    this.eventEmitter.emit(EventsMap.MESSAGE_CREATED, message.toJSON())
 
-    // TO-DO: send notification to account
+    return await this.messageRepository.create(message)
   }
 
   public async update ({

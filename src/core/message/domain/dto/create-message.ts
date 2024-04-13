@@ -1,4 +1,4 @@
 import { PickType } from '@nestjs/swagger'
 import { MessageDTO } from '../messages.dto'
 
-export class CreateMessageDTO extends PickType(MessageDTO, ['idReceiver', 'message']) {}
+export class CreateMessageDTO extends PickType(MessageDTO, ['message']) {}
