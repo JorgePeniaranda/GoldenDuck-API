@@ -13,7 +13,7 @@ export class User implements UserPrimitive {
   readonly #birthDate: UserPrimitive['birthDate']
   readonly #sex: UserPrimitive['sex']
   imgUrl: UserPrimitive['imgUrl']
-  readonly #updatedAt: UserPrimitive['updatedAt']
+  updatedAt: UserPrimitive['updatedAt']
   readonly #createdAt: UserPrimitive['createdAt']
   actived: UserPrimitive['actived']
   deleted: UserPrimitive['deleted']
@@ -31,7 +31,7 @@ export class User implements UserPrimitive {
     this.#birthDate = user.birthDate
     this.#sex = user.sex
     this.imgUrl = user.imgUrl
-    this.#updatedAt = user.updatedAt
+    this.updatedAt = user.updatedAt
     this.#createdAt = user.createdAt
     this.actived = user.actived
     this.deleted = user.deleted
@@ -54,10 +54,6 @@ export class User implements UserPrimitive {
     return this.#sex
   }
 
-  get updatedAt (): UserPrimitive['updatedAt'] {
-    return this.#updatedAt
-  }
-
   get createdAt (): UserPrimitive['createdAt'] {
     return this.#createdAt
   }
@@ -74,11 +70,11 @@ export class User implements UserPrimitive {
     return this.#password.salt
   }
 
-  comparePassword (password: string): boolean {
+  public comparePassword (password: string): boolean {
     return this.#password.compare(password)
   }
 
-  toJSON (): UserPrimitive {
+  public toJSON (): UserPrimitive {
     return {
       id: this.id,
       name: this.name,
@@ -100,7 +96,7 @@ export class User implements UserPrimitive {
     }
   }
 
-  static create ({
+  public static create ({
     name,
     lastName,
     dni,

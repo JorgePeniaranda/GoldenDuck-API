@@ -1,28 +1,60 @@
 import { type SessionPrimitive } from './session.primitive'
 
 export class Session implements SessionPrimitive {
-  id: SessionPrimitive['id']
-  idUser: SessionPrimitive['idUser']
-  ip: SessionPrimitive['ip']
-  userAgent: SessionPrimitive['userAgent']
-  location: SessionPrimitive['location']
-  deviceType: SessionPrimitive['deviceType']
-  token: SessionPrimitive['token']
+  readonly #id: SessionPrimitive['id']
+  readonly #idUser: SessionPrimitive['idUser']
+  readonly #ip: SessionPrimitive['ip']
+  readonly #userAgent: SessionPrimitive['userAgent']
+  readonly #location: SessionPrimitive['location']
+  readonly #deviceType: SessionPrimitive['deviceType']
+  readonly #token: SessionPrimitive['token']
   active: SessionPrimitive['active']
   logoutAt: SessionPrimitive['logoutAt']
-  createdAt: SessionPrimitive['createdAt']
+  readonly #createdAt: SessionPrimitive['createdAt']
 
   constructor (transaction: SessionPrimitive) {
-    this.id = transaction.id
-    this.idUser = transaction.idUser
-    this.ip = transaction.ip
-    this.userAgent = transaction.userAgent
-    this.location = transaction.location
-    this.deviceType = transaction.deviceType
-    this.token = transaction.token
+    this.#id = transaction.id
+    this.#idUser = transaction.idUser
+    this.#ip = transaction.ip
+    this.#userAgent = transaction.userAgent
+    this.#location = transaction.location
+    this.#deviceType = transaction.deviceType
+    this.#token = transaction.token
     this.active = transaction.active
     this.logoutAt = transaction.logoutAt
-    this.createdAt = transaction.createdAt
+    this.#createdAt = transaction.createdAt
+  }
+
+  get id (): SessionPrimitive['id'] {
+    return this.#id
+  }
+
+  get idUser (): SessionPrimitive['idUser'] {
+    return this.#idUser
+  }
+
+  get ip (): SessionPrimitive['ip'] {
+    return this.#ip
+  }
+
+  get userAgent (): SessionPrimitive['userAgent'] {
+    return this.#userAgent
+  }
+
+  get location (): SessionPrimitive['location'] {
+    return this.#location
+  }
+
+  get deviceType (): SessionPrimitive['deviceType'] {
+    return this.#deviceType
+  }
+
+  get token (): SessionPrimitive['token'] {
+    return this.#token
+  }
+
+  get createdAt (): SessionPrimitive['createdAt'] {
+    return this.#createdAt
   }
 
   public static create ({

@@ -1,20 +1,36 @@
 import { type NotificationPrimitive } from './notification.primitive'
 
 export class Notification implements NotificationPrimitive {
-  public id: NotificationPrimitive['id']
-  public idUser: NotificationPrimitive['idUser']
-  public message: NotificationPrimitive['message']
-  public read: NotificationPrimitive['read']
-  public updatedAt: NotificationPrimitive['updatedAt']
-  public createdAt: NotificationPrimitive['createdAt']
+  readonly #id: NotificationPrimitive['id']
+  readonly #idUser: NotificationPrimitive['idUser']
+  readonly #message: NotificationPrimitive['message']
+  readonly read: NotificationPrimitive['read']
+  readonly updatedAt: NotificationPrimitive['updatedAt']
+  readonly #createdAt: NotificationPrimitive['createdAt']
 
   constructor (notification: NotificationPrimitive) {
-    this.id = notification.id
-    this.idUser = notification.idUser
-    this.message = notification.message
+    this.#id = notification.id
+    this.#idUser = notification.idUser
+    this.#message = notification.message
     this.read = notification.read
     this.updatedAt = notification.updatedAt
-    this.createdAt = notification.createdAt
+    this.#createdAt = notification.createdAt
+  }
+
+  get id (): NotificationPrimitive['id'] {
+    return this.#id
+  }
+
+  get idUser (): NotificationPrimitive['idUser'] {
+    return this.#idUser
+  }
+
+  get message (): NotificationPrimitive['message'] {
+    return this.#message
+  }
+
+  get createdAt (): NotificationPrimitive['createdAt'] {
+    return this.#createdAt
   }
 
   public static create (

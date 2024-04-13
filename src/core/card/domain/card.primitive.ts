@@ -1,12 +1,12 @@
 import { type Card } from '@prisma/client'
 
 export interface CardPrimitive {
-  id: Card['id']
-  idAccount: Card['idAccount']
-  number: Card['number']
-  cvv: Card['cvv']
-  expiration: Card['expiration']
-  createdAt: Card['createdAt']
+  readonly id: Card['id']
+  readonly idAccount: Card['idAccount']
+  readonly number: Card['number']
+  readonly cvv: Card['cvv']
+  readonly expiration: Card['expiration']
   updatedAt: Card['updatedAt']
+  readonly createdAt: Card['createdAt']
   deleted: Card['deleted']
 }
