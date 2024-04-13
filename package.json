@@ -15,6 +15,7 @@
   },
   "keywords": [
     "nodejs",
+    "nestjs",
     "typescript",
     "express",
     "prisma"
