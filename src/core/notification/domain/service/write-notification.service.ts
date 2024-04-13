@@ -1,7 +1,7 @@
 import { EventsMap } from '@/constants/events'
 import { NotificationErrorsMessages } from '@/messages/error/notification'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
-import { OnEvent } from '@nestjs/event-emitter'
+import { EventEmitter2, OnEvent } from '@nestjs/event-emitter'
 import { Notification } from '../notification.entity'
 import { type NotificationPrimitive } from '../notification.primitive'
 import { NotificationRepository } from '../notification.repository'
@@ -10,7 +10,7 @@ import { NotificationRepository } from '../notification.repository'
 export class WriteNotificationService {
   constructor (
     @Inject('NotificationRepository')
-    private readonly notificationRepository: NotificationRepository
+    private readonly notificationRepository: NotificationRepository, private readonly eventEmitter: EventEmitter2
   ) {}
 
   @OnEvent(EventsMap.CREATE_NOTIFICATION)
@@ -23,11 +23,9 @@ export class WriteNotificationService {
   }): Promise<Notification> {
     const notification = Notification.create(idAccount, message)
 
-    console.log('NUEVA NOTIFICACION PARA ' + idAccount) // TEST: remove this line
+    this.eventEmitter.emit(EventsMap.NOTIFICATION_CREATED, notification)
 
     return await this.notificationRepository.create(notification)
-
-    // TO-DO: send notification to account device
   }
 
   public async delete ({
@@ -45,6 +43,6 @@ export class WriteNotificationService {
 
     await this.notificationRepository.delete(notification)
 
-    // TO-DO: remove notification from account device
+    this.eventEmitter.emit(EventsMap.NOTIFICATION_READED, notification)
   }
 }

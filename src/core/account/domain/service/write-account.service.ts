@@ -2,7 +2,7 @@ import { EventsMap } from '@/constants/events'
 import { AccountErrorsMessages } from '@/messages/error/account'
 import { IChangeBalanceEvent } from '@/types/events'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
-import { OnEvent } from '@nestjs/event-emitter'
+import { EventEmitter2, OnEvent } from '@nestjs/event-emitter'
 import { Account } from '../account.entity'
 import { type AccountPrimitive } from '../account.primitive'
 import { AccountRepository } from '../account.repository'
@@ -11,7 +11,8 @@ import { AccountRepository } from '../account.repository'
 export class WriteAccountService {
   constructor (
     @Inject('AccountRepository')
-    private readonly accountRepository: AccountRepository
+    private readonly accountRepository: AccountRepository,
+    private readonly eventEmitter: EventEmitter2
   ) {}
 
   @OnEvent(EventsMap.CREATE_ACCOUNT)
@@ -20,9 +21,9 @@ export class WriteAccountService {
       idUser
     })
 
-    return await this.accountRepository.create(account)
+    this.eventEmitter.emit(EventsMap.ACCOUNT_CREATED, account)
 
-    // TO-DO: send notification to user email
+    return await this.accountRepository.create(account)
   }
 
   @OnEvent(EventsMap.INCREMENT_BALANCE)
@@ -34,6 +35,7 @@ export class WriteAccountService {
     }
 
     account.incrementBalance(amount)
+    this.eventEmitter.emit(EventsMap.ACCOUNT_INCREMENT_BALANCE, account)
 
     return await this.accountRepository.update(account)
 
@@ -49,6 +51,7 @@ export class WriteAccountService {
     }
 
     account.decrementBalance(amount)
+    this.eventEmitter.emit(EventsMap.ACCOUNT_DECREMENT_BALANCE, account)
 
     return await this.accountRepository.update(account)
 
@@ -67,6 +70,8 @@ export class WriteAccountService {
     if (account === null) {
       throw new NotFoundException(AccountErrorsMessages.NotFound)
     }
+
+    this.eventEmitter.emit(EventsMap.ACCOUNT_DELETED, account)
 
     await this.accountRepository.delete(account)
   }

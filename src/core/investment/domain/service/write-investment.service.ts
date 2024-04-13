@@ -1,7 +1,9 @@
+import { EventsMap } from '@/constants/events'
 import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
 import { AccountErrorsMessages } from '@/messages/error/account'
 import { InvestmentErrorsMessages } from '@/messages/error/investment'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
+import { EventEmitter2 } from '@nestjs/event-emitter'
 import { type CreateInvestmentDTO } from '../dto/create-investment'
 import { Investment } from '../investment.entity'
 import { type InvestmentPrimitive } from '../investment.primitive'
@@ -12,15 +14,17 @@ export class WriteInvestmentService {
   constructor (
     @Inject('InvestmentRepository')
     private readonly investmentRepository: InvestmentRepository,
-    private readonly readAccountService: ReadAccountService
+    private readonly readAccountService: ReadAccountService,
+    private readonly eventEmitter: EventEmitter2
   ) {}
 
   public async create (data: CreateInvestmentDTO): Promise<Investment> {
     const investment = Investment.create(data)
 
+    this.eventEmitter.emit(EventsMap.INVESTMENT_CREATED, investment)
+
     return await this.investmentRepository.create(investment)
 
-    // TO-DO: remove money from account
     // TO-DO: add event to event to add money to account when investment is finished
   }
 
@@ -50,6 +54,6 @@ export class WriteInvestmentService {
 
     await this.investmentRepository.delete(investment)
 
-    // TO-DO: add money to account
+    this.eventEmitter.emit(EventsMap.INVESTMENT_CANCELLED, investment)
   }
 }
