@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common'
 
-export const Tracking = (): ((...args: any[]) => any) => {
+export const Debug = (): ((...args: any[]) => any) => {
   return (target: object, propertyKey: string, descriptor: PropertyDescriptor) => {
     const logger = new Logger(target.constructor.name)
     const targetFunc = descriptor.value

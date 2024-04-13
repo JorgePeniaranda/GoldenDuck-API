@@ -15,24 +15,24 @@ export class ErrorDTO implements ErrorPrimitive {
 
   /* ---------- NAME ---------- */
   @ApiProperty({
-    example: 1,
-    type: Number
+    example: 'UNKNOWN',
+    type: String
   })
   @IsString()
     name: ErrorPrimitive['name']
 
   /* ---------- MESSAGE ---------- */
   @ApiProperty({
-    example: 1,
-    type: Number
+    example: 'An error occurred',
+    type: String
   })
   @IsString()
     message: ErrorPrimitive['message']
 
   /* ---------- STACK ---------- */
   @ApiProperty({
-    example: 1,
-    type: Number
+    example: 'Error: An error occurred\n    at Function.<anonymous> (/app/src/core/error/infrastructure/error.controller.ts:12:15)',
+    type: String
   })
   @IsString()
     stack: ErrorPrimitive['stack']
@@ -60,7 +60,6 @@ export class ErrorDTO implements ErrorPrimitive {
     example: true,
     type: Boolean
   })
-  @IsString()
   @IsBoolean()
     deleted: boolean
 

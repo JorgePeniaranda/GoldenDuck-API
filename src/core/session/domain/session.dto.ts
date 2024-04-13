@@ -14,7 +14,7 @@ export class SessionDTO implements SessionPrimitive {
 
   /* ---------- ID USER ---------- */
   @ApiProperty({
-    example: 1,
+    example: 2,
     type: Number
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
@@ -23,40 +23,40 @@ export class SessionDTO implements SessionPrimitive {
 
   /* ---------- IP ---------- */
   @ApiProperty({
-    example: 1,
-    type: Number
+    example: '127.0.0.1',
+    type: String
   })
   @IsString()
     ip: SessionPrimitive['ip']
 
   /* ---------- USER AGENT ---------- */
   @ApiProperty({
-    example: 1,
-    type: Number
+    example: 'Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 5.3;...',
+    type: String
   })
   @IsString()
     userAgent: SessionPrimitive['userAgent']
 
   /* ---------- LOCATION ---------- */
   @ApiProperty({
-    example: 1,
-    type: Number
+    example: 'Northwest',
+    type: String
   })
   @IsString()
     location: SessionPrimitive['location']
 
   /* ---------- DEVICETYPE ---------- */
   @ApiProperty({
-    example: 1,
-    type: Number
+    example: 'Laptop',
+    type: String
   })
   @IsString()
     deviceType: SessionPrimitive['deviceType']
 
   /* ---------- TOKEN ---------- */
   @ApiProperty({
-    example: 1,
-    type: Number
+    example: '74932bc2-cec9-4f34-9b94-ef808a58cfbf',
+    type: String
   })
   @IsString()
     token: SessionPrimitive['token']

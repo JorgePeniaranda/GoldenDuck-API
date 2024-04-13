@@ -1,4 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger'
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { Exclude } from 'class-transformer'
 import {
   IsAlpha,
   IsAlphanumeric,
@@ -6,7 +7,6 @@ import {
   IsDate,
   IsDateString,
   IsEmail,
-  IsNotEmpty,
   IsNumber,
   IsOptional,
   IsPositive,
@@ -34,8 +34,6 @@ export class UserDTO implements UserPrimitive {
     example: 'John',
     type: String
   })
-  @IsString()
-  @IsNotEmpty()
   @IsAlpha()
     name: UserPrimitive['name']
 
@@ -44,8 +42,6 @@ export class UserDTO implements UserPrimitive {
     example: 'Doe',
     type: String
   })
-  @IsString()
-  @IsNotEmpty()
   @IsAlpha()
     lastName: UserPrimitive['lastName']
 
@@ -64,7 +60,6 @@ export class UserDTO implements UserPrimitive {
     example: 'test@email.com',
     type: String
   })
-  @IsString()
   @IsEmail()
     email: UserPrimitive['email']
 
@@ -83,6 +78,7 @@ export class UserDTO implements UserPrimitive {
     example: '@oZ5d%^*wU92',
     type: String
   })
+  @Exclude()
   @IsString()
   @IsStrongPassword({
     minLength: 8,
@@ -94,6 +90,7 @@ export class UserDTO implements UserPrimitive {
     password: UserPrimitive['password']
 
   /* ---------- SALT ---------- */
+  @Exclude()
   @IsString()
     salt: string
 
@@ -102,8 +99,6 @@ export class UserDTO implements UserPrimitive {
     example: 'Test Street 123',
     type: String
   })
-  @IsString()
-  @IsNotEmpty()
   @IsAlphanumeric()
     address: UserPrimitive['address']
 
@@ -118,15 +113,18 @@ export class UserDTO implements UserPrimitive {
   /* ---------- SEX ---------- */
   @ApiProperty({
     example: 'MALE',
-    type: Date
+    type: String
   })
   @IsString()
     sex: UserPrimitive['sex']
 
   /* ---------- IMAGE URL ---------- */
-  @IsString()
-  @IsOptional()
+  @ApiPropertyOptional({
+    example: 'https://clipart-library.com/data_images/6103.png',
+    type: String
+  })
   @IsUrl()
+  @IsOptional()
     imgUrl?: UserPrimitive['imgUrl']
 
   /* ---------- UPDATED AT ---------- */
@@ -152,7 +150,6 @@ export class UserDTO implements UserPrimitive {
     example: true,
     type: Boolean
   })
-  @IsString()
   @IsBoolean()
     actived: UserPrimitive['actived']
 
@@ -161,7 +158,6 @@ export class UserDTO implements UserPrimitive {
     example: false,
     type: Boolean
   })
-  @IsString()
   @IsBoolean()
     deleted: UserPrimitive['deleted']
 

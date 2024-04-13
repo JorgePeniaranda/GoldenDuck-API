@@ -8,8 +8,8 @@ import { APP_DESCRIPTION, APP_NAME, APP_VERSION, SWAGGER_PATH } from './constant
 import { env } from './constants/env'
 import { AuthModule } from './core/authentication/auth.module'
 import { JwtAuthGuard } from './guard/jwt.guard'
-import './utils/fixes'
-import { findAvailablePort } from './utils/server'
+import './helpers/fixes'
+import { findAvailablePort } from './helpers/server'
 
 async function bootstrap (): Promise<void> {
   const app = await NestFactory.create(AppModule)

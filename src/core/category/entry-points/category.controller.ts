@@ -13,7 +13,7 @@ import {
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { type Category } from '../domain/category.entity'
 import { type CategoryPrimitive } from '../domain/category.primitive'
-import { CreateErrorDTO } from '../domain/dto/create-category'
+import { CreateCategoryDTO } from '../domain/dto/create-category'
 import { ReadCategoryService } from '../domain/service/read-category.service'
 import { WriteCategoryService } from '../domain/service/write-category.service'
 import { CategoryResponse } from './category.response'
@@ -35,7 +35,7 @@ export class CategoryController {
   }
 
   @Post()
-  async create (@Body() data: CreateErrorDTO): Promise<Category> {
+  async create (@Body() data: CreateCategoryDTO): Promise<Category> {
     const category = await this.writeCategoryService.create(data)
 
     return category

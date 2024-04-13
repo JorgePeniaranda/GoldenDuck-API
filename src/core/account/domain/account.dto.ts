@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsBoolean, IsDate, IsNumber, IsPositive, IsString, MaxDate } from 'class-validator'
+import { IsBoolean, IsDate, IsNumber, IsPositive, MaxDate } from 'class-validator'
 import { type AccountPrimitive } from './account.primitive'
 
 export class AccountDTO implements AccountPrimitive {
@@ -12,9 +12,9 @@ export class AccountDTO implements AccountPrimitive {
   @IsPositive()
     id: AccountPrimitive['id']
 
-  /* ---------- NAME ---------- */
+  /* ---------- ID USER ---------- */
   @ApiProperty({
-    example: 1,
+    example: 2,
     type: Number
   })
   @IsNumber()
@@ -22,6 +22,10 @@ export class AccountDTO implements AccountPrimitive {
     idUser: AccountPrimitive['idUser']
 
   /* ---------- BALANCE ---------- */
+  @ApiProperty({
+    example: 1000,
+    type: Number
+  })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
     balance: AccountPrimitive['balance']
@@ -49,7 +53,6 @@ export class AccountDTO implements AccountPrimitive {
     example: true,
     type: Boolean
   })
-  @IsString()
   @IsBoolean()
     deleted: boolean
 

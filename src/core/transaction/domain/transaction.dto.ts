@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsBoolean, IsDate, IsNumber, IsPositive, IsString, MaxDate } from 'class-validator'
+import { IsBoolean, IsDate, IsNumber, IsPositive, MaxDate } from 'class-validator'
 import { type TransactionPrimitive } from './transaction.primitive'
 
 export class TransactionDTO implements TransactionPrimitive {
@@ -12,18 +12,18 @@ export class TransactionDTO implements TransactionPrimitive {
   @IsPositive()
     id: TransactionPrimitive['id']
 
-  /* ---------- ID-SENDER ---------- */
+  /* ---------- ID SENDER ---------- */
   @ApiProperty({
-    example: 1,
+    example: 2,
     type: Number
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
     idSender: TransactionPrimitive['idSender']
 
-  /* ---------- ID-RECEIVER ---------- */
+  /* ---------- ID RECEIVER ---------- */
   @ApiProperty({
-    example: 1,
+    example: 3,
     type: Number
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
@@ -36,11 +36,12 @@ export class TransactionDTO implements TransactionPrimitive {
     type: BigInt
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
+  @IsPositive()
     amount: TransactionPrimitive['amount']
 
   /* ---------- ID CATEGORY ---------- */
   @ApiProperty({
-    example: 1,
+    example: 4,
     type: Number
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
@@ -61,7 +62,6 @@ export class TransactionDTO implements TransactionPrimitive {
     example: true,
     type: Boolean
   })
-  @IsString()
   @IsBoolean()
     canceled: TransactionPrimitive['canceled']
 

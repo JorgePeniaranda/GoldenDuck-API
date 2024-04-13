@@ -13,9 +13,9 @@ export class NotificationDTO implements NotificationPrimitive {
   @IsPositive()
     id: NotificationPrimitive['id']
 
-  /* ---------- idUser ---------- */
+  /* ---------- ID USER ---------- */
   @ApiProperty({
-    example: 1,
+    example: 2,
     type: Number
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
@@ -24,7 +24,7 @@ export class NotificationDTO implements NotificationPrimitive {
 
   /* ---------- MESSAGE ---------- */
   @ApiProperty({
-    example: 1,
+    example: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     type: Number
   })
   @IsString()

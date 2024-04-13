@@ -13,9 +13,9 @@ export class MessageDTO implements MessagePrimitive {
   @IsPositive()
     id: MessagePrimitive['id']
 
-  /* ---------- idSender ---------- */
+  /* ---------- ID SENDER ---------- */
   @ApiProperty({
-    example: 1,
+    example: 2,
     type: Number
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
