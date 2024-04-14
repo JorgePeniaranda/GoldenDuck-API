@@ -4,7 +4,6 @@ import { type CategoryPrimitive } from './category.primitive'
 @ObjectType()
 export class Category implements CategoryPrimitive {
   readonly #id: CategoryPrimitive['id']
-
   @Field(() => String)
     name: CategoryPrimitive['name']
 
@@ -12,7 +11,6 @@ export class Category implements CategoryPrimitive {
     updatedAt: CategoryPrimitive['updatedAt']
 
   readonly #createdAt: CategoryPrimitive['createdAt']
-
   @Field(() => Boolean)
     deleted: CategoryPrimitive['deleted']
 

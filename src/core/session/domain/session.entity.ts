@@ -1,3 +1,4 @@
+import { Field, ID } from '@nestjs/graphql'
 import { type SessionPrimitive } from './session.primitive'
 
 export class Session implements SessionPrimitive {
@@ -8,8 +9,12 @@ export class Session implements SessionPrimitive {
   readonly #location: SessionPrimitive['location']
   readonly #deviceType: SessionPrimitive['deviceType']
   readonly #token: SessionPrimitive['token']
-  active: SessionPrimitive['active']
-  logoutAt: SessionPrimitive['logoutAt']
+  @Field(() => Boolean)
+    active: SessionPrimitive['active']
+
+  @Field(() => Date)
+    logoutAt: SessionPrimitive['logoutAt']
+
   readonly #createdAt: SessionPrimitive['createdAt']
 
   constructor (transaction: SessionPrimitive) {
@@ -25,34 +30,42 @@ export class Session implements SessionPrimitive {
     this.#createdAt = transaction.createdAt
   }
 
+  @Field(() => ID)
   get id (): SessionPrimitive['id'] {
     return this.#id
   }
 
+  @Field(() => Number)
   get idUser (): SessionPrimitive['idUser'] {
     return this.#idUser
   }
 
+  @Field(() => String)
   get ip (): SessionPrimitive['ip'] {
     return this.#ip
   }
 
+  @Field(() => String)
   get userAgent (): SessionPrimitive['userAgent'] {
     return this.#userAgent
   }
 
+  @Field(() => String)
   get location (): SessionPrimitive['location'] {
     return this.#location
   }
 
+  @Field(() => String)
   get deviceType (): SessionPrimitive['deviceType'] {
     return this.#deviceType
   }
 
+  @Field(() => String)
   get token (): SessionPrimitive['token'] {
     return this.#token
   }
 
+  @Field(() => Date)
   get createdAt (): SessionPrimitive['createdAt'] {
     return this.#createdAt
   }

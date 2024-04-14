@@ -18,6 +18,7 @@ export interface UserPrimitive {
   actived: User['actived']
   deleted: User['deleted']
   role: (typeof UserRoles)[keyof typeof UserRoles]
+  // activities: Activity[]
 }
 
 export const UserSex = sex

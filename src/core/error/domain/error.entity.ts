@@ -1,13 +1,23 @@
+import { Field, ID } from '@nestjs/graphql'
 import { type ErrorPrimitive } from './error.primitive'
 
 export class Error implements ErrorPrimitive {
   readonly #id: ErrorPrimitive['id']
-  name: ErrorPrimitive['name']
-  message: ErrorPrimitive['message']
-  stack: ErrorPrimitive['stack']
-  updatedAt: ErrorPrimitive['updatedAt']
+  @Field(() => String)
+    name: ErrorPrimitive['name']
+
+  @Field(() => String)
+    message: ErrorPrimitive['message']
+
+  @Field(() => String)
+    stack: ErrorPrimitive['stack']
+
+  @Field(() => Date)
+    updatedAt: ErrorPrimitive['updatedAt']
+
   readonly #createdAt: ErrorPrimitive['createdAt']
-  deleted: ErrorPrimitive['deleted']
+  @Field(() => Boolean)
+    deleted: ErrorPrimitive['deleted']
 
   constructor (transaction: ErrorPrimitive) {
     this.#id = transaction.id
@@ -19,10 +29,12 @@ export class Error implements ErrorPrimitive {
     this.deleted = transaction.deleted
   }
 
+  @Field(() => ID)
   get id (): ErrorPrimitive['id'] {
     return this.#id
   }
 
+  @Field(() => Date)
   get createdAt (): ErrorPrimitive['createdAt'] {
     return this.#createdAt
   }

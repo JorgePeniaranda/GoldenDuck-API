@@ -1,23 +1,51 @@
 import { Password } from '@/value-objects/password'
+import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { UserRoles, type UserPrimitive } from './user.primitive'
 
+@ObjectType()
 export class User implements UserPrimitive {
-  id: UserPrimitive['id']
-  name: UserPrimitive['name']
-  lastName: UserPrimitive['lastName']
+  @Field(() => ID)
+    id: UserPrimitive['id']
+
+  @Field(() => String)
+    name: UserPrimitive['name']
+
+  @Field(() => String)
+    lastName: UserPrimitive['lastName']
+
   readonly #dni: UserPrimitive['dni']
-  email: UserPrimitive['email']
-  phoneNumber: UserPrimitive['phoneNumber']
+
+  @Field(() => String)
+    email: UserPrimitive['email']
+
+  @Field(() => Number)
+    phoneNumber: UserPrimitive['phoneNumber']
+
   readonly #password: Password
-  address: UserPrimitive['address']
+
+  @Field(() => String)
+    address: UserPrimitive['address']
+
   readonly #birthDate: UserPrimitive['birthDate']
+
   readonly #sex: UserPrimitive['sex']
-  imgUrl: UserPrimitive['imgUrl']
-  updatedAt: UserPrimitive['updatedAt']
+
+  @Field(() => String)
+    imgUrl: UserPrimitive['imgUrl']
+
+  @Field(() => Date)
+    updatedAt: UserPrimitive['updatedAt']
+
   readonly #createdAt: UserPrimitive['createdAt']
-  actived: UserPrimitive['actived']
-  deleted: UserPrimitive['deleted']
-  role: UserPrimitive['role']
+
+  @Field(() => Boolean)
+    actived: UserPrimitive['actived']
+
+  @Field(() => Boolean)
+    deleted: UserPrimitive['deleted']
+
+  @Field(() => String)
+    role: UserPrimitive['role']
 
   constructor (user: UserPrimitive) {
     this.id = user.id
@@ -38,18 +66,22 @@ export class User implements UserPrimitive {
     this.role = user.role
   }
 
+  @Field(() => String)
   get dni (): UserPrimitive['dni'] {
     return this.#dni
   }
 
+  @Field(() => Date)
   get birthDate (): UserPrimitive['birthDate'] {
     return this.#birthDate
   }
 
+  @Field(() => String)
   get sex (): UserPrimitive['sex'] {
     return this.#sex
   }
 
+  @Field(() => Date)
   get createdAt (): UserPrimitive['createdAt'] {
     return this.#createdAt
   }

@@ -1,14 +1,22 @@
+import { Field, ID } from '@nestjs/graphql'
 import { type MessagePrimitive } from './message.primitive'
 
 export class Message implements MessagePrimitive {
   readonly #id: MessagePrimitive['id']
   readonly #idSender: MessagePrimitive['idSender']
   readonly #idReceiver: MessagePrimitive['idReceiver']
-  message: MessagePrimitive['message']
-  read: MessagePrimitive['read']
-  updatedAt: MessagePrimitive['updatedAt']
+  @Field(() => String)
+    message: MessagePrimitive['message']
+
+  @Field(() => Boolean)
+    read: MessagePrimitive['read']
+
+  @Field(() => Date)
+    updatedAt: MessagePrimitive['updatedAt']
+
   readonly #createdAt: MessagePrimitive['createdAt']
-  deleted: MessagePrimitive['deleted']
+  @Field(() => Boolean)
+    deleted: MessagePrimitive['deleted']
 
   constructor (props: MessagePrimitive) {
     this.#id = props.id
@@ -21,18 +29,22 @@ export class Message implements MessagePrimitive {
     this.deleted = props.deleted
   }
 
+  @Field(() => ID)
   get id (): MessagePrimitive['id'] {
     return this.#id
   }
 
+  @Field(() => Number)
   get idSender (): MessagePrimitive['idSender'] {
     return this.#idSender
   }
 
+  @Field(() => Number)
   get idReceiver (): MessagePrimitive['idReceiver'] {
     return this.#idReceiver
   }
 
+  @Field(() => Date)
   get createdAt (): MessagePrimitive['createdAt'] {
     return this.#createdAt
   }

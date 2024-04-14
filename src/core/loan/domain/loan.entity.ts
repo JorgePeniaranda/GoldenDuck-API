@@ -1,3 +1,4 @@
+import { Field, ID } from '@nestjs/graphql'
 import { type LoanPrimitive } from './loan.primitive'
 
 export class Loan implements LoanPrimitive {
@@ -6,9 +7,12 @@ export class Loan implements LoanPrimitive {
   readonly #amount: LoanPrimitive['amount']
   readonly #interest: LoanPrimitive['interest']
   readonly #dateEnd: LoanPrimitive['dateEnd']
-  updatedAt: LoanPrimitive['updatedAt']
+  @Field(() => Date)
+    updatedAt: LoanPrimitive['updatedAt']
+
   readonly #createdAt: LoanPrimitive['createdAt']
-  canceled: LoanPrimitive['canceled']
+  @Field(() => Boolean)
+    canceled: LoanPrimitive['canceled']
 
   constructor (loan: LoanPrimitive) {
     this.#id = loan.id
@@ -21,26 +25,32 @@ export class Loan implements LoanPrimitive {
     this.canceled = loan.canceled
   }
 
+  @Field(() => ID)
   get id (): LoanPrimitive['id'] {
     return this.#id
   }
 
+  @Field(() => Number)
   get idAccount (): LoanPrimitive['idAccount'] {
     return this.#idAccount
   }
 
+  @Field(() => Number)
   get amount (): LoanPrimitive['amount'] {
     return this.#amount
   }
 
+  @Field(() => Number)
   get interest (): LoanPrimitive['interest'] {
     return this.#interest
   }
 
+  @Field(() => Date)
   get dateEnd (): LoanPrimitive['dateEnd'] {
     return this.#dateEnd
   }
 
+  @Field(() => Date)
   get createdAt (): LoanPrimitive['createdAt'] {
     return this.#createdAt
   }

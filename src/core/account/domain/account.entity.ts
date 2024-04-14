@@ -1,3 +1,4 @@
+import { Field } from '@nestjs/graphql'
 import { type AccountPrimitive } from './account.primitive'
 
 const optionalProperties = ['id', 'balance', 'updatedAt', 'createdAt', 'deleted'] as const
@@ -6,8 +7,11 @@ export class Account implements AccountPrimitive {
   readonly #id: AccountPrimitive['id']
   readonly #idUser: AccountPrimitive['idUser']
   #balance: AccountPrimitive['balance']
+  @Field(() => Date)
   public updatedAt: AccountPrimitive['updatedAt']
+
   readonly #createdAt: AccountPrimitive['createdAt']
+  @Field(() => Boolean)
   public deleted: AccountPrimitive['deleted']
 
   constructor (account: AccountPrimitive) {
@@ -19,18 +23,22 @@ export class Account implements AccountPrimitive {
     this.deleted = account.deleted
   }
 
+  @Field(() => Number)
   public get id (): AccountPrimitive['id'] {
     return this.#id
   }
 
+  @Field(() => Number)
   public get idUser (): AccountPrimitive['idUser'] {
     return this.#idUser
   }
 
+  @Field(() => BigInt)
   public get balance (): AccountPrimitive['balance'] {
     return this.#balance
   }
 
+  @Field(() => Date)
   public get createdAt (): AccountPrimitive['createdAt'] {
     return this.#createdAt
   }

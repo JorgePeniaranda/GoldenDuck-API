@@ -1,11 +1,16 @@
+import { Field, ID } from '@nestjs/graphql'
 import { type NotificationPrimitive } from './notification.primitive'
 
 export class Notification implements NotificationPrimitive {
   readonly #id: NotificationPrimitive['id']
   readonly #idUser: NotificationPrimitive['idUser']
   readonly #message: NotificationPrimitive['message']
+  @Field(() => Boolean)
   readonly read: NotificationPrimitive['read']
+
+  @Field(() => Date)
   readonly updatedAt: NotificationPrimitive['updatedAt']
+
   readonly #createdAt: NotificationPrimitive['createdAt']
 
   constructor (notification: NotificationPrimitive) {
@@ -17,18 +22,22 @@ export class Notification implements NotificationPrimitive {
     this.#createdAt = notification.createdAt
   }
 
+  @Field(() => ID)
   get id (): NotificationPrimitive['id'] {
     return this.#id
   }
 
+  @Field(() => Number)
   get idUser (): NotificationPrimitive['idUser'] {
     return this.#idUser
   }
 
+  @Field(() => String)
   get message (): NotificationPrimitive['message'] {
     return this.#message
   }
 
+  @Field(() => Date)
   get createdAt (): NotificationPrimitive['createdAt'] {
     return this.#createdAt
   }

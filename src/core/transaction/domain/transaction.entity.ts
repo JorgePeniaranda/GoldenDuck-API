@@ -1,13 +1,23 @@
+import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type TransactionPrimitive } from './transaction.primitive'
 
+@ObjectType()
 export class Transaction implements TransactionPrimitive {
   readonly #id: TransactionPrimitive['id']
+
   readonly #idSender: TransactionPrimitive['idSender']
+
   readonly #idReceiver: TransactionPrimitive['idReceiver']
+
   readonly #amount: TransactionPrimitive['amount']
-  idCategory?: TransactionPrimitive['idCategory']
+
+  @Field(() => Number)
+    idCategory?: TransactionPrimitive['idCategory']
+
   readonly #createdAt: TransactionPrimitive['createdAt']
-  canceled: TransactionPrimitive['canceled']
+
+  @Field(() => Boolean)
+    canceled: TransactionPrimitive['canceled']
 
   constructor (transaction: TransactionPrimitive) {
     this.#id = transaction.id
@@ -19,22 +29,27 @@ export class Transaction implements TransactionPrimitive {
     this.canceled = transaction.canceled
   }
 
+  @Field(() => ID)
   get id (): TransactionPrimitive['id'] {
     return this.#id
   }
 
+  @Field(() => Number)
   get idSender (): TransactionPrimitive['idSender'] {
     return this.#idSender
   }
 
+  @Field(() => Number)
   get idReceiver (): TransactionPrimitive['idReceiver'] {
     return this.#idReceiver
   }
 
+  @Field(() => BigInt)
   get amount (): TransactionPrimitive['amount'] {
     return this.#amount
   }
 
+  @Field(() => Date)
   get createdAt (): TransactionPrimitive['createdAt'] {
     return this.#createdAt
   }

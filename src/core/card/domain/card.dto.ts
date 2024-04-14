@@ -1,7 +1,9 @@
+import { InputType } from '@nestjs/graphql'
 import { ApiProperty } from '@nestjs/swagger'
 import { IsBoolean, IsDate, IsNumber, IsPositive, Length, MaxDate } from 'class-validator'
 import { type CardPrimitive } from './card.primitive'
 
+@InputType()
 export class CardDTO implements CardPrimitive {
   /* ---------- ID ---------- */
   @ApiProperty({

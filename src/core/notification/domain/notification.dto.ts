@@ -1,8 +1,10 @@
 import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
+import { InputType } from '@nestjs/graphql'
 import { ApiProperty } from '@nestjs/swagger'
 import { IsBoolean, IsDate, IsNumber, IsPositive, IsString, MaxDate } from 'class-validator'
 import { type NotificationPrimitive } from './notification.primitive'
 
+@InputType()
 export class NotificationDTO implements NotificationPrimitive {
   /* ---------- ID ---------- */
   @ApiProperty({

@@ -1,3 +1,4 @@
+import { Field, ID } from '@nestjs/graphql'
 import { type CardPrimitive } from './card.primitive'
 
 export class Card implements CardPrimitive {
@@ -6,9 +7,13 @@ export class Card implements CardPrimitive {
   readonly #number: CardPrimitive['number']
   readonly #cvv: CardPrimitive['cvv']
   readonly #expiration: CardPrimitive['expiration']
-  updatedAt: CardPrimitive['updatedAt']
+
+  @Field(() => Date)
+    updatedAt: CardPrimitive['updatedAt']
+
   readonly #createdAt: CardPrimitive['createdAt']
-  deleted: CardPrimitive['deleted']
+  @Field(() => Boolean)
+    deleted: CardPrimitive['deleted']
 
   constructor (card: CardPrimitive) {
     this.#id = card.id
@@ -21,26 +26,32 @@ export class Card implements CardPrimitive {
     this.deleted = card.deleted
   }
 
+  @Field(() => ID)
   get id (): CardPrimitive['id'] {
     return this.#id
   }
 
+  @Field(() => Number)
   get idAccount (): CardPrimitive['idAccount'] {
     return this.#idAccount
   }
 
+  @Field(() => Number)
   get number (): CardPrimitive['number'] {
     return this.#number
   }
 
+  @Field(() => Number)
   get cvv (): CardPrimitive['cvv'] {
     return this.#cvv
   }
 
+  @Field(() => Date)
   get expiration (): CardPrimitive['expiration'] {
     return this.#expiration
   }
 
+  @Field(() => Date)
   get createdAt (): CardPrimitive['createdAt'] {
     return this.#createdAt
   }
