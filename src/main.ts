@@ -17,8 +17,14 @@ async function bootstrap (): Promise<void> {
 
   /* configure project */
   app.useGlobalGuards(guard)
-  // app.enableCors()
   app.use(helmet())
+  app.enableCors({
+    origin: ['http://localhost:3000', 'http://localhost:3001'], // develop
+    methods: 'GET,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    credentials: true
+  })
   app.use(compression())
   app.useGlobalPipes(
     new ValidationPipe({
