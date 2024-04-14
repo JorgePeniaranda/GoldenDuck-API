@@ -1,4 +1,5 @@
 import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
+import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { ApiProperty } from '@nestjs/swagger'
 import {
   IsAlpha,
@@ -11,8 +12,10 @@ import {
 } from 'class-validator'
 import { type CategoryPrimitive } from './category.primitive'
 
+@ObjectType()
 export class CategoryDTO implements CategoryPrimitive {
   /* ---------- ID ---------- */
+  @Field(() => ID)
   @ApiProperty({
     example: 1,
     type: Number
@@ -22,6 +25,7 @@ export class CategoryDTO implements CategoryPrimitive {
     id: CategoryPrimitive['id']
 
   /* ---------- NAME ---------- */
+  @Field()
   @ApiProperty({
     example: 'Category',
     type: String
@@ -31,6 +35,7 @@ export class CategoryDTO implements CategoryPrimitive {
     name: CategoryPrimitive['name']
 
   /* ---------- UPDATED AT ---------- */
+  @Field()
   @ApiProperty({
     example: new Date(),
     type: Date
@@ -40,6 +45,7 @@ export class CategoryDTO implements CategoryPrimitive {
     updatedAt: AccountPrimitive['updatedAt']
 
   /* ---------- CREATED AT ---------- */
+  @Field()
   @ApiProperty({
     example: new Date(),
     type: Date
@@ -49,6 +55,7 @@ export class CategoryDTO implements CategoryPrimitive {
     createdAt: AccountPrimitive['createdAt']
 
   /* ---------- DELETED ---------- */
+  @Field()
   @ApiProperty({
     example: true,
     type: Boolean

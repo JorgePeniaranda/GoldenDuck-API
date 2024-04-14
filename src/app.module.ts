@@ -1,6 +1,9 @@
+import { ApolloDriver, type ApolloDriverConfig } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { EventEmitterModule } from '@nestjs/event-emitter'
+import { GraphQLModule } from '@nestjs/graphql'
 import { ScheduleModule } from '@nestjs/schedule'
+import { join } from 'path'
 import { AccountModule } from './core/account/account.module'
 import { AuthModule } from './core/auth/auth.module'
 import { CardModule } from './core/card/card.module'
@@ -29,7 +32,11 @@ import { UserModule } from './core/user/user.module'
     LoanModule,
     InvestmentModule,
     CategoryModule,
-    ErrorModule
+    ErrorModule,
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'src/graphql/schema.gql')
+    })
   ]
 })
 export class AppModule {}
