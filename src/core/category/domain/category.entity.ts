@@ -1,11 +1,20 @@
+import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type CategoryPrimitive } from './category.primitive'
 
+@ObjectType()
 export class Category implements CategoryPrimitive {
   readonly #id: CategoryPrimitive['id']
-  name: CategoryPrimitive['name']
-  updatedAt: CategoryPrimitive['updatedAt']
+
+  @Field(() => String)
+    name: CategoryPrimitive['name']
+
+  @Field(() => Date)
+    updatedAt: CategoryPrimitive['updatedAt']
+
   readonly #createdAt: CategoryPrimitive['createdAt']
-  deleted: CategoryPrimitive['deleted']
+
+  @Field(() => Boolean)
+    deleted: CategoryPrimitive['deleted']
 
   constructor (transaction: CategoryPrimitive) {
     this.#id = transaction.id
@@ -15,10 +24,12 @@ export class Category implements CategoryPrimitive {
     this.deleted = transaction.deleted
   }
 
+  @Field(() => ID)
   get id (): CategoryPrimitive['id'] {
     return this.#id
   }
 
+  @Field(() => Date)
   get createdAt (): CategoryPrimitive['createdAt'] {
     return this.#createdAt
   }

@@ -2,7 +2,6 @@ import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import compression from 'compression'
-import helmet from 'helmet'
 import { AppModule } from './app.module'
 import { APP_INFO, SWAGGER_PATH } from './constants'
 import { env } from './constants/env'
@@ -17,14 +16,16 @@ async function bootstrap (): Promise<void> {
 
   /* configure project */
   app.useGlobalGuards(guard)
-  app.use(helmet())
-  app.enableCors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'], // develop
-    methods: 'GET,PATCH,POST,DELETE',
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
-    credentials: true
-  })
+  // app.use(helmet({
+  //   contentSecurityPolicy: (process.env.NODE_ENV === 'production') ? undefined : false
+  // }))
+  // app.enableCors({
+  //   origin: ['http://localhost:3000', 'http://localhost:3001'], // develop
+  //   methods: 'GET,PATCH,POST,DELETE',
+  //   preflightContinue: false,
+  //   optionsSuccessStatus: 204,
+  //   credentials: true
+  // })
   app.use(compression())
   app.useGlobalPipes(
     new ValidationPipe({

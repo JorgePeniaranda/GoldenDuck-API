@@ -25,7 +25,7 @@ export class CategoryDTO implements CategoryPrimitive {
     id: CategoryPrimitive['id']
 
   /* ---------- NAME ---------- */
-  @Field()
+  @Field(() => String)
   @ApiProperty({
     example: 'Category',
     type: String
@@ -35,7 +35,7 @@ export class CategoryDTO implements CategoryPrimitive {
     name: CategoryPrimitive['name']
 
   /* ---------- UPDATED AT ---------- */
-  @Field()
+  @Field(() => Date)
   @ApiProperty({
     example: new Date(),
     type: Date
@@ -45,7 +45,7 @@ export class CategoryDTO implements CategoryPrimitive {
     updatedAt: AccountPrimitive['updatedAt']
 
   /* ---------- CREATED AT ---------- */
-  @Field()
+  @Field(() => Date)
   @ApiProperty({
     example: new Date(),
     type: Date
@@ -55,7 +55,7 @@ export class CategoryDTO implements CategoryPrimitive {
     createdAt: AccountPrimitive['createdAt']
 
   /* ---------- DELETED ---------- */
-  @Field()
+  @Field(() => Boolean)
   @ApiProperty({
     example: true,
     type: Boolean
