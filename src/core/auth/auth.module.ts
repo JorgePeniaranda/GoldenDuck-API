@@ -20,6 +20,7 @@ import { AuthController } from './entry-points/auth.controller'
     })
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy]
+  providers: [AuthService, LocalStrategy, JwtStrategy],
+  exports: [AuthService, JwtModule]
 })
 export class AuthModule {}

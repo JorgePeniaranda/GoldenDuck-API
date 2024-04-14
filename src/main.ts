@@ -2,30 +2,27 @@ import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import compression from 'compression'
+import helmet from 'helmet'
 import { AppModule } from './app.module'
 import { APP_INFO, SWAGGER_PATH } from './constants'
 import { env } from './constants/env'
-import { AuthModule } from './core/auth/auth.module'
-import { JwtAuthGuard } from './guard/jwt.guard'
 import './helpers/fixes'
 import { findAvailablePort } from './helpers/server'
 
 async function bootstrap (): Promise<void> {
   const app = await NestFactory.create(AppModule)
-  const guard = app.select(AuthModule).get(JwtAuthGuard)
 
   /* configure project */
-  app.useGlobalGuards(guard)
-  // app.use(helmet({
-  //   contentSecurityPolicy: (process.env.NODE_ENV === 'production') ? undefined : false
-  // }))
-  // app.enableCors({
-  //   origin: ['http://localhost:3000', 'http://localhost:3001'], // develop
-  //   methods: 'GET,PATCH,POST,DELETE',
-  //   preflightContinue: false,
-  //   optionsSuccessStatus: 204,
-  //   credentials: true
-  // })
+  app.use(helmet({
+    contentSecurityPolicy: (process.env.NODE_ENV === 'production') ? undefined : false
+  }))
+  app.enableCors({
+    origin: ['http://localhost:3000', 'http://localhost:3001'], // develop
+    methods: 'GET,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    credentials: true
+  })
   app.use(compression())
   app.useGlobalPipes(
     new ValidationPipe({

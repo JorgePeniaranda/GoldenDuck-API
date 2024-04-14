@@ -1,4 +1,3 @@
-import { CurrentUser } from '@/decorators/current-user.decorator'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
 import { NotFoundException, UseGuards } from '@nestjs/common'
@@ -13,11 +12,10 @@ export class CategoryResolver {
     // private readonly writeCategoryService: WriteCategoryService
   ) {}
 
-  @Public()
   @UseGuards(GqlAuthGuard)
   @Query(() => [Category])
-  findAll (@CurrentUser() user: any): any {
-    return user
+  async findAll (): Promise<Category[]> {
+    return await this.readCategoryService.findAll()
   }
 
   @Public()
