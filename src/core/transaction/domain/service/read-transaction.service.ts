@@ -19,7 +19,7 @@ export class ReadTransactionService {
     AccountIndex
   }: {
     idUser: AccountPrimitive['idUser']
-    AccountIndex: AccountPrimitive['id']
+    AccountIndex: number
   }): Promise<Transaction[]> {
     const account = await this.readAccountService.findOne({ idUser, index: AccountIndex })
 
@@ -36,7 +36,7 @@ export class ReadTransactionService {
     index
   }: {
     idUser: AccountPrimitive['idUser']
-    AccountIndex: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver']
+    AccountIndex: number
     index: number
   }): Promise<Transaction | null> {
     const account = await this.readAccountService.findOne({ idUser, index: AccountIndex })
@@ -57,7 +57,7 @@ export class ReadTransactionService {
     index
   }: {
     idUser: AccountPrimitive['idUser']
-    AccountIndex: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver']
+    AccountIndex: number
     index: number
   }): Promise<Transaction | null> {
     const account = await this.readAccountService.findOne({ idUser, index: AccountIndex })
@@ -78,7 +78,7 @@ export class ReadTransactionService {
     index
   }: {
     idUser: AccountPrimitive['idUser']
-    AccountIndex: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver']
+    AccountIndex: number
     index: number
   }): Promise<Transaction | null> {
     const account = await this.readAccountService.findOne({ idUser, index: AccountIndex })

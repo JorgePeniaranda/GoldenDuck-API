@@ -1,5 +1,5 @@
 import { Password } from '@/value-objects/password'
-import { Field, ID, ObjectType } from '@nestjs/graphql'
+import { Field, HideField, ID, ObjectType } from '@nestjs/graphql'
 import { UserRoles, type UserPrimitive } from './user.primitive'
 
 @ObjectType()
@@ -91,6 +91,7 @@ export class User implements UserPrimitive {
     this.#updateUpdatedAt()
   }
 
+  @HideField()
   public get password (): UserPrimitive['password'] {
     return this.#password.value
   }
@@ -100,6 +101,7 @@ export class User implements UserPrimitive {
     this.#updateUpdatedAt()
   }
 
+  @HideField()
   public get salt (): UserPrimitive['salt'] {
     return this.#password.salt
   }

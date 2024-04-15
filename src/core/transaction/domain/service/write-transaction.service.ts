@@ -65,7 +65,7 @@ export class WriteTransactionService {
     index
   }: {
     idUser: TransactionPrimitive['idSender']
-    AccountIndex: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver']
+    AccountIndex: number
     index: number
   }): Promise<void> {
     const account = await this.readAccountService.findOne({ idUser, index: AccountIndex })

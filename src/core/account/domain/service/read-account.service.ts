@@ -34,7 +34,7 @@ export class ReadAccountService {
     index
   }: {
     idUser: AccountPrimitive['idUser']
-    index: AccountPrimitive['id']
+    index: number
   }): Promise<Account | null> {
     return await this.accountRepository.findOne({ idUser, index })
   }
