@@ -10,7 +10,7 @@ import { AccountErrorsMessages } from '@/messages/error/account'
 import { TransactionErrorsMessages } from '@/messages/error/transaction'
 import { NotFoundException, UseGuards } from '@nestjs/common'
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
-import { CreateTransactionDTO } from '../domain/dto/create-transaction'
+import { GQLCreateTransactionDTO } from '../domain/dto/create-transaction'
 import { ReadTransactionService } from '../domain/service/read-transaction.service'
 import { WriteTransactionService } from '../domain/service/write-transaction.service'
 import { Transaction } from '../domain/transaction.entity'
@@ -43,7 +43,7 @@ export class TransactionResolver {
   async create (
     @CurrentUser() UserData: PayloadPrimitive,
       @Args('AccountIndex', { type: () => Int }) AccountIndex: number,
-      @Args('data') data: CreateTransactionDTO
+      @Args('data') data: GQLCreateTransactionDTO
   ): Promise<Transaction> {
     const transaction = await this.writeTransactionService.create({
       idUser: UserData.id,

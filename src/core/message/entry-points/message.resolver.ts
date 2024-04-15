@@ -7,8 +7,8 @@ import { GqlAuthGuard } from '@/guard/gql.guard'
 import { UserErrorsMessages } from '@/messages/error/user'
 import { Body, NotFoundException, UseGuards } from '@nestjs/common'
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
-import { CreateMessageDTO } from '../domain/dto/create-message'
-import { UpdateMessageDTO } from '../domain/dto/update-message'
+import { GQLCreateMessageDTO } from '../domain/dto/create-message'
+import { GQLUpdateMessageDTO } from '../domain/dto/update-message'
 import { Message } from '../domain/message.entity'
 import { type MessagePrimitive } from '../domain/message.primitive'
 import { ReadMessageService } from '../domain/service/read-messages.service'
@@ -58,7 +58,7 @@ export class MessageResolver {
   async create (
     @CurrentUser() UserData: PayloadPrimitive,
       @Args('idTarget', { type: () => Int }) idTarget: MessagePrimitive['idReceiver'],
-      @Body() data: CreateMessageDTO
+      @Body() data: GQLCreateMessageDTO
   ): Promise<Message> {
     const message = await this.writeMessageService.create({
       idSender: UserData.id,
@@ -93,7 +93,7 @@ export class MessageResolver {
     @CurrentUser() UserData: PayloadPrimitive,
       @Args('idTarget', { type: () => Int }) idTarget: MessagePrimitive['idReceiver'],
       @Args('index', { type: () => Int }) index: number,
-      @Body() data: UpdateMessageDTO
+      @Body() data: GQLUpdateMessageDTO
   ): Promise<Message> {
     const message = await this.writeMessageService.update({
       idUser: UserData.id,

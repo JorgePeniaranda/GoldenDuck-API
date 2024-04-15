@@ -13,10 +13,10 @@ import {
   Request
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
-import { CreateUserDTO } from '../domain/dto/create-user.dto'
-import { DeleteUserDTO } from '../domain/dto/delete-user.dto'
-import { FindUserDTO } from '../domain/dto/find-user.dto'
-import { UpdateUserDTO } from '../domain/dto/update-user.dto'
+import { SWGCreateUserDTO } from '../domain/dto/create-user.dto'
+import { SWGDeleteUserDTO } from '../domain/dto/delete-user.dto'
+import { SWGFindUserDTO } from '../domain/dto/find-user.dto'
+import { SWGUpdateUserDTO } from '../domain/dto/update-user.dto'
 import { ReadUserService } from '../domain/service/read-user.service'
 import { WriteUserService } from '../domain/service/write-user.service'
 import { type User } from '../domain/user.entity'
@@ -50,7 +50,7 @@ export class UserController {
   // @ApiBearerAuth()
   @Public()
   @Post()
-  async create (@Body() user: CreateUserDTO): Promise<User> {
+  async create (@Body() user: SWGCreateUserDTO): Promise<User> {
     return await this.writeUserService.create(user)
   }
 
@@ -58,7 +58,7 @@ export class UserController {
   @Patch()
   async update (
     @Request() UserData: { user: PayloadPrimitive },
-      @Body() data: UpdateUserDTO
+      @Body() data: SWGUpdateUserDTO
   ): Promise<User> {
     return await this.writeUserService.update({
       id: UserData.user.id,
@@ -71,7 +71,7 @@ export class UserController {
   @Delete()
   async delete (
     @Request() UserData: { user: PayloadPrimitive },
-      @Body() data: DeleteUserDTO
+      @Body() data: SWGDeleteUserDTO
   ): Promise<void> {
     await this.writeUserService.delete({
       id: UserData.user.id,
@@ -82,7 +82,7 @@ export class UserController {
   @Public()
   @HttpCode(204)
   @Post('/find')
-  async findOne (@Body() params: FindUserDTO): Promise<void> {
+  async findOne (@Body() params: SWGFindUserDTO): Promise<void> {
     const user = await this.readUserService.findOne(params)
 
     if (user === null) {

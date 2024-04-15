@@ -1,6 +1,6 @@
 import { PrismaService } from '@/services/prisma.service'
 import { Injectable } from '@nestjs/common'
-import { type FindUserDTO } from '../domain/dto/find-user.dto'
+import { type MPFindUserDTO } from '../domain/dto/find-user.dto'
 import { User } from '../domain/user.entity'
 import { type UserPrimitive } from '../domain/user.primitive'
 import { type UserRepository } from '../domain/user.repository'
@@ -26,7 +26,7 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     return new User(user)
   }
 
-  public async findOne ({ dni, email, phoneNumber }: FindUserDTO): Promise<User | null> {
+  public async findOne ({ dni, email, phoneNumber }: MPFindUserDTO): Promise<User | null> {
     const user = await this.prisma.user.findFirst({
       where: {
         OR: [{ dni }, { email }, { phoneNumber }],

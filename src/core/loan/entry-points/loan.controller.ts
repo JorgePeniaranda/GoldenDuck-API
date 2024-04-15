@@ -13,7 +13,7 @@ import {
   Request
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
-import { CreateLoanDTO } from '../domain/dto/create-loan'
+import { SWGCreateLoanDTO } from '../domain/dto/create-loan'
 import { type Loan } from '../domain/loan.entity'
 import { ReadLoanService } from '../domain/service/read-loan.service'
 import { WriteLoanService } from '../domain/service/write-loan.service'
@@ -45,7 +45,7 @@ export class LoanController {
   }
 
   @Post()
-  async create (@Body() data: CreateLoanDTO): Promise<Loan> {
+  async create (@Body() data: SWGCreateLoanDTO): Promise<Loan> {
     const loan = await this.writeLoanService.create(data)
 
     return loan

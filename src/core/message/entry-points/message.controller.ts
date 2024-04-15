@@ -13,8 +13,8 @@ import {
   Request
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
-import { CreateMessageDTO } from '../domain/dto/create-message'
-import { UpdateMessageDTO } from '../domain/dto/update-message'
+import { SWGCreateMessageDTO } from '../domain/dto/create-message'
+import { SWGUpdateMessageDTO } from '../domain/dto/update-message'
 import { type Message } from '../domain/message.entity'
 import { type MessagePrimitive } from '../domain/message.primitive'
 import { ReadMessageService } from '../domain/service/read-messages.service'
@@ -71,7 +71,7 @@ export class MessageController {
   async createAccount (
     @Request() UserData: { user: PayloadPrimitive },
       @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idReceiver'],
-      @Body() data: CreateMessageDTO
+      @Body() data: SWGCreateMessageDTO
   ): Promise<Message> {
     const message = await this.writeMessageService.create({
       idSender: UserData.user.id,
@@ -106,7 +106,7 @@ export class MessageController {
     @Request() UserData: { user: PayloadPrimitive },
       @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idReceiver'],
       @Param('index', new ParseIntPipe()) index: number,
-      @Body() data: UpdateMessageDTO
+      @Body() data: SWGUpdateMessageDTO
   ): Promise<Message> {
     const message = await this.writeMessageService.update({
       idUser: UserData.user.id,

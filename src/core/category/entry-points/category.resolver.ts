@@ -5,7 +5,7 @@ import { NotFoundException, UnauthorizedException, UseGuards } from '@nestjs/com
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 import { Category } from '../domain/category.entity'
 import { type CategoryPrimitive } from '../domain/category.primitive'
-import { CreateCategoryDTO } from '../domain/dto/create-category'
+import { GQLCreateCategoryDTO } from '../domain/dto/create-category'
 import { ReadCategoryService } from '../domain/service/read-category.service'
 import { WriteCategoryService } from '../domain/service/write-category.service'
 
@@ -26,7 +26,7 @@ export class CategoryResolver {
   }
 
   @Mutation(() => [Category], { name: 'create_category' })
-  async create (@Args('data') data: CreateCategoryDTO): Promise<Category> {
+  async create (@Args('data') data: GQLCreateCategoryDTO): Promise<Category> {
     const category = await this.writeCategoryService.create(data)
 
     return category

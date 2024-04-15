@@ -3,7 +3,7 @@ import { GqlAuthGuard } from '@/guard/gql.guard'
 import { ErrorErrorsMessages } from '@/messages/error/error'
 import { NotFoundException, UseGuards } from '@nestjs/common'
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { CreateErrorDTO } from '../domain/dto/create-error'
+import { GQLCreateErrorDTO } from '../domain/dto/create-error'
 import { Error } from '../domain/error.entity'
 import { type ErrorPrimitive } from '../domain/error.primitive'
 import { ReadErrorService } from '../domain/service/read-error.service'
@@ -26,7 +26,7 @@ export class ErrorResolver {
   }
 
   @Mutation(() => Error, { name: 'create_error' })
-  async create (@Args('data') data: CreateErrorDTO): Promise<Error> {
+  async create (@Args('data') data: GQLCreateErrorDTO): Promise<Error> {
     const error = await this.writeErrorService.create(data)
 
     return error

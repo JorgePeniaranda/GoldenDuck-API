@@ -8,7 +8,7 @@ import { AccountErrorsMessages } from '@/messages/error/account'
 import { Body, NotFoundException, UseGuards } from '@nestjs/common'
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 import { Card } from '../domain/card.entity'
-import { CreateCardDTO } from '../domain/dto/create-card'
+import { GQLCreateCardDTO } from '../domain/dto/create-card'
 import { ReadCardService } from '../domain/service/read-card.service'
 import { WriteCardService } from '../domain/service/write-card.service'
 
@@ -43,7 +43,7 @@ export class CardResolver {
   async create (
     @CurrentUser() UserData: PayloadPrimitive,
       @Args('AccountIndex', { type: () => Int }) AccountIndex: number,
-      @Body() data: CreateCardDTO
+      @Body() data: GQLCreateCardDTO
   ): Promise<Card> {
     const card = await this.writeCardService.create({
       idUser: UserData.id,

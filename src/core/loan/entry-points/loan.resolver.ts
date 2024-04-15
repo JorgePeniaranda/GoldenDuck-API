@@ -7,7 +7,7 @@ import { AccountErrorsMessages } from '@/messages/error/account'
 import { LoanErrorsMessages } from '@/messages/error/loan'
 import { NotFoundException, Request, UseGuards } from '@nestjs/common'
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
-import { CreateLoanDTO } from '../domain/dto/create-loan'
+import { GQLCreateLoanDTO } from '../domain/dto/create-loan'
 import { Loan } from '../domain/loan.entity'
 import { ReadLoanService } from '../domain/service/read-loan.service'
 import { WriteLoanService } from '../domain/service/write-loan.service'
@@ -36,7 +36,7 @@ export class LoanResolver {
   }
 
   @Mutation(() => Loan, { name: 'create_loan' })
-  async create (@Args('data') data: CreateLoanDTO): Promise<Loan> {
+  async create (@Args('data') data: GQLCreateLoanDTO): Promise<Loan> {
     const loan = await this.writeLoanService.create(data)
 
     return loan

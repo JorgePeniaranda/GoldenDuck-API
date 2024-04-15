@@ -13,7 +13,7 @@ import {
   Request
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
-import { CreateTransactionDTO } from '../domain/dto/create-transaction'
+import { SWGCreateTransactionDTO } from '../domain/dto/create-transaction'
 import { ReadTransactionService } from '../domain/service/read-transaction.service'
 import { WriteTransactionService } from '../domain/service/write-transaction.service'
 import { type Transaction } from '../domain/transaction.entity'
@@ -48,7 +48,7 @@ export class TransactionController {
   async create (
     @Request() UserData: { user: PayloadPrimitive },
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
-      @Body() data: CreateTransactionDTO
+      @Body() data: SWGCreateTransactionDTO
   ): Promise<Transaction> {
     const transaction = await this.writeTransactionService.create({
       idUser: UserData.user.id,

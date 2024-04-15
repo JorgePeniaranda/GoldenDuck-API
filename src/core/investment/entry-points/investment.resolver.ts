@@ -8,7 +8,7 @@ import { AccountErrorsMessages } from '@/messages/error/account'
 import { InvestmentErrorsMessages } from '@/messages/error/investment'
 import { Body, NotFoundException, UseGuards } from '@nestjs/common'
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
-import { CreateInvestmentDTO } from '../domain/dto/create-investment'
+import { GQLCreateInvestmentDTO } from '../domain/dto/create-investment'
 import { Investment } from '../domain/investment.entity'
 import { ReadInvestmentService } from '../domain/service/read-investment.service'
 import { WriteInvestmentService } from '../domain/service/write-investment.service'
@@ -37,7 +37,7 @@ export class InvestmentResolver {
   }
 
   @Mutation(() => Investment, { name: 'create_investment' })
-  async create (@Body() data: CreateInvestmentDTO): Promise<Investment> {
+  async create (@Body() data: GQLCreateInvestmentDTO): Promise<Investment> {
     const investment = await this.writeInvestmentService.create(data)
 
     return investment

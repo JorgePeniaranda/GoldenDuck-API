@@ -12,7 +12,7 @@ import {
   Post
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
-import { CreateErrorDTO } from '../domain/dto/create-error'
+import { SWGCreateErrorDTO } from '../domain/dto/create-error'
 import { type Error } from '../domain/error.entity'
 import { type ErrorPrimitive } from '../domain/error.primitive'
 import { ReadErrorService } from '../domain/service/read-error.service'
@@ -40,7 +40,7 @@ export class ErrorController {
 
   @Public()
   @Post()
-  async create (@Body() data: CreateErrorDTO): Promise<Error> {
+  async create (@Body() data: SWGCreateErrorDTO): Promise<Error> {
     const error = await this.writeErrorService.create(data)
 
     return error

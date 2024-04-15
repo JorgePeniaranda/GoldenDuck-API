@@ -1,3 +1,4 @@
+import { MPDeleteUserDTO } from '@/core/user/domain/dto/delete-user.dto'
 import { type User } from '@/core/user/domain/user.entity'
 import { UserRoles } from '@/core/user/domain/user.primitive'
 import { Public } from '@/decorators/public.decorator'
@@ -13,7 +14,7 @@ import {
   ApiResponse,
   ApiTags
 } from '@nestjs/swagger'
-import { LoginDTO } from '../domain/dto/login.dto'
+import { SWGLoginDTO } from '../domain/dto/login.dto'
 import { type PayloadPrimitive } from '../domain/primitive/payload.primitive'
 import { AuthService } from '../domain/service/auth.service'
 import { type Token } from '../domain/token.entity'
@@ -28,7 +29,7 @@ export class AuthController {
     type: TokenResponse
   })
   @ApiBody({
-    type: LoginDTO
+    type: SWGLoginDTO
   })
   @Public()
   @UseGuards(LocalAuthGuard)
@@ -40,6 +41,12 @@ export class AuthController {
   @ApiNoContentResponse()
   @Get()
   async verify (@Request() req: { user: PayloadPrimitive }): Promise<PayloadPrimitive> {
+    const coso = new MPDeleteUserDTO({
+      password: '123456'
+    })
+
+    console.log(coso.password)
+
     return req.user
   }
 

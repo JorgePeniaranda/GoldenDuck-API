@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { type Card } from '../domain/card.entity'
-import { CreateCardDTO } from '../domain/dto/create-card'
+import { SWGCreateCardDTO } from '../domain/dto/create-card'
 import { ReadCardService } from '../domain/service/read-card.service'
 import { WriteCardService } from '../domain/service/write-card.service'
 import { CardResponse } from './card.response'
@@ -51,7 +51,7 @@ export class CardController {
   async create (
     @Request() UserData: { user: PayloadPrimitive },
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
-      @Body() data: CreateCardDTO
+      @Body() data: SWGCreateCardDTO
   ): Promise<Card> {
     const card = await this.writeCardService.create({
       idUser: UserData.user.id,
