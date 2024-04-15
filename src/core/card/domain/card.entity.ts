@@ -53,10 +53,6 @@ export class Card implements CardPrimitive {
     return this.#updatedAt
   }
 
-  public set updatedAt (value: CardPrimitive['updatedAt']) {
-    this.#updatedAt = value
-  }
-
   @Field(() => Date)
   public get createdAt (): CardPrimitive['createdAt'] {
     return this.#createdAt
@@ -68,8 +64,13 @@ export class Card implements CardPrimitive {
   }
 
   /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  #updateUpdatedAt (): void {
+    this.#updatedAt = new Date()
+  }
+
   public delete (): void {
     this.#deleted = true
+    this.#updateUpdatedAt()
   }
 
   public static create ({

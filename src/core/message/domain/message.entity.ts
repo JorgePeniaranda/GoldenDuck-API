@@ -43,8 +43,9 @@ export class Message implements MessagePrimitive {
     return this.#message
   }
 
-  set message (value: MessagePrimitive['message']) {
+  public set message (value: MessagePrimitive['message']) {
     this.#message = value
+    this.#updateUpdatedAt()
   }
 
   @Field(() => Boolean)
@@ -55,10 +56,6 @@ export class Message implements MessagePrimitive {
   @Field(() => Date)
   public get updatedAt (): MessagePrimitive['updatedAt'] {
     return this.#updatedAt
-  }
-
-  set updatedAt (value: MessagePrimitive['updatedAt']) {
-    this.#updatedAt = value
   }
 
   @Field(() => Date)
@@ -72,12 +69,18 @@ export class Message implements MessagePrimitive {
   }
 
   /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  #updateUpdatedAt (): void {
+    this.#updatedAt = new Date()
+  }
+
   public markAsRead (): void {
     this.#read = true
+    this.#updateUpdatedAt()
   }
 
   public deleteMessage (): void {
     this.#deleted = true
+    this.#updateUpdatedAt()
   }
 
   public static create ({

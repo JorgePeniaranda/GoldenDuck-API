@@ -53,10 +53,6 @@ export class Investment implements InvestmentPrimitive {
     return this.#updatedAt
   }
 
-  public set updatedAt (value: InvestmentPrimitive['updatedAt']) {
-    this.#updatedAt = value
-  }
-
   @Field(() => Date)
   public get createdAt (): InvestmentPrimitive['createdAt'] {
     return this.#createdAt
@@ -68,8 +64,13 @@ export class Investment implements InvestmentPrimitive {
   }
 
   /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  #updateUpdatedAt (): void {
+    this.#updatedAt = new Date()
+  }
+
   public cancel (): void {
     this.#canceled = true
+    this.#updateUpdatedAt()
   }
 
   public static create ({

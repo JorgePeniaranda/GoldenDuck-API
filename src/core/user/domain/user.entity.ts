@@ -42,112 +42,115 @@ export class User implements UserPrimitive {
 
   // #region GETTER / SETTER
   @Field(() => ID)
-  get id (): UserPrimitive['id'] {
+  public get id (): UserPrimitive['id'] {
     return this.#id
   }
 
   @Field(() => String)
-  get name (): UserPrimitive['name'] {
+  public get name (): UserPrimitive['name'] {
     return this.#name
   }
 
-  set name (name: UserPrimitive['name']) {
+  public set name (name: UserPrimitive['name']) {
     this.#name = name
+    this.#updateUpdatedAt()
   }
 
   @Field(() => String)
-  get lastName (): UserPrimitive['lastName'] {
+  public get lastName (): UserPrimitive['lastName'] {
     return this.#lastName
   }
 
-  set lastName (lastName: UserPrimitive['lastName']) {
+  public set lastName (lastName: UserPrimitive['lastName']) {
     this.#lastName = lastName
+    this.#updateUpdatedAt()
   }
 
   @Field(() => String)
-  get dni (): UserPrimitive['dni'] {
+  public get dni (): UserPrimitive['dni'] {
     return this.#dni
   }
 
   @Field(() => String)
-  get email (): UserPrimitive['email'] {
+  public get email (): UserPrimitive['email'] {
     return this.#email
   }
 
-  set email (email: UserPrimitive['email']) {
+  public set email (email: UserPrimitive['email']) {
     this.#email = email
+    this.#updateUpdatedAt()
   }
 
   @Field(() => Number)
-  get phoneNumber (): UserPrimitive['phoneNumber'] {
+  public get phoneNumber (): UserPrimitive['phoneNumber'] {
     return this.#phoneNumber
   }
 
-  set phoneNumber (phoneNumber: UserPrimitive['phoneNumber']) {
+  public set phoneNumber (phoneNumber: UserPrimitive['phoneNumber']) {
     this.#phoneNumber = phoneNumber
+    this.#updateUpdatedAt()
   }
 
-  get password (): UserPrimitive['password'] {
+  public get password (): UserPrimitive['password'] {
     return this.#password.value
   }
 
-  set password (password: string) {
+  public set password (password: string) {
     this.#password.value = password
+    this.#updateUpdatedAt()
   }
 
-  get salt (): UserPrimitive['salt'] {
+  public get salt (): UserPrimitive['salt'] {
     return this.#password.salt
   }
 
   @Field(() => String)
-  get address (): UserPrimitive['address'] {
+  public get address (): UserPrimitive['address'] {
     return this.#address
   }
 
-  set address (address: UserPrimitive['address']) {
+  public set address (address: UserPrimitive['address']) {
     this.#address = address
+    this.#updateUpdatedAt()
   }
 
   @Field(() => Date)
-  get birthDate (): UserPrimitive['birthDate'] {
+  public get birthDate (): UserPrimitive['birthDate'] {
     return this.#birthDate
   }
 
   @Field(() => String)
-  get sex (): UserPrimitive['sex'] {
+  public get sex (): UserPrimitive['sex'] {
     return this.#sex
   }
 
   @Field(() => String)
-  get imgUrl (): UserPrimitive['imgUrl'] {
+  public get imgUrl (): UserPrimitive['imgUrl'] {
     return this.#imgUrl
   }
 
-  set imgUrl (imgUrl: UserPrimitive['imgUrl']) {
+  public set imgUrl (imgUrl: UserPrimitive['imgUrl']) {
     this.#imgUrl = imgUrl
+    this.#updateUpdatedAt()
   }
 
   @Field(() => Date)
-  get updatedAt (): UserPrimitive['updatedAt'] {
+  public get updatedAt (): UserPrimitive['updatedAt'] {
     return this.#updatedAt
   }
 
-  set updatedAt (updatedAt: UserPrimitive['updatedAt']) {
-    this.#updatedAt = updatedAt
-  }
-
   @Field(() => Date)
-  get createdAt (): UserPrimitive['createdAt'] {
+  public get createdAt (): UserPrimitive['createdAt'] {
     return this.#createdAt
   }
 
   @Field(() => Boolean)
-  get actived (): UserPrimitive['actived'] {
+  public get actived (): UserPrimitive['actived'] {
     return this.#actived
   }
 
   @Field(() => Boolean)
-  get deleted (): UserPrimitive['deleted'] {
+  public get deleted (): UserPrimitive['deleted'] {
     return this.#deleted
   }
 
@@ -156,19 +159,24 @@ export class User implements UserPrimitive {
     return this.#role
   }
 
-  set role (role: UserPrimitive['role']) {
+  public set role (role: UserPrimitive['role']) {
     this.#role = role
+    this.#updateUpdatedAt()
   }
 
-  /**
-   * --------------------> MARK:ASDA
-   **/
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  #updateUpdatedAt (): void {
+    this.#updatedAt = new Date()
+  }
+
   public activate (): void {
     this.#actived = true
+    this.#updateUpdatedAt()
   }
 
   public delete (): void {
     this.#deleted = true
+    this.#updateUpdatedAt()
   }
 
   public comparePassword (password: string): boolean {

@@ -30,15 +30,12 @@ export class Category implements CategoryPrimitive {
 
   public set name (value: CategoryPrimitive['name']) {
     this.#name = value
+    this.#updateUpdatedAt()
   }
 
   @Field(() => Date)
   public get updatedAt (): CategoryPrimitive['updatedAt'] {
     return this.#updatedAt
-  }
-
-  public set updatedAt (value: CategoryPrimitive['updatedAt']) {
-    this.#updatedAt = value
   }
 
   @Field(() => Date)
@@ -52,8 +49,13 @@ export class Category implements CategoryPrimitive {
   }
 
   /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  #updateUpdatedAt (): void {
+    this.#updatedAt = new Date()
+  }
+
   public delete (): void {
     this.#deleted = true
+    this.#updateUpdatedAt()
   }
 
   public static create ({ name }: { name: CategoryPrimitive['name'] }): Category {

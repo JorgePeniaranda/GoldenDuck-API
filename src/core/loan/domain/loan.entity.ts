@@ -53,10 +53,6 @@ export class Loan implements LoanPrimitive {
     return this.#updatedAt
   }
 
-  public set updatedAt (value: LoanPrimitive['updatedAt']) {
-    this.#updatedAt = value
-  }
-
   @Field(() => Date)
   public get createdAt (): LoanPrimitive['createdAt'] {
     return this.#createdAt
@@ -68,6 +64,10 @@ export class Loan implements LoanPrimitive {
   }
 
   /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  #updateUpdatedAt (): void {
+    this.#updatedAt = new Date()
+  }
+
   public cancel (): void {
     this.#canceled = true
   }

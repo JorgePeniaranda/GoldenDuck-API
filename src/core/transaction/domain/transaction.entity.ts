@@ -23,41 +23,41 @@ export class Transaction implements TransactionPrimitive {
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
-  get id (): TransactionPrimitive['id'] {
+  public get id (): TransactionPrimitive['id'] {
     return this.#id
   }
 
   @Field(() => Number)
-  get idSender (): TransactionPrimitive['idSender'] {
+  public get idSender (): TransactionPrimitive['idSender'] {
     return this.#idSender
   }
 
   @Field(() => Number)
-  get idReceiver (): TransactionPrimitive['idReceiver'] {
+  public get idReceiver (): TransactionPrimitive['idReceiver'] {
     return this.#idReceiver
   }
 
   @Field(() => String)
-  get amount (): TransactionPrimitive['amount'] {
+  public get amount (): TransactionPrimitive['amount'] {
     return this.#amount
   }
 
   @Field(() => Number)
-  get idCategory (): TransactionPrimitive['idCategory'] {
+  public get idCategory (): TransactionPrimitive['idCategory'] {
     return this.#idCategory
   }
 
-  set idCategory (value: TransactionPrimitive['idCategory']) {
+  public set idCategory (value: TransactionPrimitive['idCategory']) {
     this.#idCategory = value
   }
 
   @Field(() => Date)
-  get createdAt (): TransactionPrimitive['createdAt'] {
+  public get createdAt (): TransactionPrimitive['createdAt'] {
     return this.#createdAt
   }
 
   @Field(() => Boolean)
-  get canceled (): TransactionPrimitive['canceled'] {
+  public get canceled (): TransactionPrimitive['canceled'] {
     return this.#canceled
   }
 

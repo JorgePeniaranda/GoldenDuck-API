@@ -46,10 +46,6 @@ export class Error implements ErrorPrimitive {
     return this.#updatedAt
   }
 
-  public set updatedAt (value: ErrorPrimitive['updatedAt']) {
-    this.#updatedAt = value
-  }
-
   @Field(() => Date)
   public get createdAt (): ErrorPrimitive['createdAt'] {
     return this.#createdAt
@@ -61,8 +57,13 @@ export class Error implements ErrorPrimitive {
   }
 
   /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  #updateUpdatedAt (): void {
+    this.#updatedAt = new Date()
+  }
+
   public delete (): void {
     this.#deleted = true
+    this.#updateUpdatedAt()
   }
 
   public static create ({

@@ -20,42 +20,43 @@ export class Notification implements NotificationPrimitive {
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
-  get id (): NotificationPrimitive['id'] {
+  public get id (): NotificationPrimitive['id'] {
     return this.#id
   }
 
   @Field(() => Number)
-  get idUser (): NotificationPrimitive['idUser'] {
+  public get idUser (): NotificationPrimitive['idUser'] {
     return this.#idUser
   }
 
   @Field(() => String)
-  get message (): NotificationPrimitive['message'] {
+  public get message (): NotificationPrimitive['message'] {
     return this.#message
   }
 
   @Field(() => Boolean)
-  get read (): NotificationPrimitive['read'] {
+  public get read (): NotificationPrimitive['read'] {
     return this.#read
   }
 
   @Field(() => Date)
-  get updatedAt (): NotificationPrimitive['updatedAt'] {
+  public get updatedAt (): NotificationPrimitive['updatedAt'] {
     return this.#updatedAt
   }
 
-  set updatedAt (value: NotificationPrimitive['updatedAt']) {
-    this.#updatedAt = value
-  }
-
   @Field(() => Date)
-  get createdAt (): NotificationPrimitive['createdAt'] {
+  public get createdAt (): NotificationPrimitive['createdAt'] {
     return this.#createdAt
   }
 
   /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  #updateUpdatedAt (): void {
+    this.#updatedAt = new Date()
+  }
+
   public markAsRead (): void {
     this.#read = true
+    this.#updateUpdatedAt()
   }
 
   public static create ({

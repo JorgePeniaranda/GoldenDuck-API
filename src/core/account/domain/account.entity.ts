@@ -51,21 +51,24 @@ export class Account implements AccountPrimitive {
     return this.#updatedAt
   }
 
-  public set updatedAt (value: AccountPrimitive['updatedAt']) {
-    this.#updatedAt = value
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  #updateUpdatedAt (): void {
+    this.#updatedAt = new Date()
   }
 
-  /* -------------------- METHODS -------------------- */ // MARK: METHODS
   public incrementBalance (amount: AccountPrimitive['balance']): void {
     this.#balance += amount
+    this.#updateUpdatedAt()
   }
 
   public decrementBalance (amount: AccountPrimitive['balance']): void {
     this.#balance -= amount
+    this.#updateUpdatedAt()
   }
 
   public delete (): void {
     this.#deleted = true
+    this.#updateUpdatedAt()
   }
 
   public toJSON (): AccountPrimitive {
