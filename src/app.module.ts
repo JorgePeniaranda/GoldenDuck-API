@@ -1,6 +1,5 @@
 import { ApolloDriver, type ApolloDriverConfig } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
-import { APP_GUARD } from '@nestjs/core'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import { GraphQLModule } from '@nestjs/graphql'
 import { ScheduleModule } from '@nestjs/schedule'
@@ -17,7 +16,6 @@ import { NotificationModule } from './core/notification/notification.module'
 import { SessionModule } from './core/session/session.module'
 import { TransactionModule } from './core/transaction/transactions.module'
 import { UserModule } from './core/user/user.module'
-import { JwtAuthGuard } from './guard/jwt.guard'
 
 @Module({
   imports: [
@@ -40,12 +38,6 @@ import { JwtAuthGuard } from './guard/jwt.guard'
     InvestmentModule,
     CategoryModule,
     ErrorModule
-  ],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useValue: JwtAuthGuard
-    }
   ]
 })
 export class AppModule {}

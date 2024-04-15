@@ -1,3 +1,4 @@
+import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
 import { UserErrorsMessages } from '@/messages/error/user'
 import { NotFoundException, UseGuards } from '@nestjs/common'
@@ -5,6 +6,7 @@ import { Args, Query, Resolver } from '@nestjs/graphql'
 import { ReadUserService } from '../domain/service/read-user.service'
 import { User } from '../domain/user.entity'
 
+@Public()
 @Resolver()
 export class UserResolver {
   constructor (private readonly readUserService: ReadUserService) {}

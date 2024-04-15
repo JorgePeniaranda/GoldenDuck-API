@@ -38,7 +38,6 @@ export class AuthController {
   }
 
   @ApiNoContentResponse()
-  @UseGuards(JwtAuthGuard)
   @Get()
   async verify (@Request() req: { user: PayloadPrimitive }): Promise<PayloadPrimitive> {
     return req.user

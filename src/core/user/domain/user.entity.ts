@@ -155,7 +155,7 @@ export class User implements UserPrimitive {
   }
 
   @Field(() => String)
-  get role (): UserPrimitive['role'] {
+  public get role (): UserPrimitive['role'] {
     return this.#role
   }
 
