@@ -1,6 +1,7 @@
-import { Field, ID } from '@nestjs/graphql'
+import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type MessagePrimitive } from './message.primitive'
 
+@ObjectType()
 export class Message implements MessagePrimitive {
   readonly #id: MessagePrimitive['id']
   readonly #idSender: MessagePrimitive['idSender']

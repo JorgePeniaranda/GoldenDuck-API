@@ -1,6 +1,7 @@
-import { Field, ID } from '@nestjs/graphql'
+import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type SessionPrimitive } from './session.primitive'
 
+@ObjectType()
 export class Session implements SessionPrimitive {
   readonly #id: SessionPrimitive['id']
   readonly #idUser: SessionPrimitive['idUser']

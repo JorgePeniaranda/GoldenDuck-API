@@ -1,60 +1,52 @@
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
+import { CurrentUser } from '@/decorators/current-user.decorator'
+import { Public } from '@/decorators/public.decorator'
+import { GqlAuthGuard } from '@/guard/gql.guard'
 import { InvestmentErrorsMessages } from '@/messages/error/investment'
 import {
   Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
   NotFoundException,
-  Param,
-  ParseIntPipe,
-  Post,
-  Request
+  UseGuards
 } from '@nestjs/common'
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { CreateInvestmentDTO } from '../domain/dto/create-investment'
-import { type Investment } from '../domain/investment.entity'
+import { Investment } from '../domain/investment.entity'
 import { ReadInvestmentService } from '../domain/service/read-investment.service'
 import { WriteInvestmentService } from '../domain/service/write-investment.service'
-import { InvestmentResponse } from './investment.response'
 
-@ApiResponse({
-  type: InvestmentResponse
-})
-@ApiTags('Investment')
-@ApiBearerAuth()
-@Controller('account/:AccountIndex/investment')
-export class InvestmentController {
+@Public()
+@UseGuards(GqlAuthGuard)
+@Resolver()
+export class InvestmentResolver {
   constructor (
     private readonly writeInvestmentService: WriteInvestmentService,
     private readonly readInvestmentService: ReadInvestmentService
   ) {}
 
-  @Get()
-  async findAll (@Request() UserData: { user: PayloadPrimitive }): Promise<Investment[]> {
+  @Query(() => [Investment], { name: 'find_all_investment' })
+  async findAll (@CurrentUser() UserData: PayloadPrimitive): Promise<Investment[]> {
     const investment = await this.readInvestmentService.findAll({
-      idAccount: UserData.user.id
+      idAccount: UserData.id
     })
 
     return investment
   }
 
-  @Post()
+  @Mutation(() => Investment, { name: 'create_investment' })
   async create (@Body() data: CreateInvestmentDTO): Promise<Investment> {
     const investment = await this.writeInvestmentService.create(data)
 
     return investment
   }
 
-  @Get('/:index')
+  @Query(() => Investment, { name: 'find_one_investment' })
   async findOne (
-    @Request() UserData: { user: PayloadPrimitive },
-      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
-      @Param('index', new ParseIntPipe()) index: number
+    @CurrentUser() UserData: PayloadPrimitive,
+      @Args('AccountIndex', { type: () => Int }) AccountIndex: number,
+      @Args('index', { type: () => Int }) index: number
   ): Promise<Investment> {
     const investment = await this.readInvestmentService.findOne({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       AccountIndex,
       index
     })
@@ -66,15 +58,14 @@ export class InvestmentController {
     return investment
   }
 
-  @HttpCode(204)
-  @Delete('/:index')
+  @Mutation(() => Investment, { name: 'delete_investment' })
   async delete (
-    @Request() UserData: { user: PayloadPrimitive },
-      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
-      @Param('index', new ParseIntPipe()) index: number
+    @CurrentUser() UserData: PayloadPrimitive,
+      @Args('AccountIndex', { type: () => Int }) AccountIndex: number,
+      @Args('index', { type: () => Int }) index: number
   ): Promise<void> {
     await this.writeInvestmentService.delete({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       AccountIndex,
       index
     })

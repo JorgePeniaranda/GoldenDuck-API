@@ -1,6 +1,7 @@
-import { Field, ID } from '@nestjs/graphql'
+import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type NotificationPrimitive } from './notification.primitive'
 
+@ObjectType()
 export class Notification implements NotificationPrimitive {
   readonly #id: NotificationPrimitive['id']
   readonly #idUser: NotificationPrimitive['idUser']

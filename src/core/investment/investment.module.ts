@@ -5,6 +5,7 @@ import { InvestmentRepositoryPrismaMySQL } from './data-access/investment-prisma
 import { ReadInvestmentService } from './domain/service/read-investment.service'
 import { WriteInvestmentService } from './domain/service/write-investment.service'
 import { InvestmentController } from './entry-points/investment.controller'
+import { InvestmentResolver } from './entry-points/investment.resolver'
 
 @Module({
   imports: [AccountModule],
@@ -12,6 +13,7 @@ import { InvestmentController } from './entry-points/investment.controller'
   providers: [
     WriteInvestmentService,
     ReadInvestmentService,
+    InvestmentResolver,
     {
       provide: 'InvestmentRepository',
       useClass: InvestmentRepositoryPrismaMySQL

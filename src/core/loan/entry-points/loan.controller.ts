@@ -15,7 +15,6 @@ import {
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateLoanDTO } from '../domain/dto/create-loan'
 import { type Loan } from '../domain/loan.entity'
-import { type LoanPrimitive } from '../domain/loan.primitive'
 import { ReadLoanService } from '../domain/service/read-loan.service'
 import { WriteLoanService } from '../domain/service/write-loan.service'
 import { LoanResponse } from './loan.response'
@@ -33,8 +32,10 @@ export class LoanController {
   ) {}
 
   @Get()
-  async findAll (@Body() id: LoanPrimitive['id']): Promise<Loan[]> {
-    const loan = await this.readLoanService.findAll(id)
+  async findAll (@Request() UserData: { user: PayloadPrimitive }): Promise<Loan[]> {
+    const loan = await this.readLoanService.findAll({
+      idAccount: UserData.user.id
+    })
 
     return loan
   }

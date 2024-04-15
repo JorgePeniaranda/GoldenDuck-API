@@ -12,7 +12,7 @@ export class ReadLoanService {
     @Inject('LoanRepository') private readonly loanRepository: LoanRepository
   ) {}
 
-  public async findAll (idAccount: LoanPrimitive['idAccount']): Promise<Loan[]> {
+  public async findAll ({ idAccount }: { idAccount: LoanPrimitive['idAccount'] }): Promise<Loan[]> {
     return await this.loanRepository.findAll({ idAccount })
   }
 

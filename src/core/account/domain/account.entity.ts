@@ -1,8 +1,9 @@
-import { Field } from '@nestjs/graphql'
+import { Field, ObjectType } from '@nestjs/graphql'
 import { type AccountPrimitive } from './account.primitive'
 
 const optionalProperties = ['id', 'balance', 'updatedAt', 'createdAt', 'deleted'] as const
 
+@ObjectType()
 export class Account implements AccountPrimitive {
   readonly #id: AccountPrimitive['id']
   readonly #idUser: AccountPrimitive['idUser']

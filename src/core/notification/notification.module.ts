@@ -16,6 +16,7 @@ import { NotificationRepositoryPrismaMySQL } from './data-access/notification-pr
 import { ReadNotificationService } from './domain/service/read-notification.service'
 import { WriteNotificationService } from './domain/service/write-notification.service'
 import { NotificationController } from './entry-points/notification.controller'
+import { NotificationResolver } from './entry-points/notification.resolver'
 
 @Module({
   imports: [AccountModule],
@@ -23,6 +24,7 @@ import { NotificationController } from './entry-points/notification.controller'
   providers: [
     WriteNotificationService,
     ReadNotificationService,
+    NotificationResolver,
     {
       provide: 'NotificationRepository',
       useClass: NotificationRepositoryPrismaMySQL

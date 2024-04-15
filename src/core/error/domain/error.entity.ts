@@ -1,6 +1,7 @@
-import { Field, ID } from '@nestjs/graphql'
+import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type ErrorPrimitive } from './error.primitive'
 
+@ObjectType()
 export class Error implements ErrorPrimitive {
   readonly #id: ErrorPrimitive['id']
   readonly #name: ErrorPrimitive['name']

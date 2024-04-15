@@ -1,6 +1,7 @@
-import { Field, ID } from '@nestjs/graphql'
+import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type InvestmentPrimitive } from './investment.primitive'
 
+@ObjectType()
 export class Investment implements InvestmentPrimitive {
   readonly #id: InvestmentPrimitive['id']
   readonly #idAccount: InvestmentPrimitive['idAccount']

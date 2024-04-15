@@ -4,7 +4,7 @@ import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
 import { UserErrorsMessages } from '@/messages/error/user'
 import { NotFoundException, UseGuards } from '@nestjs/common'
-import { Args, Query, Resolver } from '@nestjs/graphql'
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { CreateUserDTO } from '../domain/dto/create-user.dto'
 import { DeleteUserDTO } from '../domain/dto/delete-user.dto'
 import { FindUserDTO } from '../domain/dto/find-user.dto'
@@ -22,7 +22,7 @@ export class UserResolver {
     private readonly readUserService: ReadUserService
   ) {}
 
-  @Query(_returns => User, { name: 'current_user_info' })
+  @Query(() => User, { name: 'current_user_info' })
   async findByID (@CurrentUser() UserData: PayloadPrimitive): Promise<User> {
     const user = await this.readUserService.findByID({
       id: UserData.id
@@ -35,12 +35,12 @@ export class UserResolver {
     return user
   }
 
-  @Query(_returns => User, { name: 'create_user' })
+  @Mutation(() => User, { name: 'create_user' })
   async create (@Args('user') user: CreateUserDTO): Promise<User> {
     return await this.writeUserService.create(user)
   }
 
-  @Query(_returns => User, { name: 'update_user' })
+  @Mutation(() => User, { name: 'update_user' })
   async update (
     @CurrentUser() UserData: { user: PayloadPrimitive },
       @Args('data') data: UpdateUserDTO
@@ -51,7 +51,7 @@ export class UserResolver {
     })
   }
 
-  @Query(_returns => User, { name: 'delete_user' })
+  @Mutation(() => User, { name: 'delete_user' })
   async delete (
     @CurrentUser() UserData: { user: PayloadPrimitive },
       @Args('data') data: DeleteUserDTO
@@ -62,7 +62,7 @@ export class UserResolver {
     })
   }
 
-  @Query(_returns => User, { name: 'find_user' })
+  @Query(() => User, { name: 'find_user' })
   async findOne (@Args('params') params: FindUserDTO): Promise<User> {
     const user = await this.readUserService.findOne(params)
 
@@ -73,7 +73,7 @@ export class UserResolver {
     return user
   }
 
-  @Query(_returns => User, { name: 'activate_user' })
+  @Mutation(() => User, { name: 'activate_user' })
   async activate (@CurrentUser() UserData: { user: PayloadPrimitive }): Promise<'🤠'> {
     await this.writeUserService.activate({
       id: UserData.user.id

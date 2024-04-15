@@ -5,6 +5,7 @@ import { CardRepositoryPrismaMySQL } from './data-access/card-prisma-mysql.repos
 import { ReadCardService } from './domain/service/read-card.service'
 import { WriteCardService } from './domain/service/write-card.service'
 import { CardController } from './entry-points/card.controller'
+import { CardResolver } from './entry-points/card.resolver'
 
 @Module({
   imports: [AccountModule],
@@ -12,6 +13,7 @@ import { CardController } from './entry-points/card.controller'
   providers: [
     WriteCardService,
     ReadCardService,
+    CardResolver,
     {
       provide: 'CardRepository',
       useClass: CardRepositoryPrismaMySQL

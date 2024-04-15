@@ -13,7 +13,7 @@ export class ReadInvestmentService {
     private readonly readAccountService: ReadAccountService
   ) {}
 
-  public async findAll (idAccount: InvestmentPrimitive['idAccount']): Promise<Investment[]> {
+  public async findAll ({ idAccount }: { idAccount: InvestmentPrimitive['idAccount'] }): Promise<Investment[]> {
     return await this.investmentRepository.findAll({ idAccount })
   }
 

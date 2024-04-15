@@ -5,6 +5,7 @@ import { TransactionRepositoryPrismaMySQL } from './data-access/transaction-pris
 import { ReadTransactionService } from './domain/service/read-transaction.service'
 import { WriteTransactionService } from './domain/service/write-transaction.service'
 import { TransactionController } from './entry-points/transaction.controller'
+import { TransactionResolver } from './entry-points/transaction.resolver'
 
 @Module({
   imports: [AccountModule],
@@ -12,6 +13,7 @@ import { TransactionController } from './entry-points/transaction.controller'
   providers: [
     WriteTransactionService,
     ReadTransactionService,
+    TransactionResolver,
     {
       provide: 'TransactionRepository',
       useClass: TransactionRepositoryPrismaMySQL

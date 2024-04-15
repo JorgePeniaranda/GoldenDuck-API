@@ -7,12 +7,14 @@ import { SessionRepositoryPrismaMySQL } from './data-access/session-prisma-mysql
 import { ReadSessionService } from './domain/service/read-session.service'
 import { WriteSessionService } from './domain/service/write-session.service'
 import { SessionController } from './entry-points/session.controller'
+import { SessionResolver } from './entry-points/session.resolver'
 
 @Module({
   controllers: [SessionController],
   providers: [
     WriteSessionService,
     ReadSessionService,
+    SessionResolver,
     {
       provide: 'SessionRepository',
       useClass: SessionRepositoryPrismaMySQL

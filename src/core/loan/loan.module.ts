@@ -5,6 +5,7 @@ import { LoanRepositoryPrismaMySQL } from './data-access/loan-prisma-mysql.repos
 import { ReadLoanService } from './domain/service/read-loan.service'
 import { WriteLoanService } from './domain/service/write-loan.service'
 import { LoanController } from './entry-points/loan.controller'
+import { LoanResolver } from './entry-points/loan.resolver'
 
 @Module({
   imports: [AccountModule],
@@ -12,6 +13,7 @@ import { LoanController } from './entry-points/loan.controller'
   providers: [
     WriteLoanService,
     ReadLoanService,
+    LoanResolver,
     {
       provide: 'LoanRepository',
       useClass: LoanRepositoryPrismaMySQL

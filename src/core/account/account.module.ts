@@ -11,6 +11,7 @@ import { AccountRepositoryPrismaMySQL } from './data-access/account-prisma-mysql
 import { ReadAccountService } from './domain/service/read-account.service'
 import { WriteAccountService } from './domain/service/write-account.service'
 import { AccountController } from './entry-points/account.controller'
+import { AccountResolver } from './entry-points/account.resolver'
 
 @Module({
   imports: [UserModule],
@@ -18,6 +19,7 @@ import { AccountController } from './entry-points/account.controller'
   providers: [
     WriteAccountService,
     ReadAccountService,
+    AccountResolver,
     {
       provide: 'AccountRepository',
       useClass: AccountRepositoryPrismaMySQL
