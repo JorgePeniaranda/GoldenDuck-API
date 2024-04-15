@@ -26,6 +26,7 @@ export class TransactionResolver {
     private readonly readCategoryService: ReadCategoryService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   @Query(() => [Transaction], { name: 'find_all_transaction' })
   async findAll (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -39,6 +40,7 @@ export class TransactionResolver {
     return transactions
   }
 
+  /* ---------- create ---------- */ // MARK: create
   @Mutation(() => Transaction, { name: 'create_transaction' })
   async create (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -54,6 +56,7 @@ export class TransactionResolver {
     return transaction
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   @Query(() => Transaction, { name: 'find_one_transaction' })
   async findOne (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -73,6 +76,7 @@ export class TransactionResolver {
     return transaction
   }
 
+  /* ---------- findOneAsSender ---------- */ // MARK: findOneAsSender
   @Query(() => Transaction, { name: 'find_one_transaction_sent' })
   async findOneAsSender (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -92,6 +96,7 @@ export class TransactionResolver {
     return transaction
   }
 
+  /* ---------- findOneAsReceiver ---------- */ // MARK: findOneAsReceiver
   @Query(() => Transaction, { name: 'find_one_transaction_received' })
   async findOneAsReceiver (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -111,6 +116,7 @@ export class TransactionResolver {
     return transaction
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => Boolean, { name: 'delete_transaction' })
   async delete (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -120,6 +126,7 @@ export class TransactionResolver {
     await this.writeTransactionService.delete({ idUser: UserData.id, AccountIndex, index })
   }
 
+  /* ---------- sender ---------- */ // MARK: sender
   @ResolveField(() => Account)
   async sender (@Parent() transaction: Transaction): Promise<Account> {
     const sender = await this.readAccountService.findByID({
@@ -133,6 +140,7 @@ export class TransactionResolver {
     return sender
   }
 
+  /* ---------- receiver ---------- */ // MARK: receiver
   @ResolveField(() => Account)
   async receiver (@Parent() transaction: Transaction): Promise<Account> {
     const receiver = await this.readAccountService.findByID({
@@ -146,6 +154,7 @@ export class TransactionResolver {
     return receiver
   }
 
+  /* ---------- category ---------- */ // MARK: category
   @ResolveField(() => Category)
   async category (@Parent() transaction: Transaction): Promise<Category> {
     if (transaction.idCategory === null) {

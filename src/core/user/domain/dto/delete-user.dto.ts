@@ -5,7 +5,7 @@ import { UserDTO } from '../user.dto'
 
 const keys = ['password'] as const
 
-export class MPDeleteUserDTO extends PickType(UserDTO, keys) {}
+export class DeleteUserDTO extends PickType(UserDTO, keys) {}
 
 @InputType()
 export class GQLDeleteUserDTO extends GQLPickType(UserDTO, keys) {}

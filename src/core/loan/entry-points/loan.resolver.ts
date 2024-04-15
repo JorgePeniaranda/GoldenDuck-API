@@ -22,6 +22,7 @@ export class LoanResolver {
     private readonly readAccountService: ReadAccountService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   @Query(() => Loan, { name: 'find_all_loan' })
   async findAll (
     @Request() UserData: PayloadPrimitive,
@@ -35,6 +36,7 @@ export class LoanResolver {
     return loan
   }
 
+  /* ---------- create ---------- */ // MARK: create
   @Mutation(() => Loan, { name: 'create_loan' })
   async create (@Args('data') data: GQLCreateLoanDTO): Promise<Loan> {
     const loan = await this.writeLoanService.create(data)
@@ -42,6 +44,7 @@ export class LoanResolver {
     return loan
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   @Query(() => Loan, { name: 'find_one_loan' })
   async findOne (
     @Request() UserData: PayloadPrimitive,
@@ -61,6 +64,7 @@ export class LoanResolver {
     return loan
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => Loan, { name: 'delete_loan' })
   async delete (
     @Request() UserData: PayloadPrimitive,
@@ -74,6 +78,7 @@ export class LoanResolver {
     })
   }
 
+  /* ---------- receiver ---------- */ // MARK: receiver
   @ResolveField(() => Account)
   async receiver (@Parent() loan: Loan): Promise<Account> {
     const receiver = await this.readAccountService.findByID({

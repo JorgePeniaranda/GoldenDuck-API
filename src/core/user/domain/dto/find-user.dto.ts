@@ -5,7 +5,7 @@ import { UserDTO } from '../user.dto'
 
 const keys = ['dni', 'email', 'phoneNumber'] as const
 
-export class MPFindUserDTO extends PartialType(
+export class FindUserDTO extends PartialType(
   PickType(UserDTO, keys)
 ) {}
 

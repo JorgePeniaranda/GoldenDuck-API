@@ -36,6 +36,7 @@ export class AccountResolver {
     private readonly readInvestmentService: ReadInvestmentService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   @Query(() => Account, { name: 'find_all_account' })
   async findAll (@CurrentUser() UserData: PayloadPrimitive): Promise<Account[]> {
     const accounts = await this.readAccountService.findAll({
@@ -45,6 +46,7 @@ export class AccountResolver {
     return accounts
   }
 
+  /* ---------- CurrentUser ---------- */ // MARK: CurrentUser
   @Mutation(() => Account, { name: 'create_account' })
   async create (@CurrentUser() UserData: PayloadPrimitive): Promise<Account> {
     const account = await this.writeAccountService.create({
@@ -54,6 +56,7 @@ export class AccountResolver {
     return account
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   @Query(() => Account, { name: 'find_one_account' })
   async findOne (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -68,6 +71,7 @@ export class AccountResolver {
     return account
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => Account, { name: 'delete_account' })
   async delete (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -76,6 +80,7 @@ export class AccountResolver {
     await this.writeAccountService.delete({ idUser: UserData.id, index })
   }
 
+  /* ---------- user ---------- */ // MARK: user
   @ResolveField(() => User)
   async user (@Parent() account: Account): Promise<User> {
     const user = await this.readUserService.findByID({
@@ -89,6 +94,7 @@ export class AccountResolver {
     return user
   }
 
+  /* ---------- cards ---------- */ // MARK: cards
   @ResolveField(() => [Card])
   async cards (@Parent() account: Account): Promise<Card[]> {
     const user = await this.readCardService.findAllByIDAccount({
@@ -102,6 +108,7 @@ export class AccountResolver {
     return user
   }
 
+  /* ---------- transactionsSend ---------- */ // MARK: transactionsSend
   @ResolveField(() => [Transaction])
   async transactionsSend (@Parent() account: Account): Promise<Transaction[]> {
     const transactionsSend = await this.readTransactionService.findAllByIDAccount({
@@ -115,6 +122,7 @@ export class AccountResolver {
     return transactionsSend
   }
 
+  /* ---------- transactionsReceived ---------- */ // MARK: transactionsReceived
   @ResolveField(() => [Transaction])
   async transactionsReceived (@Parent() account: Account): Promise<Transaction[]> {
     const transactionsReceived = await this.readTransactionService.findAllByIDAccount({
@@ -128,6 +136,7 @@ export class AccountResolver {
     return transactionsReceived
   }
 
+  /* ---------- loans ---------- */ // MARK: loans
   @ResolveField(() => [Loan])
   async loans (@Parent() account: Account): Promise<Loan[]> {
     const loans = await this.readLoanService.findAllByIDAccount({
@@ -141,6 +150,7 @@ export class AccountResolver {
     return loans
   }
 
+  /* ---------- investments ---------- */ // MARK: investments
   @ResolveField(() => [Investment])
   async investments (@Parent() account: Account): Promise<Investment[]> {
     const investments = await this.readInvestmentService.findAllByIDAccount({

@@ -1,4 +1,5 @@
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
+import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
 import { LoanErrorsMessages } from '@/messages/error/loan'
 import {
   Body,
@@ -12,18 +13,14 @@ import {
   Post,
   Request
 } from '@nestjs/common'
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
-import { SWGCreateLoanDTO } from '../domain/dto/create-loan'
+import { ApiTags } from '@nestjs/swagger'
+import { CreateLoanDTO, SWGCreateLoanDTO } from '../domain/dto/create-loan'
 import { type Loan } from '../domain/loan.entity'
 import { ReadLoanService } from '../domain/service/read-loan.service'
 import { WriteLoanService } from '../domain/service/write-loan.service'
 import { LoanResponse } from './loan.response'
 
-@ApiResponse({
-  type: LoanResponse
-})
 @ApiTags('Loan')
-@ApiBearerAuth()
 @Controller('account/:AccountIndex/loan')
 export class LoanController {
   constructor (
@@ -31,6 +28,13 @@ export class LoanController {
     private readonly readLoanService: ReadLoanService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
+  @ENDPOINT_INFO({
+    auth: true,
+    response: LoanResponse,
+    isArray: true,
+    status: 200
+  })
   @Get()
   async findAll (
     @Request() UserData: { user: PayloadPrimitive },
@@ -44,13 +48,26 @@ export class LoanController {
     return loan
   }
 
+  /* ---------- create ---------- */ // MARK: create
+  @ENDPOINT_INFO({
+    auth: true,
+    body: SWGCreateLoanDTO,
+    response: LoanResponse,
+    status: 204
+  })
   @Post()
-  async create (@Body() data: SWGCreateLoanDTO): Promise<Loan> {
+  async create (@Body() data: CreateLoanDTO): Promise<Loan> {
     const loan = await this.writeLoanService.create(data)
 
     return loan
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
+  @ENDPOINT_INFO({
+    auth: true,
+    response: LoanResponse,
+    status: 200
+  })
   @Get('/:index')
   async findOne (
     @Request() UserData: { user: PayloadPrimitive },
@@ -70,6 +87,11 @@ export class LoanController {
     return loan
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
+  @ENDPOINT_INFO({
+    auth: true,
+    status: 204
+  })
   @HttpCode(204)
   @Delete('/:index')
   async delete (

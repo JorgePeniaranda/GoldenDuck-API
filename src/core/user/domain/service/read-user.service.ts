@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { type MPFindUserDTO } from '../dto/find-user.dto'
+import { type FindUserDTO } from '../dto/find-user.dto'
 import { type User } from '../user.entity'
 import { type UserPrimitive } from '../user.primitive'
 import { UserRepository } from '../user.repository'
@@ -8,7 +8,7 @@ import { UserRepository } from '../user.repository'
 export class ReadUserService {
   constructor (@Inject('UserRepository') private readonly userRepository: UserRepository) {}
 
-  async findOne (params: MPFindUserDTO): Promise<User | null> {
+  async findOne (params: FindUserDTO): Promise<User | null> {
     return await this.userRepository.findOne(params)
   }
 

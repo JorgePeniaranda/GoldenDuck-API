@@ -1,28 +1,24 @@
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
+import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
 import {
   Body,
   Controller,
   Delete,
   Get,
-  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
   Post,
   Request
 } from '@nestjs/common'
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiTags } from '@nestjs/swagger'
 import { type Card } from '../domain/card.entity'
-import { SWGCreateCardDTO } from '../domain/dto/create-card'
+import { CreateCardDTO, SWGCreateCardDTO } from '../domain/dto/create-card'
 import { ReadCardService } from '../domain/service/read-card.service'
 import { WriteCardService } from '../domain/service/write-card.service'
 import { CardResponse } from './card.response'
 
-@ApiResponse({
-  type: CardResponse
-})
 @ApiTags('Card')
-@ApiBearerAuth()
 @Controller('account/:AccountIndex/card')
 export class CardController {
   constructor (
@@ -30,6 +26,13 @@ export class CardController {
     private readonly readCardService: ReadCardService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
+  @ENDPOINT_INFO({
+    auth: true,
+    response: CardResponse,
+    isArray: true,
+    status: 200
+  })
   @Get()
   async findAll (
     @Request() UserData: { user: PayloadPrimitive },
@@ -47,11 +50,18 @@ export class CardController {
     return cards
   }
 
+  /* ---------- create ---------- */ // MARK: create
+  @ENDPOINT_INFO({
+    auth: true,
+    body: SWGCreateCardDTO,
+    response: CardResponse,
+    status: 201
+  })
   @Post()
   async create (
     @Request() UserData: { user: PayloadPrimitive },
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
-      @Body() data: SWGCreateCardDTO
+      @Body() data: CreateCardDTO
   ): Promise<Card> {
     const card = await this.writeCardService.create({
       idUser: UserData.user.id,
@@ -62,6 +72,12 @@ export class CardController {
     return card
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
+  @ENDPOINT_INFO({
+    auth: true,
+    response: CardResponse,
+    status: 200
+  })
   @Get('/:index')
   async findOne (
     @Request() UserData: { user: PayloadPrimitive },
@@ -81,7 +97,12 @@ export class CardController {
     return card
   }
 
-  @HttpCode(204)
+  /* ---------- delete ---------- */ // MARK: delete
+  @ENDPOINT_INFO({
+    auth: true,
+    response: CardResponse,
+    status: 204
+  })
   @Delete('/:index')
   async delete (
     @Request() UserData: { user: PayloadPrimitive },

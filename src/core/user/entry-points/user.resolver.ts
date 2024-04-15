@@ -25,6 +25,7 @@ export class UserResolver {
     private readonly readAccountService: ReadAccountService
   ) {}
 
+  /* ---------- findByID ---------- */ // MARK: findByID
   @Query(() => User, { name: 'current_user_info' })
   async findByID (@CurrentUser() UserData: PayloadPrimitive): Promise<User> {
     const user = await this.readUserService.findByID({
@@ -38,11 +39,13 @@ export class UserResolver {
     return user
   }
 
+  /* ---------- create ---------- */ // MARK: create
   @Mutation(() => User, { name: 'create_user' })
   async create (@Args('user') user: GQLCreateUserDTO): Promise<User> {
     return await this.writeUserService.create(user)
   }
 
+  /* ---------- update ---------- */ // MARK: update
   @Mutation(() => User, { name: 'update_user' })
   async update (
     @CurrentUser() UserData: { user: PayloadPrimitive },
@@ -54,6 +57,7 @@ export class UserResolver {
     })
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => User, { name: 'delete_user' })
   async delete (
     @CurrentUser() UserData: { user: PayloadPrimitive },
@@ -65,6 +69,7 @@ export class UserResolver {
     })
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   @Query(() => User, { name: 'find_user' })
   async findOne (@Args('params') params: GQLFindUserDTO): Promise<User> {
     const user = await this.readUserService.findOne(params)
@@ -76,6 +81,7 @@ export class UserResolver {
     return user
   }
 
+  /* ---------- activate ---------- */ // MARK: activate
   @Mutation(() => User, { name: 'activate_user' })
   async activate (@CurrentUser() UserData: { user: PayloadPrimitive }): Promise<'🤠'> {
     await this.writeUserService.activate({
@@ -85,6 +91,7 @@ export class UserResolver {
     return '🤠'
   }
 
+  /* ---------- accounts ---------- */ // MARK: accounts
   @ResolveField(() => [Account])
   async accounts (@Parent() user: User): Promise<Account[]> {
     const accounts = await this.readAccountService.findAll({

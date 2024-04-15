@@ -9,8 +9,8 @@ import {
 } from '@nestjs/common'
 import { EventEmitter2 } from '@nestjs/event-emitter'
 import { type CreateUserDTO } from '../dto/create-user.dto'
-import { type MPDeleteUserDTO } from '../dto/delete-user.dto'
-import { type MPUpdateUserDTO } from '../dto/update-user.dto'
+import { type DeleteUserDTO } from '../dto/delete-user.dto'
+import { type UpdateUserDTO } from '../dto/update-user.dto'
 import { User } from '../user.entity'
 import { type UserPrimitive } from '../user.primitive'
 import { UserRepository } from '../user.repository'
@@ -57,7 +57,7 @@ export class WriteUserService {
     return await this.userRepository.update(user)
   }
 
-  async update ({ id, data }: { id: UserPrimitive['id'], data: MPUpdateUserDTO }): Promise<User> {
+  async update ({ id, data }: { id: UserPrimitive['id'], data: UpdateUserDTO }): Promise<User> {
     const user = await this.userRepository.findByID({ id })
 
     if (user === null) {
@@ -81,7 +81,7 @@ export class WriteUserService {
     // TO-DO: send notification to account email
   }
 
-  async delete ({ id, data }: { id: UserPrimitive['id'], data: MPDeleteUserDTO }): Promise<void> {
+  async delete ({ id, data }: { id: UserPrimitive['id'], data: DeleteUserDTO }): Promise<void> {
     const user = await this.userRepository.findByID({ id })
 
     if (user === null) {

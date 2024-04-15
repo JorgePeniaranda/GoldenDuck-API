@@ -24,6 +24,7 @@ export class MessageResolver {
     private readonly readUserService: ReadUserService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   @Query(() => Message, { name: 'find_all_message' })
   async findAll (@CurrentUser() UserData: PayloadPrimitive): Promise<Message[]> {
     const messages = await this.readMessageService.findAll({ idUser: UserData.id })
@@ -31,6 +32,7 @@ export class MessageResolver {
     return messages
   }
 
+  /* ---------- findHistory ---------- */ // MARK: findHistory
   @Query(() => [Message], { name: 'find_message_history' })
   async findHistory (@CurrentUser() UserData: PayloadPrimitive): Promise<Message[]> {
     const messages = await this.readMessageService.findHistory({
@@ -40,6 +42,7 @@ export class MessageResolver {
     return messages
   }
 
+  /* ---------- findChat ---------- */ // MARK: findChat
   @Query(() => Message, { name: 'find_chat' })
   async findChat (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -54,6 +57,7 @@ export class MessageResolver {
     return messages
   }
 
+  /* ---------- create ---------- */ // MARK: create
   @Mutation(() => Message, { name: 'create_message' })
   async create (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -69,6 +73,7 @@ export class MessageResolver {
     return message
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   @Query(() => Message, { name: 'find_one_message' })
   async findOne (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -88,6 +93,7 @@ export class MessageResolver {
     return message
   }
 
+  /* ---------- update ---------- */ // MARK: update
   @Mutation(() => Message, { name: 'update_message' })
   async update (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -109,6 +115,7 @@ export class MessageResolver {
     return message
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => Message, { name: 'delete_message' })
   async delete (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -122,6 +129,7 @@ export class MessageResolver {
     })
   }
 
+  /* ---------- read ---------- */ // MARK: read
   @Mutation(() => Message, { name: 'read_message' })
   async read (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -135,6 +143,7 @@ export class MessageResolver {
     })
   }
 
+  /* ---------- sender ---------- */ // MARK: sender
   @ResolveField(() => User)
   async sender (@Parent() message: Message): Promise<User> {
     const sender = await this.readUserService.findByID({
@@ -148,6 +157,7 @@ export class MessageResolver {
     return sender
   }
 
+  /* ---------- receiver ---------- */ // MARK: receiver
   @ResolveField(() => User)
   async receiver (@Parent() message: Message): Promise<User> {
     const receiver = await this.readUserService.findByID({

@@ -23,6 +23,7 @@ export class InvestmentResolver {
     private readonly readAccountService: ReadAccountService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   @Query(() => [Investment], { name: 'find_all_investment' })
   async findAll (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -36,6 +37,7 @@ export class InvestmentResolver {
     return investment
   }
 
+  /* ---------- create ---------- */ // MARK: create
   @Mutation(() => Investment, { name: 'create_investment' })
   async create (@Body() data: GQLCreateInvestmentDTO): Promise<Investment> {
     const investment = await this.writeInvestmentService.create(data)
@@ -43,6 +45,7 @@ export class InvestmentResolver {
     return investment
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   @Query(() => Investment, { name: 'find_one_investment' })
   async findOne (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -62,6 +65,7 @@ export class InvestmentResolver {
     return investment
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => Investment, { name: 'delete_investment' })
   async delete (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -75,6 +79,7 @@ export class InvestmentResolver {
     })
   }
 
+  /* ---------- receiver ---------- */ // MARK: receiver
   @ResolveField(() => Account)
   async receiver (@Parent() investment: Investment): Promise<Account> {
     const receiver = await this.readAccountService.findByID({

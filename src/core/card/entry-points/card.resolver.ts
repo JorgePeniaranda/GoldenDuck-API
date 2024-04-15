@@ -22,6 +22,7 @@ export class CardResolver {
     private readonly readAccountService: ReadAccountService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   @Query(() => Card, { name: 'find_all_card' })
   async findAll (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -39,6 +40,7 @@ export class CardResolver {
     return cards
   }
 
+  /* ---------- create ---------- */ // MARK: create
   @Mutation(() => Card, { name: 'create_card' })
   async create (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -54,6 +56,7 @@ export class CardResolver {
     return card
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   @Query(() => Card, { name: 'find_one_card' })
   async findOne (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -73,6 +76,7 @@ export class CardResolver {
     return card
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => Card, { name: 'delete_card' })
   async delete (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -86,6 +90,7 @@ export class CardResolver {
     })
   }
 
+  /* ---------- accounts ---------- */ // MARK: accounts
   @ResolveField(() => Account)
   async accounts (@Parent() card: Card): Promise<Account> {
     const accounts = await this.readAccountService.findByID({

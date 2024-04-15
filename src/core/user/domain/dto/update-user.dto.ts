@@ -1,6 +1,6 @@
-import { PartialType as GQLPartialType, InputType, PickType } from '@nestjs/graphql'
-import { PartialType } from '@nestjs/mapped-types'
-import { PartialType as SWGPartialType } from '@nestjs/swagger'
+import { PartialType as GQLPartialType, PickType as GQLPickType, InputType } from '@nestjs/graphql'
+import { PartialType, PickType } from '@nestjs/mapped-types'
+import { PartialType as SWGPartialType, PickType as SWGPickType } from '@nestjs/swagger'
 import { UserDTO } from '../user.dto'
 
 const keys = [
@@ -14,15 +14,15 @@ const keys = [
   'role'
 ] as const
 
-export class MPUpdateUserDTO extends PartialType(
+export class UpdateUserDTO extends PartialType(
   PickType(UserDTO, keys)
 ) {}
 
 @InputType()
 export class GQLUpdateUserDTO extends GQLPartialType(
-  PickType(UserDTO, keys)
+  GQLPickType(UserDTO, keys)
 ) {}
 
 export class SWGUpdateUserDTO extends SWGPartialType(
-  PickType(UserDTO, keys)
+  SWGPickType(UserDTO, keys)
 ) {}

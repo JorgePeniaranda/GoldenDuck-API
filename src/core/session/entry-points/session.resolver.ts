@@ -21,6 +21,7 @@ export class SessionResolver {
     private readonly readUserService: ReadUserService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   @Query(() => [Session], { name: 'find_all_session' })
   async findAll (@CurrentUser() UserData: PayloadPrimitive): Promise<Session[]> {
     const sessions = await this.readSessionService.findAll({
@@ -30,6 +31,7 @@ export class SessionResolver {
     return sessions
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   @Query(() => Session, { name: 'find_one_session' })
   async findOne (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -44,6 +46,7 @@ export class SessionResolver {
     return session
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => Session, { name: 'delete_session' })
   async delete (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -52,6 +55,7 @@ export class SessionResolver {
     await this.writeSessionService.delete({ idUser: UserData.id, index })
   }
 
+  /* ---------- user ---------- */ // MARK: user
   @ResolveField(() => User)
   async user (@Parent() session: Session): Promise<User> {
     const user = await this.readUserService.findByID({
