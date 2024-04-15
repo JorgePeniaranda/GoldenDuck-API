@@ -1,3 +1,4 @@
+import { EntitiesName } from '@/constants/entities'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { Card } from '@/core/card/domain/card.entity'
 import { ReadCardService } from '@/core/card/domain/service/read-card.service'
@@ -12,10 +13,7 @@ import { User } from '@/core/user/domain/user.entity'
 import { CurrentUser } from '@/decorators/current-user.decorator'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
-import { AccountErrorsMessages } from '@/messages/error/account'
-import { LoanErrorsMessages } from '@/messages/error/loan'
-import { TransactionErrorsMessages } from '@/messages/error/transaction'
-import { UserErrorsMessages } from '@/messages/error/user'
+import { Messages } from '@/messages'
 import { NotFoundException, UseGuards } from '@nestjs/common'
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 import { Account } from '../domain/account.entity'
@@ -65,7 +63,7 @@ export class AccountResolver {
     const account = await this.readAccountService.findOne({ idUser: UserData.id, index })
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     return account
@@ -88,7 +86,7 @@ export class AccountResolver {
     })
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.USER))
     }
 
     return user
@@ -102,7 +100,7 @@ export class AccountResolver {
     })
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.USER))
     }
 
     return user
@@ -116,7 +114,7 @@ export class AccountResolver {
     })
 
     if (transactionsSend === null) {
-      throw new NotFoundException(TransactionErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.TRANSACTION))
     }
 
     return transactionsSend
@@ -130,7 +128,7 @@ export class AccountResolver {
     })
 
     if (transactionsReceived === null) {
-      throw new NotFoundException(TransactionErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.TRANSACTION))
     }
 
     return transactionsReceived
@@ -144,7 +142,7 @@ export class AccountResolver {
     })
 
     if (loans === null) {
-      throw new NotFoundException(LoanErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.Loan))
     }
 
     return loans
@@ -158,7 +156,7 @@ export class AccountResolver {
     })
 
     if (investments === null) {
-      throw new NotFoundException(LoanErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.Loan))
     }
 
     return investments

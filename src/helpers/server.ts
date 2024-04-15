@@ -1,5 +1,4 @@
-import { ErrorsMessages } from '@/messages/error'
-import { ServerMessages } from '@/messages/server'
+import { Messages } from '@/messages'
 import { type INestApplication, Logger } from '@nestjs/common'
 
 export const getEnvValue = (envName: string, defaultValue?: string): string => {
@@ -10,12 +9,12 @@ export const getEnvValue = (envName: string, defaultValue?: string): string => {
   }
 
   if (typeof defaultValue === 'string') {
-    Logger.warn(ErrorsMessages.NoVariableEnv(envName))
+    Logger.warn(Messages.error.NoVariableEnv(envName))
     return defaultValue
   }
 
-  Logger.error(ErrorsMessages.EnvironmentVariableError(envName))
-  throw new Error(ErrorsMessages.EnvironmentVariableError(envName))
+  Logger.error(Messages.error.EnvironmentVariableError(envName))
+  throw new Error(Messages.error.EnvironmentVariableError(envName))
 }
 
 export const findAvailablePort = async (
@@ -27,14 +26,14 @@ export const findAvailablePort = async (
   }
 
   if (Number.isNaN(port) || port < 0) {
-    Logger.error(ErrorsMessages.InvalidPortValue, 'NestApplication')
-    throw new Error(ErrorsMessages.InvalidPortValue)
+    Logger.error(Messages.error.InvalidPortValue, 'NestApplication')
+    throw new Error(Messages.error.InvalidPortValue)
   }
 
   server
     .listen(port)
     .then(() => {
-      Logger.log(ServerMessages.AppRunning(port), 'NestApplication')
+      Logger.log(Messages.server.AppRunning(port), 'NestApplication')
     })
     .catch(async error => {
       if (error.code === 'EADDRINUSE') {

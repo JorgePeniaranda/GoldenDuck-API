@@ -1,6 +1,7 @@
+import { EntitiesName } from '@/constants/entities'
 import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
 import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
-import { AccountErrorsMessages } from '@/messages/error/account'
+import { Messages } from '@/messages'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { type Transaction } from '../transaction.entity'
 import { type TransactionPrimitive } from '../transaction.primitive'
@@ -25,7 +26,7 @@ export class ReadTransactionService {
     const account = await this.readAccountService.findOne({ idUser, index: AccountIndex })
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     return await this.transactionRepository.findAll({ idAccount: account.id })
@@ -53,7 +54,7 @@ export class ReadTransactionService {
     const account = await this.readAccountService.findOne({ idUser, index: AccountIndex })
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     return await this.transactionRepository.findOne({
@@ -75,7 +76,7 @@ export class ReadTransactionService {
     const account = await this.readAccountService.findOne({ idUser, index: AccountIndex })
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     return await this.transactionRepository.findOneAsSender({
@@ -111,7 +112,7 @@ export class ReadTransactionService {
     const account = await this.readAccountService.findOne({ idUser, index: AccountIndex })
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     return await this.transactionRepository.findOneAsReceiver({

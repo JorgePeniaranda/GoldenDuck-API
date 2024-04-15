@@ -1,4 +1,5 @@
-import { CategoryErrorsMessages } from '@/messages/error/category'
+import { EntitiesName } from '@/constants/entities'
+import { Messages } from '@/messages'
 import { ConflictException, Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { Category } from '../category.entity'
 import { type CategoryPrimitive } from '../category.primitive'
@@ -19,7 +20,7 @@ export class WriteCategoryService {
     })
 
     if (checkCategory !== null) {
-      throw new ConflictException(CategoryErrorsMessages.AlreadyExists)
+      throw new ConflictException(Messages.error.Conflict(EntitiesName.CATEGORY))
     }
 
     const category = Category.create(data)
@@ -34,7 +35,7 @@ export class WriteCategoryService {
     })
 
     if (category === null) {
-      throw new NotFoundException(CategoryErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.CATEGORY))
     }
 
     await this.categoryRepository.delete(category)

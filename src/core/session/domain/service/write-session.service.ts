@@ -1,5 +1,6 @@
+import { EntitiesName } from '@/constants/entities'
 import { EventsMap } from '@/constants/events'
-import { SessionErrorsMessages } from '@/messages/error/session'
+import { Messages } from '@/messages'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter'
 import { type CreateSessionDTO } from '../dto/create-session'
@@ -36,7 +37,7 @@ export class WriteSessionService {
     const session = await this.sessionRepository.findOne({ idUser, index })
 
     if (session === null) {
-      throw new NotFoundException(SessionErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.SESSION))
     }
 
     await this.sessionRepository.delete(session)

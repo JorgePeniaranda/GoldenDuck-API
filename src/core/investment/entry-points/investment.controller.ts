@@ -1,6 +1,7 @@
+import { EntitiesName } from '@/constants/entities'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
-import { InvestmentErrorsMessages } from '@/messages/error/investment'
+import { Messages } from '@/messages'
 import {
   Body,
   Controller,
@@ -80,7 +81,7 @@ export class InvestmentController {
     })
 
     if (investment === null) {
-      throw new NotFoundException(InvestmentErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.INVESTMENT))
     }
 
     return investment

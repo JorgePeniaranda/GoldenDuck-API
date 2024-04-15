@@ -1,10 +1,11 @@
+import { EntitiesName } from '@/constants/entities'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { ReadUserService } from '@/core/user/domain/service/read-user.service'
 import { User } from '@/core/user/domain/user.entity'
 import { CurrentUser } from '@/decorators/current-user.decorator'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
-import { UserErrorsMessages } from '@/messages/error/user'
+import { Messages } from '@/messages'
 import { Body, NotFoundException, UseGuards } from '@nestjs/common'
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 import { GQLCreateMessageDTO } from '../domain/dto/create-message'
@@ -151,7 +152,7 @@ export class MessageResolver {
     })
 
     if (sender === null) {
-      throw new NotFoundException(UserErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.USER))
     }
 
     return sender
@@ -165,7 +166,7 @@ export class MessageResolver {
     })
 
     if (receiver === null) {
-      throw new NotFoundException(UserErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.USER))
     }
 
     return receiver

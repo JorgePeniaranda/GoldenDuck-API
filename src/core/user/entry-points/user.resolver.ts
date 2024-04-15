@@ -1,10 +1,11 @@
+import { EntitiesName } from '@/constants/entities'
 import { Account } from '@/core/account/domain/account.entity'
 import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
 import { PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { CurrentUser } from '@/decorators/current-user.decorator'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
-import { UserErrorsMessages } from '@/messages/error/user'
+import { Messages } from '@/messages'
 import { NotFoundException, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 import { GQLCreateUserDTO } from '../domain/dto/create-user.dto'
@@ -33,7 +34,7 @@ export class UserResolver {
     })
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.USER))
     }
 
     return user
@@ -75,7 +76,7 @@ export class UserResolver {
     const user = await this.readUserService.findOne(params)
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.USER))
     }
 
     return user

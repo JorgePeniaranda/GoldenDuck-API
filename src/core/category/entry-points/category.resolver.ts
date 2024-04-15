@@ -1,6 +1,7 @@
+import { EntitiesName } from '@/constants/entities'
 import { Transaction } from '@/core/transaction/domain/transaction.entity'
 import { GqlAuthGuard } from '@/guard/gql.guard'
-import { CategoryErrorsMessages } from '@/messages/error/category'
+import { Messages } from '@/messages'
 import { NotFoundException, UnauthorizedException, UseGuards } from '@nestjs/common'
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 import { Category } from '../domain/category.entity'
@@ -40,7 +41,7 @@ export class CategoryResolver {
     const category = await this.readCategoryService.findOne({ id })
 
     if (category === null) {
-      throw new NotFoundException(CategoryErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.CATEGORY))
     }
 
     return category

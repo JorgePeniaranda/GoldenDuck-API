@@ -1,6 +1,7 @@
+import { EntitiesName } from '@/constants/entities'
 import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
 import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
-import { AccountErrorsMessages } from '@/messages/error/account'
+import { Messages } from '@/messages'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { type Card } from '../card.entity'
 import { type CardPrimitive } from '../card.primitive'
@@ -24,7 +25,7 @@ export class ReadCardService {
     const account = await this.readAccountService.findOne({ idUser, index: AccountIndex })
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     return await this.cardRepository.findAll({ idAccount: account.id })
@@ -52,7 +53,7 @@ export class ReadCardService {
     const account = await this.readAccountService.findOne({ idUser, index: AccountIndex })
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     return await this.cardRepository.findOne({ idAccount: account.id, index })

@@ -1,4 +1,5 @@
-import { ErrorErrorsMessages } from '@/messages/error/error'
+import { EntitiesName } from '@/constants/entities'
+import { Messages } from '@/messages'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { type CreateErrorDTO } from '../dto/create-error'
 import { Error } from '../error.entity'
@@ -24,7 +25,7 @@ export class WriteErrorService {
     const error = await this.errorRepository.findOne({ id })
 
     if (error === null) {
-      throw new NotFoundException(ErrorErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ERROR))
     }
 
     await this.errorRepository.delete(error)

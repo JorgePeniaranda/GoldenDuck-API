@@ -1,11 +1,11 @@
+import { EntitiesName } from '@/constants/entities'
 import { Account } from '@/core/account/domain/account.entity'
 import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { CurrentUser } from '@/decorators/current-user.decorator'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
-import { AccountErrorsMessages } from '@/messages/error/account'
-import { InvestmentErrorsMessages } from '@/messages/error/investment'
+import { Messages } from '@/messages'
 import { Body, NotFoundException, UseGuards } from '@nestjs/common'
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 import { GQLCreateInvestmentDTO } from '../domain/dto/create-investment'
@@ -59,7 +59,7 @@ export class InvestmentResolver {
     })
 
     if (investment === null) {
-      throw new NotFoundException(InvestmentErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.INVESTMENT))
     }
 
     return investment
@@ -87,7 +87,7 @@ export class InvestmentResolver {
     })
 
     if (receiver === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     return receiver

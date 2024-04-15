@@ -11,9 +11,10 @@ import {
 } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 
+import { EntitiesName } from '@/constants/entities'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
-import { AccountErrorsMessages } from '@/messages/error/account'
+import { Messages } from '@/messages'
 import { type Account } from '../domain/account.entity'
 import { ReadAccountService } from '../domain/service/read-account.service'
 import { WriteAccountService } from '../domain/service/write-account.service'
@@ -71,7 +72,7 @@ export class AccountController {
     const account = await this.readAccountService.findOne({ idUser: UserData.user.id, index })
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     return account

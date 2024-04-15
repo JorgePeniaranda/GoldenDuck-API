@@ -1,10 +1,11 @@
+import { EntitiesName } from '@/constants/entities'
 import { Account } from '@/core/account/domain/account.entity'
 import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { CurrentUser } from '@/decorators/current-user.decorator'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
-import { AccountErrorsMessages } from '@/messages/error/account'
+import { Messages } from '@/messages'
 import { Body, NotFoundException, UseGuards } from '@nestjs/common'
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 import { Card } from '../domain/card.entity'
@@ -98,7 +99,7 @@ export class CardResolver {
     })
 
     if (accounts === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     return accounts

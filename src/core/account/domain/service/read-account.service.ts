@@ -1,4 +1,5 @@
-import { AccountErrorsMessages } from '@/messages/error/account'
+import { EntitiesName } from '@/constants/entities'
+import { Messages } from '@/messages'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { type Account } from '../account.entity'
 import { type AccountPrimitive } from '../account.primitive'
@@ -20,7 +21,7 @@ export class ReadAccountService {
     const idUser = await this.accountRepository.findIDUser({ id })
 
     if (idUser === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     return idUser

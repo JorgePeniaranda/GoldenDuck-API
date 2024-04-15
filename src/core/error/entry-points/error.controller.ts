@@ -1,5 +1,6 @@
+import { EntitiesName } from '@/constants/entities'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
-import { ErrorErrorsMessages } from '@/messages/error/error'
+import { Messages } from '@/messages'
 import {
   Body,
   Controller,
@@ -65,7 +66,7 @@ export class ErrorController {
     const error = await this.readErrorService.findOne({ id })
 
     if (error === null) {
-      throw new NotFoundException(ErrorErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ERROR))
     }
 
     return error

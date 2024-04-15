@@ -1,4 +1,4 @@
-import { ErrorsMessages } from '@/messages/error'
+import { Messages } from '@/messages'
 import { Injectable, Logger, ServiceUnavailableException, type OnModuleInit } from '@nestjs/common'
 import { Prisma, PrismaClient } from '@prisma/client'
 
@@ -7,8 +7,8 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
   async onModuleInit (): Promise<void> {
     await this.$connect().catch(error => {
       if (error instanceof Prisma.PrismaClientInitializationError) {
-        Logger.fatal(ErrorsMessages.DatabaseConnectionError)
-        throw new ServiceUnavailableException(ErrorsMessages.DatabaseConnectionError)
+        Logger.fatal(Messages.error.DatabaseConnectionError)
+        throw new ServiceUnavailableException(Messages.error.DatabaseConnectionError)
       }
 
       throw error

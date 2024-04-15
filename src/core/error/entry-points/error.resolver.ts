@@ -1,6 +1,7 @@
+import { EntitiesName } from '@/constants/entities'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
-import { ErrorErrorsMessages } from '@/messages/error/error'
+import { Messages } from '@/messages'
 import { NotFoundException, UseGuards } from '@nestjs/common'
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { GQLCreateErrorDTO } from '../domain/dto/create-error'
@@ -40,7 +41,7 @@ export class ErrorResolver {
     const error = await this.readErrorService.findOne({ id })
 
     if (error === null) {
-      throw new NotFoundException(ErrorErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ERROR))
     }
 
     return error

@@ -1,3 +1,4 @@
+import { EntitiesName } from '@/constants/entities'
 import { Account } from '@/core/account/domain/account.entity'
 import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
@@ -6,8 +7,7 @@ import { ReadCategoryService } from '@/core/category/domain/service/read-categor
 import { CurrentUser } from '@/decorators/current-user.decorator'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
-import { AccountErrorsMessages } from '@/messages/error/account'
-import { TransactionErrorsMessages } from '@/messages/error/transaction'
+import { Messages } from '@/messages'
 import { NotFoundException, UseGuards } from '@nestjs/common'
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 import { GQLCreateTransactionDTO } from '../domain/dto/create-transaction'
@@ -70,7 +70,7 @@ export class TransactionResolver {
     })
 
     if (transaction === null) {
-      throw new NotFoundException(TransactionErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.TRANSACTION))
     }
 
     return transaction
@@ -90,7 +90,7 @@ export class TransactionResolver {
     })
 
     if (transaction === null) {
-      throw new NotFoundException(TransactionErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.TRANSACTION))
     }
 
     return transaction
@@ -110,7 +110,7 @@ export class TransactionResolver {
     })
 
     if (transaction === null) {
-      throw new NotFoundException(TransactionErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.TRANSACTION))
     }
 
     return transaction
@@ -134,7 +134,7 @@ export class TransactionResolver {
     })
 
     if (sender === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     return sender
@@ -148,7 +148,7 @@ export class TransactionResolver {
     })
 
     if (receiver === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     return receiver
@@ -158,7 +158,7 @@ export class TransactionResolver {
   @ResolveField(() => Category)
   async category (@Parent() transaction: Transaction): Promise<Category> {
     if (transaction.idCategory === null) {
-      throw new NotFoundException(TransactionErrorsMessages.NoCategory)
+      throw new NotFoundException(Messages.error.NoCategory)
     }
 
     const receiver = await this.readCategoryService.findOne({
@@ -166,7 +166,7 @@ export class TransactionResolver {
     })
 
     if (receiver === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     return receiver

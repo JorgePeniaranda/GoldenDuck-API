@@ -1,10 +1,10 @@
+import { EntitiesName } from '@/constants/entities'
 import { Account } from '@/core/account/domain/account.entity'
 import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
-import { AccountErrorsMessages } from '@/messages/error/account'
-import { LoanErrorsMessages } from '@/messages/error/loan'
+import { Messages } from '@/messages'
 import { NotFoundException, Request, UseGuards } from '@nestjs/common'
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 import { GQLCreateLoanDTO } from '../domain/dto/create-loan'
@@ -58,7 +58,7 @@ export class LoanResolver {
     })
 
     if (loan === null) {
-      throw new NotFoundException(LoanErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.Loan))
     }
 
     return loan
@@ -86,7 +86,7 @@ export class LoanResolver {
     })
 
     if (receiver === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     return receiver

@@ -1,6 +1,7 @@
+import { EntitiesName } from '@/constants/entities'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
-import { TransactionErrorsMessages } from '@/messages/error/transaction'
+import { Messages } from '@/messages'
 import {
   Body,
   Controller,
@@ -88,7 +89,7 @@ export class TransactionController {
     })
 
     if (transaction === null) {
-      throw new NotFoundException(TransactionErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.TRANSACTION))
     }
 
     return transaction
@@ -113,7 +114,7 @@ export class TransactionController {
     })
 
     if (transaction === null) {
-      throw new NotFoundException(TransactionErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.TRANSACTION))
     }
 
     return transaction
@@ -138,7 +139,7 @@ export class TransactionController {
     })
 
     if (transaction === null) {
-      throw new NotFoundException(TransactionErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.TRANSACTION))
     }
 
     return transaction
