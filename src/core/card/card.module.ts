@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { forwardRef, Module } from '@nestjs/common'
 import { PrismaService } from '../../services/prisma.service'
 import { AccountModule } from '../account/account.module'
 import { CardRepositoryPrismaMySQL } from './data-access/card-prisma-mysql.repository'
@@ -8,7 +8,7 @@ import { CardController } from './entry-points/card.controller'
 import { CardResolver } from './entry-points/card.resolver'
 
 @Module({
-  imports: [AccountModule],
+  imports: [forwardRef(() => AccountModule)],
   controllers: [CardController],
   providers: [
     WriteCardService,

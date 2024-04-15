@@ -12,7 +12,30 @@ export class ReadLoanService {
     @Inject('LoanRepository') private readonly loanRepository: LoanRepository
   ) {}
 
-  public async findAll ({ idAccount }: { idAccount: LoanPrimitive['idAccount'] }): Promise<Loan[]> {
+  public async findAll ({
+    idUser,
+    AccountIndex
+  }: {
+    idUser: LoanPrimitive['id']
+    AccountIndex: number
+  }): Promise<Loan[]> {
+    const account = await this.readAccountService.findOne({
+      idUser,
+      index: AccountIndex
+    })
+
+    if (account === null) {
+      throw new NotFoundException(AccountErrorsMessages.NotFound)
+    }
+
+    return await this.loanRepository.findAll({ idAccount: account.id })
+  }
+
+  public async findAllByIDAccount ({
+    idAccount
+  }: {
+    idAccount: LoanPrimitive['idAccount']
+  }): Promise<Loan[]> {
     return await this.loanRepository.findAll({ idAccount })
   }
 

@@ -1,13 +1,12 @@
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
+import { ReadUserService } from '@/core/user/domain/service/read-user.service'
+import { User } from '@/core/user/domain/user.entity'
 import { CurrentUser } from '@/decorators/current-user.decorator'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
-import {
-  Body,
-  NotFoundException,
-  UseGuards
-} from '@nestjs/common'
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { UserErrorsMessages } from '@/messages/error/user'
+import { Body, NotFoundException, UseGuards } from '@nestjs/common'
+import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 import { CreateMessageDTO } from '../domain/dto/create-message'
 import { UpdateMessageDTO } from '../domain/dto/update-message'
 import { Message } from '../domain/message.entity'
@@ -17,11 +16,12 @@ import { WriteMessageService } from '../domain/service/write-messages.service'
 
 @Public()
 @UseGuards(GqlAuthGuard)
-@Resolver()
+@Resolver(() => Message)
 export class MessageResolver {
   constructor (
     private readonly writeMessageService: WriteMessageService,
-    private readonly readMessageService: ReadMessageService
+    private readonly readMessageService: ReadMessageService,
+    private readonly readUserService: ReadUserService
   ) {}
 
   @Query(() => Message, { name: 'find_all_message' })
@@ -133,5 +133,31 @@ export class MessageResolver {
       idTarget,
       index
     })
+  }
+
+  @ResolveField(() => User)
+  async Sender (@Parent() message: Message): Promise<User> {
+    const sender = await this.readUserService.findByID({
+      id: message.idSender
+    })
+
+    if (sender === null) {
+      throw new NotFoundException(UserErrorsMessages.NotFound)
+    }
+
+    return sender
+  }
+
+  @ResolveField(() => User)
+  async Receiver (@Parent() message: Message): Promise<User> {
+    const receiver = await this.readUserService.findByID({
+      id: message.idReceiver
+    })
+
+    if (receiver === null) {
+      throw new NotFoundException(UserErrorsMessages.NotFound)
+    }
+
+    return receiver
   }
 }

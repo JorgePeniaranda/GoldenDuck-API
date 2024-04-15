@@ -1,10 +1,14 @@
 import { EventsMap } from '@/constants/events'
-import { Module } from '@nestjs/common'
+import { forwardRef, Module } from '@nestjs/common'
 import { EventEmitter2 } from '@nestjs/event-emitter'
 import { PrismaService } from '../../services/prisma.service'
+import { CardModule } from '../card/card.module'
+import { InvestmentModule } from '../investment/investment.module'
 import { type LoanPrimitive } from '../loan/domain/loan.primitive'
+import { LoanModule } from '../loan/loan.module'
 import { type Transaction } from '../transaction/domain/transaction.entity'
 import { type TransactionPrimitive } from '../transaction/domain/transaction.primitive'
+import { TransactionModule } from '../transaction/transactions.module'
 import { type UserPrimitive } from '../user/domain/user.primitive'
 import { UserModule } from '../user/user.module'
 import { AccountRepositoryPrismaMySQL } from './data-access/account-prisma-mysql.repository'
@@ -14,7 +18,13 @@ import { AccountController } from './entry-points/account.controller'
 import { AccountResolver } from './entry-points/account.resolver'
 
 @Module({
-  imports: [UserModule],
+  imports: [
+    forwardRef(() => UserModule),
+    forwardRef(() => CardModule),
+    forwardRef(() => TransactionModule),
+    forwardRef(() => LoanModule),
+    forwardRef(() => InvestmentModule)
+  ],
   controllers: [AccountController],
   providers: [
     WriteAccountService,

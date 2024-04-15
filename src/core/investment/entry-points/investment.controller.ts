@@ -32,9 +32,13 @@ export class InvestmentController {
   ) {}
 
   @Get()
-  async findAll (@Request() UserData: { user: PayloadPrimitive }): Promise<Investment[]> {
+  async findAll (
+    @Request() UserData: { user: PayloadPrimitive },
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number
+  ): Promise<Investment[]> {
     const investment = await this.readInvestmentService.findAll({
-      idAccount: UserData.user.id
+      idUser: UserData.user.id,
+      AccountIndex
     })
 
     return investment

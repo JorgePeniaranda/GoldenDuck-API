@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { forwardRef, Module } from '@nestjs/common'
 import { PrismaService } from '../../services/prisma.service'
 import { AccountModule } from '../account/account.module'
 import { LoanRepositoryPrismaMySQL } from './data-access/loan-prisma-mysql.repository'
@@ -8,7 +8,7 @@ import { LoanController } from './entry-points/loan.controller'
 import { LoanResolver } from './entry-points/loan.resolver'
 
 @Module({
-  imports: [AccountModule],
+  imports: [forwardRef(() => AccountModule)],
   controllers: [LoanController],
   providers: [
     WriteLoanService,

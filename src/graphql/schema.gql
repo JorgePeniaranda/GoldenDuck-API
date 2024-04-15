@@ -2,23 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Card {
-  account: Account!
-  id: ID!
-  idAccount: Float!
-  number: Float!
-  cvv: Float!
-  expiration: DateTime!
-  updatedAt: DateTime!
-  createdAt: DateTime!
-  deleted: Boolean!
-}
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type Investment {
   account: Account!
   id: ID!
@@ -29,7 +12,13 @@ type Investment {
   updatedAt: DateTime!
   createdAt: DateTime!
   canceled: Boolean!
+  receiver: Account!
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type Loan {
   account: Account!
@@ -41,6 +30,7 @@ type Loan {
   updatedAt: DateTime!
   createdAt: DateTime!
   canceled: Boolean!
+  receiver: Account!
 }
 
 type Category {
@@ -50,6 +40,7 @@ type Category {
   updatedAt: DateTime!
   createdAt: DateTime!
   deleted: Boolean!
+  category: [Transaction!]!
 }
 
 type Transaction {
@@ -63,21 +54,8 @@ type Transaction {
   idCategory: Float!
   createdAt: DateTime!
   canceled: Boolean!
-}
-
-type Account {
-  user: User!
-  cards: [Card!]
-  transactionsSend: [Transaction!]
-  transactionsReceived: [Transaction!]
-  loans: [Loan!]
-  investments: [Investment!]
-  id: Float!
-  idUser: Float!
-  balance: String!
-  deleted: Boolean!
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  sender: Account!
+  receiver: Account!
 }
 
 type Message {
@@ -118,7 +96,7 @@ type Session {
 }
 
 type User {
-  account: Account!
+  accounts: [Account!]!
   sessions: [Session!]
   notifications: [Notification!]
   messagesSend: [Message!]
@@ -138,6 +116,34 @@ type User {
   actived: Boolean!
   deleted: Boolean!
   role: String!
+}
+
+type Account {
+  user: User!
+  cards: [Card!]
+  transactionsSend: [Transaction!]
+  transactionsReceived: [Transaction!]
+  loans: [Loan!]
+  investments: [Investment!]
+  id: Float!
+  idUser: Float!
+  balance: String!
+  deleted: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Card {
+  account: Account!
+  id: ID!
+  idAccount: Float!
+  number: Float!
+  cvv: Float!
+  expiration: DateTime!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+  deleted: Boolean!
+  accounts: Account!
 }
 
 type JwtPayload {
@@ -164,28 +170,28 @@ type Query {
   verify_auth: JwtPayload!
   current_user_info: User!
   find_user(params: FindUserDTO!): User!
-  find_all_session: [Session!]!
-  find_one_session(index: Int!): Session!
   find_all_account: Account!
   find_one_account(index: Int!): Account!
   find_all_card(AccountIndex: Int!): Card!
   find_one_card(AccountIndex: Int!, index: Int!): Card!
+  find_all_transaction(AccountIndex: Int!): [Transaction!]!
+  find_one_transaction(AccountIndex: Int!, index: Int!): Transaction!
+  find_one_transaction_sent(AccountIndex: Int!, index: Int!): Transaction!
+  find_one_transaction_received(AccountIndex: Int!, index: Int!): Transaction!
+  find_all_loan(AccountIndex: Int!): Loan!
+  find_one_loan(AccountIndex: Int!, index: Int!): Loan!
+  find_all_investment(AccountIndex: Int!): [Investment!]!
+  find_one_investment(AccountIndex: Int!, index: Int!): Investment!
+  find_all_category: [Category!]!
+  find_one_category(id: Int!): [Category!]!
+  find_all_session: [Session!]!
+  find_one_session(index: Int!): Session!
   find_all_message: Message!
   find_message_history: Message!
   find_chat(idTarget: Int!): Message!
   find_one_message(idTarget: Int!, index: Int!): Message!
   find_all_notification: [Notification!]!
   find_one_notification(index: Int!): [Notification!]!
-  find_all_transaction(AccountIndex: Int!): [Transaction!]!
-  find_one_transaction(AccountIndex: Int!, index: Int!): Transaction!
-  find_one_transaction_sent(AccountIndex: Int!, index: Int!): Transaction!
-  find_one_transaction_received(AccountIndex: Int!, index: Int!): Transaction!
-  find_all_loan: Loan!
-  find_one_loan(AccountIndex: Int!, index: Int!): Loan!
-  find_all_investment: [Investment!]!
-  find_one_investment(AccountIndex: Int!, index: Int!): Investment!
-  find_all_category: [Category!]!
-  find_one_category(id: Int!): [Category!]!
   find_all_error: Error!
   find_one_error(id: Int!): Error!
 }
@@ -201,16 +207,10 @@ type Mutation {
   update_user(data: UpdateUserDTO!): User!
   delete_user(data: DeleteUserDTO!): User!
   activate_user: User!
-  delete_session(index: Int!): Session!
   create_account: Account!
   delete_account(index: Int!): Account!
   create_card(AccountIndex: Int!): Card!
   delete_card(AccountIndex: Int!, index: Int!): Card!
-  create_message(idTarget: Int!): Message!
-  update_message(idTarget: Int!, index: Int!): Message!
-  delete_message(idTarget: Int!, index: Int!): Message!
-  read_message(idTarget: Int!, index: Int!): Message!
-  delete_notification(index: Int!): [Notification!]!
   create_transaction(AccountIndex: Int!, data: CreateTransactionDTO!): Transaction!
   delete_transaction(AccountIndex: Int!, index: Int!): Boolean!
   create_loan(data: CreateLoanDTO!): Loan!
@@ -219,6 +219,12 @@ type Mutation {
   delete_investment(AccountIndex: Int!, index: Int!): Investment!
   create_category(data: CreateCategoryDTO!): [Category!]!
   delete_category(id: Int!): [Category!]!
+  delete_session(index: Int!): Session!
+  create_message(idTarget: Int!): Message!
+  update_message(idTarget: Int!, index: Int!): Message!
+  delete_message(idTarget: Int!, index: Int!): Message!
+  read_message(idTarget: Int!, index: Int!): Message!
+  delete_notification(index: Int!): [Notification!]!
   create_error(data: CreateErrorDTO!): Error!
   delete_error(id: Int!): Error!
 }

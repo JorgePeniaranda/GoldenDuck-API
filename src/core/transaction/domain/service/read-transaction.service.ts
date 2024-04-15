@@ -27,7 +27,15 @@ export class ReadTransactionService {
       throw new NotFoundException(AccountErrorsMessages.NotFound)
     }
 
-    return await this.transactionRepository.findAll(account.id)
+    return await this.transactionRepository.findAll({ idAccount: account.id })
+  }
+
+  public async findAllByIDAccount ({
+    idAccount
+  }: {
+    idAccount: TransactionPrimitive['idSender'] | TransactionPrimitive['idReceiver']
+  }): Promise<Transaction[]> {
+    return await this.transactionRepository.findAll({ idAccount })
   }
 
   public async findOne ({
@@ -72,6 +80,19 @@ export class ReadTransactionService {
     })
   }
 
+  public async findOneAsSenderByIDAccount ({
+    idSender,
+    index
+  }: {
+    idSender: TransactionPrimitive['idSender']
+    index: number
+  }): Promise<Transaction | null> {
+    return await this.transactionRepository.findOneAsSender({
+      idSender,
+      index
+    })
+  }
+
   public async findOneAsReceiver ({
     idUser,
     AccountIndex,
@@ -89,6 +110,19 @@ export class ReadTransactionService {
 
     return await this.transactionRepository.findOneAsReceiver({
       idReceiver: account.id,
+      index
+    })
+  }
+
+  public async findOneAsReceiverByIDAccount ({
+    idReceiver,
+    index
+  }: {
+    idReceiver: TransactionPrimitive['idReceiver']
+    index: number
+  }): Promise<Transaction | null> {
+    return await this.transactionRepository.findOneAsReceiver({
+      idReceiver,
       index
     })
   }

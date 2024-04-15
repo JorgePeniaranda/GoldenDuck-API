@@ -3,6 +3,7 @@ import { ReadAccountService } from '@/core/account/domain/service/read-account.s
 import { AccountErrorsMessages } from '@/messages/error/account'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { type Card } from '../card.entity'
+import { type CardPrimitive } from '../card.primitive'
 import { CardRepository } from '../card.repository'
 
 @Injectable()
@@ -26,6 +27,14 @@ export class ReadCardService {
     }
 
     return await this.cardRepository.findAll({ idAccount: account.id })
+  }
+
+  public async findAllByIDAccount ({
+    idAccount
+  }: {
+    idAccount: CardPrimitive['idAccount']
+  }): Promise<Card[] | null> {
+    return await this.cardRepository.findAll({ idAccount })
   }
 
   public async findOne ({

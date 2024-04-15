@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common'
 import { EventEmitter2 } from '@nestjs/event-emitter'
 import { PrismaService } from '../../services/prisma.service'
 import { type SessionDataPrimitive } from '../auth/domain/primitive/session-data.primitive'
+import { UserModule } from '../user/user.module'
 import { SessionRepositoryPrismaMySQL } from './data-access/session-prisma-mysql.repository'
 import { ReadSessionService } from './domain/service/read-session.service'
 import { WriteSessionService } from './domain/service/write-session.service'
@@ -10,6 +11,7 @@ import { SessionController } from './entry-points/session.controller'
 import { SessionResolver } from './entry-points/session.resolver'
 
 @Module({
+  imports: [UserModule],
   controllers: [SessionController],
   providers: [
     WriteSessionService,

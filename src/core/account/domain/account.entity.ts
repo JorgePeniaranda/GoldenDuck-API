@@ -27,7 +27,7 @@ export class Account implements AccountPrimitive {
   }
 
   /* -------------------- RELATIONS -------------------- */ // MARK: RELATIONS
-  @Field(() => User, { nullable: false })
+  @Field(() => User)
   readonly user: User
 
   @Field(() => [Card], { nullable: true })

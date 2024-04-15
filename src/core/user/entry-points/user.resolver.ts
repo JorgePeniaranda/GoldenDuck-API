@@ -1,10 +1,12 @@
+import { Account } from '@/core/account/domain/account.entity'
+import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
 import { PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { CurrentUser } from '@/decorators/current-user.decorator'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
 import { UserErrorsMessages } from '@/messages/error/user'
 import { NotFoundException, UseGuards } from '@nestjs/common'
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 import { CreateUserDTO } from '../domain/dto/create-user.dto'
 import { DeleteUserDTO } from '../domain/dto/delete-user.dto'
 import { FindUserDTO } from '../domain/dto/find-user.dto'
@@ -15,11 +17,12 @@ import { User } from '../domain/user.entity'
 
 @Public()
 @UseGuards(GqlAuthGuard)
-@Resolver()
+@Resolver(() => User)
 export class UserResolver {
   constructor (
     private readonly writeUserService: WriteUserService,
-    private readonly readUserService: ReadUserService
+    private readonly readUserService: ReadUserService,
+    private readonly readAccountService: ReadAccountService
   ) {}
 
   @Query(() => User, { name: 'current_user_info' })
@@ -80,5 +83,14 @@ export class UserResolver {
     })
 
     return '🤠'
+  }
+
+  @ResolveField(() => [Account])
+  async accounts (@Parent() user: User): Promise<Account[]> {
+    const accounts = await this.readAccountService.findAll({
+      idUser: user.id
+    })
+
+    return accounts
   }
 }

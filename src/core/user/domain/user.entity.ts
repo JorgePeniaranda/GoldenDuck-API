@@ -45,8 +45,8 @@ export class User implements UserPrimitive {
   }
 
   /* -------------------- RELATIONS -------------------- */ // MARK: RELATIONS
-  @Field(() => Account)
-  readonly account: Account
+  @Field(() => [Account])
+  readonly accounts: Account
 
   @Field(() => [Session], { nullable: true })
   readonly sessions: Session[]

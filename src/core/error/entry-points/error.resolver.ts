@@ -1,10 +1,7 @@
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
 import { ErrorErrorsMessages } from '@/messages/error/error'
-import {
-  NotFoundException,
-  UseGuards
-} from '@nestjs/common'
+import { NotFoundException, UseGuards } from '@nestjs/common'
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { CreateErrorDTO } from '../domain/dto/create-error'
 import { Error } from '../domain/error.entity'

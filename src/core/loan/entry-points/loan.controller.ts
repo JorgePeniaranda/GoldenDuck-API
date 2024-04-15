@@ -32,9 +32,13 @@ export class LoanController {
   ) {}
 
   @Get()
-  async findAll (@Request() UserData: { user: PayloadPrimitive }): Promise<Loan[]> {
+  async findAll (
+    @Request() UserData: { user: PayloadPrimitive },
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number
+  ): Promise<Loan[]> {
     const loan = await this.readLoanService.findAll({
-      idAccount: UserData.user.id
+      idUser: UserData.user.id,
+      AccountIndex
     })
 
     return loan

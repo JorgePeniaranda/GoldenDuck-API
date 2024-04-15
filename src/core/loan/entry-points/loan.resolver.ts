@@ -1,13 +1,12 @@
+import { Account } from '@/core/account/domain/account.entity'
+import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
+import { AccountErrorsMessages } from '@/messages/error/account'
 import { LoanErrorsMessages } from '@/messages/error/loan'
-import {
-  NotFoundException,
-  Request,
-  UseGuards
-} from '@nestjs/common'
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { NotFoundException, Request, UseGuards } from '@nestjs/common'
+import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 import { CreateLoanDTO } from '../domain/dto/create-loan'
 import { Loan } from '../domain/loan.entity'
 import { ReadLoanService } from '../domain/service/read-loan.service'
@@ -15,17 +14,22 @@ import { WriteLoanService } from '../domain/service/write-loan.service'
 
 @Public()
 @UseGuards(GqlAuthGuard)
-@Resolver()
+@Resolver(() => Loan)
 export class LoanResolver {
   constructor (
     private readonly writeLoanService: WriteLoanService,
-    private readonly readLoanService: ReadLoanService
+    private readonly readLoanService: ReadLoanService,
+    private readonly readAccountService: ReadAccountService
   ) {}
 
   @Query(() => Loan, { name: 'find_all_loan' })
-  async findAll (@Request() UserData: PayloadPrimitive): Promise<Loan[]> {
+  async findAll (
+    @Request() UserData: PayloadPrimitive,
+      @Args('AccountIndex', { type: () => Int }) AccountIndex: number
+  ): Promise<Loan[]> {
     const loan = await this.readLoanService.findAll({
-      idAccount: UserData.id
+      idUser: UserData.id,
+      AccountIndex
     })
 
     return loan
@@ -68,5 +72,18 @@ export class LoanResolver {
       AccountIndex,
       index
     })
+  }
+
+  @ResolveField(() => Account)
+  async receiver (@Parent() loan: Loan): Promise<Account> {
+    const receiver = await this.readAccountService.findByID({
+      id: loan.idAccount
+    })
+
+    if (receiver === null) {
+      throw new NotFoundException(AccountErrorsMessages.NotFound)
+    }
+
+    return receiver
   }
 }

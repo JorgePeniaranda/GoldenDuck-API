@@ -1,18 +1,20 @@
+import { Transaction } from '@/core/transaction/domain/transaction.entity'
 import { GqlAuthGuard } from '@/guard/gql.guard'
 import { CategoryErrorsMessages } from '@/messages/error/category'
-import { NotFoundException, UseGuards } from '@nestjs/common'
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { NotFoundException, UnauthorizedException, UseGuards } from '@nestjs/common'
+import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 import { Category } from '../domain/category.entity'
 import { type CategoryPrimitive } from '../domain/category.primitive'
 import { CreateCategoryDTO } from '../domain/dto/create-category'
 import { ReadCategoryService } from '../domain/service/read-category.service'
 import { WriteCategoryService } from '../domain/service/write-category.service'
 
-@Resolver()
+@Resolver(() => Category)
 export class CategoryResolver {
   constructor (
     private readonly readCategoryService: ReadCategoryService,
     private readonly writeCategoryService: WriteCategoryService
+    // private readonly readTransactionService: ReadTransactionService
   ) {}
 
   @UseGuards(GqlAuthGuard)
@@ -44,5 +46,15 @@ export class CategoryResolver {
   @Mutation(() => [Category], { name: 'delete_category' })
   async delete (@Args('id', { type: () => Int }) id: CategoryPrimitive['id']): Promise<void> {
     await this.writeCategoryService.delete({ id })
+  }
+
+  @ResolveField(() => [Transaction])
+  async category (@Parent() _transaction: Transaction): Promise<Category> {
+    throw new UnauthorizedException()
+
+    // const category = this.readTransactionService.findByCategory({
+    //   idCategory: transaction.idCategory
+    // })
+    // return category
   }
 }
