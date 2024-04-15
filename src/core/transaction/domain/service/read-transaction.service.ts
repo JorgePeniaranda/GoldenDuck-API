@@ -14,6 +14,7 @@ export class ReadTransactionService {
     private readonly readAccountService: ReadAccountService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   public async findAll ({
     idUser,
     AccountIndex
@@ -30,6 +31,7 @@ export class ReadTransactionService {
     return await this.transactionRepository.findAll({ idAccount: account.id })
   }
 
+  /* ---------- findAllByIDAccount ---------- */ // MARK: findAllByIDAccount
   public async findAllByIDAccount ({
     idAccount
   }: {
@@ -38,6 +40,7 @@ export class ReadTransactionService {
     return await this.transactionRepository.findAll({ idAccount })
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({
     idUser,
     AccountIndex,
@@ -59,6 +62,7 @@ export class ReadTransactionService {
     })
   }
 
+  /* ---------- findOneAsSender ---------- */ // MARK: findOneAsSender
   public async findOneAsSender ({
     idUser,
     AccountIndex,
@@ -80,6 +84,7 @@ export class ReadTransactionService {
     })
   }
 
+  /* ---------- findOneAsSenderByIDAccount ---------- */ // MARK: findOneAsSenderByIDAccount
   public async findOneAsSenderByIDAccount ({
     idSender,
     index
@@ -93,6 +98,7 @@ export class ReadTransactionService {
     })
   }
 
+  /* ---------- findOneAsReceiver ---------- */ // MARK: findOneAsReceiver
   public async findOneAsReceiver ({
     idUser,
     AccountIndex,
@@ -114,6 +120,7 @@ export class ReadTransactionService {
     })
   }
 
+  /* ---------- findOneAsReceiverByIDAccount ---------- */ // MARK: findOneAsReceiverByIDAccount
   public async findOneAsReceiverByIDAccount ({
     idReceiver,
     index

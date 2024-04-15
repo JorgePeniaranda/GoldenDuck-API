@@ -15,6 +15,7 @@ export class WriteSessionService {
     private readonly eventEmitter: EventEmitter2
   ) {}
 
+  /* ---------- create ---------- */ // MARK: create
   @OnEvent(EventsMap.CREATE_SESSION)
   public async create (data: CreateSessionDTO): Promise<Session> {
     const session = Session.create(data)
@@ -24,6 +25,7 @@ export class WriteSessionService {
     return await this.sessionRepository.create(session)
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   public async delete ({
     idUser,
     index

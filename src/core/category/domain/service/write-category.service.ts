@@ -12,6 +12,7 @@ export class WriteCategoryService {
     private readonly categoryRepository: CategoryRepository
   ) {}
 
+  /* ---------- create ---------- */ // MARK: create
   public async create (data: CreateCategoryDTO): Promise<Category> {
     const checkCategory = await this.categoryRepository.findOne({
       name: data.name
@@ -26,6 +27,7 @@ export class WriteCategoryService {
     return await this.categoryRepository.create(category)
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   public async delete ({ id }: { id: CategoryPrimitive['id'] }): Promise<void> {
     const category = await this.categoryRepository.findOne({
       id

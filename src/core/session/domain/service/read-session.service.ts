@@ -10,10 +10,12 @@ export class ReadSessionService {
     private readonly sessionRepository: SessionRepository
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   public async findAll ({ idUser }: { idUser: SessionPrimitive['idUser'] }): Promise<Session[]> {
     return await this.sessionRepository.findAll({ idUser })
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({
     idUser,
     index
@@ -24,6 +26,7 @@ export class ReadSessionService {
     return await this.sessionRepository.findOne({ idUser, index })
   }
 
+  /* ---------- findByID ---------- */ // MARK: findByID
   public async findByID (id: SessionPrimitive['id']): Promise<Session | null> {
     return await this.sessionRepository.findByID({ id })
   }

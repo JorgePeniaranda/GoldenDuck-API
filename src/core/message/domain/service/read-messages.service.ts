@@ -19,16 +19,19 @@ export class ReadMessageService {
     private readonly readUserService: ReadUserService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   public async findAll ({ idUser }: { idUser: AccountPrimitive['idUser'] }): Promise<Message[]> {
     return await this.messageRepository.findAll({ idUser })
   }
 
+  /* ---------- findByID ---------- */ // MARK: findByID
   public async findByID ({ id }: { id: MessagePrimitive['id'] }): Promise<Message | null> {
     return await this.messageRepository.findByID({
       id
     })
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({
     idUser,
     idTarget,
@@ -57,6 +60,7 @@ export class ReadMessageService {
     })
   }
 
+  /* ---------- findHistory ---------- */ // MARK: findHistory
   public async findHistory ({
     idUser
   }: {
@@ -67,6 +71,7 @@ export class ReadMessageService {
     })
   }
 
+  /* ---------- findChat ---------- */ // MARK: findChat
   public async findChat ({
     idUser,
     idTarget

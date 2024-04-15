@@ -22,6 +22,7 @@ export class WriteUserService {
     private readonly eventEmitter: EventEmitter2
   ) {}
 
+  /* ---------- create ---------- */ // MARK: create
   async create (data: CreateUserDTO): Promise<User> {
     const checkUser = await this.userRepository.findOne({
       dni: data.dni,
@@ -43,6 +44,7 @@ export class WriteUserService {
     return user
   }
 
+  /* ---------- activate ---------- */ // MARK: activate
   async activate ({ id }: { id: UserPrimitive['id'] }): Promise<User> {
     const user = await this.userRepository.findByID({ id })
 
@@ -57,6 +59,7 @@ export class WriteUserService {
     return await this.userRepository.update(user)
   }
 
+  /* ---------- update ---------- */ // MARK: update
   async update ({ id, data }: { id: UserPrimitive['id'], data: UpdateUserDTO }): Promise<User> {
     const user = await this.userRepository.findByID({ id })
 
@@ -81,6 +84,7 @@ export class WriteUserService {
     // TO-DO: send notification to account email
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   async delete ({ id, data }: { id: UserPrimitive['id'], data: DeleteUserDTO }): Promise<void> {
     const user = await this.userRepository.findByID({ id })
 

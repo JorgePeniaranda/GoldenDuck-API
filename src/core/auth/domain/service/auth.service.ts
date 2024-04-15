@@ -18,6 +18,7 @@ export class AuthService {
     private readonly schedulerRegistry: SchedulerRegistry
   ) {}
 
+  /* ---------- test ---------- */ // MARK: test
   public test (): void {
     const callback = (): void => {
       console.log('Interval executing at time!')
@@ -27,6 +28,7 @@ export class AuthService {
     this.schedulerRegistry.addTimeout('test', timeout)
   }
 
+  /* ---------- validateUser ---------- */ // MARK: validateUser
   public async validateUser (email: string, password: string): Promise<User | null> {
     const user = await this.readUserService.findOne({ email })
 
@@ -37,6 +39,7 @@ export class AuthService {
     return null
   }
 
+  /* ---------- login ---------- */ // MARK: login
   public async login (user: User): Promise<Token> {
     const payload = new JwtPayload({ id: user.id, role: user.role })
     const jwt = this.jwtService.sign(payload.toJSON(), {

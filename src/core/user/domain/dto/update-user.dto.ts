@@ -14,15 +14,9 @@ const keys = [
   'role'
 ] as const
 
-export class UpdateUserDTO extends PartialType(
-  PickType(UserDTO, keys)
-) {}
+export class UpdateUserDTO extends PartialType(PickType(UserDTO, keys)) {}
 
 @InputType()
-export class GQLUpdateUserDTO extends GQLPartialType(
-  GQLPickType(UserDTO, keys)
-) {}
+export class GQLUpdateUserDTO extends GQLPartialType(GQLPickType(UserDTO, keys)) {}
 
-export class SWGUpdateUserDTO extends SWGPartialType(
-  SWGPickType(UserDTO, keys)
-) {}
+export class SWGUpdateUserDTO extends SWGPartialType(SWGPickType(UserDTO, keys)) {}

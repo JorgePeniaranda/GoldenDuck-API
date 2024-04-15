@@ -5,15 +5,9 @@ import { UserDTO } from '../user.dto'
 
 const keys = ['dni', 'email', 'phoneNumber'] as const
 
-export class FindUserDTO extends PartialType(
-  PickType(UserDTO, keys)
-) {}
+export class FindUserDTO extends PartialType(PickType(UserDTO, keys)) {}
 
 @InputType()
-export class GQLFindUserDTO extends GQLPartialType(
-  GQLPickType(UserDTO, keys)
-) {}
+export class GQLFindUserDTO extends GQLPartialType(GQLPickType(UserDTO, keys)) {}
 
-export class SWGFindUserDTO extends SWGPartialType(
-  SWGPickType(UserDTO, keys)
-) {}
+export class SWGFindUserDTO extends SWGPartialType(SWGPickType(UserDTO, keys)) {}

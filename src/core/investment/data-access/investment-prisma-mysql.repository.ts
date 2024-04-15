@@ -8,6 +8,7 @@ import { type InvestmentRepository } from '../domain/investment.repository'
 export class InvestmentRepositoryPrismaMySQL implements InvestmentRepository {
   constructor (private readonly prisma: PrismaService) {}
 
+  /* ---------- create ---------- */ // MARK: create
   public async create (data: Investment): Promise<Investment> {
     const investment = await this.prisma.investment.create({
       data: data.toJSON()
@@ -16,6 +17,7 @@ export class InvestmentRepositoryPrismaMySQL implements InvestmentRepository {
     return new Investment(investment)
   }
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   public async findAll ({
     idAccount
   }: {
@@ -30,6 +32,7 @@ export class InvestmentRepositoryPrismaMySQL implements InvestmentRepository {
     return investments.map(investment => new Investment(investment))
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({
     idAccount,
     index
@@ -48,6 +51,7 @@ export class InvestmentRepositoryPrismaMySQL implements InvestmentRepository {
     return investment[0] !== undefined ? new Investment(investment[0]) : null
   }
 
+  /* ---------- findByID ---------- */ // MARK: findByID
   public async findByID ({
     id
   }: {
@@ -62,6 +66,7 @@ export class InvestmentRepositoryPrismaMySQL implements InvestmentRepository {
     return investment !== null ? new Investment(investment) : null
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   public async delete (data: Investment): Promise<void> {
     await this.prisma.investment.update({
       where: {

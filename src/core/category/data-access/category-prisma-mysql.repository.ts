@@ -8,6 +8,7 @@ import { type CategoryRepository } from '../domain/category.repository'
 export class CategoryRepositoryPrismaMySQL implements CategoryRepository {
   constructor (private readonly prisma: PrismaService) {}
 
+  /* ---------- create ---------- */ // MARK: create
   public async create (data: Category): Promise<Category> {
     const category = await this.prisma.category.create({
       data: {
@@ -19,6 +20,7 @@ export class CategoryRepositoryPrismaMySQL implements CategoryRepository {
     return new Category(category)
   }
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   public async findAll (): Promise<Category[]> {
     const categories = await this.prisma.category.findMany({
       where: {
@@ -29,6 +31,7 @@ export class CategoryRepositoryPrismaMySQL implements CategoryRepository {
     return categories.map(category => new Category(category))
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({
     id,
     name
@@ -46,6 +49,7 @@ export class CategoryRepositoryPrismaMySQL implements CategoryRepository {
     return category !== null ? new Category(category) : null
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   public async delete (data: Category): Promise<void> {
     await this.prisma.category.delete({
       where: data.toJSON()

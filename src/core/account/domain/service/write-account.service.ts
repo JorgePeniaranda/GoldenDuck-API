@@ -14,6 +14,7 @@ export class WriteAccountService {
     private readonly eventEmitter: EventEmitter2
   ) {}
 
+  /* ---------- create ---------- */ // MARK: create
   @OnEvent(EventsMap.CREATE_ACCOUNT)
   public async create ({ idUser }: { idUser: AccountPrimitive['idUser'] }): Promise<Account> {
     const account = Account.create({
@@ -25,6 +26,7 @@ export class WriteAccountService {
     return await this.accountRepository.create(account)
   }
 
+  /* ---------- increaseBalance ---------- */ // MARK: increaseBalance
   @OnEvent(EventsMap.ACCOUNT_INCREMENT_BALANCE)
   public async increaseBalance ({
     id,
@@ -46,6 +48,7 @@ export class WriteAccountService {
     // TO-DO: send notification to user email
   }
 
+  /* ---------- decrementBalance ---------- */ // MARK: decrementBalance
   @OnEvent(EventsMap.ACCOUNT_DECREMENT_BALANCE)
   public async decrementBalance ({
     id,
@@ -67,6 +70,7 @@ export class WriteAccountService {
     // TO-DO: send notification to user email
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   public async delete ({
     idUser,
     index

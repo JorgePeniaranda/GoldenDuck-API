@@ -1,6 +1,15 @@
-import { IntersectionType as GQLIntersectionType, PartialType as GQLPartialType, PickType as GQLPickType, InputType } from '@nestjs/graphql'
+import {
+  IntersectionType as GQLIntersectionType,
+  PartialType as GQLPartialType,
+  PickType as GQLPickType,
+  InputType
+} from '@nestjs/graphql'
 import { IntersectionType, PartialType, PickType } from '@nestjs/mapped-types'
-import { IntersectionType as SWGIntersectionType, PartialType as SWGPartialType, PickType as SWGPickType } from '@nestjs/swagger'
+import {
+  IntersectionType as SWGIntersectionType,
+  PartialType as SWGPartialType,
+  PickType as SWGPickType
+} from '@nestjs/swagger'
 import { SessionDTO } from '../session.dto'
 
 const keys = ['idUser', 'token'] as const

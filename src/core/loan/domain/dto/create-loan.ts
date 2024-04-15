@@ -3,12 +3,7 @@ import { PickType } from '@nestjs/mapped-types'
 import { PickType as SWGPickType } from '@nestjs/swagger'
 import { LoanDTO } from '../loan.dto'
 
-const keys = [
-  'idAccount',
-  'amount',
-  'interest',
-  'dateEnd'
-] as const
+const keys = ['idAccount', 'amount', 'interest', 'dateEnd'] as const
 
 export class CreateLoanDTO extends PickType(LoanDTO, keys) {}
 

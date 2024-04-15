@@ -8,6 +8,7 @@ import { type AccountRepository } from '../domain/account.repository'
 export class AccountRepositoryPrismaMySQL implements AccountRepository {
   constructor (private readonly prisma: PrismaService) {}
 
+  /* ---------- create ---------- */ // MARK: create
   public async create (data: Account): Promise<Account> {
     const account = await this.prisma.account.create({
       data: {
@@ -19,6 +20,7 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
     return new Account(account)
   }
 
+  /* ---------- findIDUser ---------- */ // MARK: findIDUser
   public async findIDUser ({
     id
   }: {
@@ -37,6 +39,7 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
     return idUser === null ? null : idUser.idUser
   }
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   public async findAll ({ idUser }: { idUser: AccountPrimitive['idUser'] }): Promise<Account[]> {
     const accounts = await this.prisma.account.findMany({
       where: {
@@ -48,6 +51,7 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
     return accounts.map(account => new Account(account))
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({
     idUser,
     index
@@ -69,6 +73,7 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
     return new Account(account[0])
   }
 
+  /* ---------- findByID ---------- */ // MARK: findByID
   public async findByID ({ id }: { id: AccountPrimitive['id'] }): Promise<Account | null> {
     const account = await this.prisma.account.findUnique({
       where: {
@@ -80,6 +85,7 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
     return account !== null ? new Account(account) : null
   }
 
+  /* ---------- update ---------- */ // MARK: update
   public async update (data: Account): Promise<Account> {
     const account = await this.prisma.account.update({
       where: {
@@ -92,6 +98,7 @@ export class AccountRepositoryPrismaMySQL implements AccountRepository {
     return new Account(account)
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   public async delete (account: Account): Promise<void> {
     await this.prisma.account.update({
       where: {

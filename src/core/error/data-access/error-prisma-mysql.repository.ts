@@ -8,6 +8,7 @@ import { type ErrorRepository } from '../domain/error.repository'
 export class ErrorRepositoryPrismaMySQL implements ErrorRepository {
   constructor (private readonly prisma: PrismaService) {}
 
+  /* ---------- create ---------- */ // MARK: create
   public async create (data: Error): Promise<Error> {
     const error = await this.prisma.error.create({
       data: {
@@ -19,6 +20,7 @@ export class ErrorRepositoryPrismaMySQL implements ErrorRepository {
     return new Error(error)
   }
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   public async findAll (): Promise<Error[]> {
     const errors = await this.prisma.error.findMany({
       where: {
@@ -29,6 +31,7 @@ export class ErrorRepositoryPrismaMySQL implements ErrorRepository {
     return errors.map(error => new Error(error))
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({ id }: { id: ErrorPrimitive['id'] }): Promise<Error | null> {
     const error = await this.prisma.error.findUnique({
       where: {
@@ -40,6 +43,7 @@ export class ErrorRepositoryPrismaMySQL implements ErrorRepository {
     return error !== null ? new Error(error) : null
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   public async delete (data: Error): Promise<void> {
     await this.prisma.error.update({
       where: {

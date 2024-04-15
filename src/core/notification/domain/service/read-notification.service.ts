@@ -10,6 +10,7 @@ export class ReadNotificationService {
     private readonly notificationRepository: NotificationRepository
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   public async findAll ({
     idUser
   }: {
@@ -18,6 +19,7 @@ export class ReadNotificationService {
     return await this.notificationRepository.findAll({ idUser })
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({
     idUser,
     index

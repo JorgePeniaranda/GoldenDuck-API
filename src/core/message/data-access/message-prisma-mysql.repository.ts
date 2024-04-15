@@ -8,6 +8,8 @@ import { type MessageRepository } from '../domain/message.repository'
 @Injectable()
 export class MessageRepositoryPrismaMySQL implements MessageRepository {
   constructor (private readonly prisma: PrismaService) {}
+
+  /* ---------- create ---------- */ // MARK: create
   public async create (data: Message): Promise<Message> {
     const newMessage = await this.prisma.message.create({
       data: {
@@ -19,6 +21,7 @@ export class MessageRepositoryPrismaMySQL implements MessageRepository {
     return new Message(newMessage)
   }
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   public async findAll ({ idUser }: { idUser: AccountPrimitive['idUser'] }): Promise<Message[]> {
     const messages = await this.prisma.message.findMany({
       where: {
@@ -32,6 +35,7 @@ export class MessageRepositoryPrismaMySQL implements MessageRepository {
     return messages.map(message => new Message(message))
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({
     idUser,
     idTarget,
@@ -62,6 +66,7 @@ export class MessageRepositoryPrismaMySQL implements MessageRepository {
     return messages[0] === undefined ? null : new Message(messages[0])
   }
 
+  /* ---------- findByID ---------- */ // MARK: findByID
   public async findByID ({ id }: { id: MessagePrimitive['id'] }): Promise<Message | null> {
     const message = await this.prisma.message.findUnique({
       where: {
@@ -72,6 +77,7 @@ export class MessageRepositoryPrismaMySQL implements MessageRepository {
     return message === null ? null : new Message(message)
   }
 
+  /* ---------- findHistory ---------- */ // MARK: findHistory
   public async findHistory ({
     idUser
   }: {
@@ -115,6 +121,7 @@ export class MessageRepositoryPrismaMySQL implements MessageRepository {
     return lastMessageWithContacts
   }
 
+  /* ---------- findChat ---------- */ // MARK: findChat
   public async findChat ({
     idUser,
     idTarget
@@ -141,6 +148,7 @@ export class MessageRepositoryPrismaMySQL implements MessageRepository {
     return messages.map(message => new Message(message))
   }
 
+  /* ---------- update ---------- */ // MARK: update
   public async update (data: Message): Promise<Message | null> {
     const updatedMessage = await this.prisma.message.update({
       where: {
@@ -152,6 +160,7 @@ export class MessageRepositoryPrismaMySQL implements MessageRepository {
     return updatedMessage !== null ? new Message(updatedMessage) : null
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   public async delete (data: Message): Promise<void> {
     await this.prisma.message.update({
       where: {

@@ -6,10 +6,7 @@ import { LocalAuthGuard } from '@/guard/auth.guard'
 import { JwtAuthGuard } from '@/guard/jwt.guard'
 import { RolesGuard } from '@/guard/role.guard'
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common'
-import {
-  ApiExcludeEndpoint,
-  ApiTags
-} from '@nestjs/swagger'
+import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger'
 import { LoginDTO } from '../domain/dto/login.dto'
 import { JwtPayload } from '../domain/payload.entity'
 import { type PayloadPrimitive } from '../domain/primitive/payload.primitive'

@@ -22,6 +22,7 @@ export class WriteMessageService {
     private readonly eventEmitter: EventEmitter2
   ) {}
 
+  /* ---------- create ---------- */ // MARK: create
   public async create ({
     idSender,
     idTarget,
@@ -42,6 +43,7 @@ export class WriteMessageService {
     return await this.messageRepository.create(message)
   }
 
+  /* ---------- update ---------- */ // MARK: update
   public async update ({
     idUser,
     idTarget,
@@ -68,6 +70,7 @@ export class WriteMessageService {
     return await this.messageRepository.update(message)
   }
 
+  /* ---------- read ---------- */ // MARK: read
   public async read ({
     idUser,
     idTarget,
@@ -92,6 +95,7 @@ export class WriteMessageService {
     await this.messageRepository.update(message)
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   public async delete ({
     idUser,
     idTarget,

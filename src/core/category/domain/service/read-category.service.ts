@@ -10,10 +10,12 @@ export class ReadCategoryService {
     private readonly categoryRepository: CategoryRepository
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   public async findAll (): Promise<Category[]> {
     return await this.categoryRepository.findAll()
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({
     id,
     name
