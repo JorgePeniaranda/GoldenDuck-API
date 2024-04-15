@@ -3,40 +3,66 @@ import { type ErrorPrimitive } from './error.primitive'
 
 export class Error implements ErrorPrimitive {
   readonly #id: ErrorPrimitive['id']
-  @Field(() => String)
-    name: ErrorPrimitive['name']
-
-  @Field(() => String)
-    message: ErrorPrimitive['message']
-
-  @Field(() => String)
-    stack: ErrorPrimitive['stack']
-
-  @Field(() => Date)
-    updatedAt: ErrorPrimitive['updatedAt']
-
+  readonly #name: ErrorPrimitive['name']
+  readonly #message: ErrorPrimitive['message']
+  readonly #stack: ErrorPrimitive['stack']
+  #updatedAt: ErrorPrimitive['updatedAt']
   readonly #createdAt: ErrorPrimitive['createdAt']
-  @Field(() => Boolean)
-    deleted: ErrorPrimitive['deleted']
+  #deleted: ErrorPrimitive['deleted']
 
   constructor (transaction: ErrorPrimitive) {
     this.#id = transaction.id
-    this.name = transaction.name
-    this.message = transaction.message
-    this.stack = transaction.stack
-    this.updatedAt = transaction.updatedAt
+    this.#name = transaction.name
+    this.#message = transaction.message
+    this.#stack = transaction.stack
+    this.#updatedAt = transaction.updatedAt
     this.#createdAt = transaction.createdAt
-    this.deleted = transaction.deleted
+    this.#deleted = transaction.deleted
   }
 
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
-  get id (): ErrorPrimitive['id'] {
+  public get id (): ErrorPrimitive['id'] {
     return this.#id
   }
 
+  @Field(() => String)
+  public get name (): ErrorPrimitive['name'] {
+    return this.#name
+  }
+
+  @Field(() => String)
+  public get message (): ErrorPrimitive['message'] {
+    return this.#message
+  }
+
+  @Field(() => String)
+  public get stack (): ErrorPrimitive['stack'] {
+    return this.#stack
+  }
+
   @Field(() => Date)
-  get createdAt (): ErrorPrimitive['createdAt'] {
+  public get updatedAt (): ErrorPrimitive['updatedAt'] {
+    return this.#updatedAt
+  }
+
+  public set updatedAt (value: ErrorPrimitive['updatedAt']) {
+    this.#updatedAt = value
+  }
+
+  @Field(() => Date)
+  public get createdAt (): ErrorPrimitive['createdAt'] {
     return this.#createdAt
+  }
+
+  @Field(() => Boolean)
+  public get deleted (): ErrorPrimitive['deleted'] {
+    return this.#deleted
+  }
+
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  public delete (): void {
+    this.#deleted = true
   }
 
   public static create ({

@@ -28,8 +28,7 @@ import { AccountController } from './entry-points/account.controller'
 })
 export class AccountModule {
   constructor (private readonly eventEmitter: EventEmitter2) {
-    /* @region EVENTS SUBSCRIPTION */
-
+    // #region EVENTS SUBSCRIPTION
     /* ------------------------- USER EVENTS ------------------------- */
 
     this.eventEmitter.on(EventsMap.USER_CREATED, (data: UserPrimitive) => {

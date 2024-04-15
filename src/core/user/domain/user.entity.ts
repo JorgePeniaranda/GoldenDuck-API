@@ -4,66 +4,64 @@ import { UserRoles, type UserPrimitive } from './user.primitive'
 
 @ObjectType()
 export class User implements UserPrimitive {
-  @Field(() => ID)
-    id: UserPrimitive['id']
-
-  @Field(() => String)
-    name: UserPrimitive['name']
-
-  @Field(() => String)
-    lastName: UserPrimitive['lastName']
-
+  readonly #id: UserPrimitive['id']
+  #name: UserPrimitive['name']
+  #lastName: UserPrimitive['lastName']
   readonly #dni: UserPrimitive['dni']
-
-  @Field(() => String)
-    email: UserPrimitive['email']
-
-  @Field(() => Number)
-    phoneNumber: UserPrimitive['phoneNumber']
-
+  #email: UserPrimitive['email']
+  #phoneNumber: UserPrimitive['phoneNumber']
   readonly #password: Password
-
-  @Field(() => String)
-    address: UserPrimitive['address']
-
+  #address: UserPrimitive['address']
   readonly #birthDate: UserPrimitive['birthDate']
-
   readonly #sex: UserPrimitive['sex']
-
-  @Field(() => String)
-    imgUrl: UserPrimitive['imgUrl']
-
-  @Field(() => Date)
-    updatedAt: UserPrimitive['updatedAt']
-
+  #imgUrl: UserPrimitive['imgUrl']
+  #updatedAt: UserPrimitive['updatedAt']
   readonly #createdAt: UserPrimitive['createdAt']
-
-  @Field(() => Boolean)
-    actived: UserPrimitive['actived']
-
-  @Field(() => Boolean)
-    deleted: UserPrimitive['deleted']
-
-  @Field(() => String)
-    role: UserPrimitive['role']
+  #actived: UserPrimitive['actived']
+  #deleted: UserPrimitive['deleted']
+  #role: UserPrimitive['role']
 
   constructor (user: UserPrimitive) {
-    this.id = user.id
-    this.name = user.name
-    this.lastName = user.lastName
+    this.#id = user.id
+    this.#name = user.name
+    this.#lastName = user.lastName
     this.#dni = user.dni
-    this.email = user.email
-    this.phoneNumber = user.phoneNumber
+    this.#email = user.email
+    this.#phoneNumber = user.phoneNumber
     this.#password = new Password(user.password, user.salt)
-    this.address = user.address
+    this.#address = user.address
     this.#birthDate = user.birthDate
     this.#sex = user.sex
-    this.imgUrl = user.imgUrl
-    this.updatedAt = user.updatedAt
+    this.#imgUrl = user.imgUrl
+    this.#updatedAt = user.updatedAt
     this.#createdAt = user.createdAt
-    this.actived = user.actived
-    this.deleted = user.deleted
-    this.role = user.role
+    this.#actived = user.actived
+    this.#deleted = user.deleted
+    this.#role = user.role
+  }
+
+  // #region GETTER / SETTER
+  @Field(() => ID)
+  get id (): UserPrimitive['id'] {
+    return this.#id
+  }
+
+  @Field(() => String)
+  get name (): UserPrimitive['name'] {
+    return this.#name
+  }
+
+  set name (name: UserPrimitive['name']) {
+    this.#name = name
+  }
+
+  @Field(() => String)
+  get lastName (): UserPrimitive['lastName'] {
+    return this.#lastName
+  }
+
+  set lastName (lastName: UserPrimitive['lastName']) {
+    this.#lastName = lastName
   }
 
   @Field(() => String)
@@ -71,19 +69,22 @@ export class User implements UserPrimitive {
     return this.#dni
   }
 
-  @Field(() => Date)
-  get birthDate (): UserPrimitive['birthDate'] {
-    return this.#birthDate
-  }
-
   @Field(() => String)
-  get sex (): UserPrimitive['sex'] {
-    return this.#sex
+  get email (): UserPrimitive['email'] {
+    return this.#email
   }
 
-  @Field(() => Date)
-  get createdAt (): UserPrimitive['createdAt'] {
-    return this.#createdAt
+  set email (email: UserPrimitive['email']) {
+    this.#email = email
+  }
+
+  @Field(() => Number)
+  get phoneNumber (): UserPrimitive['phoneNumber'] {
+    return this.#phoneNumber
+  }
+
+  set phoneNumber (phoneNumber: UserPrimitive['phoneNumber']) {
+    this.#phoneNumber = phoneNumber
   }
 
   get password (): UserPrimitive['password'] {
@@ -98,30 +99,80 @@ export class User implements UserPrimitive {
     return this.#password.salt
   }
 
-  public comparePassword (password: string): boolean {
-    return this.#password.compare(password)
+  @Field(() => String)
+  get address (): UserPrimitive['address'] {
+    return this.#address
   }
 
-  public toJSON (): UserPrimitive {
-    return {
-      id: this.id,
-      name: this.name,
-      lastName: this.lastName,
-      dni: this.dni,
-      email: this.email,
-      phoneNumber: this.phoneNumber,
-      password: this.password,
-      salt: this.#password.salt,
-      address: this.address,
-      birthDate: this.birthDate,
-      sex: this.sex,
-      imgUrl: this.imgUrl,
-      updatedAt: this.updatedAt,
-      createdAt: this.createdAt,
-      actived: this.actived,
-      deleted: this.deleted,
-      role: this.role
-    }
+  set address (address: UserPrimitive['address']) {
+    this.#address = address
+  }
+
+  @Field(() => Date)
+  get birthDate (): UserPrimitive['birthDate'] {
+    return this.#birthDate
+  }
+
+  @Field(() => String)
+  get sex (): UserPrimitive['sex'] {
+    return this.#sex
+  }
+
+  @Field(() => String)
+  get imgUrl (): UserPrimitive['imgUrl'] {
+    return this.#imgUrl
+  }
+
+  set imgUrl (imgUrl: UserPrimitive['imgUrl']) {
+    this.#imgUrl = imgUrl
+  }
+
+  @Field(() => Date)
+  get updatedAt (): UserPrimitive['updatedAt'] {
+    return this.#updatedAt
+  }
+
+  set updatedAt (updatedAt: UserPrimitive['updatedAt']) {
+    this.#updatedAt = updatedAt
+  }
+
+  @Field(() => Date)
+  get createdAt (): UserPrimitive['createdAt'] {
+    return this.#createdAt
+  }
+
+  @Field(() => Boolean)
+  get actived (): UserPrimitive['actived'] {
+    return this.#actived
+  }
+
+  @Field(() => Boolean)
+  get deleted (): UserPrimitive['deleted'] {
+    return this.#deleted
+  }
+
+  @Field(() => String)
+  get role (): UserPrimitive['role'] {
+    return this.#role
+  }
+
+  set role (role: UserPrimitive['role']) {
+    this.#role = role
+  }
+
+  /**
+   * --------------------> MARK:ASDA
+   **/
+  public activate (): void {
+    this.#actived = true
+  }
+
+  public delete (): void {
+    this.#deleted = true
+  }
+
+  public comparePassword (password: string): boolean {
+    return this.#password.compare(password)
   }
 
   public static create ({
@@ -168,5 +219,27 @@ export class User implements UserPrimitive {
       deleted: false,
       role: UserRoles.USER
     })
+  }
+
+  public toJSON (): UserPrimitive {
+    return {
+      id: this.id,
+      name: this.name,
+      lastName: this.lastName,
+      dni: this.dni,
+      email: this.email,
+      phoneNumber: this.phoneNumber,
+      password: this.password,
+      salt: this.#password.salt,
+      address: this.address,
+      birthDate: this.birthDate,
+      sex: this.sex,
+      imgUrl: this.imgUrl,
+      updatedAt: this.updatedAt,
+      createdAt: this.createdAt,
+      actived: this.actived,
+      deleted: this.deleted,
+      role: this.role
+    }
   }
 }

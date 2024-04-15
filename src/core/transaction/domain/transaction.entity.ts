@@ -4,31 +4,24 @@ import { type TransactionPrimitive } from './transaction.primitive'
 @ObjectType()
 export class Transaction implements TransactionPrimitive {
   readonly #id: TransactionPrimitive['id']
-
   readonly #idSender: TransactionPrimitive['idSender']
-
   readonly #idReceiver: TransactionPrimitive['idReceiver']
-
   readonly #amount: TransactionPrimitive['amount']
-
-  @Field(() => Number)
-    idCategory?: TransactionPrimitive['idCategory']
-
+  #idCategory?: TransactionPrimitive['idCategory']
   readonly #createdAt: TransactionPrimitive['createdAt']
-
-  @Field(() => Boolean)
-    canceled: TransactionPrimitive['canceled']
+  #canceled: TransactionPrimitive['canceled']
 
   constructor (transaction: TransactionPrimitive) {
     this.#id = transaction.id
     this.#idSender = transaction.idSender
     this.#idReceiver = transaction.idReceiver
     this.#amount = transaction.amount
-    this.idCategory = transaction.idCategory
+    this.#idCategory = transaction.idCategory
     this.#createdAt = transaction.createdAt
-    this.canceled = transaction.canceled
+    this.#canceled = transaction.canceled
   }
 
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
   get id (): TransactionPrimitive['id'] {
     return this.#id
@@ -49,9 +42,28 @@ export class Transaction implements TransactionPrimitive {
     return this.#amount
   }
 
+  @Field(() => Number)
+  get idCategory (): TransactionPrimitive['idCategory'] {
+    return this.#idCategory
+  }
+
+  set idCategory (value: TransactionPrimitive['idCategory']) {
+    this.#idCategory = value
+  }
+
   @Field(() => Date)
   get createdAt (): TransactionPrimitive['createdAt'] {
     return this.#createdAt
+  }
+
+  @Field(() => Boolean)
+  get canceled (): TransactionPrimitive['canceled'] {
+    return this.#canceled
+  }
+
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  public cancel (): void {
+    this.#canceled = true
   }
 
   public static create ({

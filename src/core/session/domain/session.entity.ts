@@ -9,12 +9,8 @@ export class Session implements SessionPrimitive {
   readonly #location: SessionPrimitive['location']
   readonly #deviceType: SessionPrimitive['deviceType']
   readonly #token: SessionPrimitive['token']
-  @Field(() => Boolean)
-    active: SessionPrimitive['active']
-
-  @Field(() => Date)
-    logoutAt: SessionPrimitive['logoutAt']
-
+  #active: SessionPrimitive['active']
+  #logoutAt: SessionPrimitive['logoutAt']
   readonly #createdAt: SessionPrimitive['createdAt']
 
   constructor (transaction: SessionPrimitive) {
@@ -25,49 +21,66 @@ export class Session implements SessionPrimitive {
     this.#location = transaction.location
     this.#deviceType = transaction.deviceType
     this.#token = transaction.token
-    this.active = transaction.active
-    this.logoutAt = transaction.logoutAt
+    this.#active = transaction.active
+    this.#logoutAt = transaction.logoutAt
     this.#createdAt = transaction.createdAt
   }
 
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
-  get id (): SessionPrimitive['id'] {
+  public get id (): SessionPrimitive['id'] {
     return this.#id
   }
 
   @Field(() => Number)
-  get idUser (): SessionPrimitive['idUser'] {
+  public get idUser (): SessionPrimitive['idUser'] {
     return this.#idUser
   }
 
   @Field(() => String)
-  get ip (): SessionPrimitive['ip'] {
+  public get ip (): SessionPrimitive['ip'] {
     return this.#ip
   }
 
   @Field(() => String)
-  get userAgent (): SessionPrimitive['userAgent'] {
+  public get userAgent (): SessionPrimitive['userAgent'] {
     return this.#userAgent
   }
 
   @Field(() => String)
-  get location (): SessionPrimitive['location'] {
+  public get location (): SessionPrimitive['location'] {
     return this.#location
   }
 
   @Field(() => String)
-  get deviceType (): SessionPrimitive['deviceType'] {
+  public get deviceType (): SessionPrimitive['deviceType'] {
     return this.#deviceType
   }
 
   @Field(() => String)
-  get token (): SessionPrimitive['token'] {
+  public get token (): SessionPrimitive['token'] {
     return this.#token
   }
 
+  @Field(() => Boolean)
+  public get active (): SessionPrimitive['active'] {
+    return this.#active
+  }
+
   @Field(() => Date)
-  get createdAt (): SessionPrimitive['createdAt'] {
+  public get logoutAt (): SessionPrimitive['logoutAt'] {
+    return this.#logoutAt
+  }
+
+  @Field(() => Date)
+  public get createdAt (): SessionPrimitive['createdAt'] {
     return this.#createdAt
+  }
+
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  public logout (): void {
+    this.#active = false
+    this.#logoutAt = new Date()
   }
 
   public static create ({

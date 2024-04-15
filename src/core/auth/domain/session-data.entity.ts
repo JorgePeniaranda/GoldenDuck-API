@@ -11,15 +11,17 @@ export class SessionData implements SessionDataPrimitive {
     this.#user = data.user
   }
 
-  get token (): SessionDataPrimitive['token'] {
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
+  public get token (): SessionDataPrimitive['token'] {
     return this.#token
   }
 
-  get user (): UserPrimitive {
+  public get user (): UserPrimitive {
     return this.#user
   }
 
-  toJSON (): SessionDataPrimitive {
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  public toJSON (): SessionDataPrimitive {
     return {
       token: this.token,
       user: this.user

@@ -7,13 +7,15 @@ import { User } from '../domain/user.entity'
 
 @Resolver()
 export class UserResolver {
-  constructor (
-    private readonly readUserService: ReadUserService
-  ) {}
+  constructor (private readonly readUserService: ReadUserService) {}
 
   @UseGuards(GqlAuthGuard)
-  @Query((_returns) => User, { name: 'user' })
-  async findOne (@Args('dni', { nullable: true }) dni: number, @Args('email', { nullable: true }) email: string, @Args('phoneNumber', { nullable: true }) phoneNumber: number): Promise<User> {
+  @Query(_returns => User, { name: 'user' })
+  async findOne (
+    @Args('dni', { nullable: true }) dni: number,
+      @Args('email', { nullable: true }) email: string,
+      @Args('phoneNumber', { nullable: true }) phoneNumber: number
+  ): Promise<User> {
     const user = await this.readUserService.findOne({
       dni: BigInt(dni),
       email,

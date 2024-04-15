@@ -7,9 +7,7 @@ import { AuthService } from './auth.service'
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
-  constructor (
-    private readonly moduleRef: ModuleRef
-  ) {
+  constructor (private readonly moduleRef: ModuleRef) {
     super({
       usernameField: 'email',
       passwordField: 'password',
@@ -17,7 +15,11 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     })
   }
 
-  async validate (request: Request, username: User['email'], password: User['password']): Promise<User> {
+  async validate (
+    request: Request,
+    username: User['email'],
+    password: User['password']
+  ): Promise<User> {
     const contextId = ContextIdFactory.getByRequest(request)
     const authService = await this.moduleRef.resolve(AuthService, contextId)
 

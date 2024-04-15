@@ -36,8 +36,7 @@ export class NotificationModule {
     private readonly readAccountService: ReadAccountService,
     private readonly eventEmitter: EventEmitter2
   ) {
-    /* @region EVENTS SUBSCRIPTION */
-
+    // #region EVENTS SUBSCRIPTION
     /* ------------------------- USER EVENTS ------------------------- */
 
     this.eventEmitter.on(EventsMap.USER_ACTIVATED, (data: UserPrimitive) => {

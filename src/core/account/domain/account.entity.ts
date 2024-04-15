@@ -7,22 +7,20 @@ export class Account implements AccountPrimitive {
   readonly #id: AccountPrimitive['id']
   readonly #idUser: AccountPrimitive['idUser']
   #balance: AccountPrimitive['balance']
-  @Field(() => Date)
-  public updatedAt: AccountPrimitive['updatedAt']
-
+  #updatedAt: AccountPrimitive['updatedAt']
   readonly #createdAt: AccountPrimitive['createdAt']
-  @Field(() => Boolean)
-  public deleted: AccountPrimitive['deleted']
+  #deleted: AccountPrimitive['deleted']
 
   constructor (account: AccountPrimitive) {
     this.#id = account.id
     this.#idUser = account.idUser
     this.#balance = account.balance
-    this.updatedAt = account.updatedAt
+    this.#updatedAt = account.updatedAt
     this.#createdAt = account.createdAt
-    this.deleted = account.deleted
+    this.#deleted = account.deleted
   }
 
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => Number)
   public get id (): AccountPrimitive['id'] {
     return this.#id
@@ -38,17 +36,36 @@ export class Account implements AccountPrimitive {
     return this.#balance
   }
 
+  @Field(() => Boolean)
+  public get deleted (): AccountPrimitive['deleted'] {
+    return this.#deleted
+  }
+
   @Field(() => Date)
   public get createdAt (): AccountPrimitive['createdAt'] {
     return this.#createdAt
   }
 
+  @Field(() => Date)
+  public get updatedAt (): AccountPrimitive['updatedAt'] {
+    return this.#updatedAt
+  }
+
+  public set updatedAt (value: AccountPrimitive['updatedAt']) {
+    this.#updatedAt = value
+  }
+
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
   public incrementBalance (amount: AccountPrimitive['balance']): void {
     this.#balance += amount
   }
 
   public decrementBalance (amount: AccountPrimitive['balance']): void {
     this.#balance -= amount
+  }
+
+  public delete (): void {
+    this.#deleted = true
   }
 
   public toJSON (): AccountPrimitive {

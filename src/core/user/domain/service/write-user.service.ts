@@ -50,7 +50,7 @@ export class WriteUserService {
       throw new NotFoundException(UserErrorsMessages.NotFound)
     }
 
-    user.actived = true
+    user.activate()
 
     this.eventEmitter.emit(EventsMap.USER_ACTIVATED, user.toJSON())
 

@@ -6,18 +6,18 @@ type User {
   id: ID!
   name: String!
   lastName: String!
+  dni: String!
   email: String!
   phoneNumber: Float!
   address: String!
+  birthDate: DateTime!
+  sex: String!
   imgUrl: String!
   updatedAt: DateTime!
+  createdAt: DateTime!
   actived: Boolean!
   deleted: Boolean!
   role: String!
-  dni: String!
-  birthDate: DateTime!
-  sex: String!
-  createdAt: DateTime!
 }
 
 """

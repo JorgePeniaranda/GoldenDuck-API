@@ -23,8 +23,7 @@ import { SessionController } from './entry-points/session.controller'
 })
 export class SessionModule {
   constructor (private readonly eventEmitter: EventEmitter2) {
-    /* @region EVENTS SUBSCRIPTION */
-
+    // #region EVENTS SUBSCRIPTION
     /* ------------------------- USER EVENTS ------------------------- */
 
     this.eventEmitter.on(EventsMap.USER_LOGGED_IN, ({ user, token }: SessionDataPrimitive) => {

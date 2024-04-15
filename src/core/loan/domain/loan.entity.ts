@@ -7,12 +7,9 @@ export class Loan implements LoanPrimitive {
   readonly #amount: LoanPrimitive['amount']
   readonly #interest: LoanPrimitive['interest']
   readonly #dateEnd: LoanPrimitive['dateEnd']
-  @Field(() => Date)
-    updatedAt: LoanPrimitive['updatedAt']
-
+  #updatedAt: LoanPrimitive['updatedAt']
   readonly #createdAt: LoanPrimitive['createdAt']
-  @Field(() => Boolean)
-    canceled: LoanPrimitive['canceled']
+  #canceled: LoanPrimitive['canceled']
 
   constructor (loan: LoanPrimitive) {
     this.#id = loan.id
@@ -20,39 +17,59 @@ export class Loan implements LoanPrimitive {
     this.#amount = loan.amount
     this.#interest = loan.interest
     this.#dateEnd = loan.dateEnd
-    this.updatedAt = loan.updatedAt
+    this.#updatedAt = loan.updatedAt
     this.#createdAt = loan.createdAt
-    this.canceled = loan.canceled
+    this.#canceled = loan.canceled
   }
 
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
-  get id (): LoanPrimitive['id'] {
+  public get id (): LoanPrimitive['id'] {
     return this.#id
   }
 
   @Field(() => Number)
-  get idAccount (): LoanPrimitive['idAccount'] {
+  public get idAccount (): LoanPrimitive['idAccount'] {
     return this.#idAccount
   }
 
   @Field(() => Number)
-  get amount (): LoanPrimitive['amount'] {
+  public get amount (): LoanPrimitive['amount'] {
     return this.#amount
   }
 
   @Field(() => Number)
-  get interest (): LoanPrimitive['interest'] {
+  public get interest (): LoanPrimitive['interest'] {
     return this.#interest
   }
 
   @Field(() => Date)
-  get dateEnd (): LoanPrimitive['dateEnd'] {
+  public get dateEnd (): LoanPrimitive['dateEnd'] {
     return this.#dateEnd
   }
 
   @Field(() => Date)
-  get createdAt (): LoanPrimitive['createdAt'] {
+  public get updatedAt (): LoanPrimitive['updatedAt'] {
+    return this.#updatedAt
+  }
+
+  public set updatedAt (value: LoanPrimitive['updatedAt']) {
+    this.#updatedAt = value
+  }
+
+  @Field(() => Date)
+  public get createdAt (): LoanPrimitive['createdAt'] {
     return this.#createdAt
+  }
+
+  @Field(() => Boolean)
+  public get canceled (): LoanPrimitive['canceled'] {
+    return this.#canceled
+  }
+
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  public cancel (): void {
+    this.#canceled = true
   }
 
   public static create ({

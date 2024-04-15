@@ -20,7 +20,7 @@ export class CategoryResolver {
   }
 
   @Public()
-  @Query((_returns) => CategoryDTO, { name: 'category' })
+  @Query(_returns => CategoryDTO, { name: 'category' })
   async findOne (@Args('id') id: number): Promise<Category> {
     const category = await this.readCategoryService.findOne({ id })
 

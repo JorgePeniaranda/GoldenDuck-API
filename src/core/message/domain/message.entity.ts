@@ -5,48 +5,79 @@ export class Message implements MessagePrimitive {
   readonly #id: MessagePrimitive['id']
   readonly #idSender: MessagePrimitive['idSender']
   readonly #idReceiver: MessagePrimitive['idReceiver']
-  @Field(() => String)
-    message: MessagePrimitive['message']
-
-  @Field(() => Boolean)
-    read: MessagePrimitive['read']
-
-  @Field(() => Date)
-    updatedAt: MessagePrimitive['updatedAt']
-
+  #message: MessagePrimitive['message']
+  #read: MessagePrimitive['read']
+  #updatedAt: MessagePrimitive['updatedAt']
   readonly #createdAt: MessagePrimitive['createdAt']
-  @Field(() => Boolean)
-    deleted: MessagePrimitive['deleted']
+  #deleted: MessagePrimitive['deleted']
 
   constructor (props: MessagePrimitive) {
     this.#id = props.id
     this.#idSender = props.idSender
     this.#idReceiver = props.idReceiver
-    this.message = props.message
-    this.read = props.read
-    this.updatedAt = props.updatedAt
+    this.#message = props.message
+    this.#read = props.read
+    this.#updatedAt = props.updatedAt
     this.#createdAt = props.createdAt
-    this.deleted = props.deleted
+    this.#deleted = props.deleted
   }
 
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
-  get id (): MessagePrimitive['id'] {
+  public get id (): MessagePrimitive['id'] {
     return this.#id
   }
 
   @Field(() => Number)
-  get idSender (): MessagePrimitive['idSender'] {
+  public get idSender (): MessagePrimitive['idSender'] {
     return this.#idSender
   }
 
   @Field(() => Number)
-  get idReceiver (): MessagePrimitive['idReceiver'] {
+  public get idReceiver (): MessagePrimitive['idReceiver'] {
     return this.#idReceiver
   }
 
+  @Field(() => String)
+  public get message (): MessagePrimitive['message'] {
+    return this.#message
+  }
+
+  set message (value: MessagePrimitive['message']) {
+    this.#message = value
+  }
+
+  @Field(() => Boolean)
+  public get read (): MessagePrimitive['read'] {
+    return this.#read
+  }
+
   @Field(() => Date)
-  get createdAt (): MessagePrimitive['createdAt'] {
+  public get updatedAt (): MessagePrimitive['updatedAt'] {
+    return this.#updatedAt
+  }
+
+  set updatedAt (value: MessagePrimitive['updatedAt']) {
+    this.#updatedAt = value
+  }
+
+  @Field(() => Date)
+  public get createdAt (): MessagePrimitive['createdAt'] {
     return this.#createdAt
+  }
+
+  @Field(() => Boolean)
+  public get deleted (): MessagePrimitive['deleted'] {
+    return this.#deleted
+  }
+
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  public markAsRead (): void {
+    this.#read = true
+  }
+
+  public deleteMessage (): void {
+    this.#deleted = true
   }
 
   public static create ({

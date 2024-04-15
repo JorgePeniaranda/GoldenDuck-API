@@ -4,32 +4,56 @@ import { type CategoryPrimitive } from './category.primitive'
 @ObjectType()
 export class Category implements CategoryPrimitive {
   readonly #id: CategoryPrimitive['id']
-  @Field(() => String)
-    name: CategoryPrimitive['name']
-
-  @Field(() => Date)
-    updatedAt: CategoryPrimitive['updatedAt']
-
+  #name: CategoryPrimitive['name']
+  #updatedAt: CategoryPrimitive['updatedAt']
   readonly #createdAt: CategoryPrimitive['createdAt']
-  @Field(() => Boolean)
-    deleted: CategoryPrimitive['deleted']
+  #deleted: CategoryPrimitive['deleted']
 
   constructor (transaction: CategoryPrimitive) {
     this.#id = transaction.id
-    this.name = transaction.name
-    this.updatedAt = transaction.updatedAt
+    this.#name = transaction.name
+    this.#updatedAt = transaction.updatedAt
     this.#createdAt = transaction.createdAt
-    this.deleted = transaction.deleted
+    this.#deleted = transaction.deleted
   }
 
+  // #region ASDASD
   @Field(() => ID)
-  get id (): CategoryPrimitive['id'] {
+  public get id (): CategoryPrimitive['id'] {
     return this.#id
   }
 
+  @Field(() => String)
+  public get name (): CategoryPrimitive['name'] {
+    return this.#name
+  }
+
+  public set name (value: CategoryPrimitive['name']) {
+    this.#name = value
+  }
+
   @Field(() => Date)
-  get createdAt (): CategoryPrimitive['createdAt'] {
+  public get updatedAt (): CategoryPrimitive['updatedAt'] {
+    return this.#updatedAt
+  }
+
+  public set updatedAt (value: CategoryPrimitive['updatedAt']) {
+    this.#updatedAt = value
+  }
+
+  @Field(() => Date)
+  public get createdAt (): CategoryPrimitive['createdAt'] {
     return this.#createdAt
+  }
+
+  @Field(() => Boolean)
+  public get deleted (): CategoryPrimitive['deleted'] {
+    return this.#deleted
+  }
+
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  public delete (): void {
+    this.#deleted = true
   }
 
   public static create ({ name }: { name: CategoryPrimitive['name'] }): Category {

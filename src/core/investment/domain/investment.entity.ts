@@ -7,12 +7,9 @@ export class Investment implements InvestmentPrimitive {
   readonly #amount: InvestmentPrimitive['amount']
   readonly #interest: InvestmentPrimitive['interest']
   readonly #dateEnd: InvestmentPrimitive['dateEnd']
-  @Field(() => Date)
-    updatedAt: InvestmentPrimitive['updatedAt']
-
+  #updatedAt: InvestmentPrimitive['updatedAt']
   readonly #createdAt: InvestmentPrimitive['createdAt']
-  @Field(() => Boolean)
-    canceled: InvestmentPrimitive['canceled']
+  #canceled: InvestmentPrimitive['canceled']
 
   constructor (loan: InvestmentPrimitive) {
     this.#id = loan.id
@@ -20,39 +17,59 @@ export class Investment implements InvestmentPrimitive {
     this.#amount = loan.amount
     this.#interest = loan.interest
     this.#dateEnd = loan.dateEnd
-    this.updatedAt = loan.updatedAt
+    this.#updatedAt = loan.updatedAt
     this.#createdAt = loan.createdAt
-    this.canceled = loan.canceled
+    this.#canceled = loan.canceled
   }
 
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
-  get id (): InvestmentPrimitive['id'] {
+  public get id (): InvestmentPrimitive['id'] {
     return this.#id
   }
 
   @Field(() => Number)
-  get idAccount (): InvestmentPrimitive['idAccount'] {
+  public get idAccount (): InvestmentPrimitive['idAccount'] {
     return this.#idAccount
   }
 
   @Field(() => Number)
-  get amount (): InvestmentPrimitive['amount'] {
+  public get amount (): InvestmentPrimitive['amount'] {
     return this.#amount
   }
 
   @Field(() => Number)
-  get interest (): InvestmentPrimitive['interest'] {
+  public get interest (): InvestmentPrimitive['interest'] {
     return this.#interest
   }
 
   @Field(() => Date)
-  get dateEnd (): InvestmentPrimitive['dateEnd'] {
+  public get dateEnd (): InvestmentPrimitive['dateEnd'] {
     return this.#dateEnd
   }
 
   @Field(() => Date)
-  get createdAt (): InvestmentPrimitive['createdAt'] {
+  public get updatedAt (): InvestmentPrimitive['updatedAt'] {
+    return this.#updatedAt
+  }
+
+  public set updatedAt (value: InvestmentPrimitive['updatedAt']) {
+    this.#updatedAt = value
+  }
+
+  @Field(() => Date)
+  public get createdAt (): InvestmentPrimitive['createdAt'] {
     return this.#createdAt
+  }
+
+  @Field(() => Boolean)
+  public get canceled (): InvestmentPrimitive['canceled'] {
+    return this.#canceled
+  }
+
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  public cancel (): void {
+    this.#canceled = true
   }
 
   public static create ({

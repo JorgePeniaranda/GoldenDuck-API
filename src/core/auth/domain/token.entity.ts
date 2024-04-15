@@ -7,11 +7,13 @@ export class Token implements TokenPrimitive {
     this.#token = token
   }
 
-  get token (): TokenPrimitive['token'] {
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
+  public get token (): TokenPrimitive['token'] {
     return this.#token
   }
 
-  toJSON (): TokenPrimitive {
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  public toJSON (): TokenPrimitive {
     return {
       token: this.token
     }

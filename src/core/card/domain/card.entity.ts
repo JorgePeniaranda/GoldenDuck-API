@@ -7,13 +7,9 @@ export class Card implements CardPrimitive {
   readonly #number: CardPrimitive['number']
   readonly #cvv: CardPrimitive['cvv']
   readonly #expiration: CardPrimitive['expiration']
-
-  @Field(() => Date)
-    updatedAt: CardPrimitive['updatedAt']
-
+  #updatedAt: CardPrimitive['updatedAt']
   readonly #createdAt: CardPrimitive['createdAt']
-  @Field(() => Boolean)
-    deleted: CardPrimitive['deleted']
+  #deleted: CardPrimitive['deleted']
 
   constructor (card: CardPrimitive) {
     this.#id = card.id
@@ -21,39 +17,59 @@ export class Card implements CardPrimitive {
     this.#number = card.number
     this.#cvv = card.cvv
     this.#expiration = card.expiration
+    this.#updatedAt = card.updatedAt
     this.#createdAt = card.createdAt
-    this.updatedAt = card.updatedAt
-    this.deleted = card.deleted
+    this.#deleted = card.deleted
   }
 
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
-  get id (): CardPrimitive['id'] {
+  public get id (): CardPrimitive['id'] {
     return this.#id
   }
 
   @Field(() => Number)
-  get idAccount (): CardPrimitive['idAccount'] {
+  public get idAccount (): CardPrimitive['idAccount'] {
     return this.#idAccount
   }
 
   @Field(() => Number)
-  get number (): CardPrimitive['number'] {
+  public get number (): CardPrimitive['number'] {
     return this.#number
   }
 
   @Field(() => Number)
-  get cvv (): CardPrimitive['cvv'] {
+  public get cvv (): CardPrimitive['cvv'] {
     return this.#cvv
   }
 
   @Field(() => Date)
-  get expiration (): CardPrimitive['expiration'] {
+  public get expiration (): CardPrimitive['expiration'] {
     return this.#expiration
   }
 
   @Field(() => Date)
-  get createdAt (): CardPrimitive['createdAt'] {
+  public get updatedAt (): CardPrimitive['updatedAt'] {
+    return this.#updatedAt
+  }
+
+  public set updatedAt (value: CardPrimitive['updatedAt']) {
+    this.#updatedAt = value
+  }
+
+  @Field(() => Date)
+  public get createdAt (): CardPrimitive['createdAt'] {
     return this.#createdAt
+  }
+
+  @Field(() => Boolean)
+  public get deleted (): CardPrimitive['deleted'] {
+    return this.#deleted
+  }
+
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  public delete (): void {
+    this.#deleted = true
   }
 
   public static create ({

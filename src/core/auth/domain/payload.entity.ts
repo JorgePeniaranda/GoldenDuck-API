@@ -9,15 +9,17 @@ export class JwtPayload implements PayloadPrimitive {
     this.#role = role
   }
 
-  get id (): PayloadPrimitive['id'] {
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
+  public get id (): PayloadPrimitive['id'] {
     return this.#id
   }
 
-  get role (): PayloadPrimitive['role'] {
+  public get role (): PayloadPrimitive['role'] {
     return this.#role
   }
 
-  toJSON (): PayloadPrimitive {
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  public toJSON (): PayloadPrimitive {
     return {
       id: this.id,
       role: this.role

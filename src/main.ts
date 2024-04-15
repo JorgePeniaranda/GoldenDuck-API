@@ -13,9 +13,11 @@ async function bootstrap (): Promise<void> {
   const app = await NestFactory.create(AppModule)
 
   /* configure project */
-  app.use(helmet({
-    contentSecurityPolicy: (process.env.NODE_ENV === 'production') ? undefined : false
-  }))
+  app.use(
+    helmet({
+      contentSecurityPolicy: process.env.NODE_ENV === 'production' ? undefined : false
+    })
+  )
   app.enableCors({
     origin: ['http://localhost:3000', 'http://localhost:3001'], // develop
     methods: 'GET,PATCH,POST,DELETE',
