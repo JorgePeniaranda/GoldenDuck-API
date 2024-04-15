@@ -1,8 +1,9 @@
-import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
+import { Field, ID, InputType } from '@nestjs/graphql'
 import { ApiProperty } from '@nestjs/swagger'
 import { IsBoolean, IsDate, IsNumber, IsPositive, IsString, MaxDate } from 'class-validator'
 import { type NotificationPrimitive } from './notification.primitive'
 
+@InputType()
 export class NotificationDTO implements NotificationPrimitive {
   /* ---------- ID ---------- */
   @ApiProperty({
@@ -11,6 +12,7 @@ export class NotificationDTO implements NotificationPrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
+  @Field(() => ID)
     id: NotificationPrimitive['id']
 
   /* ---------- ID USER ---------- */
@@ -20,6 +22,7 @@ export class NotificationDTO implements NotificationPrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
+  @Field(() => Number)
     idUser: NotificationPrimitive['idUser']
 
   /* ---------- MESSAGE ---------- */
@@ -28,6 +31,7 @@ export class NotificationDTO implements NotificationPrimitive {
     type: Number
   })
   @IsString()
+  @Field(() => String)
     message: NotificationPrimitive['message']
 
   /* ---------- UPDATED AT ---------- */
@@ -37,7 +41,8 @@ export class NotificationDTO implements NotificationPrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
-    updatedAt: AccountPrimitive['updatedAt']
+  @Field(() => Date)
+    updatedAt: NotificationPrimitive['updatedAt']
 
   /* ---------- CREATED AT ---------- */
   @ApiProperty({
@@ -46,7 +51,8 @@ export class NotificationDTO implements NotificationPrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
-    createdAt: AccountPrimitive['createdAt']
+  @Field(() => Date)
+    createdAt: NotificationPrimitive['createdAt']
 
   /* ---------- READ ---------- */
   @ApiProperty({
@@ -54,7 +60,8 @@ export class NotificationDTO implements NotificationPrimitive {
     type: Boolean
   })
   @IsBoolean()
-    read: boolean
+  @Field(() => Boolean)
+    read: NotificationPrimitive['read']
 
   constructor (transaction: NotificationPrimitive) {
     this.id = transaction.id

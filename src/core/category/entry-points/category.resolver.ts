@@ -1,7 +1,6 @@
-import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
-import { NotFoundException, UseGuards } from '@nestjs/common'
-import { Args, Query, Resolver } from '@nestjs/graphql'
+import { UseGuards } from '@nestjs/common'
+import { Query, Resolver } from '@nestjs/graphql'
 import { CategoryDTO } from '../domain/category.dto'
 import { type Category } from '../domain/category.entity'
 import { ReadCategoryService } from '../domain/service/read-category.service'
@@ -19,15 +18,15 @@ export class CategoryResolver {
     return await this.readCategoryService.findAll()
   }
 
-  @Public()
-  @Query(_returns => CategoryDTO, { name: 'category' })
-  async findOne (@Args('id') id: number): Promise<Category> {
-    const category = await this.readCategoryService.findOne({ id })
+  // @Public()
+  // @Query(_returns => CategoryDTO, { name: 'category' })
+  // async findOne (@Args('id') id: number): Promise<Category> {
+  //   const category = await this.readCategoryService.findOne({ id })
 
-    if (category === null) {
-      throw new NotFoundException('Category not found')
-    }
+  //   if (category === null) {
+  //     throw new NotFoundException('Category not found')
+  //   }
 
-    return category
-  }
+  //   return category
+  // }
 }

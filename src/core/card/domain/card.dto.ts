@@ -1,7 +1,9 @@
+import { Field, ID, InputType } from '@nestjs/graphql'
 import { ApiProperty } from '@nestjs/swagger'
 import { IsBoolean, IsDate, IsNumber, IsPositive, Length, MaxDate } from 'class-validator'
 import { type CardPrimitive } from './card.primitive'
 
+@InputType()
 export class CardDTO implements CardPrimitive {
   /* ---------- ID ---------- */
   @ApiProperty({
@@ -10,6 +12,7 @@ export class CardDTO implements CardPrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
+  @Field(() => ID)
     id: CardPrimitive['id']
 
   /* ---------- IDACCOUNT ---------- */
@@ -19,6 +22,7 @@ export class CardDTO implements CardPrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
+  @Field(() => Number)
     idAccount: CardPrimitive['idAccount']
 
   /* ---------- NUMBER ---------- */
@@ -28,6 +32,7 @@ export class CardDTO implements CardPrimitive {
   })
   @IsNumber()
   @Length(100000000000000, 999999999999999)
+  @Field(() => Number)
     number: CardPrimitive['number']
 
   /* ---------- CVV ---------- */
@@ -37,6 +42,7 @@ export class CardDTO implements CardPrimitive {
   })
   @IsNumber()
   @Length(100, 999)
+  @Field(() => Number)
     cvv: CardPrimitive['cvv']
 
   /* ---------- EXPIRATION ---------- */
@@ -45,6 +51,7 @@ export class CardDTO implements CardPrimitive {
     type: Date
   })
   @IsDate()
+  @Field(() => Date)
     expiration: CardPrimitive['expiration']
 
   /* ---------- UPDATED AT ---------- */
@@ -54,6 +61,7 @@ export class CardDTO implements CardPrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
+  @Field(() => Date)
     updatedAt: CardPrimitive['updatedAt']
 
   /* ---------- CREATED AT ---------- */
@@ -63,6 +71,7 @@ export class CardDTO implements CardPrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
+  @Field(() => Date)
     createdAt: CardPrimitive['createdAt']
 
   /* ---------- DELETED ---------- */
@@ -71,7 +80,8 @@ export class CardDTO implements CardPrimitive {
     type: Boolean
   })
   @IsBoolean()
-    deleted: boolean
+  @Field(() => Boolean)
+    deleted: CardPrimitive['deleted']
 
   constructor (transaction: CardPrimitive) {
     this.id = transaction.id

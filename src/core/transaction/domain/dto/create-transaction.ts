@@ -1,5 +1,4 @@
-import { InputType } from '@nestjs/graphql'
-import { PickType } from '@nestjs/swagger'
+import { InputType, PickType } from '@nestjs/graphql'
 import { TransactionDTO } from '../transaction.dto'
 
 @InputType()

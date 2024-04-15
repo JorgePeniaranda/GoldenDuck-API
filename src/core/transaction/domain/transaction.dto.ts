@@ -1,7 +1,9 @@
+import { Field, ID, InputType } from '@nestjs/graphql'
 import { ApiProperty } from '@nestjs/swagger'
 import { IsBoolean, IsDate, IsNumber, IsPositive, MaxDate } from 'class-validator'
 import { type TransactionPrimitive } from './transaction.primitive'
 
+@InputType()
 export class TransactionDTO implements TransactionPrimitive {
   /* ---------- ID ---------- */
   @ApiProperty({
@@ -10,6 +12,7 @@ export class TransactionDTO implements TransactionPrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
+  @Field(() => ID)
     id: TransactionPrimitive['id']
 
   /* ---------- ID SENDER ---------- */
@@ -19,6 +22,7 @@ export class TransactionDTO implements TransactionPrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
+  @Field(() => Number)
     idSender: TransactionPrimitive['idSender']
 
   /* ---------- ID RECEIVER ---------- */
@@ -28,6 +32,7 @@ export class TransactionDTO implements TransactionPrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
+  @Field(() => Number)
     idReceiver: TransactionPrimitive['idReceiver']
 
   /* ---------- AMOUNT ---------- */
@@ -37,6 +42,7 @@ export class TransactionDTO implements TransactionPrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
+  @Field(() => Number)
     amount: TransactionPrimitive['amount']
 
   /* ---------- ID CATEGORY ---------- */
@@ -46,6 +52,7 @@ export class TransactionDTO implements TransactionPrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
+  @Field(() => Number)
     idCategory?: TransactionPrimitive['idCategory']
 
   /* ---------- CREATED AT ---------- */
@@ -55,6 +62,7 @@ export class TransactionDTO implements TransactionPrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
+  @Field(() => Date)
     createdAt: TransactionPrimitive['createdAt']
 
   /* ---------- DELETED ---------- */
@@ -63,6 +71,7 @@ export class TransactionDTO implements TransactionPrimitive {
     type: Boolean
   })
   @IsBoolean()
+  @Field(() => Boolean)
     canceled: TransactionPrimitive['canceled']
 
   constructor (transaction: TransactionPrimitive) {

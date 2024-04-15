@@ -20,7 +20,6 @@ import { UpdateUserDTO } from '../domain/dto/update-user.dto'
 import { ReadUserService } from '../domain/service/read-user.service'
 import { WriteUserService } from '../domain/service/write-user.service'
 import { type User } from '../domain/user.entity'
-import { type UserPrimitive } from '../domain/user.primitive'
 import { UserResponse } from './user.response'
 
 @ApiResponse({
@@ -36,7 +35,7 @@ export class UserController {
 
   @ApiBearerAuth()
   @Get('/')
-  async findOne (@Request() UserData: { user: PayloadPrimitive }): Promise<User> {
+  async findByID (@Request() UserData: { user: PayloadPrimitive }): Promise<User> {
     const user = await this.readUserService.findByID({
       id: UserData.user.id
     })
@@ -60,7 +59,7 @@ export class UserController {
   async update (
     @Request() UserData: { user: PayloadPrimitive },
       @Body() data: UpdateUserDTO
-  ): Promise<UserPrimitive> {
+  ): Promise<User> {
     return await this.writeUserService.update({
       id: UserData.user.id,
       data
@@ -83,7 +82,7 @@ export class UserController {
   @Public()
   @HttpCode(204)
   @Post('/find')
-  async findUser (@Body() params: FindUserDTO): Promise<void> {
+  async findOne (@Body() params: FindUserDTO): Promise<void> {
     const user = await this.readUserService.findOne(params)
 
     if (user === null) {

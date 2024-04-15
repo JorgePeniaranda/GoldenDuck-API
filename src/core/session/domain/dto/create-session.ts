@@ -1,5 +1,4 @@
-import { InputType } from '@nestjs/graphql'
-import { IntersectionType, PartialType, PickType } from '@nestjs/swagger'
+import { InputType, IntersectionType, PartialType, PickType } from '@nestjs/graphql'
 import { SessionDTO } from '../session.dto'
 
 @InputType()

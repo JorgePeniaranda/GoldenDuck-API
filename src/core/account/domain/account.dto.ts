@@ -1,7 +1,9 @@
+import { Field, ID, InputType } from '@nestjs/graphql'
 import { ApiProperty } from '@nestjs/swagger'
 import { IsBoolean, IsDate, IsNumber, IsPositive, MaxDate } from 'class-validator'
 import { type AccountPrimitive } from './account.primitive'
 
+@InputType()
 export class AccountDTO implements AccountPrimitive {
   /* ---------- ID ---------- */
   @ApiProperty({
@@ -10,6 +12,7 @@ export class AccountDTO implements AccountPrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
+  @Field(() => ID)
     id: AccountPrimitive['id']
 
   /* ---------- ID USER ---------- */
@@ -19,6 +22,7 @@ export class AccountDTO implements AccountPrimitive {
   })
   @IsNumber()
   @IsPositive()
+  @Field(() => Number)
     idUser: AccountPrimitive['idUser']
 
   /* ---------- BALANCE ---------- */
@@ -28,6 +32,7 @@ export class AccountDTO implements AccountPrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
+  @Field(() => Number)
     balance: AccountPrimitive['balance']
 
   /* ---------- UPDATED AT ---------- */
@@ -37,6 +42,7 @@ export class AccountDTO implements AccountPrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
+  @Field(() => Date)
     updatedAt: AccountPrimitive['updatedAt']
 
   /* ---------- CREATED AT ---------- */
@@ -46,6 +52,7 @@ export class AccountDTO implements AccountPrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
+  @Field(() => Date)
     createdAt: AccountPrimitive['createdAt']
 
   /* ---------- DELETED ---------- */
@@ -54,7 +61,8 @@ export class AccountDTO implements AccountPrimitive {
     type: Boolean
   })
   @IsBoolean()
-    deleted: boolean
+  @Field(() => Boolean)
+    deleted: AccountPrimitive['deleted']
 
   constructor (account: AccountPrimitive) {
     this.id = account.id

@@ -1,8 +1,9 @@
-import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
+import { Field, ID, InputType } from '@nestjs/graphql'
 import { ApiProperty } from '@nestjs/swagger'
 import { IsBoolean, IsDate, IsNumber, IsPositive, IsString, MaxDate } from 'class-validator'
 import { type ErrorPrimitive } from './error.primitive'
 
+@InputType()
 export class ErrorDTO implements ErrorPrimitive {
   /* ---------- ID ---------- */
   @ApiProperty({
@@ -11,6 +12,7 @@ export class ErrorDTO implements ErrorPrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
+  @Field(() => ID)
     id: ErrorPrimitive['id']
 
   /* ---------- NAME ---------- */
@@ -19,6 +21,7 @@ export class ErrorDTO implements ErrorPrimitive {
     type: String
   })
   @IsString()
+  @Field(() => String)
     name: ErrorPrimitive['name']
 
   /* ---------- MESSAGE ---------- */
@@ -27,6 +30,7 @@ export class ErrorDTO implements ErrorPrimitive {
     type: String
   })
   @IsString()
+  @Field(() => String)
     message: ErrorPrimitive['message']
 
   /* ---------- STACK ---------- */
@@ -36,6 +40,7 @@ export class ErrorDTO implements ErrorPrimitive {
     type: String
   })
   @IsString()
+  @Field(() => String)
     stack: ErrorPrimitive['stack']
 
   /* ---------- UPDATED AT ---------- */
@@ -45,7 +50,8 @@ export class ErrorDTO implements ErrorPrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
-    updatedAt: AccountPrimitive['updatedAt']
+  @Field(() => Date)
+    updatedAt: ErrorPrimitive['updatedAt']
 
   /* ---------- CREATED AT ---------- */
   @ApiProperty({
@@ -54,7 +60,8 @@ export class ErrorDTO implements ErrorPrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
-    createdAt: AccountPrimitive['createdAt']
+  @Field(() => Date)
+    createdAt: ErrorPrimitive['createdAt']
 
   /* ---------- DELETED ---------- */
   @ApiProperty({
@@ -62,7 +69,8 @@ export class ErrorDTO implements ErrorPrimitive {
     type: Boolean
   })
   @IsBoolean()
-    deleted: boolean
+  @Field(() => Boolean)
+    deleted: ErrorPrimitive['deleted']
 
   constructor (transaction: ErrorPrimitive) {
     this.id = transaction.id

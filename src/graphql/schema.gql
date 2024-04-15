@@ -26,5 +26,44 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Query {
-  user(dni: Float, email: String, phoneNumber: Float): User!
+  current_user_info: User!
+  create_user(user: CreateUserDTO!): User!
+  update_user(data: UpdateUserDTO!): User!
+  delete_user(data: DeleteUserDTO!): User!
+  find_user(params: FindUserDTO!): User!
+  activate_user: User!
+}
+
+input CreateUserDTO {
+  name: String!
+  lastName: String!
+  dni: String!
+  email: String!
+  phoneNumber: String!
+  password: String!
+  address: String!
+  birthDate: DateTime!
+  sex: String!
+  role: String!
+}
+
+input UpdateUserDTO {
+  name: String
+  lastName: String
+  email: String
+  phoneNumber: String
+  password: String
+  address: String
+  imgUrl: String
+  role: String
+}
+
+input DeleteUserDTO {
+  password: String!
+}
+
+input FindUserDTO {
+  dni: String
+  email: String
+  phoneNumber: String
 }

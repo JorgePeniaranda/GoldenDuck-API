@@ -1,6 +1,5 @@
 import { UserDTO } from '@/core/user/domain/user.dto'
-import { InputType } from '@nestjs/graphql'
-import { PickType } from '@nestjs/swagger'
+import { InputType, PickType } from '@nestjs/graphql'
 
 @InputType()
 export class LoginDTO extends PickType(UserDTO, ['email', 'password']) {}
