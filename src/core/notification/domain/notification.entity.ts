@@ -1,3 +1,4 @@
+import { User } from '@/core/user/domain/user.entity'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type NotificationPrimitive } from './notification.primitive'
 
@@ -18,6 +19,10 @@ export class Notification implements NotificationPrimitive {
     this.#updatedAt = notification.updatedAt
     this.#createdAt = notification.createdAt
   }
+
+  /* -------------------- RELATIONS -------------------- */ // MARK: RELATIONS
+  @Field(() => User)
+  readonly user: User
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)

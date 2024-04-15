@@ -2,7 +2,127 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Card {
+  account: Account!
+  id: ID!
+  idAccount: Float!
+  number: Float!
+  cvv: Float!
+  expiration: DateTime!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+  deleted: Boolean!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Investment {
+  account: Account!
+  id: ID!
+  idAccount: Float!
+  amount: Float!
+  interest: Float!
+  dateEnd: DateTime!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+  canceled: Boolean!
+}
+
+type Loan {
+  account: Account!
+  id: ID!
+  idAccount: Float!
+  amount: Float!
+  interest: Float!
+  dateEnd: DateTime!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+  canceled: Boolean!
+}
+
+type Category {
+  transactions: Transaction
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+  deleted: Boolean!
+}
+
+type Transaction {
+  Sender: Account!
+  Receiver: Account!
+  category: Category
+  id: ID!
+  idSender: Float!
+  idReceiver: Float!
+  amount: String!
+  idCategory: Float!
+  createdAt: DateTime!
+  canceled: Boolean!
+}
+
+type Account {
+  user: User!
+  cards: [Card!]
+  transactionsSend: [Transaction!]
+  transactionsReceived: [Transaction!]
+  loans: [Loan!]
+  investments: [Investment!]
+  id: Float!
+  idUser: Float!
+  balance: String!
+  deleted: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Message {
+  Sender: User!
+  Receiver: User!
+  id: ID!
+  idSender: Float!
+  idReceiver: Float!
+  message: String!
+  read: Boolean!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+  deleted: Boolean!
+}
+
+type Notification {
+  user: User!
+  id: ID!
+  idUser: Float!
+  message: String!
+  read: Boolean!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type Session {
+  user: User!
+  id: ID!
+  idUser: Float!
+  ip: String!
+  userAgent: String!
+  location: String!
+  deviceType: String!
+  token: String!
+  active: Boolean!
+  logoutAt: DateTime!
+  createdAt: DateTime!
+}
+
 type User {
+  account: Account!
+  sessions: [Session!]
+  notifications: [Notification!]
+  messagesSend: [Message!]
+  messagesReceived: [Message!]
   id: ID!
   name: String!
   lastName: String!
@@ -20,20 +140,6 @@ type User {
   role: String!
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
-type Account {
-  id: Float!
-  idUser: Float!
-  balance: String!
-  deleted: Boolean!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
 type JwtPayload {
   id: ID!
   role: String!
@@ -41,25 +147,6 @@ type JwtPayload {
 
 type Token {
   token: String!
-}
-
-type Card {
-  id: ID!
-  idAccount: Float!
-  number: Float!
-  cvv: Float!
-  expiration: DateTime!
-  updatedAt: DateTime!
-  createdAt: DateTime!
-  deleted: Boolean!
-}
-
-type Category {
-  id: ID!
-  name: String!
-  updatedAt: DateTime!
-  createdAt: DateTime!
-  deleted: Boolean!
 }
 
 type Error {
@@ -70,71 +157,6 @@ type Error {
   updatedAt: DateTime!
   createdAt: DateTime!
   deleted: Boolean!
-}
-
-type Investment {
-  id: ID!
-  idAccount: Float!
-  amount: Float!
-  interest: Float!
-  dateEnd: DateTime!
-  updatedAt: DateTime!
-  createdAt: DateTime!
-  canceled: Boolean!
-}
-
-type Loan {
-  id: ID!
-  idAccount: Float!
-  amount: Float!
-  interest: Float!
-  dateEnd: DateTime!
-  updatedAt: DateTime!
-  createdAt: DateTime!
-  canceled: Boolean!
-}
-
-type Message {
-  id: ID!
-  idSender: Float!
-  idReceiver: Float!
-  message: String!
-  read: Boolean!
-  updatedAt: DateTime!
-  createdAt: DateTime!
-  deleted: Boolean!
-}
-
-type Notification {
-  id: ID!
-  idUser: Float!
-  message: String!
-  read: Boolean!
-  updatedAt: DateTime!
-  createdAt: DateTime!
-}
-
-type Session {
-  id: ID!
-  idUser: Float!
-  ip: String!
-  userAgent: String!
-  location: String!
-  deviceType: String!
-  token: String!
-  active: Boolean!
-  logoutAt: DateTime!
-  createdAt: DateTime!
-}
-
-type Transaction {
-  id: ID!
-  idSender: Float!
-  idReceiver: Float!
-  amount: String!
-  idCategory: Float!
-  createdAt: DateTime!
-  canceled: Boolean!
 }
 
 type Query {

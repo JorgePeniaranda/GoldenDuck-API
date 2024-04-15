@@ -10,7 +10,7 @@ export class LoanRepositoryPrismaMySQL implements LoanRepository {
 
   public async create (data: Loan): Promise<Loan> {
     const loan = await this.prisma.loan.create({
-      data
+      data: data.toJSON()
     })
 
     return new Loan(loan)

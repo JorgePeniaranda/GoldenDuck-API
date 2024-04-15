@@ -1,3 +1,4 @@
+import { User } from '@/core/user/domain/user.entity'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type MessagePrimitive } from './message.primitive'
 
@@ -22,6 +23,13 @@ export class Message implements MessagePrimitive {
     this.#createdAt = props.createdAt
     this.#deleted = props.deleted
   }
+
+  /* -------------------- RELATIONS -------------------- */ // MARK: RELATIONS
+  @Field(() => User)
+  readonly Sender: User
+
+  @Field(() => User)
+  readonly Receiver: User
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)

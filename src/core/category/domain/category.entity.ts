@@ -1,3 +1,4 @@
+import { Transaction } from '@/core/transaction/domain/transaction.entity'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type CategoryPrimitive } from './category.primitive'
 
@@ -17,7 +18,11 @@ export class Category implements CategoryPrimitive {
     this.#deleted = transaction.deleted
   }
 
-  // #region ASDASD
+  /* -------------------- RELATIONS -------------------- */ // MARK: RELATIONS
+  @Field(() => Transaction, { nullable: true })
+  readonly transactions: Transaction[]
+
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
   public get id (): CategoryPrimitive['id'] {
     return this.#id

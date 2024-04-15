@@ -1,3 +1,4 @@
+import { User } from '@/core/user/domain/user.entity'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type SessionPrimitive } from './session.primitive'
 
@@ -26,6 +27,10 @@ export class Session implements SessionPrimitive {
     this.#logoutAt = transaction.logoutAt
     this.#createdAt = transaction.createdAt
   }
+
+  /* -------------------- RELATIONS -------------------- */ // MARK: RELATIONS
+  @Field(() => User)
+  readonly user: User
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)

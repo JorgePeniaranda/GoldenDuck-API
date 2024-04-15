@@ -1,3 +1,7 @@
+import { Account } from '@/core/account/domain/account.entity'
+import { Message } from '@/core/message/domain/message.entity'
+import { Notification } from '@/core/notification/domain/notification.entity'
+import { Session } from '@/core/session/domain/session.entity'
 import { Password } from '@/value-objects/password'
 import { Field, HideField, ID, ObjectType } from '@nestjs/graphql'
 import { UserRoles, type UserPrimitive } from './user.primitive'
@@ -39,6 +43,22 @@ export class User implements UserPrimitive {
     this.#deleted = user.deleted
     this.#role = user.role
   }
+
+  /* -------------------- RELATIONS -------------------- */ // MARK: RELATIONS
+  @Field(() => Account)
+  readonly account: Account
+
+  @Field(() => [Session], { nullable: true })
+  readonly sessions: Session[]
+
+  @Field(() => [Notification], { nullable: true })
+  readonly notifications: Notification[]
+
+  @Field(() => [Message], { nullable: true })
+  readonly messagesSend: Message[]
+
+  @Field(() => [Message], { nullable: true })
+  readonly messagesReceived: Message[]
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)

@@ -1,3 +1,4 @@
+import { Account } from '@/core/account/domain/account.entity'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type LoanPrimitive } from './loan.primitive'
 
@@ -22,6 +23,10 @@ export class Loan implements LoanPrimitive {
     this.#createdAt = loan.createdAt
     this.#canceled = loan.canceled
   }
+
+  /* -------------------- RELATIONS -------------------- */ // MARK: RELATIONS
+  @Field(() => Account)
+  readonly account: Account
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)

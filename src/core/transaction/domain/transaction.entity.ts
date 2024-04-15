@@ -1,3 +1,5 @@
+import { Account } from '@/core/account/domain/account.entity'
+import { Category } from '@/core/category/domain/category.entity'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type TransactionPrimitive } from './transaction.primitive'
 
@@ -20,6 +22,16 @@ export class Transaction implements TransactionPrimitive {
     this.#createdAt = transaction.createdAt
     this.#canceled = transaction.canceled
   }
+
+  /* -------------------- RELATIONS -------------------- */ // MARK: RELATIONS
+  @Field(() => Account)
+  readonly Sender: Account
+
+  @Field(() => Account)
+  readonly Receiver: Account
+
+  @Field(() => Category, { nullable: true })
+  readonly category: Category
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)

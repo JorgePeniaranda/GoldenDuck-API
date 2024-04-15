@@ -1,5 +1,10 @@
+import { Card } from '@/core/card/domain/card.entity'
+import { Investment } from '@/core/investment/domain/investment.entity'
+import { Loan } from '@/core/loan/domain/loan.entity'
+import { Transaction } from '@/core/transaction/domain/transaction.entity'
+import { User } from '@/core/user/domain/user.entity'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { type AccountPrimitive } from './account.primitive'
+import { AccountPrimitive } from './account.primitive'
 
 const optionalProperties = ['id', 'balance', 'updatedAt', 'createdAt', 'deleted'] as const
 
@@ -20,6 +25,25 @@ export class Account implements AccountPrimitive {
     this.#createdAt = account.createdAt
     this.#deleted = account.deleted
   }
+
+  /* -------------------- RELATIONS -------------------- */ // MARK: RELATIONS
+  @Field(() => User, { nullable: false })
+  readonly user: User
+
+  @Field(() => [Card], { nullable: true })
+  readonly cards: Card[]
+
+  @Field(() => [Transaction], { nullable: true })
+  readonly transactionsSend: Transaction[]
+
+  @Field(() => [Transaction], { nullable: true })
+  readonly transactionsReceived: Transaction[]
+
+  @Field(() => [Loan], { nullable: true })
+  readonly loans: Loan[]
+
+  @Field(() => [Investment], { nullable: true })
+  readonly investments: Investment[]
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => Number)
