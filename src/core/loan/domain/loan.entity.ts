@@ -70,6 +70,7 @@ export class Loan implements LoanPrimitive {
 
   public cancel (): void {
     this.#canceled = true
+    this.#updateUpdatedAt()
   }
 
   public static create ({

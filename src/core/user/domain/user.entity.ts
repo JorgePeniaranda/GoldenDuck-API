@@ -40,7 +40,7 @@ export class User implements UserPrimitive {
     this.#role = user.role
   }
 
-  // #region GETTER / SETTER
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
   public get id (): UserPrimitive['id'] {
     return this.#id
