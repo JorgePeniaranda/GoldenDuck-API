@@ -1,6 +1,7 @@
+import { EntitiesName } from '@/constants/entities'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
-import { UserErrorsMessages } from '@/messages/error/user'
+import { Messages } from '@/messages'
 import {
   Body,
   Controller,
@@ -42,7 +43,7 @@ export class UserController {
     })
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.USER))
     }
 
     return user
@@ -108,7 +109,7 @@ export class UserController {
     const user = await this.readUserService.findOne(params)
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.USER))
     }
   }
 

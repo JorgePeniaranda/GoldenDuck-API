@@ -1,6 +1,7 @@
+import { EntitiesName } from '@/constants/entities'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
-import { LoanErrorsMessages } from '@/messages/error/loan'
+import { Messages } from '@/messages'
 import {
   Body,
   Controller,
@@ -81,7 +82,7 @@ export class LoanController {
     })
 
     if (loan === null) {
-      throw new NotFoundException(LoanErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.Loan))
     }
 
     return loan

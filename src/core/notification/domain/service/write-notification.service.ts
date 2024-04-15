@@ -1,5 +1,6 @@
+import { EntitiesName } from '@/constants/entities'
 import { EventsMap } from '@/constants/events'
-import { NotificationErrorsMessages } from '@/messages/error/notification'
+import { Messages } from '@/messages'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter'
 import { Notification } from '../notification.entity'
@@ -41,7 +42,7 @@ export class WriteNotificationService {
     const notification = await this.notificationRepository.findOne({ idUser, index })
 
     if (notification === null) {
-      throw new NotFoundException(NotificationErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.NOTIFICATION))
     }
 
     await this.notificationRepository.delete(notification)

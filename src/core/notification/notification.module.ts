@@ -1,5 +1,5 @@
 import { EventsMap } from '@/constants/events'
-import { NotificationMessages } from '@/messages/messages/notification'
+import { Messages } from '@/messages'
 import { Module } from '@nestjs/common'
 import { EventEmitter2 } from '@nestjs/event-emitter'
 import { PrismaService } from '../../services/prisma.service'
@@ -45,7 +45,7 @@ export class NotificationModule {
     this.eventEmitter.on(EventsMap.USER_ACTIVATED, (data: UserPrimitive) => {
       const params: Parameters<WriteNotificationService['create']>[0] = {
         idUser: data.id,
-        message: NotificationMessages.UserActivated
+        message: Messages.response.UserActivated
       }
 
       this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, params)
@@ -54,7 +54,7 @@ export class NotificationModule {
     this.eventEmitter.on(EventsMap.USER_PASSWORD_UPDATED, (data: UserPrimitive) => {
       const params: Parameters<WriteNotificationService['create']>[0] = {
         idUser: data.id,
-        message: NotificationMessages.UserPasswordUpdated
+        message: Messages.response.UserPasswordUpdated
       }
 
       this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, params)
@@ -63,7 +63,7 @@ export class NotificationModule {
     this.eventEmitter.on(EventsMap.USER_DELETED, (data: UserPrimitive) => {
       const params: Parameters<WriteNotificationService['create']>[0] = {
         idUser: data.id,
-        message: NotificationMessages.UserDeleted
+        message: Messages.response.UserDeleted
       }
 
       this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, params)
@@ -74,7 +74,7 @@ export class NotificationModule {
     this.eventEmitter.on(EventsMap.ACCOUNT_CREATED, (data: AccountPrimitive) => {
       const params: Parameters<WriteNotificationService['create']>[0] = {
         idUser: data.idUser,
-        message: NotificationMessages.CreateAccount
+        message: Messages.response.CreateAccount
       }
 
       this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, params)
@@ -90,7 +90,7 @@ export class NotificationModule {
         .then(idUser => {
           const senderParams: Parameters<WriteNotificationService['create']>[0] = {
             idUser,
-            message: NotificationMessages.TransactionSent(data.idReceiver)
+            message: Messages.response.TransactionSent(data.idReceiver)
           }
 
           this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, senderParams)
@@ -106,7 +106,7 @@ export class NotificationModule {
         .then(idUser => {
           const receiverParams: Parameters<WriteNotificationService['create']>[0] = {
             idUser,
-            message: NotificationMessages.NewTransactionReceived(data.idSender)
+            message: Messages.response.NewTransactionReceived(data.idSender)
           }
 
           this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, receiverParams)
@@ -124,7 +124,7 @@ export class NotificationModule {
         .then(idUser => {
           const senderParams: Parameters<WriteNotificationService['create']>[0] = {
             idUser,
-            message: NotificationMessages.TransactionSentRejected(data.idReceiver)
+            message: Messages.response.TransactionSentRejected(data.idReceiver)
           }
           console.log(data.idReceiver)
           console.log(data.idSender)
@@ -142,7 +142,7 @@ export class NotificationModule {
         .then(idUser => {
           const receiverParams: Parameters<WriteNotificationService['create']>[0] = {
             idUser,
-            message: NotificationMessages.TransactionReceivedRejected(data.idSender)
+            message: Messages.response.TransactionReceivedRejected(data.idSender)
           }
 
           this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, receiverParams)
@@ -157,7 +157,7 @@ export class NotificationModule {
     this.eventEmitter.on(EventsMap.MESSAGE_CREATED, (data: MessagePrimitive) => {
       const receiverParams: Parameters<WriteNotificationService['create']>[0] = {
         idUser: data.idReceiver,
-        message: NotificationMessages.NewMessageReceived(data.idSender)
+        message: Messages.response.NewMessageReceived(data.idSender)
       }
 
       this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, receiverParams)
@@ -168,7 +168,7 @@ export class NotificationModule {
     this.eventEmitter.on(EventsMap.SESSION_CREATED, (data: SessionPrimitive) => {
       const params: Parameters<WriteNotificationService['create']>[0] = {
         idUser: data.idUser,
-        message: NotificationMessages.NewSession
+        message: Messages.response.NewSession
       }
 
       this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, params)
@@ -184,7 +184,7 @@ export class NotificationModule {
         .then(idUser => {
           const receiverParams: Parameters<WriteNotificationService['create']>[0] = {
             idUser,
-            message: NotificationMessages.LoanCreated
+            message: Messages.response.LoanCreated
           }
 
           this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, receiverParams)
@@ -202,7 +202,7 @@ export class NotificationModule {
         .then(idUser => {
           const receiverParams: Parameters<WriteNotificationService['create']>[0] = {
             idUser,
-            message: NotificationMessages.LoanCancelled
+            message: Messages.response.LoanCancelled
           }
 
           this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, receiverParams)
@@ -222,7 +222,7 @@ export class NotificationModule {
         .then(idUser => {
           const receiverParams: Parameters<WriteNotificationService['create']>[0] = {
             idUser,
-            message: NotificationMessages.InvestmentCreated
+            message: Messages.response.InvestmentCreated
           }
 
           this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, receiverParams)
@@ -240,7 +240,7 @@ export class NotificationModule {
         .then(idUser => {
           const receiverParams: Parameters<WriteNotificationService['create']>[0] = {
             idUser,
-            message: NotificationMessages.InvestmentCancelled
+            message: Messages.response.InvestmentCancelled
           }
 
           this.eventEmitter.emit(EventsMap.CREATE_NOTIFICATION, receiverParams)

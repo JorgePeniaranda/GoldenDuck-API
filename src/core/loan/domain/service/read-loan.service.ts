@@ -1,5 +1,6 @@
+import { EntitiesName } from '@/constants/entities'
 import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
-import { AccountErrorsMessages } from '@/messages/error/account'
+import { Messages } from '@/messages'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { type Loan } from '../loan.entity'
 import { type LoanPrimitive } from '../loan.primitive'
@@ -26,7 +27,7 @@ export class ReadLoanService {
     })
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     return await this.loanRepository.findAll({ idAccount: account.id })
@@ -57,7 +58,7 @@ export class ReadLoanService {
     })
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     return await this.loanRepository.findOne({ idAccount: account.id, index })

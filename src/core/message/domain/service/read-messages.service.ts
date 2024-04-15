@@ -1,6 +1,7 @@
+import { EntitiesName } from '@/constants/entities'
 import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
 import { ReadUserService } from '@/core/user/domain/service/read-user.service'
-import { UserErrorsMessages } from '@/messages/error/user'
+import { Messages } from '@/messages'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { type Message } from '../message.entity'
 import { type MessagePrimitive } from '../message.primitive'
@@ -44,13 +45,13 @@ export class ReadMessageService {
     const user = await this.readUserService.findByID({ id: idUser })
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.USER))
     }
 
     const target = await this.readUserService.findByID({ id: idTarget })
 
     if (target === null) {
-      throw new NotFoundException(UserErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.USER))
     }
 
     return await this.messageRepository.findOne({
@@ -82,13 +83,13 @@ export class ReadMessageService {
     const user = await this.readUserService.findByID({ id: idUser })
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.USER))
     }
 
     const target = await this.readUserService.findByID({ id: idTarget })
 
     if (target === null) {
-      throw new NotFoundException(UserErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.USER))
     }
 
     return await this.messageRepository.findChat({

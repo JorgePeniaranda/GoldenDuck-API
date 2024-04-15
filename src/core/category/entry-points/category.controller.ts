@@ -1,5 +1,6 @@
+import { EntitiesName } from '@/constants/entities'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
-import { CategoryErrorsMessages } from '@/messages/error/category'
+import { Messages } from '@/messages'
 import {
   Body,
   Controller,
@@ -66,7 +67,7 @@ export class CategoryController {
     const category = await this.readCategoryService.findOne({ id })
 
     if (category === null) {
-      throw new NotFoundException(CategoryErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.CATEGORY))
     }
 
     return category

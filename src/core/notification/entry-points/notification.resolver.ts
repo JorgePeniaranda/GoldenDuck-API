@@ -1,11 +1,11 @@
+import { EntitiesName } from '@/constants/entities'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { ReadUserService } from '@/core/user/domain/service/read-user.service'
 import { User } from '@/core/user/domain/user.entity'
 import { CurrentUser } from '@/decorators/current-user.decorator'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
-import { NotificationErrorsMessages } from '@/messages/error/notification'
-import { UserErrorsMessages } from '@/messages/error/user'
+import { Messages } from '@/messages'
 import { NotFoundException, UseGuards } from '@nestjs/common'
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 import { Notification } from '../domain/notification.entity'
@@ -40,7 +40,7 @@ export class NotificationResolver {
     })
 
     if (notification === null) {
-      throw new NotFoundException(NotificationErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.NOTIFICATION))
     }
 
     return notification
@@ -61,7 +61,7 @@ export class NotificationResolver {
     })
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.USER))
     }
 
     return user

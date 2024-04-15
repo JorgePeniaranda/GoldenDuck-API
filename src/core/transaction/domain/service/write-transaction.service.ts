@@ -1,7 +1,7 @@
+import { EntitiesName } from '@/constants/entities'
 import { EventsMap } from '@/constants/events'
 import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
-import { AccountErrorsMessages } from '@/messages/error/account'
-import { TransactionErrorsMessages } from '@/messages/error/transaction'
+import { Messages } from '@/messages'
 import {
   BadRequestException,
   ForbiddenException,
@@ -38,15 +38,15 @@ export class WriteTransactionService {
     const checkReceiver = await this.readAccountService.findByID({ id: data.idReceiver })
 
     if (checkSender === null || checkReceiver === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     if (checkSender.balance < data.amount) {
-      throw new BadRequestException(TransactionErrorsMessages.InsufficientFunds)
+      throw new BadRequestException(Messages.error.InsufficientFunds)
     }
 
     if (checkSender.id === data.idReceiver) {
-      throw new ForbiddenException(TransactionErrorsMessages.SameAccount)
+      throw new ForbiddenException(Messages.error.SameAccount)
     }
 
     const transaction = Transaction.create({
@@ -73,7 +73,7 @@ export class WriteTransactionService {
     const account = await this.readAccountService.findOne({ idUser, index: AccountIndex })
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     const checkTransaction = await this.transactionRepository.findOne({
@@ -82,7 +82,7 @@ export class WriteTransactionService {
     })
 
     if (checkTransaction === null) {
-      throw new NotFoundException(TransactionErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.TRANSACTION))
     }
 
     const transaction = await this.transactionRepository.delete(checkTransaction)

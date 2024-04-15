@@ -1,6 +1,7 @@
+import { EntitiesName } from '@/constants/entities'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
-import { NotificationErrorsMessages } from '@/messages/error/notification'
+import { Messages } from '@/messages'
 import {
   Controller,
   Delete,
@@ -55,7 +56,7 @@ export class NotificationController {
     })
 
     if (notification === null) {
-      throw new NotFoundException(NotificationErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.NOTIFICATION))
     }
 
     return notification

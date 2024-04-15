@@ -1,7 +1,7 @@
+import { EntitiesName } from '@/constants/entities'
 import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
 import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
-import { AccountErrorsMessages } from '@/messages/error/account'
-import { CardErrorsMessages } from '@/messages/error/card'
+import { Messages } from '@/messages'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { Card } from '../card.entity'
 import { CardRepository } from '../card.repository'
@@ -27,7 +27,7 @@ export class WriteCardService {
     const account = await this.readAccountService.findOne({ idUser, index: AccountIndex })
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     const card = Card.create({ ...data, idAccount: account.id })
@@ -48,13 +48,13 @@ export class WriteCardService {
     const account = await this.readAccountService.findOne({ idUser, index: AccountIndex })
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     const card = await this.cardRepository.findOne({ idAccount: account.id, index })
 
     if (card === null) {
-      throw new NotFoundException(CardErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.CARD))
     }
 
     await this.cardRepository.delete(card)

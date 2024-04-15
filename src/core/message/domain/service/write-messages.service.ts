@@ -1,5 +1,6 @@
+import { EntitiesName } from '@/constants/entities'
 import { EventsMap } from '@/constants/events'
-import { MessageErrorsMessages } from '@/messages/error/message'
+import { Messages } from '@/messages'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { EventEmitter2 } from '@nestjs/event-emitter'
 import { NotFoundError } from 'rxjs'
@@ -62,7 +63,7 @@ export class WriteMessageService {
     })
 
     if (message === null) {
-      throw new NotFoundException(MessageErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.MESSAGE))
     }
 
     message.message = data.message
@@ -87,7 +88,7 @@ export class WriteMessageService {
     })
 
     if (message === null) {
-      throw new NotFoundException(MessageErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.MESSAGE))
     }
 
     message.markAsRead()
@@ -108,7 +109,7 @@ export class WriteMessageService {
     const message = await this.messageRepository.findOne({ idUser, idTarget, index })
 
     if (message === null) {
-      throw new NotFoundError(MessageErrorsMessages.NotFound)
+      throw new NotFoundError(Messages.error.NotFound(EntitiesName.MESSAGE))
     }
 
     await this.messageRepository.delete(message)

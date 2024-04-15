@@ -1,7 +1,7 @@
+import { EntitiesName } from '@/constants/entities'
 import { EventsMap } from '@/constants/events'
 import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
-import { AccountErrorsMessages } from '@/messages/error/account'
-import { LoanErrorsMessages } from '@/messages/error/loan'
+import { Messages } from '@/messages'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { EventEmitter2 } from '@nestjs/event-emitter'
 import { type CreateLoanDTO } from '../dto/create-loan'
@@ -44,13 +44,13 @@ export class WriteLoanService {
     })
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     const loan = await this.loanRepository.findOne({ idAccount: account.id, index })
 
     if (loan === null) {
-      throw new NotFoundException(LoanErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.Loan))
     }
 
     await this.loanRepository.delete(loan)

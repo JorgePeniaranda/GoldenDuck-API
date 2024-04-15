@@ -1,5 +1,6 @@
+import { EntitiesName } from '@/constants/entities'
 import { EventsMap } from '@/constants/events'
-import { AccountErrorsMessages } from '@/messages/error/account'
+import { Messages } from '@/messages'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter'
 import { Account } from '../account.entity'
@@ -38,7 +39,7 @@ export class WriteAccountService {
     const account = await this.accountRepository.findByID({ id })
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     account.incrementBalance(BigInt(amount))
@@ -60,7 +61,7 @@ export class WriteAccountService {
     const account = await this.accountRepository.findByID({ id })
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     account.decrementBalance(BigInt(amount))
@@ -81,7 +82,7 @@ export class WriteAccountService {
     const account = await this.accountRepository.findOne({ idUser, index })
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     this.eventEmitter.emit(EventsMap.ACCOUNT_DELETED, account.toJSON())

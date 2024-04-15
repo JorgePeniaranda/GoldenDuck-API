@@ -1,5 +1,6 @@
+import { EntitiesName } from '@/constants/entities'
 import { EventsMap } from '@/constants/events'
-import { UserErrorsMessages } from '@/messages/error/user'
+import { Messages } from '@/messages'
 import {
   ConflictException,
   Inject,
@@ -31,7 +32,7 @@ export class WriteUserService {
     })
 
     if (checkUser !== null) {
-      throw new ConflictException(UserErrorsMessages.AlreadyExist)
+      throw new ConflictException(Messages.error.Conflict(EntitiesName.USER))
     }
 
     const newUser = User.create(data)
@@ -49,7 +50,7 @@ export class WriteUserService {
     const user = await this.userRepository.findByID({ id })
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.USER))
     }
 
     user.activate()
@@ -64,7 +65,7 @@ export class WriteUserService {
     const user = await this.userRepository.findByID({ id })
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.USER))
     }
 
     if (data.name !== undefined) user.name = data.name
@@ -89,11 +90,11 @@ export class WriteUserService {
     const user = await this.userRepository.findByID({ id })
 
     if (user === null) {
-      throw new NotFoundException(UserErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.USER))
     }
 
     if (!user.comparePassword(data.password)) {
-      throw new UnauthorizedException(UserErrorsMessages.NotFound)
+      throw new UnauthorizedException(Messages.error.NotFound(EntitiesName.USER))
     }
 
     this.eventEmitter.emit(EventsMap.USER_DELETED, user.toJSON())

@@ -1,7 +1,7 @@
+import { EntitiesName } from '@/constants/entities'
 import { EventsMap } from '@/constants/events'
 import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
-import { AccountErrorsMessages } from '@/messages/error/account'
-import { InvestmentErrorsMessages } from '@/messages/error/investment'
+import { Messages } from '@/messages'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { EventEmitter2 } from '@nestjs/event-emitter'
 import { type CreateInvestmentDTO } from '../dto/create-investment'
@@ -45,13 +45,13 @@ export class WriteInvestmentService {
     })
 
     if (account === null) {
-      throw new NotFoundException(AccountErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
     const investment = await this.investmentRepository.findOne({ idAccount: account.id, index })
 
     if (investment === null) {
-      throw new NotFoundException(InvestmentErrorsMessages.NotFound)
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.INVESTMENT))
     }
 
     await this.investmentRepository.delete(investment)
