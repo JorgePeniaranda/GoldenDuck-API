@@ -13,6 +13,8 @@ This project is intended for educational and illustrative purposes only and is n
 <div align="center">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nestjs/nestjs-original.svg" height="40" alt="nestjs logo"  />
   <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/graphql/graphql-plain.svg" height="40" alt="graphql logo"  />
+  <img width="12" />
   <img src="https://www.mysql.com/common/logos/logo-mysql-170x115.png" height="40" alt="mysql logo"  />
   <img width="12" />
   <img src="https://www.prisma.io/images/favicon-32x32.png" height="40" alt="prisma logo"  />
