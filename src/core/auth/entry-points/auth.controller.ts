@@ -6,7 +6,13 @@ import { LocalAuthGuard } from '@/guard/auth.guard'
 import { JwtAuthGuard } from '@/guard/jwt.guard'
 import { RolesGuard } from '@/guard/role.guard'
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common'
-import { ApiBody, ApiExcludeEndpoint, ApiResponse, ApiTags } from '@nestjs/swagger'
+import {
+  ApiBody,
+  ApiExcludeEndpoint,
+  ApiNoContentResponse,
+  ApiResponse,
+  ApiTags
+} from '@nestjs/swagger'
 import { LoginDTO } from '../domain/dto/login.dto'
 import { type PayloadPrimitive } from '../domain/primitive/payload.primitive'
 import { AuthService } from '../domain/service/auth.service'
@@ -31,11 +37,17 @@ export class AuthController {
     return await this.authService.login(req.user)
   }
 
+  @ApiNoContentResponse()
+  @Get()
+  async verify (@Request() req: { user: PayloadPrimitive }): Promise<PayloadPrimitive> {
+    return req.user
+  }
+
   /* test */
   @ApiExcludeEndpoint()
   @Roles(UserRoles.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Get()
+  @Get('test')
   async test (@Request() req: { user: PayloadPrimitive }): Promise<PayloadPrimitive> {
     console.log('TIME OUT STATED')
     this.authService.test()

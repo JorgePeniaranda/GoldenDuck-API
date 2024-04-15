@@ -1,5 +1,8 @@
+import { User } from '@/core/user/domain/user.entity'
+import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type SessionPrimitive } from './session.primitive'
 
+@ObjectType()
 export class Session implements SessionPrimitive {
   readonly #id: SessionPrimitive['id']
   readonly #idUser: SessionPrimitive['idUser']
@@ -8,8 +11,8 @@ export class Session implements SessionPrimitive {
   readonly #location: SessionPrimitive['location']
   readonly #deviceType: SessionPrimitive['deviceType']
   readonly #token: SessionPrimitive['token']
-  active: SessionPrimitive['active']
-  logoutAt: SessionPrimitive['logoutAt']
+  #active: SessionPrimitive['active']
+  #logoutAt: SessionPrimitive['logoutAt']
   readonly #createdAt: SessionPrimitive['createdAt']
 
   constructor (transaction: SessionPrimitive) {
@@ -20,41 +23,70 @@ export class Session implements SessionPrimitive {
     this.#location = transaction.location
     this.#deviceType = transaction.deviceType
     this.#token = transaction.token
-    this.active = transaction.active
-    this.logoutAt = transaction.logoutAt
+    this.#active = transaction.active
+    this.#logoutAt = transaction.logoutAt
     this.#createdAt = transaction.createdAt
   }
 
-  get id (): SessionPrimitive['id'] {
+  /* -------------------- RELATIONS -------------------- */ // MARK: RELATIONS
+  @Field(() => User)
+  readonly user: User
+
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
+  @Field(() => ID)
+  public get id (): SessionPrimitive['id'] {
     return this.#id
   }
 
-  get idUser (): SessionPrimitive['idUser'] {
+  @Field(() => Number)
+  public get idUser (): SessionPrimitive['idUser'] {
     return this.#idUser
   }
 
-  get ip (): SessionPrimitive['ip'] {
+  @Field(() => String)
+  public get ip (): SessionPrimitive['ip'] {
     return this.#ip
   }
 
-  get userAgent (): SessionPrimitive['userAgent'] {
+  @Field(() => String)
+  public get userAgent (): SessionPrimitive['userAgent'] {
     return this.#userAgent
   }
 
-  get location (): SessionPrimitive['location'] {
+  @Field(() => String)
+  public get location (): SessionPrimitive['location'] {
     return this.#location
   }
 
-  get deviceType (): SessionPrimitive['deviceType'] {
+  @Field(() => String)
+  public get deviceType (): SessionPrimitive['deviceType'] {
     return this.#deviceType
   }
 
-  get token (): SessionPrimitive['token'] {
+  @Field(() => String)
+  public get token (): SessionPrimitive['token'] {
     return this.#token
   }
 
-  get createdAt (): SessionPrimitive['createdAt'] {
+  @Field(() => Boolean)
+  public get active (): SessionPrimitive['active'] {
+    return this.#active
+  }
+
+  @Field(() => Date)
+  public get logoutAt (): SessionPrimitive['logoutAt'] {
+    return this.#logoutAt
+  }
+
+  @Field(() => Date)
+  public get createdAt (): SessionPrimitive['createdAt'] {
     return this.#createdAt
+  }
+
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  public logout (): void {
+    this.#active = false
+    this.#logoutAt = new Date()
   }
 
   public static create ({

@@ -1,4 +1,5 @@
-import { PickType } from '@nestjs/swagger'
+import { InputType, PickType } from '@nestjs/graphql'
 import { UserDTO } from '../user.dto'
 
-export class DeleteUserDTO extends PickType(UserDTO, ['password']) {}
+@InputType()
+export class DeleteUserDTO extends PickType(UserDTO, ['password'] as const) {}

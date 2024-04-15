@@ -1,40 +1,95 @@
+import { User } from '@/core/user/domain/user.entity'
+import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type MessagePrimitive } from './message.primitive'
 
+@ObjectType()
 export class Message implements MessagePrimitive {
   readonly #id: MessagePrimitive['id']
   readonly #idSender: MessagePrimitive['idSender']
   readonly #idReceiver: MessagePrimitive['idReceiver']
-  message: MessagePrimitive['message']
-  read: MessagePrimitive['read']
-  updatedAt: MessagePrimitive['updatedAt']
+  #message: MessagePrimitive['message']
+  #read: MessagePrimitive['read']
+  #updatedAt: MessagePrimitive['updatedAt']
   readonly #createdAt: MessagePrimitive['createdAt']
-  deleted: MessagePrimitive['deleted']
+  #deleted: MessagePrimitive['deleted']
 
   constructor (props: MessagePrimitive) {
     this.#id = props.id
     this.#idSender = props.idSender
     this.#idReceiver = props.idReceiver
-    this.message = props.message
-    this.read = props.read
-    this.updatedAt = props.updatedAt
+    this.#message = props.message
+    this.#read = props.read
+    this.#updatedAt = props.updatedAt
     this.#createdAt = props.createdAt
-    this.deleted = props.deleted
+    this.#deleted = props.deleted
   }
 
-  get id (): MessagePrimitive['id'] {
+  /* -------------------- RELATIONS -------------------- */ // MARK: RELATIONS
+  @Field(() => User)
+  readonly Sender: User
+
+  @Field(() => User)
+  readonly Receiver: User
+
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
+  @Field(() => ID)
+  public get id (): MessagePrimitive['id'] {
     return this.#id
   }
 
-  get idSender (): MessagePrimitive['idSender'] {
+  @Field(() => Number)
+  public get idSender (): MessagePrimitive['idSender'] {
     return this.#idSender
   }
 
-  get idReceiver (): MessagePrimitive['idReceiver'] {
+  @Field(() => Number)
+  public get idReceiver (): MessagePrimitive['idReceiver'] {
     return this.#idReceiver
   }
 
-  get createdAt (): MessagePrimitive['createdAt'] {
+  @Field(() => String)
+  public get message (): MessagePrimitive['message'] {
+    return this.#message
+  }
+
+  public set message (value: MessagePrimitive['message']) {
+    this.#message = value
+    this.#updateUpdatedAt()
+  }
+
+  @Field(() => Boolean)
+  public get read (): MessagePrimitive['read'] {
+    return this.#read
+  }
+
+  @Field(() => Date)
+  public get updatedAt (): MessagePrimitive['updatedAt'] {
+    return this.#updatedAt
+  }
+
+  @Field(() => Date)
+  public get createdAt (): MessagePrimitive['createdAt'] {
     return this.#createdAt
+  }
+
+  @Field(() => Boolean)
+  public get deleted (): MessagePrimitive['deleted'] {
+    return this.#deleted
+  }
+
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  #updateUpdatedAt (): void {
+    this.#updatedAt = new Date()
+  }
+
+  public markAsRead (): void {
+    this.#read = true
+    this.#updateUpdatedAt()
+  }
+
+  public deleteMessage (): void {
+    this.#deleted = true
+    this.#updateUpdatedAt()
   }
 
   public static create ({

@@ -1,42 +1,81 @@
+import { Account } from '@/core/account/domain/account.entity'
+import { Category } from '@/core/category/domain/category.entity'
+import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type TransactionPrimitive } from './transaction.primitive'
 
+@ObjectType()
 export class Transaction implements TransactionPrimitive {
   readonly #id: TransactionPrimitive['id']
   readonly #idSender: TransactionPrimitive['idSender']
   readonly #idReceiver: TransactionPrimitive['idReceiver']
   readonly #amount: TransactionPrimitive['amount']
-  idCategory?: TransactionPrimitive['idCategory']
+  #idCategory?: TransactionPrimitive['idCategory']
   readonly #createdAt: TransactionPrimitive['createdAt']
-  canceled: TransactionPrimitive['canceled']
+  #canceled: TransactionPrimitive['canceled']
 
   constructor (transaction: TransactionPrimitive) {
     this.#id = transaction.id
     this.#idSender = transaction.idSender
     this.#idReceiver = transaction.idReceiver
     this.#amount = transaction.amount
-    this.idCategory = transaction.idCategory
+    this.#idCategory = transaction.idCategory
     this.#createdAt = transaction.createdAt
-    this.canceled = transaction.canceled
+    this.#canceled = transaction.canceled
   }
 
-  get id (): TransactionPrimitive['id'] {
+  /* -------------------- RELATIONS -------------------- */ // MARK: RELATIONS
+  @Field(() => Account)
+  readonly Sender: Account
+
+  @Field(() => Account)
+  readonly Receiver: Account
+
+  @Field(() => Category, { nullable: true })
+  readonly category: Category
+
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
+  @Field(() => ID)
+  public get id (): TransactionPrimitive['id'] {
     return this.#id
   }
 
-  get idSender (): TransactionPrimitive['idSender'] {
+  @Field(() => Number)
+  public get idSender (): TransactionPrimitive['idSender'] {
     return this.#idSender
   }
 
-  get idReceiver (): TransactionPrimitive['idReceiver'] {
+  @Field(() => Number)
+  public get idReceiver (): TransactionPrimitive['idReceiver'] {
     return this.#idReceiver
   }
 
-  get amount (): TransactionPrimitive['amount'] {
+  @Field(() => String)
+  public get amount (): TransactionPrimitive['amount'] {
     return this.#amount
   }
 
-  get createdAt (): TransactionPrimitive['createdAt'] {
+  @Field(() => Number)
+  public get idCategory (): TransactionPrimitive['idCategory'] {
+    return this.#idCategory
+  }
+
+  public set idCategory (value: TransactionPrimitive['idCategory']) {
+    this.#idCategory = value
+  }
+
+  @Field(() => Date)
+  public get createdAt (): TransactionPrimitive['createdAt'] {
     return this.#createdAt
+  }
+
+  @Field(() => Boolean)
+  public get canceled (): TransactionPrimitive['canceled'] {
+    return this.#canceled
+  }
+
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  public cancel (): void {
+    this.#canceled = true
   }
 
   public static create ({

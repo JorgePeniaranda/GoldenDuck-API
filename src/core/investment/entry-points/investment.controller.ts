@@ -15,7 +15,6 @@ import {
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { CreateInvestmentDTO } from '../domain/dto/create-investment'
 import { type Investment } from '../domain/investment.entity'
-import { type InvestmentPrimitive } from '../domain/investment.primitive'
 import { ReadInvestmentService } from '../domain/service/read-investment.service'
 import { WriteInvestmentService } from '../domain/service/write-investment.service'
 import { InvestmentResponse } from './investment.response'
@@ -33,8 +32,14 @@ export class InvestmentController {
   ) {}
 
   @Get()
-  async findAll (@Body() id: InvestmentPrimitive['id']): Promise<Investment[]> {
-    const investment = await this.readInvestmentService.findAll(id)
+  async findAll (
+    @Request() UserData: { user: PayloadPrimitive },
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number
+  ): Promise<Investment[]> {
+    const investment = await this.readInvestmentService.findAll({
+      idUser: UserData.user.id,
+      AccountIndex
+    })
 
     return investment
   }

@@ -1,95 +1,208 @@
+import { Account } from '@/core/account/domain/account.entity'
+import { Message } from '@/core/message/domain/message.entity'
+import { Notification } from '@/core/notification/domain/notification.entity'
+import { Session } from '@/core/session/domain/session.entity'
 import { Password } from '@/value-objects/password'
+import { Field, HideField, ID, ObjectType } from '@nestjs/graphql'
 import { UserRoles, type UserPrimitive } from './user.primitive'
 
+@ObjectType()
 export class User implements UserPrimitive {
-  id: UserPrimitive['id']
-  name: UserPrimitive['name']
-  lastName: UserPrimitive['lastName']
+  readonly #id: UserPrimitive['id']
+  #name: UserPrimitive['name']
+  #lastName: UserPrimitive['lastName']
   readonly #dni: UserPrimitive['dni']
-  email: UserPrimitive['email']
-  phoneNumber: UserPrimitive['phoneNumber']
+  #email: UserPrimitive['email']
+  #phoneNumber: UserPrimitive['phoneNumber']
   readonly #password: Password
-  address: UserPrimitive['address']
+  #address: UserPrimitive['address']
   readonly #birthDate: UserPrimitive['birthDate']
   readonly #sex: UserPrimitive['sex']
-  imgUrl: UserPrimitive['imgUrl']
-  updatedAt: UserPrimitive['updatedAt']
+  #imgUrl: UserPrimitive['imgUrl']
+  #updatedAt: UserPrimitive['updatedAt']
   readonly #createdAt: UserPrimitive['createdAt']
-  actived: UserPrimitive['actived']
-  deleted: UserPrimitive['deleted']
-  role: UserPrimitive['role']
+  #actived: UserPrimitive['actived']
+  #deleted: UserPrimitive['deleted']
+  #role: UserPrimitive['role']
 
   constructor (user: UserPrimitive) {
-    this.id = user.id
-    this.name = user.name
-    this.lastName = user.lastName
+    this.#id = user.id
+    this.#name = user.name
+    this.#lastName = user.lastName
     this.#dni = user.dni
-    this.email = user.email
-    this.phoneNumber = user.phoneNumber
+    this.#email = user.email
+    this.#phoneNumber = user.phoneNumber
     this.#password = new Password(user.password, user.salt)
-    this.address = user.address
+    this.#address = user.address
     this.#birthDate = user.birthDate
     this.#sex = user.sex
-    this.imgUrl = user.imgUrl
-    this.updatedAt = user.updatedAt
+    this.#imgUrl = user.imgUrl
+    this.#updatedAt = user.updatedAt
     this.#createdAt = user.createdAt
-    this.actived = user.actived
-    this.deleted = user.deleted
-    this.role = user.role
+    this.#actived = user.actived
+    this.#deleted = user.deleted
+    this.#role = user.role
   }
 
-  get dni (): UserPrimitive['dni'] {
+  /* -------------------- RELATIONS -------------------- */ // MARK: RELATIONS
+  @Field(() => [Account])
+  readonly accounts: Account
+
+  @Field(() => [Session], { nullable: true })
+  readonly sessions: Session[]
+
+  @Field(() => [Notification], { nullable: true })
+  readonly notifications: Notification[]
+
+  @Field(() => [Message], { nullable: true })
+  readonly messagesSend: Message[]
+
+  @Field(() => [Message], { nullable: true })
+  readonly messagesReceived: Message[]
+
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
+  @Field(() => ID)
+  public get id (): UserPrimitive['id'] {
+    return this.#id
+  }
+
+  @Field(() => String)
+  public get name (): UserPrimitive['name'] {
+    return this.#name
+  }
+
+  public set name (name: UserPrimitive['name']) {
+    this.#name = name
+    this.#updateUpdatedAt()
+  }
+
+  @Field(() => String)
+  public get lastName (): UserPrimitive['lastName'] {
+    return this.#lastName
+  }
+
+  public set lastName (lastName: UserPrimitive['lastName']) {
+    this.#lastName = lastName
+    this.#updateUpdatedAt()
+  }
+
+  @Field(() => String)
+  public get dni (): UserPrimitive['dni'] {
     return this.#dni
   }
 
-  get birthDate (): UserPrimitive['birthDate'] {
-    return this.#birthDate
+  @Field(() => String)
+  public get email (): UserPrimitive['email'] {
+    return this.#email
   }
 
-  get sex (): UserPrimitive['sex'] {
-    return this.#sex
+  public set email (email: UserPrimitive['email']) {
+    this.#email = email
+    this.#updateUpdatedAt()
   }
 
-  get createdAt (): UserPrimitive['createdAt'] {
-    return this.#createdAt
+  @Field(() => Number)
+  public get phoneNumber (): UserPrimitive['phoneNumber'] {
+    return this.#phoneNumber
   }
 
-  get password (): UserPrimitive['password'] {
+  public set phoneNumber (phoneNumber: UserPrimitive['phoneNumber']) {
+    this.#phoneNumber = phoneNumber
+    this.#updateUpdatedAt()
+  }
+
+  @HideField()
+  public get password (): UserPrimitive['password'] {
     return this.#password.value
   }
 
-  set password (password: string) {
+  public set password (password: string) {
     this.#password.value = password
+    this.#updateUpdatedAt()
   }
 
-  get salt (): UserPrimitive['salt'] {
+  @HideField()
+  public get salt (): UserPrimitive['salt'] {
     return this.#password.salt
+  }
+
+  @Field(() => String)
+  public get address (): UserPrimitive['address'] {
+    return this.#address
+  }
+
+  public set address (address: UserPrimitive['address']) {
+    this.#address = address
+    this.#updateUpdatedAt()
+  }
+
+  @Field(() => Date)
+  public get birthDate (): UserPrimitive['birthDate'] {
+    return this.#birthDate
+  }
+
+  @Field(() => String)
+  public get sex (): UserPrimitive['sex'] {
+    return this.#sex
+  }
+
+  @Field(() => String)
+  public get imgUrl (): UserPrimitive['imgUrl'] {
+    return this.#imgUrl
+  }
+
+  public set imgUrl (imgUrl: UserPrimitive['imgUrl']) {
+    this.#imgUrl = imgUrl
+    this.#updateUpdatedAt()
+  }
+
+  @Field(() => Date)
+  public get updatedAt (): UserPrimitive['updatedAt'] {
+    return this.#updatedAt
+  }
+
+  @Field(() => Date)
+  public get createdAt (): UserPrimitive['createdAt'] {
+    return this.#createdAt
+  }
+
+  @Field(() => Boolean)
+  public get actived (): UserPrimitive['actived'] {
+    return this.#actived
+  }
+
+  @Field(() => Boolean)
+  public get deleted (): UserPrimitive['deleted'] {
+    return this.#deleted
+  }
+
+  @Field(() => String)
+  public get role (): UserPrimitive['role'] {
+    return this.#role
+  }
+
+  public set role (role: UserPrimitive['role']) {
+    this.#role = role
+    this.#updateUpdatedAt()
+  }
+
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  #updateUpdatedAt (): void {
+    this.#updatedAt = new Date()
+  }
+
+  public activate (): void {
+    this.#actived = true
+    this.#updateUpdatedAt()
+  }
+
+  public delete (): void {
+    this.#deleted = true
+    this.#updateUpdatedAt()
   }
 
   public comparePassword (password: string): boolean {
     return this.#password.compare(password)
-  }
-
-  public toJSON (): UserPrimitive {
-    return {
-      id: this.id,
-      name: this.name,
-      lastName: this.lastName,
-      dni: this.dni,
-      email: this.email,
-      phoneNumber: this.phoneNumber,
-      password: this.password,
-      salt: this.#password.salt,
-      address: this.address,
-      birthDate: this.birthDate,
-      sex: this.sex,
-      imgUrl: this.imgUrl,
-      updatedAt: this.updatedAt,
-      createdAt: this.createdAt,
-      actived: this.actived,
-      deleted: this.deleted,
-      role: this.role
-    }
   }
 
   public static create ({
@@ -136,5 +249,27 @@ export class User implements UserPrimitive {
       deleted: false,
       role: UserRoles.USER
     })
+  }
+
+  public toJSON (): UserPrimitive {
+    return {
+      id: this.id,
+      name: this.name,
+      lastName: this.lastName,
+      dni: this.dni,
+      email: this.email,
+      phoneNumber: this.phoneNumber,
+      password: this.password,
+      salt: this.#password.salt,
+      address: this.address,
+      birthDate: this.birthDate,
+      sex: this.sex,
+      imgUrl: this.imgUrl,
+      updatedAt: this.updatedAt,
+      createdAt: this.createdAt,
+      actived: this.actived,
+      deleted: this.deleted,
+      role: this.role
+    }
   }
 }

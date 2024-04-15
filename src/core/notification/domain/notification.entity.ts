@@ -1,36 +1,68 @@
+import { User } from '@/core/user/domain/user.entity'
+import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type NotificationPrimitive } from './notification.primitive'
 
+@ObjectType()
 export class Notification implements NotificationPrimitive {
   readonly #id: NotificationPrimitive['id']
   readonly #idUser: NotificationPrimitive['idUser']
   readonly #message: NotificationPrimitive['message']
-  readonly read: NotificationPrimitive['read']
-  readonly updatedAt: NotificationPrimitive['updatedAt']
+  #read: NotificationPrimitive['read']
+  #updatedAt: NotificationPrimitive['updatedAt']
   readonly #createdAt: NotificationPrimitive['createdAt']
 
   constructor (notification: NotificationPrimitive) {
     this.#id = notification.id
     this.#idUser = notification.idUser
     this.#message = notification.message
-    this.read = notification.read
-    this.updatedAt = notification.updatedAt
+    this.#read = notification.read
+    this.#updatedAt = notification.updatedAt
     this.#createdAt = notification.createdAt
   }
 
-  get id (): NotificationPrimitive['id'] {
+  /* -------------------- RELATIONS -------------------- */ // MARK: RELATIONS
+  @Field(() => User)
+  readonly user: User
+
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
+  @Field(() => ID)
+  public get id (): NotificationPrimitive['id'] {
     return this.#id
   }
 
-  get idUser (): NotificationPrimitive['idUser'] {
+  @Field(() => Number)
+  public get idUser (): NotificationPrimitive['idUser'] {
     return this.#idUser
   }
 
-  get message (): NotificationPrimitive['message'] {
+  @Field(() => String)
+  public get message (): NotificationPrimitive['message'] {
     return this.#message
   }
 
-  get createdAt (): NotificationPrimitive['createdAt'] {
+  @Field(() => Boolean)
+  public get read (): NotificationPrimitive['read'] {
+    return this.#read
+  }
+
+  @Field(() => Date)
+  public get updatedAt (): NotificationPrimitive['updatedAt'] {
+    return this.#updatedAt
+  }
+
+  @Field(() => Date)
+  public get createdAt (): NotificationPrimitive['createdAt'] {
     return this.#createdAt
+  }
+
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  #updateUpdatedAt (): void {
+    this.#updatedAt = new Date()
+  }
+
+  public markAsRead (): void {
+    this.#read = true
+    this.#updateUpdatedAt()
   }
 
   public static create ({

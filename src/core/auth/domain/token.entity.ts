@@ -1,5 +1,7 @@
+import { Field, ObjectType } from '@nestjs/graphql'
 import { type TokenPrimitive } from './primitive/token.primitive'
 
+@ObjectType()
 export class Token implements TokenPrimitive {
   readonly #token: TokenPrimitive['token']
 
@@ -7,11 +9,14 @@ export class Token implements TokenPrimitive {
     this.#token = token
   }
 
-  get token (): TokenPrimitive['token'] {
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
+  @Field(() => String)
+  public get token (): TokenPrimitive['token'] {
     return this.#token
   }
 
-  toJSON (): TokenPrimitive {
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  public toJSON (): TokenPrimitive {
     return {
       token: this.token
     }

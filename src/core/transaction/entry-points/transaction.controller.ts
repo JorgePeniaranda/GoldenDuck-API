@@ -17,7 +17,6 @@ import { CreateTransactionDTO } from '../domain/dto/create-transaction'
 import { ReadTransactionService } from '../domain/service/read-transaction.service'
 import { WriteTransactionService } from '../domain/service/write-transaction.service'
 import { type Transaction } from '../domain/transaction.entity'
-import { type TransactionPrimitive } from '../domain/transaction.primitive'
 import { TransactionResponse } from './transaction.response'
 
 @ApiResponse({
@@ -35,7 +34,7 @@ export class TransactionController {
   @Get()
   async findAll (
     @Request() UserData: { user: PayloadPrimitive },
-      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: TransactionPrimitive['id']
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number
   ): Promise<Transaction[]> {
     const transactions = await this.readTransactionService.findAll({
       idUser: UserData.user.id,

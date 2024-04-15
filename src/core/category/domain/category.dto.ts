@@ -1,4 +1,4 @@
-import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
+import { Field, ID, InputType } from '@nestjs/graphql'
 import { ApiProperty } from '@nestjs/swagger'
 import {
   IsAlpha,
@@ -11,6 +11,7 @@ import {
 } from 'class-validator'
 import { type CategoryPrimitive } from './category.primitive'
 
+@InputType()
 export class CategoryDTO implements CategoryPrimitive {
   /* ---------- ID ---------- */
   @ApiProperty({
@@ -19,6 +20,7 @@ export class CategoryDTO implements CategoryPrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
+  @Field(() => ID)
     id: CategoryPrimitive['id']
 
   /* ---------- NAME ---------- */
@@ -28,6 +30,7 @@ export class CategoryDTO implements CategoryPrimitive {
   })
   @IsString()
   @IsAlpha()
+  @Field(() => String)
     name: CategoryPrimitive['name']
 
   /* ---------- UPDATED AT ---------- */
@@ -37,7 +40,8 @@ export class CategoryDTO implements CategoryPrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
-    updatedAt: AccountPrimitive['updatedAt']
+  @Field(() => Date)
+    updatedAt: CategoryPrimitive['updatedAt']
 
   /* ---------- CREATED AT ---------- */
   @ApiProperty({
@@ -46,7 +50,8 @@ export class CategoryDTO implements CategoryPrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
-    createdAt: AccountPrimitive['createdAt']
+  @Field(() => Date)
+    createdAt: CategoryPrimitive['createdAt']
 
   /* ---------- DELETED ---------- */
   @ApiProperty({
@@ -54,13 +59,6 @@ export class CategoryDTO implements CategoryPrimitive {
     type: Boolean
   })
   @IsBoolean()
-    deleted: boolean
-
-  constructor (transaction: CategoryPrimitive) {
-    this.id = transaction.id
-    this.name = transaction.name
-    this.updatedAt = transaction.updatedAt
-    this.createdAt = transaction.createdAt
-    this.deleted = transaction.deleted
-  }
+  @Field(() => Boolean)
+    deleted: CategoryPrimitive['deleted']
 }

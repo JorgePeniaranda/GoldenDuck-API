@@ -1,7 +1,10 @@
+import { User } from '@/core/user/domain/user.entity'
 import { type UserPrimitive } from '@/core/user/domain/user.primitive'
+import { Field, ObjectType } from '@nestjs/graphql'
 import bcrypt from 'bcryptjs'
 import { type SessionDataPrimitive } from './primitive/session-data.primitive'
 
+@ObjectType()
 export class SessionData implements SessionDataPrimitive {
   readonly #token: SessionDataPrimitive['token']
   readonly #user: UserPrimitive
@@ -11,15 +14,19 @@ export class SessionData implements SessionDataPrimitive {
     this.#user = data.user
   }
 
-  get token (): SessionDataPrimitive['token'] {
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
+  @Field(() => String)
+  public get token (): SessionDataPrimitive['token'] {
     return this.#token
   }
 
-  get user (): UserPrimitive {
+  @Field(() => User)
+  public get user (): UserPrimitive {
     return this.#user
   }
 
-  toJSON (): SessionDataPrimitive {
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  public toJSON (): SessionDataPrimitive {
     return {
       token: this.token,
       user: this.user

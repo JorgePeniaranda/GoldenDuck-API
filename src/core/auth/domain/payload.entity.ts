@@ -1,5 +1,7 @@
+import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type PayloadPrimitive } from './primitive/payload.primitive'
 
+@ObjectType()
 export class JwtPayload implements PayloadPrimitive {
   readonly #id: PayloadPrimitive['id']
   readonly #role: PayloadPrimitive['role']
@@ -9,15 +11,19 @@ export class JwtPayload implements PayloadPrimitive {
     this.#role = role
   }
 
-  get id (): PayloadPrimitive['id'] {
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
+  @Field(() => ID)
+  public get id (): PayloadPrimitive['id'] {
     return this.#id
   }
 
-  get role (): PayloadPrimitive['role'] {
+  @Field(() => String)
+  public get role (): PayloadPrimitive['role'] {
     return this.#role
   }
 
-  toJSON (): PayloadPrimitive {
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  public toJSON (): PayloadPrimitive {
     return {
       id: this.id,
       role: this.role

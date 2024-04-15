@@ -1,4 +1,5 @@
-import { PickType } from '@nestjs/swagger'
+import { InputType, PickType } from '@nestjs/graphql'
 import { ErrorDTO } from '../error.dto'
 
-export class CreateErrorDTO extends PickType(ErrorDTO, ['name', 'message', 'stack']) {}
+@InputType()
+export class CreateErrorDTO extends PickType(ErrorDTO, ['name', 'message', 'stack'] as const) {}

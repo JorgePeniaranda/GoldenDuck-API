@@ -1,4 +1,5 @@
-import { PickType } from '@nestjs/swagger'
+import { InputType, PickType } from '@nestjs/graphql'
 import { CardDTO } from '../card.dto'
 
-export class CreateCardDTO extends PickType(CardDTO, ['number', 'cvv', 'expiration']) {}
+@InputType()
+export class CreateCardDTO extends PickType(CardDTO, ['number', 'cvv', 'expiration'] as const) {}

@@ -13,7 +13,6 @@ import {
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { type Card } from '../domain/card.entity'
-import { type CardPrimitive } from '../domain/card.primitive'
 import { CreateCardDTO } from '../domain/dto/create-card'
 import { ReadCardService } from '../domain/service/read-card.service'
 import { WriteCardService } from '../domain/service/write-card.service'
@@ -34,7 +33,7 @@ export class CardController {
   @Get()
   async findAll (
     @Request() UserData: { user: PayloadPrimitive },
-      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: CardPrimitive['idAccount']
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number
   ): Promise<Card[]> {
     const cards = await this.readCardService.findAll({
       idUser: UserData.user.id,
@@ -51,7 +50,7 @@ export class CardController {
   @Post()
   async create (
     @Request() UserData: { user: PayloadPrimitive },
-      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: CardPrimitive['idAccount'],
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Body() data: CreateCardDTO
   ): Promise<Card> {
     const card = await this.writeCardService.create({
@@ -66,7 +65,7 @@ export class CardController {
   @Get('/:index')
   async findOne (
     @Request() UserData: { user: PayloadPrimitive },
-      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: CardPrimitive['idAccount'],
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Card> {
     const card = await this.readCardService.findOne({
@@ -86,7 +85,7 @@ export class CardController {
   @Delete('/:index')
   async delete (
     @Request() UserData: { user: PayloadPrimitive },
-      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: CardPrimitive['idAccount'],
+      @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
     await this.writeCardService.delete({

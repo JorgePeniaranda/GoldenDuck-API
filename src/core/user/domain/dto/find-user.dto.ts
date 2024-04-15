@@ -1,4 +1,7 @@
-import { PartialType, PickType } from '@nestjs/swagger'
+import { InputType, PartialType, PickType } from '@nestjs/graphql'
 import { UserDTO } from '../user.dto'
 
-export class FindUserDTO extends PartialType(PickType(UserDTO, ['dni', 'email', 'phoneNumber'])) {}
+@InputType()
+export class FindUserDTO extends PartialType(
+  PickType(UserDTO, ['dni', 'email', 'phoneNumber'] as const)
+) {}

@@ -5,6 +5,7 @@ import { MessageRepositoryPrismaMySQL } from './data-access/message-prisma-mysql
 import { ReadMessageService } from './domain/service/read-messages.service'
 import { WriteMessageService } from './domain/service/write-messages.service'
 import { MessageController } from './entry-points/message.controller'
+import { MessageResolver } from './entry-points/message.resolver'
 
 @Module({
   imports: [UserModule],
@@ -12,6 +13,7 @@ import { MessageController } from './entry-points/message.controller'
   providers: [
     WriteMessageService,
     ReadMessageService,
+    MessageResolver,
     {
       provide: 'MessageRepository',
       useClass: MessageRepositoryPrismaMySQL

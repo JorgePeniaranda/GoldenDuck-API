@@ -1,14 +1,17 @@
+import { Account } from '@/core/account/domain/account.entity'
+import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type LoanPrimitive } from './loan.primitive'
 
+@ObjectType()
 export class Loan implements LoanPrimitive {
   readonly #id: LoanPrimitive['id']
   readonly #idAccount: LoanPrimitive['idAccount']
   readonly #amount: LoanPrimitive['amount']
   readonly #interest: LoanPrimitive['interest']
   readonly #dateEnd: LoanPrimitive['dateEnd']
-  updatedAt: LoanPrimitive['updatedAt']
+  #updatedAt: LoanPrimitive['updatedAt']
   readonly #createdAt: LoanPrimitive['createdAt']
-  canceled: LoanPrimitive['canceled']
+  #canceled: LoanPrimitive['canceled']
 
   constructor (loan: LoanPrimitive) {
     this.#id = loan.id
@@ -16,33 +19,64 @@ export class Loan implements LoanPrimitive {
     this.#amount = loan.amount
     this.#interest = loan.interest
     this.#dateEnd = loan.dateEnd
-    this.updatedAt = loan.updatedAt
+    this.#updatedAt = loan.updatedAt
     this.#createdAt = loan.createdAt
-    this.canceled = loan.canceled
+    this.#canceled = loan.canceled
   }
 
-  get id (): LoanPrimitive['id'] {
+  /* -------------------- RELATIONS -------------------- */ // MARK: RELATIONS
+  @Field(() => Account)
+  readonly account: Account
+
+  /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
+  @Field(() => ID)
+  public get id (): LoanPrimitive['id'] {
     return this.#id
   }
 
-  get idAccount (): LoanPrimitive['idAccount'] {
+  @Field(() => Number)
+  public get idAccount (): LoanPrimitive['idAccount'] {
     return this.#idAccount
   }
 
-  get amount (): LoanPrimitive['amount'] {
+  @Field(() => Number)
+  public get amount (): LoanPrimitive['amount'] {
     return this.#amount
   }
 
-  get interest (): LoanPrimitive['interest'] {
+  @Field(() => Number)
+  public get interest (): LoanPrimitive['interest'] {
     return this.#interest
   }
 
-  get dateEnd (): LoanPrimitive['dateEnd'] {
+  @Field(() => Date)
+  public get dateEnd (): LoanPrimitive['dateEnd'] {
     return this.#dateEnd
   }
 
-  get createdAt (): LoanPrimitive['createdAt'] {
+  @Field(() => Date)
+  public get updatedAt (): LoanPrimitive['updatedAt'] {
+    return this.#updatedAt
+  }
+
+  @Field(() => Date)
+  public get createdAt (): LoanPrimitive['createdAt'] {
     return this.#createdAt
+  }
+
+  @Field(() => Boolean)
+  public get canceled (): LoanPrimitive['canceled'] {
+    return this.#canceled
+  }
+
+  /* -------------------- METHODS -------------------- */ // MARK: METHODS
+  #updateUpdatedAt (): void {
+    this.#updatedAt = new Date()
+  }
+
+  public cancel (): void {
+    this.#canceled = true
+    this.#updateUpdatedAt()
   }
 
   public static create ({

@@ -87,7 +87,7 @@ export class WriteMessageService {
       throw new NotFoundException(MessageErrorsMessages.NotFound)
     }
 
-    message.read = true
+    message.markAsRead()
 
     await this.messageRepository.update(message)
   }

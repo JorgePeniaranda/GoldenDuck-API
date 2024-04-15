@@ -12,17 +12,20 @@ import { type MessagePrimitive } from '../message/domain/message.primitive'
 import { type SessionPrimitive } from '../session/domain/session.primitive'
 import { type TransactionPrimitive } from '../transaction/domain/transaction.primitive'
 import { type UserPrimitive } from '../user/domain/user.primitive'
+import { UserModule } from '../user/user.module'
 import { NotificationRepositoryPrismaMySQL } from './data-access/notification-prisma-mysql.repository'
 import { ReadNotificationService } from './domain/service/read-notification.service'
 import { WriteNotificationService } from './domain/service/write-notification.service'
 import { NotificationController } from './entry-points/notification.controller'
+import { NotificationResolver } from './entry-points/notification.resolver'
 
 @Module({
-  imports: [AccountModule],
+  imports: [AccountModule, UserModule],
   controllers: [NotificationController],
   providers: [
     WriteNotificationService,
     ReadNotificationService,
+    NotificationResolver,
     {
       provide: 'NotificationRepository',
       useClass: NotificationRepositoryPrismaMySQL
@@ -36,8 +39,7 @@ export class NotificationModule {
     private readonly readAccountService: ReadAccountService,
     private readonly eventEmitter: EventEmitter2
   ) {
-    /* @region EVENTS SUBSCRIPTION */
-
+    // #region EVENTS SUBSCRIPTION
     /* ------------------------- USER EVENTS ------------------------- */
 
     this.eventEmitter.on(EventsMap.USER_ACTIVATED, (data: UserPrimitive) => {

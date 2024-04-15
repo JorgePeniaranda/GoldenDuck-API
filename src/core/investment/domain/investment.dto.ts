@@ -1,7 +1,9 @@
+import { Field, ID, InputType } from '@nestjs/graphql'
 import { ApiProperty } from '@nestjs/swagger'
 import { IsBoolean, IsDate, IsNumber, IsPositive, MaxDate } from 'class-validator'
 import { type InvestmentPrimitive } from './investment.primitive'
 
+@InputType()
 export class InvestmentDTO implements InvestmentPrimitive {
   /* ---------- ID ---------- */
   @ApiProperty({
@@ -10,6 +12,7 @@ export class InvestmentDTO implements InvestmentPrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
+  @Field(() => ID)
     id: InvestmentPrimitive['id']
 
   /* ---------- ID ACCOUNT ---------- */
@@ -19,6 +22,7 @@ export class InvestmentDTO implements InvestmentPrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
+  @Field(() => Number)
     idAccount: InvestmentPrimitive['idAccount']
 
   /* ---------- AMOUNT ---------- */
@@ -28,6 +32,7 @@ export class InvestmentDTO implements InvestmentPrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
+  @Field(() => Number)
     amount: InvestmentPrimitive['amount']
 
   /* ---------- INTEREST ---------- */
@@ -37,6 +42,7 @@ export class InvestmentDTO implements InvestmentPrimitive {
     type: Number
   })
   @IsNumber({ allowInfinity: false, allowNaN: false })
+  @Field(() => Number)
     interest: InvestmentPrimitive['interest']
 
   /* ---------- DATE END ---------- */
@@ -45,7 +51,8 @@ export class InvestmentDTO implements InvestmentPrimitive {
     type: Date
   })
   @IsDate()
-    dateEnd: Date
+  @Field(() => Date)
+    dateEnd: InvestmentPrimitive['dateEnd']
 
   /* ---------- UPDATED AT ---------- */
   @ApiProperty({
@@ -54,6 +61,7 @@ export class InvestmentDTO implements InvestmentPrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
+  @Field(() => Date)
     updatedAt: InvestmentPrimitive['updatedAt']
 
   /* ---------- CREATED AT ---------- */
@@ -63,6 +71,7 @@ export class InvestmentDTO implements InvestmentPrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
+  @Field(() => Date)
     createdAt: InvestmentPrimitive['createdAt']
 
   /* ---------- CANCELED ---------- */
@@ -71,16 +80,6 @@ export class InvestmentDTO implements InvestmentPrimitive {
     type: Boolean
   })
   @IsBoolean()
+  @Field(() => Boolean)
     canceled: InvestmentPrimitive['canceled']
-
-  constructor (investment: InvestmentPrimitive) {
-    this.id = investment.id
-    this.idAccount = investment.idAccount
-    this.amount = investment.amount
-    this.interest = investment.interest
-    this.dateEnd = investment.dateEnd
-    this.updatedAt = investment.updatedAt
-    this.createdAt = investment.createdAt
-    this.canceled = investment.canceled
-  }
 }

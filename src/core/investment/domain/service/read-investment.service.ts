@@ -13,7 +13,30 @@ export class ReadInvestmentService {
     private readonly readAccountService: ReadAccountService
   ) {}
 
-  public async findAll (idAccount: InvestmentPrimitive['idAccount']): Promise<Investment[]> {
+  public async findAll ({
+    idUser,
+    AccountIndex
+  }: {
+    idUser: InvestmentPrimitive['id']
+    AccountIndex: number
+  }): Promise<Investment[]> {
+    const account = await this.readAccountService.findOne({
+      idUser,
+      index: AccountIndex
+    })
+
+    if (account === null) {
+      throw new NotFoundException(AccountErrorsMessages.NotFound)
+    }
+
+    return await this.investmentRepository.findAll({ idAccount: account.id })
+  }
+
+  public async findAllByIDAccount ({
+    idAccount
+  }: {
+    idAccount: InvestmentPrimitive['idAccount']
+  }): Promise<Investment[]> {
     return await this.investmentRepository.findAll({ idAccount })
   }
 

@@ -1,6 +1,7 @@
-import { PickType } from '@nestjs/swagger'
+import { InputType, PickType } from '@nestjs/graphql'
 import { UserDTO } from '../user.dto'
 
+@InputType()
 export class CreateUserDTO extends PickType(UserDTO, [
   'name',
   'lastName',
@@ -12,4 +13,4 @@ export class CreateUserDTO extends PickType(UserDTO, [
   'birthDate',
   'sex',
   'role'
-]) {}
+] as const) {}

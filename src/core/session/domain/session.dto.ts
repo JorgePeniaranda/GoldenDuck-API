@@ -1,3 +1,4 @@
+import { Field, ID, InputType } from '@nestjs/graphql'
 import { ApiProperty } from '@nestjs/swagger'
 import {
   IsBoolean,
@@ -10,6 +11,7 @@ import {
 } from 'class-validator'
 import { type SessionPrimitive } from './session.primitive'
 
+@InputType()
 export class SessionDTO implements SessionPrimitive {
   /* ---------- ID ---------- */
   @ApiProperty({
@@ -18,6 +20,7 @@ export class SessionDTO implements SessionPrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
+  @Field(() => ID)
     id: SessionPrimitive['id']
 
   /* ---------- ID USER ---------- */
@@ -27,6 +30,7 @@ export class SessionDTO implements SessionPrimitive {
   })
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
   @IsPositive()
+  @Field(() => Number)
     idUser: SessionPrimitive['idUser']
 
   /* ---------- IP ---------- */
@@ -36,6 +40,7 @@ export class SessionDTO implements SessionPrimitive {
   })
   @IsString()
   @IsOptional()
+  @Field(() => String)
     ip: SessionPrimitive['ip']
 
   /* ---------- USER AGENT ---------- */
@@ -45,6 +50,7 @@ export class SessionDTO implements SessionPrimitive {
   })
   @IsString()
   @IsOptional()
+  @Field(() => String)
     userAgent: SessionPrimitive['userAgent']
 
   /* ---------- LOCATION ---------- */
@@ -54,6 +60,7 @@ export class SessionDTO implements SessionPrimitive {
   })
   @IsString()
   @IsOptional()
+  @Field(() => String)
     location: SessionPrimitive['location']
 
   /* ---------- DEVICETYPE ---------- */
@@ -63,6 +70,7 @@ export class SessionDTO implements SessionPrimitive {
   })
   @IsString()
   @IsOptional()
+  @Field(() => String)
     deviceType: SessionPrimitive['deviceType']
 
   /* ---------- TOKEN ---------- */
@@ -71,6 +79,7 @@ export class SessionDTO implements SessionPrimitive {
     type: String
   })
   @IsString()
+  @Field(() => String)
     token: SessionPrimitive['token']
 
   /* ---------- LOGOUT AT ---------- */
@@ -80,6 +89,7 @@ export class SessionDTO implements SessionPrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
+  @Field(() => Date)
     logoutAt: SessionPrimitive['logoutAt']
 
   /* ---------- CREATED AT ---------- */
@@ -89,6 +99,7 @@ export class SessionDTO implements SessionPrimitive {
   })
   @IsDate()
   @MaxDate(new Date())
+  @Field(() => Date)
     createdAt: SessionPrimitive['createdAt']
 
   /* ---------- ACTIVED ---------- */
@@ -96,20 +107,7 @@ export class SessionDTO implements SessionPrimitive {
     example: true,
     type: Boolean
   })
-  @IsString()
   @IsBoolean()
+  @Field(() => Boolean)
     active: SessionPrimitive['active']
-
-  constructor (transaction: SessionPrimitive) {
-    this.id = transaction.id
-    this.idUser = transaction.idUser
-    this.ip = transaction.ip
-    this.userAgent = transaction.userAgent
-    this.location = transaction.location
-    this.deviceType = transaction.deviceType
-    this.token = transaction.token
-    this.logoutAt = transaction.logoutAt
-    this.createdAt = transaction.createdAt
-    this.active = transaction.active
-  }
 }
