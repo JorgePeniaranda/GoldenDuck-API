@@ -7,10 +7,10 @@ import { GqlAuthGuard } from '@/guard/gql.guard'
 import { UserErrorsMessages } from '@/messages/error/user'
 import { NotFoundException, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
-import { CreateUserDTO } from '../domain/dto/create-user.dto'
-import { DeleteUserDTO } from '../domain/dto/delete-user.dto'
-import { FindUserDTO } from '../domain/dto/find-user.dto'
-import { UpdateUserDTO } from '../domain/dto/update-user.dto'
+import { GQLCreateUserDTO } from '../domain/dto/create-user.dto'
+import { GQLDeleteUserDTO } from '../domain/dto/delete-user.dto'
+import { GQLFindUserDTO } from '../domain/dto/find-user.dto'
+import { GQLUpdateUserDTO } from '../domain/dto/update-user.dto'
 import { ReadUserService } from '../domain/service/read-user.service'
 import { WriteUserService } from '../domain/service/write-user.service'
 import { User } from '../domain/user.entity'
@@ -25,6 +25,7 @@ export class UserResolver {
     private readonly readAccountService: ReadAccountService
   ) {}
 
+  /* ---------- findByID ---------- */ // MARK: findByID
   @Query(() => User, { name: 'current_user_info' })
   async findByID (@CurrentUser() UserData: PayloadPrimitive): Promise<User> {
     const user = await this.readUserService.findByID({
@@ -38,15 +39,17 @@ export class UserResolver {
     return user
   }
 
+  /* ---------- create ---------- */ // MARK: create
   @Mutation(() => User, { name: 'create_user' })
-  async create (@Args('user') user: CreateUserDTO): Promise<User> {
+  async create (@Args('user') user: GQLCreateUserDTO): Promise<User> {
     return await this.writeUserService.create(user)
   }
 
+  /* ---------- update ---------- */ // MARK: update
   @Mutation(() => User, { name: 'update_user' })
   async update (
     @CurrentUser() UserData: { user: PayloadPrimitive },
-      @Args('data') data: UpdateUserDTO
+      @Args('data') data: GQLUpdateUserDTO
   ): Promise<User> {
     return await this.writeUserService.update({
       id: UserData.user.id,
@@ -54,10 +57,11 @@ export class UserResolver {
     })
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => User, { name: 'delete_user' })
   async delete (
     @CurrentUser() UserData: { user: PayloadPrimitive },
-      @Args('data') data: DeleteUserDTO
+      @Args('data') data: GQLDeleteUserDTO
   ): Promise<void> {
     await this.writeUserService.delete({
       id: UserData.user.id,
@@ -65,8 +69,9 @@ export class UserResolver {
     })
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   @Query(() => User, { name: 'find_user' })
-  async findOne (@Args('params') params: FindUserDTO): Promise<User> {
+  async findOne (@Args('params') params: GQLFindUserDTO): Promise<User> {
     const user = await this.readUserService.findOne(params)
 
     if (user === null) {
@@ -76,6 +81,7 @@ export class UserResolver {
     return user
   }
 
+  /* ---------- activate ---------- */ // MARK: activate
   @Mutation(() => User, { name: 'activate_user' })
   async activate (@CurrentUser() UserData: { user: PayloadPrimitive }): Promise<'🤠'> {
     await this.writeUserService.activate({
@@ -85,6 +91,7 @@ export class UserResolver {
     return '🤠'
   }
 
+  /* ---------- accounts ---------- */ // MARK: accounts
   @ResolveField(() => [Account])
   async accounts (@Parent() user: User): Promise<Account[]> {
     const accounts = await this.readAccountService.findAll({

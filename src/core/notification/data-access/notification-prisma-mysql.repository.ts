@@ -9,6 +9,7 @@ import { type NotificationRepository } from '../domain/notification.repository'
 export class NotificationRepositoryPrismaMySQL implements NotificationRepository {
   constructor (private readonly prisma: PrismaService) {}
 
+  /* ---------- create ---------- */ // MARK: create
   public async create (data: Notification): Promise<Notification> {
     const notification = await this.prisma.notification.create({
       data: {
@@ -20,6 +21,7 @@ export class NotificationRepositoryPrismaMySQL implements NotificationRepository
     return new Notification(notification)
   }
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   public async findAll ({
     idUser
   }: {
@@ -35,6 +37,7 @@ export class NotificationRepositoryPrismaMySQL implements NotificationRepository
     return notifications.map(notification => new Notification(notification))
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({
     idUser,
     index
@@ -54,6 +57,7 @@ export class NotificationRepositoryPrismaMySQL implements NotificationRepository
     return notification[0] !== undefined ? new Notification(notification[0]) : null
   }
 
+  /* ---------- findByID ---------- */ // MARK: findByID
   public async findByID ({ id }: { id: NotificationPrimitive['id'] }): Promise<Notification | null> {
     const notification = await this.prisma.notification.findUnique({
       where: {
@@ -65,6 +69,7 @@ export class NotificationRepositoryPrismaMySQL implements NotificationRepository
     return notification !== null ? new Notification(notification) : null
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   public async delete (data: Notification): Promise<void> {
     await this.prisma.notification.update({
       where: {

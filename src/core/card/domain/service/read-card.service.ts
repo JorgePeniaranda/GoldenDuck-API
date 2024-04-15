@@ -13,6 +13,7 @@ export class ReadCardService {
     @Inject('CardRepository') private readonly cardRepository: CardRepository
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   public async findAll ({
     idUser,
     AccountIndex
@@ -29,6 +30,7 @@ export class ReadCardService {
     return await this.cardRepository.findAll({ idAccount: account.id })
   }
 
+  /* ---------- findAllByIDAccount ---------- */ // MARK: findAllByIDAccount
   public async findAllByIDAccount ({
     idAccount
   }: {
@@ -37,6 +39,7 @@ export class ReadCardService {
     return await this.cardRepository.findAll({ idAccount })
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({
     idUser,
     AccountIndex,

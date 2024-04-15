@@ -11,6 +11,7 @@ export class ReadAccountService {
     private readonly accountRepository: AccountRepository
   ) {}
 
+  /* ---------- findIDUser ---------- */ // MARK: findIDUser
   public async findIDUser ({
     id
   }: {
@@ -25,10 +26,12 @@ export class ReadAccountService {
     return idUser
   }
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   public async findAll ({ idUser }: { idUser: AccountPrimitive['idUser'] }): Promise<Account[]> {
     return await this.accountRepository.findAll({ idUser })
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({
     idUser,
     index

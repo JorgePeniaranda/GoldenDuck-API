@@ -14,6 +14,7 @@ export class WriteCardService {
     @Inject('CardRepository') private readonly cardRepository: CardRepository
   ) {}
 
+  /* ---------- create ---------- */ // MARK: create
   public async create ({
     idUser,
     AccountIndex,
@@ -34,6 +35,7 @@ export class WriteCardService {
     return await this.cardRepository.create(card)
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   public async delete ({
     idUser,
     AccountIndex,

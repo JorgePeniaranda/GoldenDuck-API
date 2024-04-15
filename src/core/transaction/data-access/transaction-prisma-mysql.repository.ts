@@ -8,6 +8,7 @@ import { type TransactionRepository } from '../domain/transaction.repository'
 export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
   constructor (private readonly prisma: PrismaService) {}
 
+  /* ---------- create ---------- */ // MARK: create
   public async create (data: Transaction): Promise<Transaction> {
     const transaction = await this.prisma.transaction.create({
       data: {
@@ -19,6 +20,7 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
     return new Transaction(transaction)
   }
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   public async findAll ({
     idAccount
   }: {
@@ -34,6 +36,7 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
     return transactions.map(transaction => new Transaction(transaction))
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({
     idAccount,
     index
@@ -53,6 +56,7 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
     return transaction[0] !== undefined ? new Transaction(transaction[0]) : null
   }
 
+  /* ---------- findOneAsSender ---------- */ // MARK: findOneAsSender
   public async findOneAsSender ({
     idSender,
     index
@@ -72,6 +76,7 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
     return transaction[0] !== undefined ? new Transaction(transaction[0]) : null
   }
 
+  /* ---------- findOneAsReceiver ---------- */ // MARK: findOneAsReceiver
   public async findOneAsReceiver ({
     idReceiver,
     index
@@ -91,6 +96,7 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
     return transaction[0] !== undefined ? new Transaction(transaction[0]) : null
   }
 
+  /* ---------- findByID ---------- */ // MARK: findByID
   public async findByID (id: TransactionPrimitive['id']): Promise<Transaction | null> {
     const transaction = await this.prisma.transaction.findUnique({
       where: {
@@ -102,6 +108,7 @@ export class TransactionRepositoryPrismaMySQL implements TransactionRepository {
     return transaction !== null ? new Transaction(transaction) : null
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   public async delete (data: Transaction): Promise<Transaction> {
     const transaction = await this.prisma.transaction.update({
       where: {

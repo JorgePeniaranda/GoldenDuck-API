@@ -8,7 +8,7 @@ import { AccountErrorsMessages } from '@/messages/error/account'
 import { Body, NotFoundException, UseGuards } from '@nestjs/common'
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 import { Card } from '../domain/card.entity'
-import { CreateCardDTO } from '../domain/dto/create-card'
+import { GQLCreateCardDTO } from '../domain/dto/create-card'
 import { ReadCardService } from '../domain/service/read-card.service'
 import { WriteCardService } from '../domain/service/write-card.service'
 
@@ -22,6 +22,7 @@ export class CardResolver {
     private readonly readAccountService: ReadAccountService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   @Query(() => Card, { name: 'find_all_card' })
   async findAll (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -39,11 +40,12 @@ export class CardResolver {
     return cards
   }
 
+  /* ---------- create ---------- */ // MARK: create
   @Mutation(() => Card, { name: 'create_card' })
   async create (
     @CurrentUser() UserData: PayloadPrimitive,
       @Args('AccountIndex', { type: () => Int }) AccountIndex: number,
-      @Body() data: CreateCardDTO
+      @Body() data: GQLCreateCardDTO
   ): Promise<Card> {
     const card = await this.writeCardService.create({
       idUser: UserData.id,
@@ -54,6 +56,7 @@ export class CardResolver {
     return card
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   @Query(() => Card, { name: 'find_one_card' })
   async findOne (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -73,6 +76,7 @@ export class CardResolver {
     return card
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => Card, { name: 'delete_card' })
   async delete (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -86,6 +90,7 @@ export class CardResolver {
     })
   }
 
+  /* ---------- accounts ---------- */ // MARK: accounts
   @ResolveField(() => Account)
   async accounts (@Parent() card: Card): Promise<Account> {
     const accounts = await this.readAccountService.findByID({

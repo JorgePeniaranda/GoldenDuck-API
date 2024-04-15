@@ -12,6 +12,7 @@ export class ReadLoanService {
     @Inject('LoanRepository') private readonly loanRepository: LoanRepository
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   public async findAll ({
     idUser,
     AccountIndex
@@ -31,6 +32,7 @@ export class ReadLoanService {
     return await this.loanRepository.findAll({ idAccount: account.id })
   }
 
+  /* ---------- findAllByIDAccount ---------- */ // MARK: findAllByIDAccount
   public async findAllByIDAccount ({
     idAccount
   }: {
@@ -39,6 +41,7 @@ export class ReadLoanService {
     return await this.loanRepository.findAll({ idAccount })
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({
     idUser,
     AccountIndex,
@@ -60,6 +63,7 @@ export class ReadLoanService {
     return await this.loanRepository.findOne({ idAccount: account.id, index })
   }
 
+  /* ---------- findByID ---------- */ // MARK: findByID
   public async findByID (id: LoanPrimitive['id']): Promise<Loan | null> {
     return await this.loanRepository.findByID({ id })
   }

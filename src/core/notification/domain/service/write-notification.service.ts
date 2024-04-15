@@ -14,6 +14,7 @@ export class WriteNotificationService {
     private readonly eventEmitter: EventEmitter2
   ) {}
 
+  /* ---------- create ---------- */ // MARK: create
   @OnEvent(EventsMap.CREATE_NOTIFICATION)
   public async create ({
     idUser,
@@ -29,6 +30,7 @@ export class WriteNotificationService {
     return await this.notificationRepository.create(notification)
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   public async delete ({
     idUser,
     index

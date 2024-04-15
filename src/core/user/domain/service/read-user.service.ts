@@ -8,10 +8,12 @@ import { UserRepository } from '../user.repository'
 export class ReadUserService {
   constructor (@Inject('UserRepository') private readonly userRepository: UserRepository) {}
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   async findOne (params: FindUserDTO): Promise<User | null> {
     return await this.userRepository.findOne(params)
   }
 
+  /* ---------- findByID ---------- */ // MARK: findByID
   async findByID ({ id }: { id: UserPrimitive['id'] }): Promise<User | null> {
     return await this.userRepository.findByID({ id })
   }

@@ -7,8 +7,8 @@ import { GqlAuthGuard } from '@/guard/gql.guard'
 import { UserErrorsMessages } from '@/messages/error/user'
 import { Body, NotFoundException, UseGuards } from '@nestjs/common'
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
-import { CreateMessageDTO } from '../domain/dto/create-message'
-import { UpdateMessageDTO } from '../domain/dto/update-message'
+import { GQLCreateMessageDTO } from '../domain/dto/create-message'
+import { GQLUpdateMessageDTO } from '../domain/dto/update-message'
 import { Message } from '../domain/message.entity'
 import { type MessagePrimitive } from '../domain/message.primitive'
 import { ReadMessageService } from '../domain/service/read-messages.service'
@@ -24,6 +24,7 @@ export class MessageResolver {
     private readonly readUserService: ReadUserService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   @Query(() => Message, { name: 'find_all_message' })
   async findAll (@CurrentUser() UserData: PayloadPrimitive): Promise<Message[]> {
     const messages = await this.readMessageService.findAll({ idUser: UserData.id })
@@ -31,7 +32,8 @@ export class MessageResolver {
     return messages
   }
 
-  @Query(() => Message, { name: 'find_message_history' })
+  /* ---------- findHistory ---------- */ // MARK: findHistory
+  @Query(() => [Message], { name: 'find_message_history' })
   async findHistory (@CurrentUser() UserData: PayloadPrimitive): Promise<Message[]> {
     const messages = await this.readMessageService.findHistory({
       idUser: UserData.id
@@ -40,6 +42,7 @@ export class MessageResolver {
     return messages
   }
 
+  /* ---------- findChat ---------- */ // MARK: findChat
   @Query(() => Message, { name: 'find_chat' })
   async findChat (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -54,11 +57,12 @@ export class MessageResolver {
     return messages
   }
 
+  /* ---------- create ---------- */ // MARK: create
   @Mutation(() => Message, { name: 'create_message' })
   async create (
     @CurrentUser() UserData: PayloadPrimitive,
       @Args('idTarget', { type: () => Int }) idTarget: MessagePrimitive['idReceiver'],
-      @Body() data: CreateMessageDTO
+      @Body() data: GQLCreateMessageDTO
   ): Promise<Message> {
     const message = await this.writeMessageService.create({
       idSender: UserData.id,
@@ -69,6 +73,7 @@ export class MessageResolver {
     return message
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   @Query(() => Message, { name: 'find_one_message' })
   async findOne (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -88,12 +93,13 @@ export class MessageResolver {
     return message
   }
 
+  /* ---------- update ---------- */ // MARK: update
   @Mutation(() => Message, { name: 'update_message' })
   async update (
     @CurrentUser() UserData: PayloadPrimitive,
       @Args('idTarget', { type: () => Int }) idTarget: MessagePrimitive['idReceiver'],
       @Args('index', { type: () => Int }) index: number,
-      @Body() data: UpdateMessageDTO
+      @Body() data: GQLUpdateMessageDTO
   ): Promise<Message> {
     const message = await this.writeMessageService.update({
       idUser: UserData.id,
@@ -109,6 +115,7 @@ export class MessageResolver {
     return message
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => Message, { name: 'delete_message' })
   async delete (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -122,6 +129,7 @@ export class MessageResolver {
     })
   }
 
+  /* ---------- read ---------- */ // MARK: read
   @Mutation(() => Message, { name: 'read_message' })
   async read (
     @CurrentUser() UserData: PayloadPrimitive,
@@ -135,8 +143,9 @@ export class MessageResolver {
     })
   }
 
+  /* ---------- sender ---------- */ // MARK: sender
   @ResolveField(() => User)
-  async Sender (@Parent() message: Message): Promise<User> {
+  async sender (@Parent() message: Message): Promise<User> {
     const sender = await this.readUserService.findByID({
       id: message.idSender
     })
@@ -148,8 +157,9 @@ export class MessageResolver {
     return sender
   }
 
+  /* ---------- receiver ---------- */ // MARK: receiver
   @ResolveField(() => User)
-  async Receiver (@Parent() message: Message): Promise<User> {
+  async receiver (@Parent() message: Message): Promise<User> {
     const receiver = await this.readUserService.findByID({
       id: message.idReceiver
     })

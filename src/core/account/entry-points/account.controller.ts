@@ -9,20 +9,17 @@ import {
   Post,
   Request
 } from '@nestjs/common'
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiTags } from '@nestjs/swagger'
 
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
+import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
 import { AccountErrorsMessages } from '@/messages/error/account'
 import { type Account } from '../domain/account.entity'
 import { ReadAccountService } from '../domain/service/read-account.service'
 import { WriteAccountService } from '../domain/service/write-account.service'
 import { AccountResponse } from './account.response'
 
-@ApiResponse({
-  type: AccountResponse
-})
 @ApiTags('Account')
-@ApiBearerAuth()
 @Controller('account')
 export class AccountController {
   constructor (
@@ -30,6 +27,12 @@ export class AccountController {
     private readonly readAccountService: ReadAccountService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
+  @ENDPOINT_INFO({
+    auth: true,
+    response: AccountResponse,
+    status: 200
+  })
   @Get()
   async findAll (@Request() UserData: { user: PayloadPrimitive }): Promise<Account[]> {
     const accounts = await this.readAccountService.findAll({
@@ -39,6 +42,12 @@ export class AccountController {
     return accounts
   }
 
+  /* ---------- create ---------- */ // MARK: create
+  @ENDPOINT_INFO({
+    auth: true,
+    response: AccountResponse,
+    status: 201
+  })
   @Post()
   async create (@Request() UserData: { user: PayloadPrimitive }): Promise<Account> {
     const account = await this.writeAccountService.create({
@@ -48,6 +57,12 @@ export class AccountController {
     return account
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
+  @ENDPOINT_INFO({
+    auth: true,
+    response: AccountResponse,
+    status: 200
+  })
   @Get('/:index')
   async findOne (
     @Request() UserData: { user: PayloadPrimitive },
@@ -62,6 +77,11 @@ export class AccountController {
     return account
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
+  @ENDPOINT_INFO({
+    auth: true,
+    status: 204
+  })
   @HttpCode(204)
   @Delete('/:index')
   async delete (

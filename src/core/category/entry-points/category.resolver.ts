@@ -5,7 +5,7 @@ import { NotFoundException, UnauthorizedException, UseGuards } from '@nestjs/com
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 import { Category } from '../domain/category.entity'
 import { type CategoryPrimitive } from '../domain/category.primitive'
-import { CreateCategoryDTO } from '../domain/dto/create-category'
+import { GQLCreateCategoryDTO } from '../domain/dto/create-category'
 import { ReadCategoryService } from '../domain/service/read-category.service'
 import { WriteCategoryService } from '../domain/service/write-category.service'
 
@@ -17,6 +17,7 @@ export class CategoryResolver {
     // private readonly readTransactionService: ReadTransactionService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   @UseGuards(GqlAuthGuard)
   @Query(() => [Category], { name: 'find_all_category' })
   async findAll (): Promise<Category[]> {
@@ -25,13 +26,15 @@ export class CategoryResolver {
     return categories
   }
 
+  /* ---------- create ---------- */ // MARK: create
   @Mutation(() => [Category], { name: 'create_category' })
-  async create (@Args('data') data: CreateCategoryDTO): Promise<Category> {
+  async create (@Args('data') data: GQLCreateCategoryDTO): Promise<Category> {
     const category = await this.writeCategoryService.create(data)
 
     return category
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   @Query(() => [Category], { name: 'find_one_category' })
   async findOne (@Args('id', { type: () => Int }) id: CategoryPrimitive['id']): Promise<Category> {
     const category = await this.readCategoryService.findOne({ id })
@@ -43,11 +46,13 @@ export class CategoryResolver {
     return category
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => [Category], { name: 'delete_category' })
   async delete (@Args('id', { type: () => Int }) id: CategoryPrimitive['id']): Promise<void> {
     await this.writeCategoryService.delete({ id })
   }
 
+  /* ---------- category ---------- */ // MARK: category
   @ResolveField(() => [Transaction])
   async category (@Parent() _transaction: Transaction): Promise<Category> {
     throw new UnauthorizedException()

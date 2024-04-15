@@ -13,6 +13,7 @@ export class ReadInvestmentService {
     private readonly readAccountService: ReadAccountService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   public async findAll ({
     idUser,
     AccountIndex
@@ -32,6 +33,7 @@ export class ReadInvestmentService {
     return await this.investmentRepository.findAll({ idAccount: account.id })
   }
 
+  /* ---------- findAllByIDAccount ---------- */ // MARK: findAllByIDAccount
   public async findAllByIDAccount ({
     idAccount
   }: {
@@ -40,6 +42,7 @@ export class ReadInvestmentService {
     return await this.investmentRepository.findAll({ idAccount })
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({
     idUser,
     AccountIndex,
@@ -61,6 +64,7 @@ export class ReadInvestmentService {
     return await this.investmentRepository.findOne({ idAccount: account.id, index })
   }
 
+  /* ---------- findByID ---------- */ // MARK: findByID
   public async findByID (id: InvestmentPrimitive['id']): Promise<Investment | null> {
     return await this.investmentRepository.findByID({ id })
   }

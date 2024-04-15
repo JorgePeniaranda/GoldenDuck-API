@@ -1,27 +1,23 @@
-import { Public } from '@/decorators/public.decorator'
+import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
 import { ErrorErrorsMessages } from '@/messages/error/error'
 import {
   Body,
   Controller,
   Delete,
   Get,
-  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
   Post
 } from '@nestjs/common'
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
-import { CreateErrorDTO } from '../domain/dto/create-error'
+import { ApiTags } from '@nestjs/swagger'
+import { CreateErrorDTO, SWGCreateErrorDTO } from '../domain/dto/create-error'
 import { type Error } from '../domain/error.entity'
 import { type ErrorPrimitive } from '../domain/error.primitive'
 import { ReadErrorService } from '../domain/service/read-error.service'
 import { WriteErrorService } from '../domain/service/write-error.service'
 import { ErrorResponse } from './error.response'
 
-@ApiResponse({
-  type: ErrorResponse
-})
 @ApiTags('Error')
 @Controller('error')
 export class ErrorController {
@@ -30,7 +26,13 @@ export class ErrorController {
     private readonly readErrorService: ReadErrorService
   ) {}
 
-  @ApiBearerAuth()
+  /* ---------- findAll ---------- */ // MARK: findAll
+  @ENDPOINT_INFO({
+    auth: true,
+    response: ErrorResponse,
+    isArray: true,
+    status: 200
+  })
   @Get()
   async findAll (): Promise<Error[]> {
     const errors = await this.readErrorService.findAll()
@@ -38,7 +40,13 @@ export class ErrorController {
     return errors
   }
 
-  @Public()
+  /* ---------- create ---------- */ // MARK: create
+  @ENDPOINT_INFO({
+    auth: false,
+    body: SWGCreateErrorDTO,
+    response: ErrorResponse,
+    status: 200
+  })
   @Post()
   async create (@Body() data: CreateErrorDTO): Promise<Error> {
     const error = await this.writeErrorService.create(data)
@@ -46,7 +54,12 @@ export class ErrorController {
     return error
   }
 
-  @ApiBearerAuth()
+  /* ---------- findOne ---------- */ // MARK: findOne
+  @ENDPOINT_INFO({
+    auth: true,
+    response: ErrorResponse,
+    status: 200
+  })
   @Get('/:id')
   async findOne (@Param('id', new ParseIntPipe()) id: ErrorPrimitive['id']): Promise<Error> {
     const error = await this.readErrorService.findOne({ id })
@@ -58,8 +71,11 @@ export class ErrorController {
     return error
   }
 
-  @ApiBearerAuth()
-  @HttpCode(204)
+  /* ---------- delete ---------- */ // MARK: delete
+  @ENDPOINT_INFO({
+    auth: true,
+    status: 204
+  })
   @Delete('/:id')
   async delete (@Param('id', new ParseIntPipe()) id: ErrorPrimitive['id']): Promise<void> {
     await this.writeErrorService.delete({ id })

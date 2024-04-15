@@ -24,6 +24,7 @@ export class WriteTransactionService {
     private readonly eventEmitter: EventEmitter2
   ) {}
 
+  /* ---------- create ---------- */ // MARK: create
   public async create ({
     idUser,
     AccountIndex,
@@ -59,6 +60,7 @@ export class WriteTransactionService {
     return await this.transactionRepository.create(transaction)
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   public async delete ({
     idUser,
     AccountIndex,

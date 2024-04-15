@@ -9,6 +9,7 @@ import { type UserRepository } from '../domain/user.repository'
 export class UserRepositoryPrismaMySQL implements UserRepository {
   constructor (private readonly prisma: PrismaService) {}
 
+  /* ---------- create ---------- */ // MARK: create
   public async create (data: User): Promise<User> {
     const user = await this.prisma.user.create({
       data: { ...data.toJSON(), id: undefined }
@@ -17,6 +18,7 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     return new User(user)
   }
 
+  /* ---------- update ---------- */ // MARK: update
   public async update (data: User): Promise<User> {
     const user = await this.prisma.user.update({
       where: { id: data.id, deleted: false },
@@ -26,6 +28,7 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     return new User(user)
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({ dni, email, phoneNumber }: FindUserDTO): Promise<User | null> {
     const user = await this.prisma.user.findFirst({
       where: {
@@ -37,6 +40,7 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     return user === null ? null : new User(user)
   }
 
+  /* ---------- findByID ---------- */ // MARK: findByID
   public async findByID ({ id }: { id: UserPrimitive['id'] }): Promise<User | null> {
     const user = await this.prisma.user.findUnique({
       where: {
@@ -48,6 +52,7 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     return user === null ? null : new User(user)
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   public async delete (data: User): Promise<void> {
     await this.prisma.user.update({
       where: {

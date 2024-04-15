@@ -8,6 +8,7 @@ import { type LoanRepository } from '../domain/loan.repository'
 export class LoanRepositoryPrismaMySQL implements LoanRepository {
   constructor (private readonly prisma: PrismaService) {}
 
+  /* ---------- create ---------- */ // MARK: create
   public async create (data: Loan): Promise<Loan> {
     const loan = await this.prisma.loan.create({
       data: data.toJSON()
@@ -16,6 +17,7 @@ export class LoanRepositoryPrismaMySQL implements LoanRepository {
     return new Loan(loan)
   }
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   public async findAll ({ idAccount }: { idAccount: LoanPrimitive['idAccount'] }): Promise<Loan[]> {
     const loans = await this.prisma.loan.findMany({
       where: {
@@ -26,6 +28,7 @@ export class LoanRepositoryPrismaMySQL implements LoanRepository {
     return loans.map(loan => new Loan(loan))
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({
     idAccount,
     index
@@ -44,6 +47,7 @@ export class LoanRepositoryPrismaMySQL implements LoanRepository {
     return loan[0] !== undefined ? new Loan(loan[0]) : null
   }
 
+  /* ---------- findByID ---------- */ // MARK: findByID
   public async findByID ({ id }: { id: LoanPrimitive['idAccount'] }): Promise<Loan | null> {
     const loan = await this.prisma.loan.findUnique({
       where: {
@@ -54,6 +58,7 @@ export class LoanRepositoryPrismaMySQL implements LoanRepository {
     return loan !== null ? new Loan(loan) : null
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   public async delete (data: Loan): Promise<void> {
     await this.prisma.loan.update({
       where: {

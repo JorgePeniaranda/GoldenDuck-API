@@ -1,26 +1,22 @@
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
+import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
 import { NotificationErrorsMessages } from '@/messages/error/notification'
 import {
   Controller,
   Delete,
   Get,
-  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
   Request
 } from '@nestjs/common'
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiTags } from '@nestjs/swagger'
 import { type Notification } from '../domain/notification.entity'
 import { ReadNotificationService } from '../domain/service/read-notification.service'
 import { WriteNotificationService } from '../domain/service/write-notification.service'
 import { NotificationResponse } from './notification.response'
 
-@ApiResponse({
-  type: NotificationResponse
-})
 @ApiTags('Notification')
-@ApiBearerAuth()
 @Controller('notification')
 export class NotificationController {
   constructor (
@@ -28,6 +24,13 @@ export class NotificationController {
     private readonly readNotificationService: ReadNotificationService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
+  @ENDPOINT_INFO({
+    auth: true,
+    response: NotificationResponse,
+    isArray: true,
+    status: 200
+  })
   @Get()
   async findAll (@Request() UserData: { user: PayloadPrimitive }): Promise<Notification[]> {
     const notifications = await this.readNotificationService.findAll({ idUser: UserData.user.id })
@@ -35,6 +38,12 @@ export class NotificationController {
     return notifications
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
+  @ENDPOINT_INFO({
+    auth: true,
+    response: NotificationResponse,
+    status: 200
+  })
   @Get('/:index')
   async findOne (
     @Request() UserData: { user: PayloadPrimitive },
@@ -52,7 +61,11 @@ export class NotificationController {
     return notification
   }
 
-  @HttpCode(204)
+  /* ---------- delete ---------- */ // MARK: delete
+  @ENDPOINT_INFO({
+    auth: true,
+    status: 204
+  })
   @Delete('/:index')
   async delete (
     @Request() UserData: { user: PayloadPrimitive },

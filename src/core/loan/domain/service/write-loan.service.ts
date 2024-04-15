@@ -17,6 +17,7 @@ export class WriteLoanService {
     private readonly eventEmitter: EventEmitter2
   ) {}
 
+  /* ---------- create ---------- */ // MARK: create
   public async create (data: CreateLoanDTO): Promise<Loan> {
     const loan = Loan.create(data)
 
@@ -27,6 +28,7 @@ export class WriteLoanService {
     // TO-DO: add event to event to add money to account when investment is finished
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   public async delete ({
     idUser,
     AccountIndex,

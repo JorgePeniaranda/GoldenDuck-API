@@ -1,10 +1,10 @@
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
+import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
 import {
   Body,
   Controller,
   Delete,
   Get,
-  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
@@ -12,20 +12,16 @@ import {
   Post,
   Request
 } from '@nestjs/common'
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
-import { CreateMessageDTO } from '../domain/dto/create-message'
-import { UpdateMessageDTO } from '../domain/dto/update-message'
+import { ApiTags } from '@nestjs/swagger'
+import { CreateMessageDTO, SWGCreateMessageDTO } from '../domain/dto/create-message'
+import { SWGUpdateMessageDTO, UpdateMessageDTO } from '../domain/dto/update-message'
 import { type Message } from '../domain/message.entity'
 import { type MessagePrimitive } from '../domain/message.primitive'
 import { ReadMessageService } from '../domain/service/read-messages.service'
 import { WriteMessageService } from '../domain/service/write-messages.service'
 import { MessageResponse } from './message.response'
 
-@ApiResponse({
-  type: MessageResponse
-})
 @ApiTags('Message')
-@ApiBearerAuth()
 @Controller('chat')
 export class MessageController {
   constructor (
@@ -33,6 +29,13 @@ export class MessageController {
     private readonly readMessageService: ReadMessageService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
+  @ENDPOINT_INFO({
+    auth: true,
+    response: MessageResponse,
+    isArray: true,
+    status: 200
+  })
   @Get('all')
   async findAll (@Request() UserData: { user: PayloadPrimitive }): Promise<any> {
     const messages = await this.readMessageService.findAll({ idUser: UserData.user.id })
@@ -44,6 +47,13 @@ export class MessageController {
     return messages
   }
 
+  /* ---------- findHistory ---------- */ // MARK: findHistory
+  @ENDPOINT_INFO({
+    auth: true,
+    response: MessageResponse,
+    isArray: true,
+    status: 200
+  })
   @Get('history')
   async findHistory (@Request() UserData: { user: PayloadPrimitive }): Promise<Message[]> {
     const messages = await this.readMessageService.findHistory({
@@ -53,6 +63,13 @@ export class MessageController {
     return messages
   }
 
+  /* ---------- findChat ---------- */ // MARK: findChat
+  @ENDPOINT_INFO({
+    auth: true,
+    response: MessageResponse,
+    isArray: true,
+    status: 200
+  })
   @Get('/:idTarget')
   async findChat (
     @Request() UserData: { user: PayloadPrimitive },
@@ -67,8 +84,15 @@ export class MessageController {
     return messages
   }
 
+  /* ---------- create ---------- */ // MARK: create
+  @ENDPOINT_INFO({
+    auth: true,
+    body: SWGCreateMessageDTO,
+    response: MessageResponse,
+    status: 204
+  })
   @Post('/:idTarget')
-  async createAccount (
+  async create (
     @Request() UserData: { user: PayloadPrimitive },
       @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idReceiver'],
       @Body() data: CreateMessageDTO
@@ -82,6 +106,12 @@ export class MessageController {
     return message
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
+  @ENDPOINT_INFO({
+    auth: true,
+    response: MessageResponse,
+    status: 200
+  })
   @Get('/:idTarget/message/:index')
   async findOne (
     @Request() UserData: { user: PayloadPrimitive },
@@ -101,6 +131,13 @@ export class MessageController {
     return message
   }
 
+  /* ---------- update ---------- */ // MARK: update
+  @ENDPOINT_INFO({
+    auth: true,
+    body: SWGUpdateMessageDTO,
+    response: MessageResponse,
+    status: 204
+  })
   @Patch('/:idTarget/message/:index')
   async update (
     @Request() UserData: { user: PayloadPrimitive },
@@ -122,7 +159,11 @@ export class MessageController {
     return message
   }
 
-  @HttpCode(204)
+  /* ---------- delete ---------- */ // MARK: delete
+  @ENDPOINT_INFO({
+    auth: true,
+    status: 204
+  })
   @Delete('/:idTarget/message/:index')
   async delete (
     @Request() UserData: { user: PayloadPrimitive },
@@ -136,7 +177,11 @@ export class MessageController {
     })
   }
 
-  @HttpCode(204)
+  /* ---------- read ---------- */ // MARK: read
+  @ENDPOINT_INFO({
+    auth: true,
+    status: 204
+  })
   @Get('/:idTarget/message/:index/read')
   async read (
     @Request() UserData: { user: PayloadPrimitive },

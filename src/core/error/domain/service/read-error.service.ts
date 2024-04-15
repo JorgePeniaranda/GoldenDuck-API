@@ -10,10 +10,12 @@ export class ReadErrorService {
     private readonly errorRepository: ErrorRepository
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   public async findAll (): Promise<Error[]> {
     return await this.errorRepository.findAll()
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({ id }: { id: ErrorPrimitive['id'] }): Promise<Error | null> {
     return await this.errorRepository.findOne({ id })
   }

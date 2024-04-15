@@ -7,7 +7,7 @@ import { AccountErrorsMessages } from '@/messages/error/account'
 import { LoanErrorsMessages } from '@/messages/error/loan'
 import { NotFoundException, Request, UseGuards } from '@nestjs/common'
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
-import { CreateLoanDTO } from '../domain/dto/create-loan'
+import { GQLCreateLoanDTO } from '../domain/dto/create-loan'
 import { Loan } from '../domain/loan.entity'
 import { ReadLoanService } from '../domain/service/read-loan.service'
 import { WriteLoanService } from '../domain/service/write-loan.service'
@@ -22,6 +22,7 @@ export class LoanResolver {
     private readonly readAccountService: ReadAccountService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   @Query(() => Loan, { name: 'find_all_loan' })
   async findAll (
     @Request() UserData: PayloadPrimitive,
@@ -35,13 +36,15 @@ export class LoanResolver {
     return loan
   }
 
+  /* ---------- create ---------- */ // MARK: create
   @Mutation(() => Loan, { name: 'create_loan' })
-  async create (@Args('data') data: CreateLoanDTO): Promise<Loan> {
+  async create (@Args('data') data: GQLCreateLoanDTO): Promise<Loan> {
     const loan = await this.writeLoanService.create(data)
 
     return loan
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   @Query(() => Loan, { name: 'find_one_loan' })
   async findOne (
     @Request() UserData: PayloadPrimitive,
@@ -61,6 +64,7 @@ export class LoanResolver {
     return loan
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => Loan, { name: 'delete_loan' })
   async delete (
     @Request() UserData: PayloadPrimitive,
@@ -74,6 +78,7 @@ export class LoanResolver {
     })
   }
 
+  /* ---------- receiver ---------- */ // MARK: receiver
   @ResolveField(() => Account)
   async receiver (@Parent() loan: Loan): Promise<Account> {
     const receiver = await this.readAccountService.findByID({

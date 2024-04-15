@@ -9,6 +9,8 @@ import { type CardRepository } from '../domain/card.repository'
 export class CardRepositoryPrismaMySQL implements CardRepository {
   constructor (private readonly prisma: PrismaService) {}
 
+  /* ---------- create ---------- */ // MARK: create
+
   public async create (data: Card): Promise<Card> {
     const card = await this.prisma.card.create({
       data: {
@@ -20,6 +22,7 @@ export class CardRepositoryPrismaMySQL implements CardRepository {
     return new Card(card)
   }
 
+  /* ---------- findAll ---------- */ // MARK: findAll
   public async findAll ({
     idAccount
   }: {
@@ -35,6 +38,7 @@ export class CardRepositoryPrismaMySQL implements CardRepository {
     return cards.map(card => new Card(card))
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
   public async findOne ({
     idAccount,
     index
@@ -54,6 +58,7 @@ export class CardRepositoryPrismaMySQL implements CardRepository {
     return card[0] !== undefined ? new Card(card[0]) : null
   }
 
+  /* ---------- findByID ---------- */ // MARK: findByID
   public async findByID ({ id }: { id: CardPrimitive['id'] }): Promise<Card | null> {
     const card = await this.prisma.card.findUnique({
       where: {

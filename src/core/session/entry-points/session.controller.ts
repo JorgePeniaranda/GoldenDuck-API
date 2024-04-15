@@ -1,25 +1,21 @@
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
+import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
 import {
   Controller,
   Delete,
   Get,
-  HttpCode,
   NotFoundException,
   Param,
   ParseIntPipe,
   Request
 } from '@nestjs/common'
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiTags } from '@nestjs/swagger'
 import { ReadSessionService } from '../domain/service/read-session.service'
 import { WriteSessionService } from '../domain/service/write-session.service'
 import { type Session } from '../domain/session.entity'
 import { SessionResponse } from './session.response'
 
-@ApiResponse({
-  type: SessionResponse
-})
 @ApiTags('Session')
-@ApiBearerAuth()
 @Controller('/session')
 export class SessionController {
   constructor (
@@ -27,6 +23,13 @@ export class SessionController {
     private readonly readSessionService: ReadSessionService
   ) {}
 
+  /* ---------- findAll ---------- */ // MARK: findAll
+  @ENDPOINT_INFO({
+    auth: true,
+    response: SessionResponse,
+    isArray: true,
+    status: 200
+  })
   @Get()
   async findAll (@Request() UserData: { user: PayloadPrimitive }): Promise<Session[]> {
     const sessions = await this.readSessionService.findAll({
@@ -36,6 +39,12 @@ export class SessionController {
     return sessions
   }
 
+  /* ---------- findOne ---------- */ // MARK: findOne
+  @ENDPOINT_INFO({
+    auth: true,
+    response: SessionResponse,
+    status: 200
+  })
   @Get('/:index')
   async findOne (
     @Request() UserData: { user: PayloadPrimitive },
@@ -50,7 +59,11 @@ export class SessionController {
     return session
   }
 
-  @HttpCode(204)
+  /* ---------- delete ---------- */ // MARK: delete
+  @ENDPOINT_INFO({
+    auth: true,
+    status: 204
+  })
   @Delete('/:index')
   async delete (
     @Request() UserData: { user: PayloadPrimitive },

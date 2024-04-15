@@ -12,12 +12,14 @@ export class WriteErrorService {
     private readonly errorRepository: ErrorRepository
   ) {}
 
+  /* ---------- create ---------- */ // MARK: create
   public async create (data: CreateErrorDTO): Promise<Error> {
     const error = Error.create(data)
 
     return await this.errorRepository.create(error)
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
   public async delete ({ id }: { id: ErrorPrimitive['id'] }): Promise<void> {
     const error = await this.errorRepository.findOne({ id })
 
