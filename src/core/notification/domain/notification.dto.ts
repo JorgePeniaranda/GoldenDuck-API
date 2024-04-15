@@ -62,13 +62,4 @@ export class NotificationDTO implements NotificationPrimitive {
   @IsBoolean()
   @Field(() => Boolean)
     read: NotificationPrimitive['read']
-
-  constructor (transaction: NotificationPrimitive) {
-    this.id = transaction.id
-    this.idUser = transaction.idUser
-    this.message = transaction.message
-    this.updatedAt = transaction.updatedAt
-    this.createdAt = transaction.createdAt
-    this.read = transaction.read
-  }
 }

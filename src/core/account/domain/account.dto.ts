@@ -63,13 +63,4 @@ export class AccountDTO implements AccountPrimitive {
   @IsBoolean()
   @Field(() => Boolean)
     deleted: AccountPrimitive['deleted']
-
-  constructor (account: AccountPrimitive) {
-    this.id = account.id
-    this.idUser = account.idUser
-    this.balance = account.balance
-    this.updatedAt = account.updatedAt
-    this.createdAt = account.createdAt
-    this.deleted = account.deleted
-  }
 }

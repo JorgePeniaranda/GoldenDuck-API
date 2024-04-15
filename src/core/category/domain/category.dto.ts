@@ -61,12 +61,4 @@ export class CategoryDTO implements CategoryPrimitive {
   @IsBoolean()
   @Field(() => Boolean)
     deleted: CategoryPrimitive['deleted']
-
-  constructor (transaction: CategoryPrimitive) {
-    this.id = transaction.id
-    this.name = transaction.name
-    this.updatedAt = transaction.updatedAt
-    this.createdAt = transaction.createdAt
-    this.deleted = transaction.deleted
-  }
 }

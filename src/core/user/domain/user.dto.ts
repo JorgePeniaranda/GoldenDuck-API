@@ -185,24 +185,4 @@ export class UserDTO implements UserPrimitive {
   @IsString()
   @Field(() => String)
     role: UserPrimitive['role']
-
-  constructor (user: UserPrimitive) {
-    this.id = user.id
-    this.name = user.name
-    this.lastName = user.lastName
-    this.dni = user.dni
-    this.email = user.email
-    this.phoneNumber = user.phoneNumber
-    this.password = user.password
-    this.salt = user.salt
-    this.address = user.address
-    this.birthDate = user.birthDate
-    this.sex = user.sex
-    this.imgUrl = user.imgUrl
-    this.updatedAt = user.updatedAt
-    this.createdAt = user.createdAt
-    this.actived = user.actived
-    this.deleted = user.deleted
-    this.role = user.role
-  }
 }

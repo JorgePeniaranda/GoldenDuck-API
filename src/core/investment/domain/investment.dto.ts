@@ -82,15 +82,4 @@ export class InvestmentDTO implements InvestmentPrimitive {
   @IsBoolean()
   @Field(() => Boolean)
     canceled: InvestmentPrimitive['canceled']
-
-  constructor (investment: InvestmentPrimitive) {
-    this.id = investment.id
-    this.idAccount = investment.idAccount
-    this.amount = investment.amount
-    this.interest = investment.interest
-    this.dateEnd = investment.dateEnd
-    this.updatedAt = investment.updatedAt
-    this.createdAt = investment.createdAt
-    this.canceled = investment.canceled
-  }
 }

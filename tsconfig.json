@@ -32,7 +32,6 @@
     "strictBindCallApply": false,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
-    "strictPropertyInitialization": true,
     "target": "ES2021"
   },
   "compileOnSave": true,

@@ -110,17 +110,4 @@ export class SessionDTO implements SessionPrimitive {
   @IsBoolean()
   @Field(() => Boolean)
     active: SessionPrimitive['active']
-
-  constructor (transaction: SessionPrimitive) {
-    this.id = transaction.id
-    this.idUser = transaction.idUser
-    this.ip = transaction.ip
-    this.userAgent = transaction.userAgent
-    this.location = transaction.location
-    this.deviceType = transaction.deviceType
-    this.token = transaction.token
-    this.logoutAt = transaction.logoutAt
-    this.createdAt = transaction.createdAt
-    this.active = transaction.active
-  }
 }

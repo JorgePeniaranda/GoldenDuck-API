@@ -81,15 +81,4 @@ export class MessageDTO implements MessagePrimitive {
   @IsBoolean()
   @Field(() => Boolean)
     deleted: MessagePrimitive['deleted']
-
-  constructor (transaction: MessagePrimitive) {
-    this.id = transaction.id
-    this.idSender = transaction.idSender
-    this.idReceiver = transaction.idReceiver
-    this.message = transaction.message
-    this.read = transaction.read
-    this.updatedAt = transaction.updatedAt
-    this.createdAt = transaction.createdAt
-    this.deleted = transaction.deleted
-  }
 }

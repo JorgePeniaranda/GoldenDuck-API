@@ -82,15 +82,4 @@ export class CardDTO implements CardPrimitive {
   @IsBoolean()
   @Field(() => Boolean)
     deleted: CardPrimitive['deleted']
-
-  constructor (transaction: CardPrimitive) {
-    this.id = transaction.id
-    this.idAccount = transaction.idAccount
-    this.number = transaction.number
-    this.cvv = transaction.cvv
-    this.expiration = transaction.expiration
-    this.updatedAt = transaction.updatedAt
-    this.createdAt = transaction.createdAt
-    this.deleted = transaction.deleted
-  }
 }

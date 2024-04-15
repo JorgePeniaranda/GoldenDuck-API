@@ -73,14 +73,4 @@ export class TransactionDTO implements TransactionPrimitive {
   @IsBoolean()
   @Field(() => Boolean)
     canceled: TransactionPrimitive['canceled']
-
-  constructor (transaction: TransactionPrimitive) {
-    this.id = transaction.id
-    this.idSender = transaction.idSender
-    this.idReceiver = transaction.idReceiver
-    this.amount = transaction.amount
-    this.idCategory = transaction.idCategory
-    this.createdAt = transaction.createdAt
-    this.canceled = transaction.canceled
-  }
 }

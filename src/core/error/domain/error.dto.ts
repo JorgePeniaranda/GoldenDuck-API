@@ -71,14 +71,4 @@ export class ErrorDTO implements ErrorPrimitive {
   @IsBoolean()
   @Field(() => Boolean)
     deleted: ErrorPrimitive['deleted']
-
-  constructor (transaction: ErrorPrimitive) {
-    this.id = transaction.id
-    this.name = transaction.name
-    this.message = transaction.message
-    this.stack = transaction.stack
-    this.updatedAt = transaction.updatedAt
-    this.createdAt = transaction.createdAt
-    this.deleted = transaction.deleted
-  }
 }
