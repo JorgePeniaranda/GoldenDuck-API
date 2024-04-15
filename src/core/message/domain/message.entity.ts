@@ -26,10 +26,10 @@ export class Message implements MessagePrimitive {
 
   /* -------------------- RELATIONS -------------------- */ // MARK: RELATIONS
   @Field(() => User)
-  readonly Sender: User
+  readonly sender: User
 
   @Field(() => User)
-  readonly Receiver: User
+  readonly receiver: User
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)

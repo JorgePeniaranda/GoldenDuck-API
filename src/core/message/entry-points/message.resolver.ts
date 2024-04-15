@@ -31,7 +31,7 @@ export class MessageResolver {
     return messages
   }
 
-  @Query(() => Message, { name: 'find_message_history' })
+  @Query(() => [Message], { name: 'find_message_history' })
   async findHistory (@CurrentUser() UserData: PayloadPrimitive): Promise<Message[]> {
     const messages = await this.readMessageService.findHistory({
       idUser: UserData.id
@@ -136,7 +136,7 @@ export class MessageResolver {
   }
 
   @ResolveField(() => User)
-  async Sender (@Parent() message: Message): Promise<User> {
+  async sender (@Parent() message: Message): Promise<User> {
     const sender = await this.readUserService.findByID({
       id: message.idSender
     })
@@ -149,7 +149,7 @@ export class MessageResolver {
   }
 
   @ResolveField(() => User)
-  async Receiver (@Parent() message: Message): Promise<User> {
+  async receiver (@Parent() message: Message): Promise<User> {
     const receiver = await this.readUserService.findByID({
       id: message.idReceiver
     })

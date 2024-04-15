@@ -59,8 +59,8 @@ type Transaction {
 }
 
 type Message {
-  Sender: User!
-  Receiver: User!
+  sender: User!
+  receiver: User!
   id: ID!
   idSender: Float!
   idReceiver: Float!
@@ -187,7 +187,7 @@ type Query {
   find_all_session: [Session!]!
   find_one_session(index: Int!): Session!
   find_all_message: Message!
-  find_message_history: Message!
+  find_message_history: [Message!]!
   find_chat(idTarget: Int!): Message!
   find_one_message(idTarget: Int!, index: Int!): Message!
   find_all_notification: [Notification!]!
