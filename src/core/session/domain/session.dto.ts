@@ -1,4 +1,3 @@
-import { InputType } from '@nestjs/graphql'
 import { ApiProperty } from '@nestjs/swagger'
 import {
   IsBoolean,
@@ -11,7 +10,6 @@ import {
 } from 'class-validator'
 import { type SessionPrimitive } from './session.primitive'
 
-@InputType()
 export class SessionDTO implements SessionPrimitive {
   /* ---------- ID ---------- */
   @ApiProperty({

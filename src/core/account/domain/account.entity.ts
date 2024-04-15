@@ -33,7 +33,7 @@ export class Account implements AccountPrimitive {
     return this.#idUser
   }
 
-  @Field(() => BigInt)
+  @Field(() => String)
   public get balance (): AccountPrimitive['balance'] {
     return this.#balance
   }

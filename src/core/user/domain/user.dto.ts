@@ -1,4 +1,3 @@
-import { InputType } from '@nestjs/graphql'
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { Exclude } from 'class-transformer'
 import {
@@ -20,7 +19,6 @@ import {
 } from 'class-validator'
 import { UserRoles, type UserPrimitive } from './user.primitive'
 
-@InputType()
 export class UserDTO implements UserPrimitive {
   /* ---------- ID ---------- */
   @ApiProperty({

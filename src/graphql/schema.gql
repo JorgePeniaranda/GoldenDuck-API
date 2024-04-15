@@ -2,12 +2,22 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type CategoryDTO {
+type User {
   id: ID!
   name: String!
+  lastName: String!
+  email: String!
+  phoneNumber: Float!
+  address: String!
+  imgUrl: String!
   updatedAt: DateTime!
-  createdAt: DateTime!
+  actived: Boolean!
   deleted: Boolean!
+  role: String!
+  dni: String!
+  birthDate: DateTime!
+  sex: String!
+  createdAt: DateTime!
 }
 
 """
@@ -16,6 +26,5 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Query {
-  findAll: [CategoryDTO!]!
-  category(id: Float!): CategoryDTO!
+  user(dni: Float, email: String, phoneNumber: Float): User!
 }

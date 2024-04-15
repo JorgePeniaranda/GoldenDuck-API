@@ -1,9 +1,7 @@
-import { InputType } from '@nestjs/graphql'
 import { ApiProperty } from '@nestjs/swagger'
 import { IsBoolean, IsDate, IsNumber, IsPositive, MaxDate } from 'class-validator'
 import { type TransactionPrimitive } from './transaction.primitive'
 
-@InputType()
 export class TransactionDTO implements TransactionPrimitive {
   /* ---------- ID ---------- */
   @ApiProperty({

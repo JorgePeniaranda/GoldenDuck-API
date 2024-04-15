@@ -44,7 +44,7 @@ export class Transaction implements TransactionPrimitive {
     return this.#idReceiver
   }
 
-  @Field(() => BigInt)
+  @Field(() => String)
   get amount (): TransactionPrimitive['amount'] {
     return this.#amount
   }

@@ -1,5 +1,4 @@
 import { type AccountPrimitive } from '@/core/account/domain/account.primitive'
-import { InputType } from '@nestjs/graphql'
 import { ApiProperty } from '@nestjs/swagger'
 import {
   IsAlpha,
@@ -12,7 +11,6 @@ import {
 } from 'class-validator'
 import { type CategoryPrimitive } from './category.primitive'
 
-@InputType()
 export class CategoryDTO implements CategoryPrimitive {
   /* ---------- ID ---------- */
   @ApiProperty({

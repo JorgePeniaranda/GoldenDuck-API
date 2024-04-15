@@ -11,7 +11,9 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     private readonly moduleRef: ModuleRef
   ) {
     super({
-      usernameField: 'email'
+      usernameField: 'email',
+      passwordField: 'password',
+      passReqToCallback: true
     })
   }
 

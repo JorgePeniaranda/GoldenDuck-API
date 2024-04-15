@@ -1,9 +1,7 @@
-import { InputType } from '@nestjs/graphql'
 import { ApiProperty } from '@nestjs/swagger'
 import { IsBoolean, IsDate, IsNumber, IsPositive, IsString, MaxDate } from 'class-validator'
 import { type MessagePrimitive } from './message.primitive'
 
-@InputType()
 export class MessageDTO implements MessagePrimitive {
   /* ---------- ID ---------- */
   @ApiProperty({
