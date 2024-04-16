@@ -58,7 +58,7 @@ export class LoanResolver {
     })
 
     if (loan === null) {
-      throw new NotFoundException(Messages.error.NotFound(EntitiesName.Loan))
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.LOAN))
     }
 
     return loan

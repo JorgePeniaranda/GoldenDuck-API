@@ -5,7 +5,7 @@ export enum EntitiesName {
   CATEGORY = 'Category',
   ERROR = 'Error',
   INVESTMENT = 'Investment',
-  Loan = 'Loan',
+  LOAN = 'Loan',
   MESSAGE = 'Message',
   NOTIFICATION = 'Notification',
   SESSION = 'Session',

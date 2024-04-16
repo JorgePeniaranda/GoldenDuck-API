@@ -50,7 +50,7 @@ export class WriteLoanService {
     const loan = await this.loanRepository.findOne({ idAccount: account.id, index })
 
     if (loan === null) {
-      throw new NotFoundException(Messages.error.NotFound(EntitiesName.Loan))
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.LOAN))
     }
 
     await this.loanRepository.delete(loan)
