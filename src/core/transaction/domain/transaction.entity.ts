@@ -54,7 +54,7 @@ export class Transaction implements TransactionPrimitive {
     return this.#amount
   }
 
-  @Field(() => Number)
+  @Field(() => Number, { nullable: true })
   public get idCategory (): TransactionPrimitive['idCategory'] {
     return this.#idCategory
   }

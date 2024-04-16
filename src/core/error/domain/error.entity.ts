@@ -27,17 +27,17 @@ export class Error implements ErrorPrimitive {
     return this.#id
   }
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   public get name (): ErrorPrimitive['name'] {
     return this.#name
   }
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   public get message (): ErrorPrimitive['message'] {
     return this.#message
   }
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   public get stack (): ErrorPrimitive['stack'] {
     return this.#stack
   }

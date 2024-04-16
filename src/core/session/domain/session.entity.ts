@@ -73,7 +73,7 @@ export class Session implements SessionPrimitive {
     return this.#active
   }
 
-  @Field(() => Date)
+  @Field(() => Date, { nullable: true })
   public get logoutAt (): SessionPrimitive['logoutAt'] {
     return this.#logoutAt
   }

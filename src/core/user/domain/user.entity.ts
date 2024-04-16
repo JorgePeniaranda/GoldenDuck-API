@@ -146,7 +146,7 @@ export class User implements UserPrimitive {
     return this.#sex
   }
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   public get imgUrl (): UserPrimitive['imgUrl'] {
     return this.#imgUrl
   }
