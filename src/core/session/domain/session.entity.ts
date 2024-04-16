@@ -43,22 +43,22 @@ export class Session implements SessionPrimitive {
     return this.#idUser
   }
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   public get ip (): SessionPrimitive['ip'] {
     return this.#ip
   }
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   public get userAgent (): SessionPrimitive['userAgent'] {
     return this.#userAgent
   }
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   public get location (): SessionPrimitive['location'] {
     return this.#location
   }
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   public get deviceType (): SessionPrimitive['deviceType'] {
     return this.#deviceType
   }

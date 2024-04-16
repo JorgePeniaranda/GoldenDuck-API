@@ -99,7 +99,7 @@ export class UserController {
 
   /* ---------- findOne ---------- */ // MARK: findOne
   @ENDPOINT_INFO({
-    auth: true,
+    auth: false,
     body: SWGFindUserDTO,
     response: UserResponse,
     status: 200

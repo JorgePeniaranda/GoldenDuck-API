@@ -142,7 +142,7 @@ export class AccountResolver {
     })
 
     if (loans === null) {
-      throw new NotFoundException(Messages.error.NotFound(EntitiesName.Loan))
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.LOAN))
     }
 
     return loans
@@ -156,7 +156,7 @@ export class AccountResolver {
     })
 
     if (investments === null) {
-      throw new NotFoundException(Messages.error.NotFound(EntitiesName.Loan))
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.LOAN))
     }
 
     return investments

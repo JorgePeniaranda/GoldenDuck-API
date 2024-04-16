@@ -1,53 +1,90 @@
-import { PrismaClient } from '@prisma/client';
-import { newAccount } from './utils/newAccount';
-import { newActivity } from './utils/newActivity';
-import { newCard } from './utils/newCard';
-import { newCategory } from './utils/newCategory';
-import { newError } from './utils/newError';
-import { newInvestment } from './utils/newInvestment';
-import { newLoan } from './utils/newLoan';
-import { newMessage } from './utils/newMessage';
-import { newNotification } from './utils/newNotification';
-import { newSession } from './utils/newSession';
-import { newTransaction } from './utils/newTransaction';
-import { newUser } from './utils/newUser';
+import { PrismaClient } from '@prisma/client'
+import { PrismaAccount } from './entities/account'
+import { PrismaActivity } from './entities/activity'
+import { PrismaCard } from './entities/card'
+import { PrismaCategory } from './entities/category'
+import { PrismaError } from './entities/error'
+import { PrismaInvestment } from './entities/investment'
+import { PrismaLoan } from './entities/loan'
+import { PrismaMessage } from './entities/message'
+import { PrismaNotification } from './entities/notification'
+import { PrismaSession } from './entities/session'
+import { PrismaTransaction } from './entities/transaction'
+import { PrismaUser } from './entities/user'
+import { PrismaAmounts } from './PrismaParams'
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
-async function main(amount: number): Promise<void> {
-  const users = await newUser(amount); // (#) -> number of users
+async function main(): Promise<void> {
+  await PrismaCategory.insert({ prisma, amount: PrismaAmounts.CATEGORY_AMOUNT })
+  await PrismaError.insert({ prisma, amount: PrismaAmounts.ERROR_AMOUNT })
+  const users = await PrismaUser.insert({ prisma, amount: PrismaAmounts.USER_AMOUNT })
 
-  // create data for user
-  const dataUser = users.map(async (idUser) => {
-    await newSession(idUser, 10); // (idUser, #) -> number of sessions per user
-    const accounts = await newAccount(idUser, 3); // (idUser, #) -> number of accounts per user
-    await newMessage(idUser, 10); // (idAccount, #) -> number of messages per account
-    await newNotification(idUser, 10); // (idAccount, #) -> number of messages per account
-    await newActivity(idUser, 10); // (idAccount, #) -> number of activity per account
+  await Promise.all(
+    users.map(async (user, _index, allUsers) => {
+      const accounts = await PrismaAccount.insert({
+        prisma,
+        idUser: user.id,
+        amount: PrismaAmounts.ACCOUNT_PER_USER
+      })
 
-    // create data for each account from user
-    const dataAccount = accounts.map(async (idAccount) => {
-      await newCard(idAccount, 10); // (idAccount, #) -> number of cards per account
-      await newTransaction(idAccount, 10); // (idAccount, #) -> number of transactions per account
-      await newLoan(idAccount, 10); // (idAccount, #) -> number of loans per account
-      await newInvestment(idAccount, 10); // (idAccount, #) -> number of investments per account
-    });
-    await Promise.all(dataAccount);
-  });
+      await PrismaSession.insert({ prisma, idUser: user.id, amount: PrismaAmounts.SESSION_PER_USER })
+      await PrismaActivity.insert({ prisma, idUser: user.id, amount: PrismaAmounts.ACTIVITY_PER_USER })
+      await PrismaNotification.insert({ prisma, idUser: user.id, amount: PrismaAmounts.NOTIFICATION_PER_USER })
+      await PrismaMessage.insert({
+        prisma,
+        idSender: allUsers[Math.floor(Math.random() * allUsers.length)]?.id ?? user.id,
+        idReceiver: user.id,
+        amount: Math.floor(PrismaAmounts.MESSAGE_PER_USER / 2)
+      })
+      await PrismaMessage.insert({
+        prisma,
+        idSender: user.id,
+        idReceiver: allUsers[Math.floor(Math.random() * allUsers.length)]?.id ?? user.id,
+        amount: Math.floor(PrismaAmounts.MESSAGE_PER_USER / 2)
+      })
 
-  await Promise.all(dataUser);
-
-  // create categories and errors messages
-  await newCategory(50);
-  await newError(50);
+      await Promise.all(
+        accounts.map(async (account, _index, allAccounts) => {
+          await PrismaCard.insert({
+            prisma,
+            idAccount: account.id,
+            amount: PrismaAmounts.CARD_PER_ACCOUNT
+          })
+          await PrismaTransaction.insert({
+            prisma,
+            idSender: allAccounts[Math.floor(Math.random() * allAccounts.length)]?.id ?? user.id,
+            idReceiver: account.id,
+            amount: Math.floor(PrismaAmounts.INVESTMENT_PER_ACCOUNT / 2)
+          })
+          await PrismaTransaction.insert({
+            prisma,
+            idSender: account.id,
+            idReceiver: allAccounts[Math.floor(Math.random() * allAccounts.length)]?.id ?? user.id,
+            amount: Math.floor(PrismaAmounts.INVESTMENT_PER_ACCOUNT / 2)
+          })
+          await PrismaLoan.insert({
+            prisma,
+            idAccount: account.id,
+            amount: PrismaAmounts.LOAN_PER_ACCOUNT
+          })
+          await PrismaInvestment.insert({
+            prisma,
+            idAccount: account.id,
+            amount: PrismaAmounts.INVESTMENT_PER_ACCOUNT
+          })
+        })
+      )
+    })
+  )
 }
 
-main(10)
+main()
   .then(async () => {
-    await prisma.$disconnect();
+    await prisma.$disconnect()
   })
-  .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });
+  .catch(async e => {
+    console.error(e)
+    await prisma.$disconnect()
+    process.exit(1)
+  })
