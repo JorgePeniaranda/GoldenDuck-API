@@ -53,9 +53,9 @@ export class CategoryResolver {
     await this.writeCategoryService.delete({ id })
   }
 
-  /* ---------- category ---------- */ // MARK: category
+  /* ---------- transaction ---------- */ // MARK: transaction
   @ResolveField(() => [Transaction])
-  async category (@Parent() _transaction: Transaction): Promise<Category> {
+  async transaction (@Parent() _category: Category): Promise<Transaction[]> {
     throw new UnauthorizedException()
 
     // const category = this.readTransactionService.findByCategory({

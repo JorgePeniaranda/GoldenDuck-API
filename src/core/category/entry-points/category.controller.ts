@@ -30,7 +30,7 @@ export class CategoryController {
 
   /* ---------- findAll ---------- */ // MARK: findAll
   @ENDPOINT_INFO({
-    auth: true,
+    auth: false,
     response: CategoryResponse,
     isArray: true,
     status: 200

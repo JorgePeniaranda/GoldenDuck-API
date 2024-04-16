@@ -7,7 +7,7 @@ import { JwtAuthGuard } from '@/guard/jwt.guard'
 import { RolesGuard } from '@/guard/role.guard'
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common'
 import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger'
-import { LoginDTO } from '../domain/dto/login.dto'
+import { LoginDTO, SWGLoginDTO } from '../domain/dto/login.dto'
 import { JwtPayload } from '../domain/payload.entity'
 import { type PayloadPrimitive } from '../domain/primitive/payload.primitive'
 import { AuthService } from '../domain/service/auth.service'
@@ -22,7 +22,7 @@ export class AuthController {
   /* ---------- login ---------- */ // MARK: login
   @ENDPOINT_INFO({
     auth: false,
-    body: LoginDTO,
+    body: SWGLoginDTO,
     response: TokenResponse,
     status: 200
   })

@@ -30,7 +30,6 @@ type Loan {
   updatedAt: DateTime!
   createdAt: DateTime!
   canceled: Boolean!
-  receiver: Account!
 }
 
 type Category {
@@ -40,7 +39,7 @@ type Category {
   updatedAt: DateTime!
   createdAt: DateTime!
   deleted: Boolean!
-  category: [Transaction!]!
+  transaction: [Transaction!]!
 }
 
 type Transaction {
@@ -85,10 +84,10 @@ type Session {
   user: User!
   id: ID!
   idUser: Float!
-  ip: String!
-  userAgent: String!
-  location: String!
-  deviceType: String!
+  ip: String
+  userAgent: String
+  location: String
+  deviceType: String
   token: String!
   active: Boolean!
   logoutAt: DateTime!

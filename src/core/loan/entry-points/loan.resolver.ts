@@ -78,17 +78,17 @@ export class LoanResolver {
     })
   }
 
-  /* ---------- receiver ---------- */ // MARK: receiver
+  /* ---------- account ---------- */ // MARK: account
   @ResolveField(() => Account)
-  async receiver (@Parent() loan: Loan): Promise<Account> {
-    const receiver = await this.readAccountService.findByID({
+  async account (@Parent() loan: Loan): Promise<Account> {
+    const account = await this.readAccountService.findByID({
       id: loan.idAccount
     })
 
-    if (receiver === null) {
+    if (account === null) {
       throw new NotFoundException(Messages.error.NotFound(EntitiesName.ACCOUNT))
     }
 
-    return receiver
+    return account
   }
 }
