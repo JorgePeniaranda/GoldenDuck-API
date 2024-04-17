@@ -16,6 +16,7 @@ import {
   IsUrl,
   Max,
   MaxDate,
+  MaxLength,
   Min
 } from 'class-validator'
 import { UserRoles, type UserPrimitive } from './user.primitive'
@@ -38,6 +39,7 @@ export class UserDTO implements UserPrimitive {
     type: String
   })
   @IsAlpha()
+  @MaxLength(255)
   @Field(() => String)
     name: UserPrimitive['name']
 
@@ -47,6 +49,7 @@ export class UserDTO implements UserPrimitive {
     type: String
   })
   @IsAlpha()
+  @MaxLength(255)
   @Field(() => String)
     lastName: UserPrimitive['lastName']
 
@@ -62,12 +65,13 @@ export class UserDTO implements UserPrimitive {
     dni: UserPrimitive['dni']
 
   /* ---------- EMAIL ---------- */
-  @Field(() => String)
   @ApiProperty({
     example: 'test@email.com',
     type: String
   })
   @IsEmail()
+  @MaxLength(320)
+  @Field(() => String)
     email: UserPrimitive['email']
 
   /* ---------- PHONE NUMBER ---------- */
@@ -94,12 +98,14 @@ export class UserDTO implements UserPrimitive {
     minNumbers: 1,
     minSymbols: 1
   })
+  @MaxLength(72)
   @Field(() => String)
     password: UserPrimitive['password']
 
   /* ---------- SALT ---------- */
   @Exclude() // fix
   @IsString()
+  @MaxLength(32)
     salt: string
 
   /* ---------- ADDRESS ---------- */
@@ -108,6 +114,7 @@ export class UserDTO implements UserPrimitive {
     type: String
   })
   @IsAlphanumeric()
+  @MaxLength(255)
   @Field(() => String)
     address: UserPrimitive['address']
 
@@ -137,6 +144,7 @@ export class UserDTO implements UserPrimitive {
   @IsUrl()
   @IsOptional()
   @Field(() => String)
+  @MaxLength(255)
     imgUrl?: UserPrimitive['imgUrl']
 
   /* ---------- UPDATED AT ---------- */

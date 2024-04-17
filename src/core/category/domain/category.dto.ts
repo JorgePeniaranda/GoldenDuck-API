@@ -7,7 +7,8 @@ import {
   IsNumber,
   IsPositive,
   IsString,
-  MaxDate
+  MaxDate,
+  MaxLength
 } from 'class-validator'
 import { type CategoryPrimitive } from './category.primitive'
 
@@ -30,6 +31,7 @@ export class CategoryDTO implements CategoryPrimitive {
   })
   @IsString()
   @IsAlpha()
+  @MaxLength(255)
   @Field(() => String)
     name: CategoryPrimitive['name']
 

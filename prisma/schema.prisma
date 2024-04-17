@@ -20,17 +20,17 @@ enum sex {
 
 model User {
   id          Int      @id @default(autoincrement())
-  name        String
-  lastName    String   @map("last_name")
+  name        String   @db.VarChar(255)
+  lastName    String   @map("last_name") @db.VarChar(255)
   dni         BigInt
-  email       String
+  email       String   @db.VarChar(320)
   phoneNumber BigInt   @map("phone_number")
-  password    String
-  salt        String
-  address     String
+  password    String   @db.VarChar(120)
+  salt        String   @db.VarChar(32)
+  address     String   @db.VarChar(255)
   birthDate   DateTime @map("birth_date")
   sex         sex
-  imgUrl      String?  @map("img_url")
+  imgUrl      String?  @map("img_url") @db.VarChar(255)
   updatedAt   DateTime @updatedAt @map("updated_at")
   createdAt   DateTime @default(now()) @map("created_at")
   actived     Boolean  @default(false)
@@ -64,10 +64,10 @@ model Account {
 }
 
 model Activity {
-  id       Int      @id @default(autoincrement())
-  idUser   Int?     @map("id_user")
-  action   String
-  details  String?
+  id        Int      @id @default(autoincrement())
+  idUser    Int?     @map("id_user")
+  action    String   @db.VarChar(10)
+  details   String?  @db.Text
   createdAt DateTime @default(now()) @map("create_at")
 
   // Relations
@@ -90,7 +90,7 @@ model Card {
 
 model Category {
   id        Int      @id @default(autoincrement())
-  name      String   @unique
+  name      String   @unique @db.VarChar(255)
   updatedAt DateTime @updatedAt @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
   deleted   Boolean  @default(false)
@@ -101,9 +101,9 @@ model Category {
 
 model Error {
   id        Int      @id @default(autoincrement())
-  name      String?
-  message   String?
-  stack     String?
+  name      String?  @db.VarChar(255)
+  message   String?  @db.Text
+  stack     String?  @db.LongText
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now()) @map("created_at")
   deleted   Boolean  @default(false)
@@ -141,7 +141,7 @@ model Message {
   id         Int      @id @default(autoincrement())
   idSender   Int      @map("id_sender")
   idReceiver Int      @map("id_receiver")
-  message    String
+  message    String   @db.Text
   read       Boolean  @default(false)
   updatedAt  DateTime @updatedAt @map("updated_at")
   createdAt  DateTime @default(now()) @map("created_at")
@@ -155,7 +155,7 @@ model Message {
 model Notification {
   id        Int      @id @default(autoincrement())
   idUser    Int      @map("id_account")
-  message   String
+  message   String   @db.Text
   read      Boolean  @default(false)
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now()) @map("created_at")
@@ -167,11 +167,11 @@ model Notification {
 model Session {
   id         Int       @id @default(autoincrement())
   idUser     Int       @map("id_user")
-  ip         String?
-  userAgent  String?   @map("user_agent")
-  location   String?
-  deviceType String?   @map("device_type")
-  token      String
+  ip         String?   @db.VarChar(50)
+  userAgent  String?   @map("user_agent") @db.VarChar(255)
+  location   String?   @db.VarChar(255)
+  deviceType String?   @map("device_type") @db.VarChar(50)
+  token      String    @db.Text
   active     Boolean   @default(true)
   logoutAt   DateTime? @map("logout_at")
   createdAt  DateTime  @default(now()) @map("created_at")
