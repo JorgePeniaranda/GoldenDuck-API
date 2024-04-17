@@ -1,6 +1,6 @@
 import { Field, ID, InputType } from '@nestjs/graphql'
 import { ApiProperty } from '@nestjs/swagger'
-import { IsBoolean, IsDate, IsNumber, IsPositive, IsString, MaxDate } from 'class-validator'
+import { IsBoolean, IsDate, IsNumber, IsPositive, IsString, MaxDate, MaxLength } from 'class-validator'
 import { type ErrorPrimitive } from './error.primitive'
 
 @InputType()
@@ -21,6 +21,7 @@ export class ErrorDTO implements ErrorPrimitive {
     type: String
   })
   @IsString()
+  @MaxLength(255)
   @Field(() => String)
     name: ErrorPrimitive['name']
 

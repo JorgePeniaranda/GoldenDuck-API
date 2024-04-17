@@ -1,17 +1,17 @@
 -- CreateTable
 CREATE TABLE `User` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(191) NOT NULL,
-    `last_name` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(255) NOT NULL,
+    `last_name` VARCHAR(255) NOT NULL,
     `dni` BIGINT NOT NULL,
-    `email` VARCHAR(191) NOT NULL,
+    `email` VARCHAR(320) NOT NULL,
     `phone_number` BIGINT NOT NULL,
-    `password` VARCHAR(191) NOT NULL,
-    `salt` VARCHAR(191) NOT NULL,
-    `address` VARCHAR(191) NOT NULL,
+    `password` VARCHAR(120) NOT NULL,
+    `salt` VARCHAR(32) NOT NULL,
+    `address` VARCHAR(255) NOT NULL,
     `birth_date` DATETIME(3) NOT NULL,
     `sex` ENUM('MALE', 'FEMALE') NOT NULL,
-    `img_url` VARCHAR(191) NULL,
+    `img_url` VARCHAR(255) NULL,
     `updated_at` DATETIME(3) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `actived` BOOLEAN NOT NULL DEFAULT false,
@@ -37,8 +37,8 @@ CREATE TABLE `Account` (
 CREATE TABLE `Activity` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `id_user` INTEGER NULL,
-    `action` VARCHAR(191) NOT NULL,
-    `details` VARCHAR(191) NULL,
+    `action` VARCHAR(10) NOT NULL,
+    `details` TEXT NULL,
     `create_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
@@ -61,7 +61,7 @@ CREATE TABLE `Card` (
 -- CreateTable
 CREATE TABLE `Category` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(255) NOT NULL,
     `updated_at` DATETIME(3) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `deleted` BOOLEAN NOT NULL DEFAULT false,
@@ -73,9 +73,9 @@ CREATE TABLE `Category` (
 -- CreateTable
 CREATE TABLE `Error` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(191) NULL,
-    `message` VARCHAR(191) NULL,
-    `stack` VARCHAR(191) NULL,
+    `name` VARCHAR(255) NULL,
+    `message` TEXT NULL,
+    `stack` LONGTEXT NULL,
     `updatedAt` DATETIME(3) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `deleted` BOOLEAN NOT NULL DEFAULT false,
@@ -116,7 +116,7 @@ CREATE TABLE `Message` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `id_sender` INTEGER NOT NULL,
     `id_receiver` INTEGER NOT NULL,
-    `message` VARCHAR(191) NOT NULL,
+    `message` TEXT NOT NULL,
     `read` BOOLEAN NOT NULL DEFAULT false,
     `updated_at` DATETIME(3) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -129,7 +129,7 @@ CREATE TABLE `Message` (
 CREATE TABLE `Notification` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `id_account` INTEGER NOT NULL,
-    `message` VARCHAR(191) NOT NULL,
+    `message` TEXT NOT NULL,
     `read` BOOLEAN NOT NULL DEFAULT false,
     `updatedAt` DATETIME(3) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -141,11 +141,11 @@ CREATE TABLE `Notification` (
 CREATE TABLE `Session` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `id_user` INTEGER NOT NULL,
-    `ip` VARCHAR(191) NULL,
-    `user_agent` VARCHAR(191) NULL,
-    `location` VARCHAR(191) NULL,
-    `device_type` VARCHAR(191) NULL,
-    `token` VARCHAR(191) NOT NULL,
+    `ip` VARCHAR(50) NULL,
+    `user_agent` VARCHAR(255) NULL,
+    `location` VARCHAR(255) NULL,
+    `device_type` VARCHAR(50) NULL,
+    `token` TEXT NOT NULL,
     `active` BOOLEAN NOT NULL DEFAULT true,
     `logout_at` DATETIME(3) NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),

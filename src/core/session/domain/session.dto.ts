@@ -7,7 +7,8 @@ import {
   IsOptional,
   IsPositive,
   IsString,
-  MaxDate
+  MaxDate,
+  MaxLength
 } from 'class-validator'
 import { type SessionPrimitive } from './session.primitive'
 
@@ -40,6 +41,7 @@ export class SessionDTO implements SessionPrimitive {
   })
   @IsString()
   @IsOptional()
+  @MaxLength(50)
   @Field(() => String)
     ip: SessionPrimitive['ip']
 
@@ -50,6 +52,7 @@ export class SessionDTO implements SessionPrimitive {
   })
   @IsString()
   @IsOptional()
+  @MaxLength(255)
   @Field(() => String)
     userAgent: SessionPrimitive['userAgent']
 
@@ -60,6 +63,7 @@ export class SessionDTO implements SessionPrimitive {
   })
   @IsString()
   @IsOptional()
+  @MaxLength(255)
   @Field(() => String)
     location: SessionPrimitive['location']
 
@@ -70,6 +74,7 @@ export class SessionDTO implements SessionPrimitive {
   })
   @IsString()
   @IsOptional()
+  @MaxLength(50)
   @Field(() => String)
     deviceType: SessionPrimitive['deviceType']
 
@@ -79,6 +84,7 @@ export class SessionDTO implements SessionPrimitive {
     type: String
   })
   @IsString()
+  @MaxLength(5000)
   @Field(() => String)
     token: SessionPrimitive['token']
 
