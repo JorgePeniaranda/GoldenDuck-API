@@ -1,6 +1,5 @@
 import { Field, ID, InputType } from '@nestjs/graphql'
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
-import { Exclude } from 'class-transformer'
+import { ApiHideProperty, ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import {
   IsAlpha,
   IsAlphanumeric,
@@ -86,11 +85,8 @@ export class UserDTO implements UserPrimitive {
     phoneNumber: UserPrimitive['phoneNumber']
 
   /* ---------- PASSWORD ---------- */
-  @ApiProperty({
-    example: '@oZ5d%^*wU92',
-    type: String
-  })
-  @Exclude() // fix
+  @ApiHideProperty()
+  @MaxLength(72)
   @IsStrongPassword({
     minLength: 8,
     minLowercase: 1,
@@ -98,12 +94,10 @@ export class UserDTO implements UserPrimitive {
     minNumbers: 1,
     minSymbols: 1
   })
-  @MaxLength(72)
   @Field(() => String)
     password: UserPrimitive['password']
 
   /* ---------- SALT ---------- */
-  @Exclude() // fix
   @IsString()
   @MaxLength(32)
     salt: string
