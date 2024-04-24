@@ -7,6 +7,7 @@ import { type CreateSessionDTO } from '../dto/create-session'
 import { Session } from '../session.entity'
 import { type SessionPrimitive } from '../session.primitive'
 import { SessionRepository } from '../session.repository'
+import { SessionData } from '@/core/auth/domain/session-data.entity'
 
 @Injectable()
 export class WriteSessionService {
@@ -24,6 +25,18 @@ export class WriteSessionService {
     this.eventEmitter.emit(EventsMap.SESSION_CREATED, session.toJSON())
 
     return await this.sessionRepository.create(session)
+  }
+
+  /* ---------- closeSession ---------- */ // MARK: closeSession
+  @OnEvent(EventsMap.CLOSE_SESSION)
+  public async closeSession (data: SessionData): Promise<void> {
+    const session = await this.sessionRepository.findByToken({ token: data.token })
+
+    if (session === null) {
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.SESSION))
+    }
+
+    await this.sessionRepository.delete(session)
   }
 
   /* ---------- delete ---------- */ // MARK: delete

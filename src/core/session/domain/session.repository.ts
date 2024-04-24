@@ -12,5 +12,6 @@ export interface SessionRepository {
     index: number
   }) => Promise<Session | null>
   findByID: ({ id }: { id: SessionPrimitive['id'] }) => Promise<Session | null>
+  findByToken: ({ token }: { token: SessionPrimitive['token'] }) => Promise<Session | null>
   delete: (data: Session) => Promise<void>
 }

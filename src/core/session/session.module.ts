@@ -38,5 +38,9 @@ export class SessionModule {
 
       this.eventEmitter.emit(EventsMap.CREATE_SESSION, params)
     })
+
+    this.eventEmitter.on(EventsMap.USER_LOGGED_OUT, ({ token }: SessionDataPrimitive) => {
+      this.eventEmitter.emit(EventsMap.CLOSE_SESSION, { token })
+    })
   }
 }

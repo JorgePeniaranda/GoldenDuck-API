@@ -61,6 +61,17 @@ export class SessionRepositoryPrismaMySQL implements SessionRepository {
     return session !== null ? new Session(session) : null
   }
 
+  /* ---------- findByID ---------- */ // MARK: findByID
+  public async findByToken ({ token }: { token: SessionPrimitive['token'] }): Promise<Session | null> {
+    const session = await this.prisma.session.findFirst({
+      where: {
+        token
+      }
+    })
+
+    return session !== null ? new Session(session) : null
+  }
+
   /* ---------- delete ---------- */ // MARK: delete
   public async delete (data: Session): Promise<void> {
     await this.prisma.session.update({

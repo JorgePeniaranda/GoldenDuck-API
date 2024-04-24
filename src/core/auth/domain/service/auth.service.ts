@@ -1,7 +1,10 @@
+import { EntitiesName } from '@/constants/entities'
 import { EventsMap } from '@/constants/events'
 import { ReadUserService } from '@/core/user/domain/service/read-user.service'
 import { type User } from '@/core/user/domain/user.entity'
-import { Injectable } from '@nestjs/common'
+import { type UserPrimitive } from '@/core/user/domain/user.primitive'
+import { Messages } from '@/messages'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { EventEmitter2 } from '@nestjs/event-emitter'
 import { JwtService } from '@nestjs/jwt'
 import { SchedulerRegistry } from '@nestjs/schedule'
@@ -57,5 +60,21 @@ export class AuthService {
     )
 
     return token
+  }
+
+  /* ---------- logout ---------- */ // MARK: logout
+  public async logout ({ token, idUser }: { token: string, idUser: UserPrimitive['id'] }): Promise<void> {
+    const user = await this.readUserService.findByID({ id: idUser })
+
+    if (user === null) {
+      throw new NotFoundException(Messages.error.NotFound(EntitiesName.USER))
+    }
+
+    const sessionData = new SessionData({
+      token,
+      user: user.toJSON()
+    })
+
+    this.eventEmitter.emit(EventsMap.USER_LOGGED_OUT, sessionData)
   }
 }

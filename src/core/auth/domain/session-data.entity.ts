@@ -1,7 +1,7 @@
 import { User } from '@/core/user/domain/user.entity'
 import { type UserPrimitive } from '@/core/user/domain/user.primitive'
 import { Field, ObjectType } from '@nestjs/graphql'
-import bcrypt from 'bcryptjs'
+import CryptoJS from 'crypto-js'
 import { type SessionDataPrimitive } from './primitive/session-data.primitive'
 
 @ObjectType()
@@ -10,7 +10,7 @@ export class SessionData implements SessionDataPrimitive {
   readonly #user: UserPrimitive
 
   constructor (data: SessionDataPrimitive) {
-    this.#token = bcrypt.hashSync(data.token, 8)
+    this.#token = CryptoJS.SHA256(data.token).toString(CryptoJS.enc.Hex)
     this.#user = data.user
   }
 

@@ -1,4 +1,4 @@
-import { role, sex, type User } from '@prisma/client'
+import { type User } from '@prisma/client'
 
 export interface UserPrimitive {
   readonly id: User['id']
@@ -20,6 +20,13 @@ export interface UserPrimitive {
   role: (typeof UserRoles)[keyof typeof UserRoles]
 }
 
-export const UserSex = sex
+export const UserSex = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE'
+} as const
 
-export const UserRoles = role
+export const UserRoles = {
+  ADMIN: 'ADMIN',
+  SUPPORT: 'SUPPORT',
+  USER: 'USER'
+} as const

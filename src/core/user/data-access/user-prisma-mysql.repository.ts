@@ -21,7 +21,7 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
   /* ---------- update ---------- */ // MARK: update
   public async update (data: User): Promise<User> {
     const user = await this.prisma.user.update({
-      where: { id: data.id, deleted: false },
+      where: { id: data.id, deleted: false, actived: true },
       data: data.toJSON()
     })
 
@@ -33,7 +33,8 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     const user = await this.prisma.user.findFirst({
       where: {
         OR: [{ dni }, { email }, { phoneNumber }],
-        deleted: false
+        deleted: false,
+        actived: true
       }
     })
 
@@ -45,7 +46,8 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     const user = await this.prisma.user.findUnique({
       where: {
         id,
-        deleted: false
+        deleted: false,
+        actived: true
       }
     })
 
@@ -57,7 +59,8 @@ export class UserRepositoryPrismaMySQL implements UserRepository {
     await this.prisma.user.update({
       where: {
         ...data.toJSON(),
-        deleted: false
+        deleted: false,
+        actived: true
       },
       data: {
         deleted: true

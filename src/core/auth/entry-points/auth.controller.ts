@@ -5,7 +5,7 @@ import { Roles } from '@/decorators/roles.decorator'
 import { LocalAuthGuard } from '@/guard/auth.guard'
 import { JwtAuthGuard } from '@/guard/jwt.guard'
 import { RolesGuard } from '@/guard/role.guard'
-import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common'
+import { Controller, Get, Headers, Post, Request, UnauthorizedException, UseGuards } from '@nestjs/common'
 import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger'
 import { LoginDTO, SWGLoginDTO } from '../domain/dto/login.dto'
 import { JwtPayload } from '../domain/payload.entity'
@@ -42,6 +42,25 @@ export class AuthController {
   @Get()
   async verify (@Request() req: { user: PayloadPrimitive }): Promise<PayloadPrimitive> {
     return req.user
+  }
+
+  /* ---------- logout ---------- */ // MARK: logout
+  @ENDPOINT_INFO({
+    auth: true,
+    status: 204
+  })
+  @Get('logout')
+  async loguot (@Headers() headers: { authorization?: string }, @Request() req: { user: PayloadPrimitive }): Promise<any> {
+    const token = headers.authorization?.split(' ')[1]
+
+    if (token === undefined) {
+      throw new UnauthorizedException()
+    }
+
+    await this.authService.logout({
+      token,
+      idUser: req.user.id
+    })
   }
 
   /* ---------- test ---------- */ // MARK: test

@@ -7,6 +7,7 @@ import {
   IsDate,
   IsDateString,
   IsEmail,
+  IsEnum,
   IsNumber,
   IsOptional,
   IsPositive,
@@ -18,7 +19,7 @@ import {
   MaxLength,
   Min
 } from 'class-validator'
-import { UserRoles, type UserPrimitive } from './user.primitive'
+import { UserRoles, UserSex, type UserPrimitive } from './user.primitive'
 
 @InputType()
 export class UserDTO implements UserPrimitive {
@@ -127,6 +128,7 @@ export class UserDTO implements UserPrimitive {
     type: String
   })
   @IsString()
+  @IsEnum(UserSex)
   @Field(() => String)
     sex: UserPrimitive['sex']
 
@@ -185,6 +187,7 @@ export class UserDTO implements UserPrimitive {
     example: 'USER'
   })
   @IsString()
+  @IsEnum(UserRoles)
   @Field(() => String)
     role: UserPrimitive['role']
 }
