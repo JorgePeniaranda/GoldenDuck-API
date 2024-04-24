@@ -50,7 +50,7 @@ type Transaction {
   idSender: Float!
   idReceiver: Float!
   amount: String!
-  idCategory: Float!
+  idCategory: Float
   createdAt: DateTime!
   canceled: Boolean!
   sender: Account!
@@ -90,7 +90,7 @@ type Session {
   deviceType: String
   token: String!
   active: Boolean!
-  logoutAt: DateTime!
+  logoutAt: DateTime
   createdAt: DateTime!
 }
 
@@ -109,7 +109,7 @@ type User {
   address: String!
   birthDate: DateTime!
   sex: String!
-  imgUrl: String!
+  imgUrl: String
   updatedAt: DateTime!
   createdAt: DateTime!
   actived: Boolean!
@@ -156,9 +156,9 @@ type Token {
 
 type Error {
   id: ID!
-  name: String!
-  message: String!
-  stack: String!
+  name: String
+  message: String
+  stack: String
   updatedAt: DateTime!
   createdAt: DateTime!
   deleted: Boolean!
@@ -238,7 +238,6 @@ input GQLCreateUserDTO {
   address: String!
   birthDate: DateTime!
   sex: String!
-  role: String!
 }
 
 input GQLUpdateUserDTO {

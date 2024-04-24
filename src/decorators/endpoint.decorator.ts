@@ -6,8 +6,8 @@ export const ENDPOINT_INFO = ({
   auth = true,
   status = 200,
   description = 'Success',
-  response = undefined,
-  body = undefined,
+  response,
+  body,
   isArray = false,
   produces = 'application/json'
 }: {
@@ -19,15 +19,24 @@ export const ENDPOINT_INFO = ({
   isArray?: boolean
   produces?: string
 }): any => {
-  const Auth = auth ? ApiBearerAuth : Public
+  const decorators = [HttpCode(status)]
 
-  return applyDecorators(
-    Auth(),
-    ApiProduces(produces),
-    ApiResponse({ status, description, type: response ?? Object, isArray }),
-    ApiBody({
-      type: body ?? Object
-    }),
-    HttpCode(status)
-  )
+  if (response !== undefined) {
+    decorators.push(ApiProduces(produces))
+    decorators.push(ApiResponse({ status, description, type: response, isArray }))
+  }
+
+  if (body !== undefined) {
+    decorators.push(ApiBody({ type: body }))
+  }
+
+  if (auth) {
+    decorators.push(ApiBearerAuth())
+  }
+
+  if (!auth) {
+    decorators.push(Public())
+  }
+
+  return applyDecorators(...decorators)
 }

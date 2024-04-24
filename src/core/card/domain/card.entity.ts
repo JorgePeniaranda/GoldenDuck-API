@@ -1,6 +1,7 @@
 import { Account } from '@/core/account/domain/account.entity'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type CardPrimitive } from './card.primitive'
+import { Exclude, Expose } from 'class-transformer'
 
 @ObjectType()
 export class Card implements CardPrimitive {
@@ -30,41 +31,49 @@ export class Card implements CardPrimitive {
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
+  @Expose()
   public get id (): CardPrimitive['id'] {
     return this.#id
   }
 
   @Field(() => Number)
+  @Expose()
   public get idAccount (): CardPrimitive['idAccount'] {
     return this.#idAccount
   }
 
   @Field(() => Number)
+  @Expose()
   public get number (): CardPrimitive['number'] {
     return this.#number
   }
 
   @Field(() => Number)
+  @Exclude({ toPlainOnly: true })
   public get cvv (): CardPrimitive['cvv'] {
     return this.#cvv
   }
 
   @Field(() => Date)
+  @Expose()
   public get expiration (): CardPrimitive['expiration'] {
     return this.#expiration
   }
 
   @Field(() => Date)
+  @Expose()
   public get updatedAt (): CardPrimitive['updatedAt'] {
     return this.#updatedAt
   }
 
   @Field(() => Date)
+  @Expose()
   public get createdAt (): CardPrimitive['createdAt'] {
     return this.#createdAt
   }
 
   @Field(() => Boolean)
+  @Expose()
   public get deleted (): CardPrimitive['deleted'] {
     return this.#deleted
   }

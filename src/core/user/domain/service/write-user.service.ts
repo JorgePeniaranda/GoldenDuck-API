@@ -40,7 +40,6 @@ export class WriteUserService {
     const user = await this.userRepository.create(newUser)
 
     this.eventEmitter.emit(EventsMap.USER_CREATED, user.toJSON())
-    // TO-DO: send notification with url to email
 
     return user
   }
@@ -81,8 +80,6 @@ export class WriteUserService {
     if (data.role !== undefined) user.role = data.role // ??
 
     return await this.userRepository.update(user)
-
-    // TO-DO: send notification to account email
   }
 
   /* ---------- delete ---------- */ // MARK: delete

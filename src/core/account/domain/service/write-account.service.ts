@@ -45,8 +45,6 @@ export class WriteAccountService {
     account.incrementBalance(BigInt(amount))
 
     return await this.accountRepository.update(account)
-
-    // TO-DO: send notification to user email
   }
 
   /* ---------- decrementBalance ---------- */ // MARK: decrementBalance
@@ -67,8 +65,6 @@ export class WriteAccountService {
     account.decrementBalance(BigInt(amount))
 
     return await this.accountRepository.update(account)
-
-    // TO-DO: send notification to user email
   }
 
   /* ---------- delete ---------- */ // MARK: delete

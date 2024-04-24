@@ -1,6 +1,7 @@
 import { User } from '@/core/user/domain/user.entity'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type MessagePrimitive } from './message.primitive'
+import { Expose } from 'class-transformer'
 
 @ObjectType()
 export class Message implements MessagePrimitive {
@@ -33,21 +34,25 @@ export class Message implements MessagePrimitive {
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
+  @Expose()
   public get id (): MessagePrimitive['id'] {
     return this.#id
   }
 
   @Field(() => Number)
+  @Expose()
   public get idSender (): MessagePrimitive['idSender'] {
     return this.#idSender
   }
 
   @Field(() => Number)
+  @Expose()
   public get idReceiver (): MessagePrimitive['idReceiver'] {
     return this.#idReceiver
   }
 
   @Field(() => String)
+  @Expose()
   public get message (): MessagePrimitive['message'] {
     return this.#message
   }
@@ -58,21 +63,25 @@ export class Message implements MessagePrimitive {
   }
 
   @Field(() => Boolean)
+  @Expose()
   public get read (): MessagePrimitive['read'] {
     return this.#read
   }
 
   @Field(() => Date)
+  @Expose()
   public get updatedAt (): MessagePrimitive['updatedAt'] {
     return this.#updatedAt
   }
 
   @Field(() => Date)
+  @Expose()
   public get createdAt (): MessagePrimitive['createdAt'] {
     return this.#createdAt
   }
 
   @Field(() => Boolean)
+  @Expose()
   public get deleted (): MessagePrimitive['deleted'] {
     return this.#deleted
   }

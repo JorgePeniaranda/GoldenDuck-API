@@ -12,8 +12,7 @@ const keys = [
   'password',
   'address',
   'birthDate',
-  'sex',
-  'role'
+  'sex'
 ] as const
 
 export class CreateUserDTO extends PickType(UserDTO, keys) {}

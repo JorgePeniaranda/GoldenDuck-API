@@ -8,10 +8,12 @@ import { JwtStrategy } from './domain/service/jwt.strategy'
 import { LocalStrategy } from './domain/service/local.strategy'
 import { AuthController } from './entry-points/auth.controller'
 import { AuthResolver } from './entry-points/auth.resolver'
+import { SessionModule } from '../session/session.module'
 
 @Module({
   imports: [
     UserModule,
+    SessionModule,
     PassportModule,
     JwtModule.register({
       secret: env.JWT_SECRET,

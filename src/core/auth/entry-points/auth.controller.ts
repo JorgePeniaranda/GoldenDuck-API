@@ -5,13 +5,13 @@ import { Roles } from '@/decorators/roles.decorator'
 import { LocalAuthGuard } from '@/guard/auth.guard'
 import { JwtAuthGuard } from '@/guard/jwt.guard'
 import { RolesGuard } from '@/guard/role.guard'
-import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common'
+import { Controller, Get, Headers, Post, Request, UnauthorizedException, UseGuards } from '@nestjs/common'
 import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger'
-import { LoginDTO, SWGLoginDTO } from '../domain/dto/login.dto'
-import { JwtPayload } from '../domain/payload.entity'
+import { SWGLoginDTO } from '../domain/dto/login.dto'
 import { type PayloadPrimitive } from '../domain/primitive/payload.primitive'
 import { AuthService } from '../domain/service/auth.service'
 import { type Token } from '../domain/token.entity'
+import { JWTResponse } from './session.response'
 import { TokenResponse } from './token.response'
 
 @ApiTags('Auth')
@@ -35,8 +35,7 @@ export class AuthController {
   /* ---------- verify ---------- */ // MARK: verify
   @ENDPOINT_INFO({
     auth: true,
-    body: LoginDTO,
-    response: JwtPayload,
+    response: JWTResponse,
     status: 204
   })
   @Get()
@@ -44,12 +43,31 @@ export class AuthController {
     return req.user
   }
 
+  /* ---------- logout ---------- */ // MARK: logout
+  @ENDPOINT_INFO({
+    auth: true,
+    status: 204
+  })
+  @Get('logout')
+  async loguot (@Headers() headers: { authorization?: string }, @Request() req: { user: PayloadPrimitive }): Promise<any> {
+    const token = headers.authorization?.split(' ')[1]
+
+    if (token === undefined) {
+      throw new UnauthorizedException()
+    }
+
+    await this.authService.logout({
+      token,
+      idUser: req.user.id
+    })
+  }
+
   /* ---------- test ---------- */ // MARK: test
   @ApiExcludeEndpoint()
   @Roles(UserRoles.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get('test')
-  async test (@Request() req: { user: PayloadPrimitive }): Promise<PayloadPrimitive> {
+  async test (@Request() req: { user: PayloadPrimitive }): Promise<any> {
     console.log('TIME OUT STATED')
     this.authService.test()
     console.log('TIME OUT IN PROGRESS')

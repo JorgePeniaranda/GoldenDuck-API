@@ -1,6 +1,5 @@
 import { Field, ID, InputType } from '@nestjs/graphql'
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
-import { Exclude } from 'class-transformer'
+import { ApiHideProperty, ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import {
   IsAlpha,
   IsAlphanumeric,
@@ -8,6 +7,7 @@ import {
   IsDate,
   IsDateString,
   IsEmail,
+  IsEnum,
   IsNumber,
   IsOptional,
   IsPositive,
@@ -19,7 +19,7 @@ import {
   MaxLength,
   Min
 } from 'class-validator'
-import { UserRoles, type UserPrimitive } from './user.primitive'
+import { UserRoles, UserSex, type UserPrimitive } from './user.primitive'
 
 @InputType()
 export class UserDTO implements UserPrimitive {
@@ -86,11 +86,8 @@ export class UserDTO implements UserPrimitive {
     phoneNumber: UserPrimitive['phoneNumber']
 
   /* ---------- PASSWORD ---------- */
-  @ApiProperty({
-    example: '@oZ5d%^*wU92',
-    type: String
-  })
-  @Exclude() // fix
+  @ApiHideProperty()
+  @MaxLength(72)
   @IsStrongPassword({
     minLength: 8,
     minLowercase: 1,
@@ -98,12 +95,10 @@ export class UserDTO implements UserPrimitive {
     minNumbers: 1,
     minSymbols: 1
   })
-  @MaxLength(72)
   @Field(() => String)
     password: UserPrimitive['password']
 
   /* ---------- SALT ---------- */
-  @Exclude() // fix
   @IsString()
   @MaxLength(32)
     salt: string
@@ -133,6 +128,7 @@ export class UserDTO implements UserPrimitive {
     type: String
   })
   @IsString()
+  @IsEnum(UserSex)
   @Field(() => String)
     sex: UserPrimitive['sex']
 
@@ -191,6 +187,7 @@ export class UserDTO implements UserPrimitive {
     example: 'USER'
   })
   @IsString()
+  @IsEnum(UserRoles)
   @Field(() => String)
     role: UserPrimitive['role']
 }

@@ -6,6 +6,8 @@ export const EventsMap = {
   CREATE_ACCOUNT: 'create.account',
   CREATE_NOTIFICATION: 'create.notification',
   CREATE_SESSION: 'create.session',
+  CLOSE_SESSION: 'close.session',
+  DELETE_SESSION: 'delete.session',
   INVESTMENT_CANCELLED: 'investment.cancelled',
   INVESTMENT_CREATED: 'investment.created',
   LOAN_CANCELLED: 'loan.cancelled',
@@ -20,5 +22,6 @@ export const EventsMap = {
   USER_CREATED: 'user.created',
   USER_DELETED: 'user.deleted',
   USER_LOGGED_IN: 'user.logged-in',
+  USER_LOGGED_OUT: 'user.logged-out',
   USER_PASSWORD_UPDATED: 'user.password-updated'
 } as const

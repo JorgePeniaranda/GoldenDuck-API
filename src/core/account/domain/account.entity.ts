@@ -5,6 +5,7 @@ import { Transaction } from '@/core/transaction/domain/transaction.entity'
 import { User } from '@/core/user/domain/user.entity'
 import { Field, ObjectType } from '@nestjs/graphql'
 import { AccountPrimitive } from './account.primitive'
+import { Expose } from 'class-transformer'
 
 const optionalProperties = ['id', 'balance', 'updatedAt', 'createdAt', 'deleted'] as const
 
@@ -47,31 +48,37 @@ export class Account implements AccountPrimitive {
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => Number)
+  @Expose()
   public get id (): AccountPrimitive['id'] {
     return this.#id
   }
 
   @Field(() => Number)
+  @Expose()
   public get idUser (): AccountPrimitive['idUser'] {
     return this.#idUser
   }
 
   @Field(() => String)
+  @Expose()
   public get balance (): AccountPrimitive['balance'] {
     return this.#balance
   }
 
   @Field(() => Boolean)
+  @Expose()
   public get deleted (): AccountPrimitive['deleted'] {
     return this.#deleted
   }
 
   @Field(() => Date)
+  @Expose()
   public get createdAt (): AccountPrimitive['createdAt'] {
     return this.#createdAt
   }
 
   @Field(() => Date)
+  @Expose()
   public get updatedAt (): AccountPrimitive['updatedAt'] {
     return this.#updatedAt
   }
