@@ -19,7 +19,7 @@ import { join } from 'path'
 export class ProfilePictureController {
   /* ---------- find ---------- */ // MARK: find
   @ENDPOINT_INFO({
-    auth: false,
+    auth: true,
     produces: 'image/webp',
     status: 200
   })
@@ -35,7 +35,7 @@ export class ProfilePictureController {
 
   /* ---------- upload ---------- */ // MARK: upload
   @ENDPOINT_INFO({
-    auth: false,
+    auth: true,
     status: 201
   })
   @Post('upload')
