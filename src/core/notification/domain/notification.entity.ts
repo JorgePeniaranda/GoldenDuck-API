@@ -1,6 +1,7 @@
 import { User } from '@/core/user/domain/user.entity'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type NotificationPrimitive } from './notification.primitive'
+import { Expose } from 'class-transformer'
 
 @ObjectType()
 export class Notification implements NotificationPrimitive {
@@ -26,31 +27,37 @@ export class Notification implements NotificationPrimitive {
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
+  @Expose()
   public get id (): NotificationPrimitive['id'] {
     return this.#id
   }
 
   @Field(() => Number)
+  @Expose()
   public get idUser (): NotificationPrimitive['idUser'] {
     return this.#idUser
   }
 
   @Field(() => String)
+  @Expose()
   public get message (): NotificationPrimitive['message'] {
     return this.#message
   }
 
   @Field(() => Boolean)
+  @Expose()
   public get read (): NotificationPrimitive['read'] {
     return this.#read
   }
 
   @Field(() => Date)
+  @Expose()
   public get updatedAt (): NotificationPrimitive['updatedAt'] {
     return this.#updatedAt
   }
 
   @Field(() => Date)
+  @Expose()
   public get createdAt (): NotificationPrimitive['createdAt'] {
     return this.#createdAt
   }

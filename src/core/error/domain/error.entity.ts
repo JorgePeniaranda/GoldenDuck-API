@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type ErrorPrimitive } from './error.primitive'
+import { Expose } from 'class-transformer'
 
 @ObjectType()
 export class Error implements ErrorPrimitive {
@@ -23,36 +24,43 @@ export class Error implements ErrorPrimitive {
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
+  @Expose()
   public get id (): ErrorPrimitive['id'] {
     return this.#id
   }
 
   @Field(() => String, { nullable: true })
+  @Expose()
   public get name (): ErrorPrimitive['name'] {
     return this.#name
   }
 
   @Field(() => String, { nullable: true })
+  @Expose()
   public get message (): ErrorPrimitive['message'] {
     return this.#message
   }
 
   @Field(() => String, { nullable: true })
+  @Expose()
   public get stack (): ErrorPrimitive['stack'] {
     return this.#stack
   }
 
   @Field(() => Date)
+  @Expose()
   public get updatedAt (): ErrorPrimitive['updatedAt'] {
     return this.#updatedAt
   }
 
   @Field(() => Date)
+  @Expose()
   public get createdAt (): ErrorPrimitive['createdAt'] {
     return this.#createdAt
   }
 
   @Field(() => Boolean)
+  @Expose()
   public get deleted (): ErrorPrimitive['deleted'] {
     return this.#deleted
   }

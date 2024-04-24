@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { Expose } from 'class-transformer'
 import { IsString } from 'class-validator'
 
 export class TokenResponse {
@@ -8,9 +9,6 @@ export class TokenResponse {
     type: String
   })
   @IsString()
+  @Expose()
   readonly token: string
-
-  constructor (token: string) {
-    this.token = token
-  }
 }

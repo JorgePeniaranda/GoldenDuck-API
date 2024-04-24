@@ -1,5 +1,5 @@
-import { ValidationPipe } from '@nestjs/common'
-import { NestFactory } from '@nestjs/core'
+import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common'
+import { NestFactory, Reflector } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import compression from 'compression'
 import helmet from 'helmet'
@@ -33,10 +33,10 @@ async function bootstrap (): Promise<void> {
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
-      whitelist: true,
-      forbidUnknownValues: true
+      whitelist: true
     })
   )
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)))
 
   /* add documentation */
   const config = new DocumentBuilder()

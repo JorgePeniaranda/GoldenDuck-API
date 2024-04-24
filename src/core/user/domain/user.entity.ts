@@ -5,6 +5,7 @@ import { Session } from '@/core/session/domain/session.entity'
 import { Password } from '@/value-objects/password'
 import { Field, HideField, ID, ObjectType } from '@nestjs/graphql'
 import { UserRoles, type UserPrimitive } from './user.primitive'
+import { Exclude, Expose } from 'class-transformer'
 
 @ObjectType()
 export class User implements UserPrimitive {
@@ -62,11 +63,13 @@ export class User implements UserPrimitive {
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
+  @Expose()
   public get id (): UserPrimitive['id'] {
     return this.#id
   }
 
   @Field(() => String)
+  @Expose()
   public get name (): UserPrimitive['name'] {
     return this.#name
   }
@@ -77,6 +80,7 @@ export class User implements UserPrimitive {
   }
 
   @Field(() => String)
+  @Expose()
   public get lastName (): UserPrimitive['lastName'] {
     return this.#lastName
   }
@@ -87,11 +91,13 @@ export class User implements UserPrimitive {
   }
 
   @Field(() => String)
+  @Expose()
   public get dni (): UserPrimitive['dni'] {
     return this.#dni
   }
 
   @Field(() => String)
+  @Expose()
   public get email (): UserPrimitive['email'] {
     return this.#email
   }
@@ -102,6 +108,7 @@ export class User implements UserPrimitive {
   }
 
   @Field(() => Number)
+  @Expose()
   public get phoneNumber (): UserPrimitive['phoneNumber'] {
     return this.#phoneNumber
   }
@@ -112,6 +119,7 @@ export class User implements UserPrimitive {
   }
 
   @HideField()
+  @Exclude({ toPlainOnly: true })
   public get password (): UserPrimitive['password'] {
     return this.#password.value
   }
@@ -122,11 +130,13 @@ export class User implements UserPrimitive {
   }
 
   @HideField()
+  @Exclude()
   public get salt (): UserPrimitive['salt'] {
     return this.#password.salt
   }
 
   @Field(() => String)
+  @Expose()
   public get address (): UserPrimitive['address'] {
     return this.#address
   }
@@ -137,16 +147,19 @@ export class User implements UserPrimitive {
   }
 
   @Field(() => Date)
+  @Expose()
   public get birthDate (): UserPrimitive['birthDate'] {
     return this.#birthDate
   }
 
   @Field(() => String)
+  @Expose()
   public get sex (): UserPrimitive['sex'] {
     return this.#sex
   }
 
   @Field(() => String, { nullable: true })
+  @Expose()
   public get imgUrl (): UserPrimitive['imgUrl'] {
     return this.#imgUrl
   }
@@ -157,26 +170,31 @@ export class User implements UserPrimitive {
   }
 
   @Field(() => Date)
+  @Expose()
   public get updatedAt (): UserPrimitive['updatedAt'] {
     return this.#updatedAt
   }
 
   @Field(() => Date)
+  @Expose()
   public get createdAt (): UserPrimitive['createdAt'] {
     return this.#createdAt
   }
 
   @Field(() => Boolean)
+  @Expose()
   public get actived (): UserPrimitive['actived'] {
     return this.#actived
   }
 
   @Field(() => Boolean)
+  @Expose()
   public get deleted (): UserPrimitive['deleted'] {
     return this.#deleted
   }
 
   @Field(() => String)
+  @Expose()
   public get role (): UserPrimitive['role'] {
     return this.#role
   }
@@ -260,7 +278,7 @@ export class User implements UserPrimitive {
       email: this.email,
       phoneNumber: this.phoneNumber,
       password: this.password,
-      salt: this.#password.salt,
+      salt: this.salt,
       address: this.address,
       birthDate: this.birthDate,
       sex: this.sex,

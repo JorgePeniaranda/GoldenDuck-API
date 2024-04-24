@@ -1,4 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql'
+import { Expose } from 'class-transformer'
 import { type TokenPrimitive } from './primitive/token.primitive'
 
 @ObjectType()
@@ -11,6 +12,7 @@ export class Token implements TokenPrimitive {
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => String)
+  @Expose()
   public get token (): TokenPrimitive['token'] {
     return this.#token
   }

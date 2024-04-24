@@ -1,6 +1,7 @@
 import { Account } from '@/core/account/domain/account.entity'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type InvestmentPrimitive } from './investment.primitive'
+import { Expose } from 'class-transformer'
 
 @ObjectType()
 export class Investment implements InvestmentPrimitive {
@@ -30,41 +31,49 @@ export class Investment implements InvestmentPrimitive {
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
+  @Expose()
   public get id (): InvestmentPrimitive['id'] {
     return this.#id
   }
 
   @Field(() => Number)
+  @Expose()
   public get idAccount (): InvestmentPrimitive['idAccount'] {
     return this.#idAccount
   }
 
   @Field(() => Number)
+  @Expose()
   public get amount (): InvestmentPrimitive['amount'] {
     return this.#amount
   }
 
   @Field(() => Number)
+  @Expose()
   public get interest (): InvestmentPrimitive['interest'] {
     return this.#interest
   }
 
   @Field(() => Date)
+  @Expose()
   public get dateEnd (): InvestmentPrimitive['dateEnd'] {
     return this.#dateEnd
   }
 
   @Field(() => Date)
+  @Expose()
   public get updatedAt (): InvestmentPrimitive['updatedAt'] {
     return this.#updatedAt
   }
 
   @Field(() => Date)
+  @Expose()
   public get createdAt (): InvestmentPrimitive['createdAt'] {
     return this.#createdAt
   }
 
   @Field(() => Boolean)
+  @Expose()
   public get canceled (): InvestmentPrimitive['canceled'] {
     return this.#canceled
   }

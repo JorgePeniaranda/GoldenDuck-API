@@ -83,7 +83,6 @@ export class UserController {
   @ENDPOINT_INFO({
     auth: true,
     body: SWGDeleteUserDTO,
-    response: UserResponse,
     status: 204
   })
   @Delete()
@@ -116,7 +115,6 @@ export class UserController {
   /* ---------- activate ---------- */ // MARK: activate
   @ENDPOINT_INFO({
     auth: true,
-    response: UserResponse,
     status: 204
   })
   @Get('/activate')

@@ -2,6 +2,7 @@ import { Account } from '@/core/account/domain/account.entity'
 import { Category } from '@/core/category/domain/category.entity'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type TransactionPrimitive } from './transaction.primitive'
+import { Expose } from 'class-transformer'
 
 @ObjectType()
 export class Transaction implements TransactionPrimitive {
@@ -35,26 +36,31 @@ export class Transaction implements TransactionPrimitive {
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
+  @Expose()
   public get id (): TransactionPrimitive['id'] {
     return this.#id
   }
 
   @Field(() => Number)
+  @Expose()
   public get idSender (): TransactionPrimitive['idSender'] {
     return this.#idSender
   }
 
   @Field(() => Number)
+  @Expose()
   public get idReceiver (): TransactionPrimitive['idReceiver'] {
     return this.#idReceiver
   }
 
   @Field(() => String)
+  @Expose()
   public get amount (): TransactionPrimitive['amount'] {
     return this.#amount
   }
 
   @Field(() => Number, { nullable: true })
+  @Expose()
   public get idCategory (): TransactionPrimitive['idCategory'] {
     return this.#idCategory
   }
@@ -64,11 +70,13 @@ export class Transaction implements TransactionPrimitive {
   }
 
   @Field(() => Date)
+  @Expose()
   public get createdAt (): TransactionPrimitive['createdAt'] {
     return this.#createdAt
   }
 
   @Field(() => Boolean)
+  @Expose()
   public get canceled (): TransactionPrimitive['canceled'] {
     return this.#canceled
   }

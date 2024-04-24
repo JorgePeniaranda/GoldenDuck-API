@@ -1,6 +1,7 @@
 import { Account } from '@/core/account/domain/account.entity'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type LoanPrimitive } from './loan.primitive'
+import { Expose } from 'class-transformer'
 
 @ObjectType()
 export class Loan implements LoanPrimitive {
@@ -30,41 +31,49 @@ export class Loan implements LoanPrimitive {
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
+  @Expose()
   public get id (): LoanPrimitive['id'] {
     return this.#id
   }
 
   @Field(() => Number)
+  @Expose()
   public get idAccount (): LoanPrimitive['idAccount'] {
     return this.#idAccount
   }
 
   @Field(() => Number)
+  @Expose()
   public get amount (): LoanPrimitive['amount'] {
     return this.#amount
   }
 
   @Field(() => Number)
+  @Expose()
   public get interest (): LoanPrimitive['interest'] {
     return this.#interest
   }
 
   @Field(() => Date)
+  @Expose()
   public get dateEnd (): LoanPrimitive['dateEnd'] {
     return this.#dateEnd
   }
 
   @Field(() => Date)
+  @Expose()
   public get updatedAt (): LoanPrimitive['updatedAt'] {
     return this.#updatedAt
   }
 
   @Field(() => Date)
+  @Expose()
   public get createdAt (): LoanPrimitive['createdAt'] {
     return this.#createdAt
   }
 
   @Field(() => Boolean)
+  @Expose()
   public get canceled (): LoanPrimitive['canceled'] {
     return this.#canceled
   }

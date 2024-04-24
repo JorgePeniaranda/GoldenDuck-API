@@ -1,6 +1,7 @@
 import { User } from '@/core/user/domain/user.entity'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type SessionPrimitive } from './session.primitive'
+import { Expose } from 'class-transformer'
 
 @ObjectType()
 export class Session implements SessionPrimitive {
@@ -34,51 +35,61 @@ export class Session implements SessionPrimitive {
 
   /* -------------------- GETTER / SETTER -------------------- */ // MARK: GETTER / SETTER
   @Field(() => ID)
+  @Expose()
   public get id (): SessionPrimitive['id'] {
     return this.#id
   }
 
   @Field(() => Number)
+  @Expose()
   public get idUser (): SessionPrimitive['idUser'] {
     return this.#idUser
   }
 
   @Field(() => String, { nullable: true })
+  @Expose()
   public get ip (): SessionPrimitive['ip'] {
     return this.#ip
   }
 
   @Field(() => String, { nullable: true })
+  @Expose()
   public get userAgent (): SessionPrimitive['userAgent'] {
     return this.#userAgent
   }
 
   @Field(() => String, { nullable: true })
+  @Expose()
   public get location (): SessionPrimitive['location'] {
     return this.#location
   }
 
   @Field(() => String, { nullable: true })
+  @Expose()
   public get deviceType (): SessionPrimitive['deviceType'] {
     return this.#deviceType
   }
 
   @Field(() => String)
+  @Expose()
   public get token (): SessionPrimitive['token'] {
     return this.#token
   }
 
   @Field(() => Boolean)
+  @Expose()
   public get active (): SessionPrimitive['active'] {
     return this.#active
   }
 
   @Field(() => Date, { nullable: true })
+  @Expose()
   public get logoutAt (): SessionPrimitive['logoutAt'] {
     return this.#logoutAt
   }
 
   @Field(() => Date)
+  @Expose()
   public get createdAt (): SessionPrimitive['createdAt'] {
     return this.#createdAt
   }
