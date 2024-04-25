@@ -4,7 +4,7 @@ import { ReadAccountService } from '@/core/account/domain/service/read-account.s
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { Category } from '@/core/category/domain/category.entity'
 import { ReadCategoryService } from '@/core/category/domain/service/read-category.service'
-import { CurrentUser } from '@/decorators/current-user.decorator'
+import { CurrentGQLUser } from '@/decorators/current-user.decorator'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
 import { Messages } from '@/messages'
@@ -29,7 +29,7 @@ export class TransactionResolver {
   /* ---------- findAll ---------- */ // MARK: findAll
   @Query(() => [Transaction], { name: 'find_all_transaction' })
   async findAll (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('AccountIndex', { type: () => Int }) AccountIndex: number
   ): Promise<Transaction[]> {
     const transactions = await this.readTransactionService.findAll({
@@ -43,7 +43,7 @@ export class TransactionResolver {
   /* ---------- create ---------- */ // MARK: create
   @Mutation(() => Transaction, { name: 'create_transaction' })
   async create (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('AccountIndex', { type: () => Int }) AccountIndex: number,
       @Args('data') data: GQLCreateTransactionDTO
   ): Promise<Transaction> {
@@ -59,7 +59,7 @@ export class TransactionResolver {
   /* ---------- findOne ---------- */ // MARK: findOne
   @Query(() => Transaction, { name: 'find_one_transaction' })
   async findOne (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('AccountIndex', { type: () => Int }) AccountIndex: number,
       @Args('index', { type: () => Int }) index: number
   ): Promise<Transaction> {
@@ -79,7 +79,7 @@ export class TransactionResolver {
   /* ---------- findOneAsSender ---------- */ // MARK: findOneAsSender
   @Query(() => Transaction, { name: 'find_one_transaction_sent' })
   async findOneAsSender (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('AccountIndex', { type: () => Int }) AccountIndex: number,
       @Args('index', { type: () => Int }) index: number
   ): Promise<Transaction> {
@@ -99,7 +99,7 @@ export class TransactionResolver {
   /* ---------- findOneAsReceiver ---------- */ // MARK: findOneAsReceiver
   @Query(() => Transaction, { name: 'find_one_transaction_received' })
   async findOneAsReceiver (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('AccountIndex', { type: () => Int }) AccountIndex: number,
       @Args('index', { type: () => Int }) index: number
   ): Promise<Transaction> {
@@ -119,7 +119,7 @@ export class TransactionResolver {
   /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => Boolean, { name: 'delete_transaction' })
   async delete (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('AccountIndex', { type: () => Int }) AccountIndex: number,
       @Args('index', { type: () => Int }) index: number
   ): Promise<void> {

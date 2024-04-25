@@ -1,5 +1,6 @@
 import { EntitiesName } from '@/constants/entities'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
+import { CurrentAPIUser } from '@/decorators/current-user.decorator'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
 import { Messages } from '@/messages'
 import {
@@ -11,8 +12,7 @@ import {
   NotFoundException,
   Param,
   ParseIntPipe,
-  Post,
-  Request
+  Post
 } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { CreateLoanDTO, SWGCreateLoanDTO } from '../domain/dto/create-loan'
@@ -38,11 +38,11 @@ export class LoanController {
   })
   @Get()
   async findAll (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number
   ): Promise<Loan[]> {
     const loan = await this.readLoanService.findAll({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       AccountIndex
     })
 
@@ -71,12 +71,12 @@ export class LoanController {
   })
   @Get('/:index')
   async findOne (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Loan> {
     const loan = await this.readLoanService.findOne({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       AccountIndex,
       index
     })
@@ -96,12 +96,12 @@ export class LoanController {
   @HttpCode(204)
   @Delete('/:index')
   async delete (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
     await this.writeLoanService.delete({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       AccountIndex,
       index
     })

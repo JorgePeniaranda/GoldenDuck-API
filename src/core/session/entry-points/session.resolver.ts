@@ -2,7 +2,7 @@ import { EntitiesName } from '@/constants/entities'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { ReadUserService } from '@/core/user/domain/service/read-user.service'
 import { User } from '@/core/user/domain/user.entity'
-import { CurrentUser } from '@/decorators/current-user.decorator'
+import { CurrentGQLUser } from '@/decorators/current-user.decorator'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
 import { Messages } from '@/messages'
@@ -24,7 +24,7 @@ export class SessionResolver {
 
   /* ---------- findAll ---------- */ // MARK: findAll
   @Query(() => [Session], { name: 'find_all_session' })
-  async findAll (@CurrentUser() UserData: PayloadPrimitive): Promise<Session[]> {
+  async findAll (@CurrentGQLUser() UserData: PayloadPrimitive): Promise<Session[]> {
     const sessions = await this.readSessionService.findAll({
       idUser: UserData.id
     })
@@ -35,7 +35,7 @@ export class SessionResolver {
   /* ---------- findOne ---------- */ // MARK: findOne
   @Query(() => Session, { name: 'find_one_session' })
   async findOne (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('index', { type: () => Int }) index: number
   ): Promise<Session> {
     const session = await this.readSessionService.findOne({ idUser: UserData.id, index })
@@ -50,7 +50,7 @@ export class SessionResolver {
   /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => Session, { name: 'delete_session' })
   async delete (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('index', { type: () => Int }) index: number
   ): Promise<void> {
     await this.writeSessionService.delete({ idUser: UserData.id, index })

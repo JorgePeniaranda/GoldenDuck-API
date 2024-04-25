@@ -1,4 +1,5 @@
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
+import { CurrentAPIUser } from '@/decorators/current-user.decorator'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
 import {
   Body,
@@ -9,8 +10,7 @@ import {
   Param,
   ParseIntPipe,
   Patch,
-  Post,
-  Request
+  Post
 } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { CreateMessageDTO, SWGCreateMessageDTO } from '../domain/dto/create-message'
@@ -37,8 +37,8 @@ export class MessageController {
     status: 200
   })
   @Get('all')
-  async findAll (@Request() UserData: { user: PayloadPrimitive }): Promise<any> {
-    const messages = await this.readMessageService.findAll({ idUser: UserData.user.id })
+  async findAll (@CurrentAPIUser() UserData: PayloadPrimitive): Promise<any> {
+    const messages = await this.readMessageService.findAll({ idUser: UserData.id })
 
     if (messages === null) {
       return []
@@ -55,9 +55,9 @@ export class MessageController {
     status: 200
   })
   @Get('history')
-  async findHistory (@Request() UserData: { user: PayloadPrimitive }): Promise<Message[]> {
+  async findHistory (@CurrentAPIUser() UserData: PayloadPrimitive): Promise<Message[]> {
     const messages = await this.readMessageService.findHistory({
-      idUser: UserData.user.id
+      idUser: UserData.id
     })
 
     return messages
@@ -72,12 +72,12 @@ export class MessageController {
   })
   @Get('/:idTarget')
   async findChat (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('idTarget', new ParseIntPipe())
       idTarget: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
   ): Promise<Message[]> {
     const messages = await this.readMessageService.findChat({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       idTarget
     })
 
@@ -93,12 +93,12 @@ export class MessageController {
   })
   @Post('/:idTarget')
   async create (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idReceiver'],
       @Body() data: CreateMessageDTO
   ): Promise<Message> {
     const message = await this.writeMessageService.create({
-      idSender: UserData.user.id,
+      idSender: UserData.id,
       idTarget,
       data
     })
@@ -114,12 +114,12 @@ export class MessageController {
   })
   @Get('/:idTarget/message/:index')
   async findOne (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idReceiver'],
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Message> {
     const message = await this.readMessageService.findOne({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       idTarget,
       index
     })
@@ -140,13 +140,13 @@ export class MessageController {
   })
   @Patch('/:idTarget/message/:index')
   async update (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idReceiver'],
       @Param('index', new ParseIntPipe()) index: number,
       @Body() data: UpdateMessageDTO
   ): Promise<Message> {
     const message = await this.writeMessageService.update({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       idTarget,
       index,
       data
@@ -166,12 +166,12 @@ export class MessageController {
   })
   @Delete('/:idTarget/message/:index')
   async delete (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idReceiver'],
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
     await this.writeMessageService.delete({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       idTarget,
       index
     })
@@ -184,12 +184,12 @@ export class MessageController {
   })
   @Get('/:idTarget/message/:index/read')
   async read (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('idTarget', new ParseIntPipe()) idTarget: MessagePrimitive['idReceiver'],
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
     await this.writeMessageService.read({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       idTarget,
       index
     })

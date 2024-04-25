@@ -1,5 +1,6 @@
 import { EntitiesName } from '@/constants/entities'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
+import { CurrentAPIUser } from '@/decorators/current-user.decorator'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
 import { Messages } from '@/messages'
 import {
@@ -8,8 +9,7 @@ import {
   Get,
   NotFoundException,
   Param,
-  ParseIntPipe,
-  Request
+  ParseIntPipe
 } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { type Notification } from '../domain/notification.entity'
@@ -33,8 +33,8 @@ export class NotificationController {
     status: 200
   })
   @Get()
-  async findAll (@Request() UserData: { user: PayloadPrimitive }): Promise<Notification[]> {
-    const notifications = await this.readNotificationService.findAll({ idUser: UserData.user.id })
+  async findAll (@CurrentAPIUser() UserData: PayloadPrimitive): Promise<Notification[]> {
+    const notifications = await this.readNotificationService.findAll({ idUser: UserData.id })
 
     return notifications
   }
@@ -47,11 +47,11 @@ export class NotificationController {
   })
   @Get('/:index')
   async findOne (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Notification> {
     const notification = await this.readNotificationService.findOne({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       index
     })
 
@@ -69,9 +69,9 @@ export class NotificationController {
   })
   @Delete('/:index')
   async delete (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
-    await this.writeNotificationService.delete({ idUser: UserData.user.id, index })
+    await this.writeNotificationService.delete({ idUser: UserData.id, index })
   }
 }

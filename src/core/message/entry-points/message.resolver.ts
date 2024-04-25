@@ -2,7 +2,7 @@ import { EntitiesName } from '@/constants/entities'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { ReadUserService } from '@/core/user/domain/service/read-user.service'
 import { User } from '@/core/user/domain/user.entity'
-import { CurrentUser } from '@/decorators/current-user.decorator'
+import { CurrentGQLUser } from '@/decorators/current-user.decorator'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
 import { Messages } from '@/messages'
@@ -27,7 +27,7 @@ export class MessageResolver {
 
   /* ---------- findAll ---------- */ // MARK: findAll
   @Query(() => Message, { name: 'find_all_message' })
-  async findAll (@CurrentUser() UserData: PayloadPrimitive): Promise<Message[]> {
+  async findAll (@CurrentGQLUser() UserData: PayloadPrimitive): Promise<Message[]> {
     const messages = await this.readMessageService.findAll({ idUser: UserData.id })
 
     return messages
@@ -35,7 +35,7 @@ export class MessageResolver {
 
   /* ---------- findHistory ---------- */ // MARK: findHistory
   @Query(() => [Message], { name: 'find_message_history' })
-  async findHistory (@CurrentUser() UserData: PayloadPrimitive): Promise<Message[]> {
+  async findHistory (@CurrentGQLUser() UserData: PayloadPrimitive): Promise<Message[]> {
     const messages = await this.readMessageService.findHistory({
       idUser: UserData.id
     })
@@ -46,7 +46,7 @@ export class MessageResolver {
   /* ---------- findChat ---------- */ // MARK: findChat
   @Query(() => Message, { name: 'find_chat' })
   async findChat (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('idTarget', { type: () => Int })
       idTarget: MessagePrimitive['idSender'] | MessagePrimitive['idReceiver']
   ): Promise<Message[]> {
@@ -61,7 +61,7 @@ export class MessageResolver {
   /* ---------- create ---------- */ // MARK: create
   @Mutation(() => Message, { name: 'create_message' })
   async create (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('idTarget', { type: () => Int }) idTarget: MessagePrimitive['idReceiver'],
       @Body() data: GQLCreateMessageDTO
   ): Promise<Message> {
@@ -77,7 +77,7 @@ export class MessageResolver {
   /* ---------- findOne ---------- */ // MARK: findOne
   @Query(() => Message, { name: 'find_one_message' })
   async findOne (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('idTarget', { type: () => Int }) idTarget: MessagePrimitive['idReceiver'],
       @Args('index', { type: () => Int }) index: number
   ): Promise<Message> {
@@ -97,7 +97,7 @@ export class MessageResolver {
   /* ---------- update ---------- */ // MARK: update
   @Mutation(() => Message, { name: 'update_message' })
   async update (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('idTarget', { type: () => Int }) idTarget: MessagePrimitive['idReceiver'],
       @Args('index', { type: () => Int }) index: number,
       @Body() data: GQLUpdateMessageDTO
@@ -119,7 +119,7 @@ export class MessageResolver {
   /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => Message, { name: 'delete_message' })
   async delete (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('idTarget', { type: () => Int }) idTarget: MessagePrimitive['idReceiver'],
       @Args('index', { type: () => Int }) index: number
   ): Promise<void> {
@@ -133,7 +133,7 @@ export class MessageResolver {
   /* ---------- read ---------- */ // MARK: read
   @Mutation(() => Message, { name: 'read_message' })
   async read (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('idTarget', { type: () => Int }) idTarget: MessagePrimitive['idReceiver'],
       @Args('index', { type: () => Int }) index: number
   ): Promise<void> {

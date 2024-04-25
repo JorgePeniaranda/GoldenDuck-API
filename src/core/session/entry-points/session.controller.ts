@@ -1,4 +1,5 @@
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
+import { CurrentAPIUser } from '@/decorators/current-user.decorator'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
 import {
   Controller,
@@ -6,8 +7,7 @@ import {
   Get,
   NotFoundException,
   Param,
-  ParseIntPipe,
-  Request
+  ParseIntPipe
 } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { ReadSessionService } from '../domain/service/read-session.service'
@@ -31,9 +31,9 @@ export class SessionController {
     status: 200
   })
   @Get()
-  async findAll (@Request() UserData: { user: PayloadPrimitive }): Promise<Session[]> {
+  async findAll (@CurrentAPIUser() UserData: PayloadPrimitive): Promise<Session[]> {
     const sessions = await this.readSessionService.findAll({
-      idUser: UserData.user.id
+      idUser: UserData.id
     })
 
     return sessions
@@ -47,10 +47,10 @@ export class SessionController {
   })
   @Get('/:index')
   async findOne (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Session> {
-    const session = await this.readSessionService.findOne({ idUser: UserData.user.id, index })
+    const session = await this.readSessionService.findOne({ idUser: UserData.id, index })
 
     if (session === null) {
       throw new NotFoundException()
@@ -66,9 +66,9 @@ export class SessionController {
   })
   @Delete('/:index')
   async delete (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
-    await this.writeSessionService.delete({ idUser: UserData.user.id, index })
+    await this.writeSessionService.delete({ idUser: UserData.id, index })
   }
 }
