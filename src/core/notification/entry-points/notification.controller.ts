@@ -3,14 +3,7 @@ import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.prim
 import { CurrentAPIUser } from '@/decorators/current-user.decorator'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
 import { Messages } from '@/messages'
-import {
-  Controller,
-  Delete,
-  Get,
-  NotFoundException,
-  Param,
-  ParseIntPipe
-} from '@nestjs/common'
+import { Controller, Delete, Get, NotFoundException, Param, ParseIntPipe } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { type Notification } from '../domain/notification.entity'
 import { ReadNotificationService } from '../domain/service/read-notification.service'

@@ -27,11 +27,7 @@ export class ReadCodeService {
   }
 
   /* ---------- findOne ---------- */ // MARK: findOne
-  public async findOneByID ({
-    id
-  }: {
-    id: CodePrimitive['id']
-  }): Promise<Code | null> {
-    return await this.CodeRepository.findOneByID({ id })
+  public async findOneByID ({ id }: { id: CodePrimitive['id'] }): Promise<Code | null> {
+    return await this.CodeRepository.findByID({ id })
   }
 }

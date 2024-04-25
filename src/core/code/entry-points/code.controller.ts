@@ -56,7 +56,10 @@ export class CodeController {
     status: 200
   })
   @Get('/:index')
-  async findOne (@CurrentAPIUser() UserData: PayloadPrimitive, @Param('index') index: number): Promise<Code> {
+  async findOne (
+    @CurrentAPIUser() UserData: PayloadPrimitive,
+      @Param('index') index: number
+  ): Promise<Code> {
     const code = await this.readCodeService.findOne({ idUser: UserData.id, index })
 
     if (code === null) {
@@ -106,7 +109,8 @@ export class CodeController {
   @Delete('/:index')
   async delete (
     @CurrentAPIUser() UserData: PayloadPrimitive,
-      @Param('index', new ParseIntPipe()) index: number): Promise<void> {
+      @Param('index', new ParseIntPipe()) index: number
+  ): Promise<void> {
     await this.writeCodeService.delete({ idUser: UserData.id, index })
   }
 

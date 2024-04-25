@@ -1,5 +1,13 @@
 import { applyDecorators, HttpCode, UseGuards, type Type } from '@nestjs/common'
-import { ApiBearerAuth, ApiBody, ApiForbiddenResponse, ApiNotFoundResponse, ApiProduces, ApiResponse, ApiUnauthorizedResponse } from '@nestjs/swagger'
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiForbiddenResponse,
+  ApiNotFoundResponse,
+  ApiProduces,
+  ApiResponse,
+  ApiUnauthorizedResponse
+} from '@nestjs/swagger'
 import { Public } from './public.decorator'
 import { Roles } from './roles.decorator'
 import { type UserPrimitive } from '@/core/user/domain/user.primitive'
@@ -33,9 +41,11 @@ export const ENDPOINT_INFO = ({
   if (auth) {
     decorators.push(ApiBearerAuth())
     decorators.push(UseGuards(JwtAuthGuard))
-    decorators.push(ApiUnauthorizedResponse({
-      description: 'No Authenticated'
-    }))
+    decorators.push(
+      ApiUnauthorizedResponse({
+        description: 'No Authenticated'
+      })
+    )
   }
 
   if (!auth) {
@@ -44,16 +54,20 @@ export const ENDPOINT_INFO = ({
 
   if (roles !== undefined && auth) {
     decorators.push(Roles(...roles))
-    decorators.push(ApiForbiddenResponse({
-      description: 'No Authorized'
-    }))
+    decorators.push(
+      ApiForbiddenResponse({
+        description: 'No Authorized'
+      })
+    )
   }
 
   decorators.push(ApiProduces(produces))
   decorators.push(ApiResponse({ status, description, type: response, isArray }))
-  decorators.push(ApiNotFoundResponse({
-    description: 'Not Found'
-  }))
+  decorators.push(
+    ApiNotFoundResponse({
+      description: 'Not Found'
+    })
+  )
   decorators.push(HttpCode(status))
 
   return applyDecorators(...decorators)

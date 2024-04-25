@@ -8,10 +8,7 @@ import { CodeController } from './entry-points/code.controller'
 import { UserModule } from '../user/user.module'
 
 @Module({
-  imports: [
-    AuthModule,
-    UserModule
-  ],
+  imports: [AuthModule, UserModule],
   controllers: [CodeController],
   providers: [
     WriteCodeService,

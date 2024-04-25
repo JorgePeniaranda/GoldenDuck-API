@@ -1,14 +1,7 @@
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
 import { CurrentAPIUser } from '@/decorators/current-user.decorator'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
-import {
-  Controller,
-  Delete,
-  Get,
-  NotFoundException,
-  Param,
-  ParseIntPipe
-} from '@nestjs/common'
+import { Controller, Delete, Get, NotFoundException, Param, ParseIntPipe } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { ReadSessionService } from '../domain/service/read-session.service'
 import { WriteSessionService } from '../domain/service/write-session.service'

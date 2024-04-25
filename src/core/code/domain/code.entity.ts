@@ -91,7 +91,15 @@ export class Code implements CodePrimitive {
     this.#updateUpdatedAt()
   }
 
-  public static create ({ idUser, code, type }: { idUser: CodePrimitive['idUser'], code: CodePrimitive['code'], type: CodePrimitive['type'] }): Code {
+  public static create ({
+    idUser,
+    code,
+    type
+  }: {
+    idUser: CodePrimitive['idUser']
+    code: CodePrimitive['code']
+    type: CodePrimitive['type']
+  }): Code {
     code = CryptoJS.SHA256(code).toString(CryptoJS.enc.Hex)
     const expiredAt = moment().add(env.CODE_EXPIRATION_MINUTES, 'minutes').toDate()
 

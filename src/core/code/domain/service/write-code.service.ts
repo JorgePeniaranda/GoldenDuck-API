@@ -2,7 +2,13 @@ import { EntitiesName } from '@/constants/entities'
 import { EventsMap } from '@/constants/events'
 import { ReadUserService } from '@/core/user/domain/service/read-user.service'
 import { Messages } from '@/messages'
-import { Inject, Injectable, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common'
+import {
+  Inject,
+  Injectable,
+  Logger,
+  NotFoundException,
+  UnauthorizedException
+} from '@nestjs/common'
 import { EventEmitter2 } from '@nestjs/event-emitter'
 import { v4 as UUID } from 'uuid'
 import { Code } from '../code.entity'
@@ -48,8 +54,14 @@ export class WriteCodeService {
   }
 
   /* ---------- validate ---------- */ // MARK: validate
-  public async validate ({ id, code: input }: { id: CodePrimitive['id'], code: CodePrimitive['code'] }): Promise<Token> {
-    const code = await this.codeRepository.findOneByID({
+  public async validate ({
+    id,
+    code: input
+  }: {
+    id: CodePrimitive['id']
+    code: CodePrimitive['code']
+  }): Promise<Token> {
+    const code = await this.codeRepository.findByID({
       id
     })
 
@@ -71,7 +83,13 @@ export class WriteCodeService {
   }
 
   /* ---------- delete ---------- */ // MARK: delete
-  public async delete ({ idUser, index }: { idUser: CodePrimitive['idUser'], index: number }): Promise<void> {
+  public async delete ({
+    idUser,
+    index
+  }: {
+    idUser: CodePrimitive['idUser']
+    index: number
+  }): Promise<void> {
     const code = await this.codeRepository.findOne({
       idUser,
       index
