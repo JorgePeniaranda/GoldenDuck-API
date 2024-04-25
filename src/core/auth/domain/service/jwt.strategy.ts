@@ -24,7 +24,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     })
   }
 
-  async validate (request: { headers: { authorization?: string } }, payload: PayloadPrimitive): Promise<PayloadPrimitive> {
+  async validate (
+    request: { headers: { authorization?: string } },
+    payload: PayloadPrimitive
+  ): Promise<PayloadPrimitive> {
     const token = request.headers.authorization?.split(' ')[1]
 
     if (token === undefined) {

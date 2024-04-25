@@ -58,7 +58,7 @@ export class CodeRepositoryPrismaMySQL implements CategoryRepository {
   }
 
   /* ---------- findOne ---------- */ // MARK: findOne
-  public async findOneByID ({ id }: { id: CodePrimitive['id'] }): Promise<Code | null> {
+  public async findByID ({ id }: { id: CodePrimitive['id'] }): Promise<Code | null> {
     const code = await this.prisma.code.findUnique({
       where: {
         id

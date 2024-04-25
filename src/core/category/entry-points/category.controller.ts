@@ -19,6 +19,7 @@ import { CreateCategoryDTO, SWGCreateCategoryDTO } from '../domain/dto/create-ca
 import { ReadCategoryService } from '../domain/service/read-category.service'
 import { WriteCategoryService } from '../domain/service/write-category.service'
 import { CategoryResponse } from './category.response'
+import { UserRoles } from '@/core/user/domain/user.primitive'
 
 @ApiTags('Category')
 @Controller('category')
@@ -76,6 +77,7 @@ export class CategoryController {
   /* ---------- delete ---------- */ // MARK: delete
   @ENDPOINT_INFO({
     auth: true,
+    roles: [UserRoles.ADMIN],
     status: 204
   })
   @HttpCode(204)

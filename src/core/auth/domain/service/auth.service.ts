@@ -51,7 +51,13 @@ export class AuthService {
   }
 
   /* ---------- logout ---------- */ // MARK: logout
-  public async logout ({ token, idUser }: { token: string, idUser: UserPrimitive['id'] }): Promise<void> {
+  public async logout ({
+    token,
+    idUser
+  }: {
+    token: string
+    idUser: UserPrimitive['id']
+  }): Promise<void> {
     const user = await this.readUserService.findByID({ id: idUser })
 
     if (user === null) {

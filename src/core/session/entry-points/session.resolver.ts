@@ -56,6 +56,12 @@ export class SessionResolver {
     await this.writeSessionService.delete({ idUser: UserData.id, index })
   }
 
+  /* ---------- delete ---------- */ // MARK: delete
+  @Mutation(() => Session, { name: 'delete_all_session' })
+  async deleteAll (@CurrentGQLUser() UserData: PayloadPrimitive): Promise<void> {
+    await this.writeSessionService.deleteAll({ idUser: UserData.id })
+  }
+
   /* ---------- user ---------- */ // MARK: user
   @ResolveField(() => User)
   async user (@Parent() session: Session): Promise<User> {

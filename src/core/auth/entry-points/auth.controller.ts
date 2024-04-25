@@ -1,7 +1,15 @@
 import { type User } from '@/core/user/domain/user.entity'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
 import { LocalAuthGuard } from '@/guard/auth.guard'
-import { Controller, Get, Headers, Post, Request, UnauthorizedException, UseGuards } from '@nestjs/common'
+import {
+  Controller,
+  Get,
+  Headers,
+  Post,
+  Request,
+  UnauthorizedException,
+  UseGuards
+} from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { SWGLoginDTO } from '../domain/dto/login.dto'
 import { type PayloadPrimitive } from '../domain/primitive/payload.primitive'
@@ -45,7 +53,10 @@ export class AuthController {
     status: 204
   })
   @Get('logout')
-  async loguot (@Headers() headers: { authorization?: string }, @Request() req: { user: PayloadPrimitive }): Promise<any> {
+  async loguot (
+    @Headers() headers: { authorization?: string },
+      @Request() req: { user: PayloadPrimitive }
+  ): Promise<any> {
     const token = headers.authorization?.split(' ')[1]
 
     if (token === undefined) {

@@ -9,10 +9,7 @@ export class SharpPipe implements PipeTransform<Express.Multer.File, Promise<str
     const uuid = UUID()
     const filename = uuid.replace(/-/g, '') + '.webp'
 
-    await sharp(image.buffer)
-      .resize(800)
-      .webp({ effort: 3 })
-      .toFile(path.join('uploads', filename))
+    await sharp(image.buffer).resize(800).webp({ effort: 3 }).toFile(path.join('uploads', filename))
 
     return filename
   }

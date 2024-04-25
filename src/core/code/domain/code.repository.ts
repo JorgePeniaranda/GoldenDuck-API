@@ -11,11 +11,7 @@ export interface CategoryRepository {
     idUser: CodePrimitive['idUser']
     index: number
   }) => Promise<Code | null>
-  findOneByID: ({
-    id
-  }: {
-    id: CodePrimitive['id']
-  }) => Promise<Code | null>
+  findByID: ({ id }: { id: CodePrimitive['id'] }) => Promise<Code | null>
   delete: (data: Code) => Promise<void>
   deleteAll: ({ idUser }: { idUser: CodePrimitive['idUser'] }) => Promise<void>
 }

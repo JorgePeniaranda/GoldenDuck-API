@@ -30,18 +30,18 @@ import { CodeModule } from './core/code/code.module'
     ScheduleModule.forRoot(),
     AuthModule,
     UserModule,
-    SessionModule,
     AccountModule,
     CardModule,
+    CategoryModule,
+    CodeModule,
+    ErrorModule,
+    InvestmentModule,
+    LoanModule,
     MessageModule,
     NotificationModule,
-    TransactionModule,
-    LoanModule,
-    InvestmentModule,
-    CategoryModule,
-    ErrorModule,
     ProfilePictureModule,
-    CodeModule
+    SessionModule,
+    TransactionModule
   ]
 })
 export class AppModule {}

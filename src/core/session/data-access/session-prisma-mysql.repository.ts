@@ -71,7 +71,11 @@ export class SessionRepositoryPrismaMySQL implements SessionRepository {
   }
 
   /* ---------- findByID ---------- */ // MARK: findByID
-  public async findByToken ({ token }: { token: SessionPrimitive['token'] }): Promise<Session | null> {
+  public async findByToken ({
+    token
+  }: {
+    token: SessionPrimitive['token']
+  }): Promise<Session | null> {
     const session = await this.prisma.session.findFirst({
       where: {
         token,

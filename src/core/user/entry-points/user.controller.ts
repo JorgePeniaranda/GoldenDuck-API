@@ -3,15 +3,7 @@ import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.prim
 import { CurrentAPIUser } from '@/decorators/current-user.decorator'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
 import { Messages } from '@/messages'
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  NotFoundException,
-  Patch,
-  Post
-} from '@nestjs/common'
+import { Body, Controller, Delete, Get, NotFoundException, Patch, Post } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { CreateUserDTO, SWGCreateUserDTO } from '../domain/dto/create-user.dto'
 import { DeleteUserDTO, SWGDeleteUserDTO } from '../domain/dto/delete-user.dto'
