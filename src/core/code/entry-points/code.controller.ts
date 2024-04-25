@@ -1,6 +1,7 @@
 import { EntitiesName } from '@/constants/entities'
 import { PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
-import { JWTResponse } from '@/core/auth/entry-points/session.response'
+import { type Token } from '@/core/auth/domain/token.entity'
+import { TokenResponse } from '@/core/auth/entry-points/token.response'
 import { CurrentAPIUser } from '@/decorators/current-user.decorator'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
 import { Messages } from '@/messages'
@@ -18,13 +19,12 @@ import {
 } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { type Code } from '../domain/code.entity'
+import { type CodePrimitive } from '../domain/code.primitive'
 import { CreateCodeDTO, SWGCreateCodeDTO } from '../domain/dto/create-code'
+import { SWGVerifyCodeDTO, VerifyCodeDTO } from '../domain/dto/verify-code'
 import { ReadCodeService } from '../domain/service/read-code.service'
 import { WriteCodeService } from '../domain/service/write-code.service'
 import { CodeResponse } from './code.response'
-import { type CodePrimitive } from '../domain/code.primitive'
-import { type Token } from '@/core/auth/domain/token.entity'
-import { SWGVerifyCodeDTO, VerifyCodeDTO } from '../domain/dto/verify-code'
 
 @ApiTags('Code')
 @Controller('code')
@@ -92,7 +92,7 @@ export class CodeController {
   @ENDPOINT_INFO({
     auth: false,
     body: SWGVerifyCodeDTO,
-    response: JWTResponse,
+    response: TokenResponse,
     status: 200
   })
   @Post('/:id')
