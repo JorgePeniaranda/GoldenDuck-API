@@ -13,3 +13,4 @@ export const SWAGGER_PATH = 'api'
 /* AUTH */
 export const IS_PUBLIC_ENDPOINT_KEY = 'isPublic'
 export const ROLES_KEY = 'roles'
+export const VALIDATION_CODE_LENGTH = 6

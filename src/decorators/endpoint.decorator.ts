@@ -1,8 +1,9 @@
-import { applyDecorators, HttpCode, type Type } from '@nestjs/common'
+import { applyDecorators, HttpCode, UseGuards, type Type } from '@nestjs/common'
 import { ApiBearerAuth, ApiBody, ApiForbiddenResponse, ApiNotFoundResponse, ApiProduces, ApiResponse, ApiUnauthorizedResponse } from '@nestjs/swagger'
 import { Public } from './public.decorator'
 import { Roles } from './roles.decorator'
 import { type UserPrimitive } from '@/core/user/domain/user.primitive'
+import { JwtAuthGuard } from '@/guard/jwt.guard'
 
 export const ENDPOINT_INFO = ({
   auth = true,
@@ -31,6 +32,7 @@ export const ENDPOINT_INFO = ({
 
   if (auth) {
     decorators.push(ApiBearerAuth())
+    decorators.push(UseGuards(JwtAuthGuard))
     decorators.push(ApiUnauthorizedResponse({
       description: 'No Authenticated'
     }))

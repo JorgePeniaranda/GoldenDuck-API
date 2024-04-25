@@ -17,6 +17,7 @@ import { ProfilePictureModule } from './core/profile-picture/profile-picture.mod
 import { SessionModule } from './core/session/session.module'
 import { TransactionModule } from './core/transaction/transactions.module'
 import { UserModule } from './core/user/user.module'
+import { CodeModule } from './core/code/code.module'
 
 @Module({
   imports: [
@@ -39,7 +40,8 @@ import { UserModule } from './core/user/user.module'
     InvestmentModule,
     CategoryModule,
     ErrorModule,
-    ProfilePictureModule
+    ProfilePictureModule,
+    CodeModule
   ]
 })
 export class AppModule {}

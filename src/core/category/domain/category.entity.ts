@@ -11,12 +11,12 @@ export class Category implements CategoryPrimitive {
   readonly #createdAt: CategoryPrimitive['createdAt']
   #deleted: CategoryPrimitive['deleted']
 
-  constructor (transaction: CategoryPrimitive) {
-    this.#id = transaction.id
-    this.#name = transaction.name
-    this.#updatedAt = transaction.updatedAt
-    this.#createdAt = transaction.createdAt
-    this.#deleted = transaction.deleted
+  constructor (category: CategoryPrimitive) {
+    this.#id = category.id
+    this.#name = category.name
+    this.#updatedAt = category.updatedAt
+    this.#createdAt = category.createdAt
+    this.#deleted = category.deleted
   }
 
   /* -------------------- RELATIONS -------------------- */ // MARK: RELATIONS

@@ -3,6 +3,7 @@ export enum EntitiesName {
   AUTH = 'Auth',
   CARD = 'Card',
   CATEGORY = 'Category',
+  CODE = 'Code',
   ERROR = 'Error',
   INVESTMENT = 'Investment',
   LOAN = 'Loan',

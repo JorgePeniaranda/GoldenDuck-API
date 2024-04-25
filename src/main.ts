@@ -6,14 +6,13 @@ import helmet from 'helmet'
 import { AppModule } from './app.module'
 import { APP_INFO, SWAGGER_PATH } from './constants'
 import { env } from './constants/env'
-import { AuthModule } from './core/auth/auth.module'
 import { JwtAuthGuard } from './guard/jwt.guard'
 import './helpers/fixes'
 import { findAvailablePort } from './helpers/server'
 
 async function bootstrap (): Promise<void> {
   const app = await NestFactory.create(AppModule)
-  const guard = app.select(AuthModule).get(JwtAuthGuard)
+  const guard = app.select(AppModule).get(JwtAuthGuard)
 
   /* configure project */
   app.useGlobalGuards(guard)

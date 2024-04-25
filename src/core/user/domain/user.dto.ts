@@ -19,6 +19,7 @@ import {
   MaxLength,
   Min
 } from 'class-validator'
+import moment from 'moment'
 import { UserRoles, UserSex, type UserPrimitive } from './user.primitive'
 
 @InputType()
@@ -119,6 +120,7 @@ export class UserDTO implements UserPrimitive {
     type: Date
   })
   @IsDateString({})
+  @MaxDate(moment().subtract(18, 'years').toDate())
   @Field(() => Date)
     birthDate: UserPrimitive['birthDate']
 

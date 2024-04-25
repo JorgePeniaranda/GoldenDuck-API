@@ -18,6 +18,11 @@ enum sex {
   FEMALE
 }
 
+enum typeCode {
+  EMAIL
+  PHONE
+}
+
 model User {
   id          Int      @id @default(autoincrement())
   name        String   @db.VarChar(255)
@@ -44,6 +49,7 @@ model User {
   messagesSend     Message[]      @relation(name: "idSender")
   messagesReceived Message[]      @relation(name: "idReceiver")
   activities       Activity[] // falta implementar
+  codes            Code[]
 }
 
 model Account {
@@ -97,6 +103,20 @@ model Category {
 
   // Relations
   transactions Transaction[]
+}
+
+model Code {
+  id        String   @id @default(uuid())
+  idUser    Int      @map("id_user")
+  code      String   @db.Text
+  type      typeCode
+  expiredAt DateTime @map("expired_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  expired   Boolean  @default(false)
+
+  // Relations
+  user User @relation(fields: [idUser], references: [id])
 }
 
 model Error {
