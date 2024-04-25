@@ -1,12 +1,8 @@
 import { type User } from '@/core/user/domain/user.entity'
-import { UserRoles } from '@/core/user/domain/user.primitive'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
-import { Roles } from '@/decorators/roles.decorator'
 import { LocalAuthGuard } from '@/guard/auth.guard'
-import { JwtAuthGuard } from '@/guard/jwt.guard'
-import { RolesGuard } from '@/guard/role.guard'
 import { Controller, Get, Headers, Post, Request, UnauthorizedException, UseGuards } from '@nestjs/common'
-import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger'
+import { ApiTags } from '@nestjs/swagger'
 import { SWGLoginDTO } from '../domain/dto/login.dto'
 import { type PayloadPrimitive } from '../domain/primitive/payload.primitive'
 import { AuthService } from '../domain/service/auth.service'
@@ -60,18 +56,5 @@ export class AuthController {
       token,
       idUser: req.user.id
     })
-  }
-
-  /* ---------- test ---------- */ // MARK: test
-  @ApiExcludeEndpoint()
-  @Roles(UserRoles.ADMIN)
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Get('test')
-  async test (@Request() req: { user: PayloadPrimitive }): Promise<any> {
-    console.log('TIME OUT STATED')
-    this.authService.test()
-    console.log('TIME OUT IN PROGRESS')
-
-    return req.user
   }
 }

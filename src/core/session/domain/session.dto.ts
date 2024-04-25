@@ -98,6 +98,15 @@ export class SessionDTO implements SessionPrimitive {
   @Field(() => Date)
     logoutAt: SessionPrimitive['logoutAt']
 
+  /* ---------- EXPIRED AT ---------- */
+  @ApiProperty({
+    example: new Date(),
+    type: Date
+  })
+  @IsDate()
+  @Field(() => Date)
+    expiredAt: SessionPrimitive['expiredAt']
+
   /* ---------- CREATED AT ---------- */
   @ApiProperty({
     example: new Date(),

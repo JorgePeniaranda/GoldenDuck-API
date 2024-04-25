@@ -7,6 +7,7 @@ export const EventsMap = {
   CREATE_NOTIFICATION: 'create.notification',
   CREATE_SESSION: 'create.session',
   CLOSE_SESSION: 'close.session',
+  CODE_CREATED: 'code.created',
   DELETE_SESSION: 'delete.session',
   INVESTMENT_CANCELLED: 'investment.cancelled',
   INVESTMENT_CREATED: 'investment.created',

@@ -10,8 +10,7 @@ import {
   NotFoundException,
   Param,
   ParseIntPipe,
-  Post,
-  Request
+  Post
 } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { CreateTransactionDTO, SWGCreateTransactionDTO } from '../domain/dto/create-transaction'
@@ -19,6 +18,7 @@ import { ReadTransactionService } from '../domain/service/read-transaction.servi
 import { WriteTransactionService } from '../domain/service/write-transaction.service'
 import { type Transaction } from '../domain/transaction.entity'
 import { TransactionResponse } from './transaction.response'
+import { CurrentAPIUser } from '@/decorators/current-user.decorator'
 
 @ApiTags('Transaction')
 @Controller('account/:AccountIndex/transaction')
@@ -37,11 +37,11 @@ export class TransactionController {
   })
   @Get()
   async findAll (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number
   ): Promise<Transaction[]> {
     const transactions = await this.readTransactionService.findAll({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       AccountIndex
     })
 
@@ -57,12 +57,12 @@ export class TransactionController {
   })
   @Post()
   async create (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Body() data: CreateTransactionDTO
   ): Promise<Transaction> {
     const transaction = await this.writeTransactionService.create({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       AccountIndex,
       data
     })
@@ -78,12 +78,12 @@ export class TransactionController {
   })
   @Get('/:index')
   async findOne (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Transaction> {
     const transaction = await this.readTransactionService.findOne({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       AccountIndex,
       index
     })
@@ -103,12 +103,12 @@ export class TransactionController {
   })
   @Get('/send/:index')
   async findOneAsSender (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Transaction> {
     const transaction = await this.readTransactionService.findOneAsSender({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       AccountIndex,
       index
     })
@@ -128,12 +128,12 @@ export class TransactionController {
   })
   @Get('/received/:index')
   async findOneAsReceiver (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Transaction> {
     const transaction = await this.readTransactionService.findOneAsReceiver({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       AccountIndex,
       index
     })
@@ -153,10 +153,10 @@ export class TransactionController {
   })
   @Delete('/:index')
   async delete (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
-    await this.writeTransactionService.delete({ idUser: UserData.user.id, AccountIndex, index })
+    await this.writeTransactionService.delete({ idUser: UserData.id, AccountIndex, index })
   }
 }

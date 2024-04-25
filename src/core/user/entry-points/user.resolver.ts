@@ -2,7 +2,7 @@ import { EntitiesName } from '@/constants/entities'
 import { Account } from '@/core/account/domain/account.entity'
 import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
 import { PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
-import { CurrentUser } from '@/decorators/current-user.decorator'
+import { CurrentGQLUser } from '@/decorators/current-user.decorator'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
 import { Messages } from '@/messages'
@@ -28,7 +28,7 @@ export class UserResolver {
 
   /* ---------- findByID ---------- */ // MARK: findByID
   @Query(() => User, { name: 'current_user_info' })
-  async findByID (@CurrentUser() UserData: PayloadPrimitive): Promise<User> {
+  async findByID (@CurrentGQLUser() UserData: PayloadPrimitive): Promise<User> {
     const user = await this.readUserService.findByID({
       id: UserData.id
     })
@@ -49,11 +49,11 @@ export class UserResolver {
   /* ---------- update ---------- */ // MARK: update
   @Mutation(() => User, { name: 'update_user' })
   async update (
-    @CurrentUser() UserData: { user: PayloadPrimitive },
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('data') data: GQLUpdateUserDTO
   ): Promise<User> {
     return await this.writeUserService.update({
-      id: UserData.user.id,
+      id: UserData.id,
       data
     })
   }
@@ -61,11 +61,11 @@ export class UserResolver {
   /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => User, { name: 'delete_user' })
   async delete (
-    @CurrentUser() UserData: { user: PayloadPrimitive },
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('data') data: GQLDeleteUserDTO
   ): Promise<void> {
     await this.writeUserService.delete({
-      id: UserData.user.id,
+      id: UserData.id,
       data
     })
   }
@@ -80,16 +80,6 @@ export class UserResolver {
     }
 
     return user
-  }
-
-  /* ---------- activate ---------- */ // MARK: activate
-  @Mutation(() => User, { name: 'activate_user' })
-  async activate (@CurrentUser() UserData: { user: PayloadPrimitive }): Promise<'🤠'> {
-    await this.writeUserService.activate({
-      id: UserData.user.id
-    })
-
-    return '🤠'
   }
 
   /* ---------- accounts ---------- */ // MARK: accounts

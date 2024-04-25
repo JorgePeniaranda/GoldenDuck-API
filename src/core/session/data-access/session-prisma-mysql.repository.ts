@@ -24,7 +24,10 @@ export class SessionRepositoryPrismaMySQL implements SessionRepository {
   public async findAll ({ idUser }: { idUser: SessionPrimitive['idUser'] }): Promise<Session[]> {
     const sessions = await this.prisma.session.findMany({
       where: {
-        idUser
+        idUser,
+        expiredAt: {
+          gte: new Date()
+        }
       }
     })
 
@@ -41,7 +44,10 @@ export class SessionRepositoryPrismaMySQL implements SessionRepository {
   }): Promise<Session | null> {
     const session = await this.prisma.session.findMany({
       where: {
-        idUser
+        idUser,
+        expiredAt: {
+          gte: new Date()
+        }
       },
       skip: index,
       take: 1
@@ -54,7 +60,10 @@ export class SessionRepositoryPrismaMySQL implements SessionRepository {
   public async findByID ({ id }: { id: SessionPrimitive['id'] }): Promise<Session | null> {
     const session = await this.prisma.session.findUnique({
       where: {
-        id
+        id,
+        expiredAt: {
+          gte: new Date()
+        }
       }
     })
 
@@ -65,7 +74,10 @@ export class SessionRepositoryPrismaMySQL implements SessionRepository {
   public async findByToken ({ token }: { token: SessionPrimitive['token'] }): Promise<Session | null> {
     const session = await this.prisma.session.findFirst({
       where: {
-        token
+        token,
+        expiredAt: {
+          gte: new Date()
+        }
       }
     })
 
@@ -76,6 +88,19 @@ export class SessionRepositoryPrismaMySQL implements SessionRepository {
   public async delete (data: Session): Promise<void> {
     await this.prisma.session.update({
       where: data.toJSON(),
+      data: {
+        active: false,
+        logoutAt: new Date()
+      }
+    })
+  }
+
+  /* ---------- deleteAll ---------- */ // MARK: deleteAll
+  public async deleteAll ({ idUser }: { idUser: SessionPrimitive['idUser'] }): Promise<void> {
+    await this.prisma.session.updateMany({
+      where: {
+        idUser
+      },
       data: {
         active: false,
         logoutAt: new Date()

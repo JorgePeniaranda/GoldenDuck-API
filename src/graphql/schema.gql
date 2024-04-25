@@ -91,6 +91,7 @@ type Session {
   token: String!
   active: Boolean!
   logoutAt: DateTime
+  expiredAt: DateTime!
   createdAt: DateTime!
 }
 
@@ -205,7 +206,6 @@ type Mutation {
   create_user(user: GQLCreateUserDTO!): User!
   update_user(data: GQLUpdateUserDTO!): User!
   delete_user(data: GQLDeleteUserDTO!): User!
-  activate_user: User!
   create_account: Account!
   delete_account(index: Int!): Account!
   create_card(AccountIndex: Int!): Card!

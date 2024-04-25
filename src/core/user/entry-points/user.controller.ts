@@ -1,5 +1,6 @@
 import { EntitiesName } from '@/constants/entities'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
+import { CurrentAPIUser } from '@/decorators/current-user.decorator'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
 import { Messages } from '@/messages'
 import {
@@ -9,8 +10,7 @@ import {
   Get,
   NotFoundException,
   Patch,
-  Post,
-  Request
+  Post
 } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { CreateUserDTO, SWGCreateUserDTO } from '../domain/dto/create-user.dto'
@@ -37,9 +37,9 @@ export class UserController {
     status: 200
   })
   @Get('/')
-  async findByID (@Request() UserData: { user: PayloadPrimitive }): Promise<User> {
+  async findByID (@CurrentAPIUser() UserData: PayloadPrimitive): Promise<User> {
     const user = await this.readUserService.findByID({
-      id: UserData.user.id
+      id: UserData.id
     })
 
     if (user === null) {
@@ -70,11 +70,11 @@ export class UserController {
   })
   @Patch()
   async update (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Body() data: UpdateUserDTO
   ): Promise<User> {
     return await this.writeUserService.update({
-      id: UserData.user.id,
+      id: UserData.id,
       data
     })
   }
@@ -87,11 +87,11 @@ export class UserController {
   })
   @Delete()
   async delete (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Body() data: DeleteUserDTO
   ): Promise<void> {
     await this.writeUserService.delete({
-      id: UserData.user.id,
+      id: UserData.id,
       data
     })
   }
@@ -118,9 +118,9 @@ export class UserController {
     status: 204
   })
   @Get('/activate')
-  async activate (@Request() UserData: { user: PayloadPrimitive }): Promise<'🤠'> {
+  async activate (@CurrentAPIUser() UserData: PayloadPrimitive): Promise<'🤠'> {
     await this.writeUserService.activate({
-      id: UserData.user.id
+      id: UserData.id
     })
 
     return '🤠'

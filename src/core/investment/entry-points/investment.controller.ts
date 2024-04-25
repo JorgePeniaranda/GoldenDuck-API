@@ -1,5 +1,6 @@
 import { EntitiesName } from '@/constants/entities'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
+import { CurrentAPIUser } from '@/decorators/current-user.decorator'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
 import { Messages } from '@/messages'
 import {
@@ -10,8 +11,7 @@ import {
   NotFoundException,
   Param,
   ParseIntPipe,
-  Post,
-  Request
+  Post
 } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { CreateInvestmentDTO, SWGCreateInvestmentDTO } from '../domain/dto/create-investment'
@@ -37,11 +37,11 @@ export class InvestmentController {
     status: 200
   })
   async findAll (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number
   ): Promise<Investment[]> {
     const investment = await this.readInvestmentService.findAll({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       AccountIndex
     })
 
@@ -70,12 +70,12 @@ export class InvestmentController {
   })
   @Get('/:index')
   async findOne (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Investment> {
     const investment = await this.readInvestmentService.findOne({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       AccountIndex,
       index
     })
@@ -94,12 +94,12 @@ export class InvestmentController {
   })
   @Delete('/:index')
   async delete (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
     await this.writeInvestmentService.delete({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       AccountIndex,
       index
     })

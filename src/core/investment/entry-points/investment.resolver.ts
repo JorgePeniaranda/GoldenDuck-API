@@ -2,7 +2,7 @@ import { EntitiesName } from '@/constants/entities'
 import { Account } from '@/core/account/domain/account.entity'
 import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
-import { CurrentUser } from '@/decorators/current-user.decorator'
+import { CurrentGQLUser } from '@/decorators/current-user.decorator'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
 import { Messages } from '@/messages'
@@ -26,7 +26,7 @@ export class InvestmentResolver {
   /* ---------- findAll ---------- */ // MARK: findAll
   @Query(() => [Investment], { name: 'find_all_investment' })
   async findAll (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('AccountIndex', { type: () => Int }) AccountIndex: number
   ): Promise<Investment[]> {
     const investment = await this.readInvestmentService.findAll({
@@ -48,7 +48,7 @@ export class InvestmentResolver {
   /* ---------- findOne ---------- */ // MARK: findOne
   @Query(() => Investment, { name: 'find_one_investment' })
   async findOne (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('AccountIndex', { type: () => Int }) AccountIndex: number,
       @Args('index', { type: () => Int }) index: number
   ): Promise<Investment> {
@@ -68,7 +68,7 @@ export class InvestmentResolver {
   /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => Investment, { name: 'delete_investment' })
   async delete (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('AccountIndex', { type: () => Int }) AccountIndex: number,
       @Args('index', { type: () => Int }) index: number
   ): Promise<void> {

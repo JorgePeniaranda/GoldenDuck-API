@@ -55,4 +55,9 @@ export class WriteSessionService {
 
     await this.sessionRepository.delete(session)
   }
+
+  /* ---------- deleteAll ---------- */ // MARK: deleteAll
+  public async deleteAll ({ idUser }: { idUser: SessionPrimitive['idUser'] }): Promise<void> {
+    await this.sessionRepository.deleteAll({ idUser })
+  }
 }

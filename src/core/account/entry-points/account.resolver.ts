@@ -10,7 +10,7 @@ import { ReadTransactionService } from '@/core/transaction/domain/service/read-t
 import { Transaction } from '@/core/transaction/domain/transaction.entity'
 import { ReadUserService } from '@/core/user/domain/service/read-user.service'
 import { User } from '@/core/user/domain/user.entity'
-import { CurrentUser } from '@/decorators/current-user.decorator'
+import { CurrentGQLUser } from '@/decorators/current-user.decorator'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
 import { Messages } from '@/messages'
@@ -36,7 +36,7 @@ export class AccountResolver {
 
   /* ---------- findAll ---------- */ // MARK: findAll
   @Query(() => Account, { name: 'find_all_account' })
-  async findAll (@CurrentUser() UserData: PayloadPrimitive): Promise<Account[]> {
+  async findAll (@CurrentGQLUser() UserData: PayloadPrimitive): Promise<Account[]> {
     const accounts = await this.readAccountService.findAll({
       idUser: UserData.id
     })
@@ -46,7 +46,7 @@ export class AccountResolver {
 
   /* ---------- CurrentUser ---------- */ // MARK: CurrentUser
   @Mutation(() => Account, { name: 'create_account' })
-  async create (@CurrentUser() UserData: PayloadPrimitive): Promise<Account> {
+  async create (@CurrentGQLUser() UserData: PayloadPrimitive): Promise<Account> {
     const account = await this.writeAccountService.create({
       idUser: UserData.id
     })
@@ -57,7 +57,7 @@ export class AccountResolver {
   /* ---------- findOne ---------- */ // MARK: findOne
   @Query(() => Account, { name: 'find_one_account' })
   async findOne (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('index', { type: () => Int }) index: number
   ): Promise<Account> {
     const account = await this.readAccountService.findOne({ idUser: UserData.id, index })
@@ -72,7 +72,7 @@ export class AccountResolver {
   /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => Account, { name: 'delete_account' })
   async delete (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('index', { type: () => Int }) index: number
   ): Promise<void> {
     await this.writeAccountService.delete({ idUser: UserData.id, index })

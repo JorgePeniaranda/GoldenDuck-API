@@ -1,4 +1,5 @@
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
+import { CurrentAPIUser } from '@/decorators/current-user.decorator'
 import { ENDPOINT_INFO } from '@/decorators/endpoint.decorator'
 import {
   Body,
@@ -8,8 +9,7 @@ import {
   NotFoundException,
   Param,
   ParseIntPipe,
-  Post,
-  Request
+  Post
 } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { type Card } from '../domain/card.entity'
@@ -35,11 +35,11 @@ export class CardController {
   })
   @Get()
   async findAll (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number
   ): Promise<Card[]> {
     const cards = await this.readCardService.findAll({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       AccountIndex
     })
 
@@ -59,12 +59,12 @@ export class CardController {
   })
   @Post()
   async create (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Body() data: CreateCardDTO
   ): Promise<Card> {
     const card = await this.writeCardService.create({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       AccountIndex,
       data
     })
@@ -80,12 +80,12 @@ export class CardController {
   })
   @Get('/:index')
   async findOne (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<Card> {
     const card = await this.readCardService.findOne({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       AccountIndex,
       index
     })
@@ -105,12 +105,12 @@ export class CardController {
   })
   @Delete('/:index')
   async delete (
-    @Request() UserData: { user: PayloadPrimitive },
+    @CurrentAPIUser() UserData: PayloadPrimitive,
       @Param('AccountIndex', new ParseIntPipe()) AccountIndex: number,
       @Param('index', new ParseIntPipe()) index: number
   ): Promise<void> {
     await this.writeCardService.delete({
-      idUser: UserData.user.id,
+      idUser: UserData.id,
       AccountIndex,
       index
     })

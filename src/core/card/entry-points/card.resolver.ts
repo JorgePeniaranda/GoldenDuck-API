@@ -2,7 +2,7 @@ import { EntitiesName } from '@/constants/entities'
 import { Account } from '@/core/account/domain/account.entity'
 import { ReadAccountService } from '@/core/account/domain/service/read-account.service'
 import { type PayloadPrimitive } from '@/core/auth/domain/primitive/payload.primitive'
-import { CurrentUser } from '@/decorators/current-user.decorator'
+import { CurrentGQLUser } from '@/decorators/current-user.decorator'
 import { Public } from '@/decorators/public.decorator'
 import { GqlAuthGuard } from '@/guard/gql.guard'
 import { Messages } from '@/messages'
@@ -26,7 +26,7 @@ export class CardResolver {
   /* ---------- findAll ---------- */ // MARK: findAll
   @Query(() => Card, { name: 'find_all_card' })
   async findAll (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('AccountIndex', { type: () => Int }) AccountIndex: number
   ): Promise<Card[]> {
     const cards = await this.readCardService.findAll({
@@ -44,7 +44,7 @@ export class CardResolver {
   /* ---------- create ---------- */ // MARK: create
   @Mutation(() => Card, { name: 'create_card' })
   async create (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('AccountIndex', { type: () => Int }) AccountIndex: number,
       @Body() data: GQLCreateCardDTO
   ): Promise<Card> {
@@ -60,7 +60,7 @@ export class CardResolver {
   /* ---------- findOne ---------- */ // MARK: findOne
   @Query(() => Card, { name: 'find_one_card' })
   async findOne (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('AccountIndex', { type: () => Int }) AccountIndex: number,
       @Args('index', { type: () => Int }) index: number
   ): Promise<Card> {
@@ -80,7 +80,7 @@ export class CardResolver {
   /* ---------- delete ---------- */ // MARK: delete
   @Mutation(() => Card, { name: 'delete_card' })
   async delete (
-    @CurrentUser() UserData: PayloadPrimitive,
+    @CurrentGQLUser() UserData: PayloadPrimitive,
       @Args('AccountIndex', { type: () => Int }) AccountIndex: number,
       @Args('index', { type: () => Int }) index: number
   ): Promise<void> {
