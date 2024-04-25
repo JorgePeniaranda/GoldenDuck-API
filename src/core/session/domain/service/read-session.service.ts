@@ -1,10 +1,8 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common'
+import { type SessionData } from '@/core/auth/domain/session-data.entity'
+import { Inject, Injectable } from '@nestjs/common'
 import { type Session } from '../session.entity'
 import { type SessionPrimitive } from '../session.primitive'
 import { SessionRepository } from '../session.repository'
-import { type SessionData } from '@/core/auth/domain/session-data.entity'
-import { Messages } from '@/messages'
-import { EntitiesName } from '@/constants/entities'
 
 @Injectable()
 export class ReadSessionService {
@@ -35,12 +33,8 @@ export class ReadSessionService {
   }
 
   /* ---------- findWithSessionData ---------- */ // MARK: findWithSessionData
-  public async findWithSessionData (data: SessionData): Promise<Session> {
+  public async findWithSessionData (data: SessionData): Promise<Session | null> {
     const session = await this.sessionRepository.findByToken({ token: data.token })
-
-    if (session === null) {
-      throw new NotFoundException(Messages.error.NotFound(EntitiesName.SESSION))
-    }
 
     return session
   }

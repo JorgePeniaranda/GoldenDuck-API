@@ -22,14 +22,14 @@ import { AuthResolver } from './entry-points/auth.resolver'
         notBefore: '0s',
         noTimestamp: false,
         encoding: 'utf-8',
-        expiresIn: env.JWT_EXPIRATION_TIME
+        expiresIn: env.JWT_EXPIRATION_MINUTES + 'm'
       },
       verifyOptions: {
         algorithms: ['HS256'],
         allowInvalidAsymmetricKeyTypes: false,
         ignoreNotBefore: false,
         ignoreExpiration: false,
-        maxAge: env.JWT_EXPIRATION_TIME
+        maxAge: env.JWT_EXPIRATION_MINUTES + 'm'
       }
     }),
     UserModule,

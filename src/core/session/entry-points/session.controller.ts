@@ -71,4 +71,14 @@ export class SessionController {
   ): Promise<void> {
     await this.writeSessionService.delete({ idUser: UserData.id, index })
   }
+
+  /* ---------- deleteAll ---------- */ // MARK: deleteAll
+  @ENDPOINT_INFO({
+    auth: true,
+    status: 204
+  })
+  @Delete()
+  async deleteAll (@CurrentAPIUser() UserData: PayloadPrimitive): Promise<void> {
+    await this.writeSessionService.deleteAll({ idUser: UserData.id })
+  }
 }

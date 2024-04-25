@@ -14,4 +14,5 @@ export interface SessionRepository {
   findByID: ({ id }: { id: SessionPrimitive['id'] }) => Promise<Session | null>
   findByToken: ({ token }: { token: SessionPrimitive['token'] }) => Promise<Session | null>
   delete: (data: Session) => Promise<void>
+  deleteAll: ({ idUser }: { idUser: SessionPrimitive['idUser'] }) => Promise<void>
 }

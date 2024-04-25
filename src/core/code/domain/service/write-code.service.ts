@@ -31,6 +31,8 @@ export class WriteCodeService {
       throw new NotFoundException(Messages.error.NotFound(EntitiesName.USER))
     }
 
+    await this.deleteAll({ idUser: user.id })
+
     const validationCode = UUID().replace(/-/g, '').slice(0, VALIDATION_CODE_LENGTH).toUpperCase()
     const code = Code.create({
       idUser: user.id,

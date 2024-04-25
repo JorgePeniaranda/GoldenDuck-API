@@ -91,6 +91,7 @@ type Session {
   token: String!
   active: Boolean!
   logoutAt: DateTime
+  expiredAt: DateTime!
   createdAt: DateTime!
 }
 

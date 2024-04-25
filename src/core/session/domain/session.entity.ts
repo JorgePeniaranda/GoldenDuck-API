@@ -2,6 +2,8 @@ import { User } from '@/core/user/domain/user.entity'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { type SessionPrimitive } from './session.primitive'
 import { Expose } from 'class-transformer'
+import moment from 'moment'
+import { env } from '@/constants/env'
 
 @ObjectType()
 export class Session implements SessionPrimitive {
@@ -14,6 +16,7 @@ export class Session implements SessionPrimitive {
   readonly #token: SessionPrimitive['token']
   #active: SessionPrimitive['active']
   #logoutAt: SessionPrimitive['logoutAt']
+  readonly #expiredAt: SessionPrimitive['expiredAt']
   readonly #createdAt: SessionPrimitive['createdAt']
 
   constructor (transaction: SessionPrimitive) {
@@ -26,6 +29,7 @@ export class Session implements SessionPrimitive {
     this.#token = transaction.token
     this.#active = transaction.active
     this.#logoutAt = transaction.logoutAt
+    this.#expiredAt = transaction.expiredAt
     this.#createdAt = transaction.createdAt
   }
 
@@ -90,6 +94,12 @@ export class Session implements SessionPrimitive {
 
   @Field(() => Date)
   @Expose()
+  public get expiredAt (): SessionPrimitive['expiredAt'] {
+    return this.#expiredAt
+  }
+
+  @Field(() => Date)
+  @Expose()
   public get createdAt (): SessionPrimitive['createdAt'] {
     return this.#createdAt
   }
@@ -125,6 +135,7 @@ export class Session implements SessionPrimitive {
       token,
       active: true,
       logoutAt: null,
+      expiredAt: moment().add(env.JWT_EXPIRATION_MINUTES, 'minutes').toDate(),
       createdAt: new Date()
     })
   }
@@ -140,6 +151,7 @@ export class Session implements SessionPrimitive {
       token: this.token,
       active: this.active,
       logoutAt: this.logoutAt,
+      expiredAt: this.expiredAt,
       createdAt: this.createdAt
     }
   }

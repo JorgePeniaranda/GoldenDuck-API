@@ -10,5 +10,6 @@ export interface SessionPrimitive {
   readonly token: Session['token']
   active: Session['active']
   logoutAt: Session['logoutAt']
+  expiredAt: Session['expiredAt']
   readonly createdAt: Session['createdAt']
 }

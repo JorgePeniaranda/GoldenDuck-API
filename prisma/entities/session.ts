@@ -11,6 +11,7 @@ export class PrismaSession implements PrismaWithoutID<Session> {
   readonly token: Session['token']
   readonly active: Session['active']
   readonly logoutAt: Session['logoutAt']
+  readonly expiredAt: Session['expiredAt']
   readonly createdAt: Session['createdAt']
 
   constructor(session: PrismaWithoutID<Session>) {
@@ -22,11 +23,13 @@ export class PrismaSession implements PrismaWithoutID<Session> {
     this.token = session.token
     this.active = session.active
     this.logoutAt = session.logoutAt
+    this.expiredAt = session.expiredAt
     this.createdAt = session.createdAt
   }
 
   public static generate({ idUser }: { idUser: Session['idUser'] }): PrismaSession {
     const createdAt = faker.date.past()
+    const expiredAt = faker.date.future()
     const active = faker.datatype.boolean({ probability: PrismaParams.SESSION_ACTIVE_PROBABILITY })
     const logoutAt = active
       ? faker.date.between({
@@ -44,6 +47,7 @@ export class PrismaSession implements PrismaWithoutID<Session> {
       token: faker.string.uuid(),
       active,
       logoutAt,
+      expiredAt,
       createdAt
     })
   }

@@ -10,5 +10,6 @@ export class SessionResponse extends PickType(SessionDTO, [
   'deviceType',
   'active',
   'logoutAt',
+  'expiredAt',
   'createdAt'
 ]) {}
