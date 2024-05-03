@@ -9,7 +9,7 @@ import {
   NotFoundException,
   UnauthorizedException
 } from '@nestjs/common'
-import { EventEmitter2 } from '@nestjs/event-emitter'
+import { EventEmitter2, OnEvent } from '@nestjs/event-emitter'
 import { v4 as UUID } from 'uuid'
 import { Code } from '../code.entity'
 import { CodeType, type CodePrimitive } from '../code.primitive'
@@ -30,6 +30,7 @@ export class WriteCodeService {
   ) {}
 
   /* ---------- create ---------- */ // MARK: create
+  @OnEvent(EventsMap.SEND_VALIDATON_CODE)
   public async create ({ email, phoneNumber }: CreateCodeDTO): Promise<Code> {
     const user = await this.readUserService.findOne({ email, phoneNumber })
 
@@ -80,26 +81,6 @@ export class WriteCodeService {
     }
 
     return await this.authService.login(user)
-  }
-
-  /* ---------- delete ---------- */ // MARK: delete
-  public async delete ({
-    idUser,
-    index
-  }: {
-    idUser: CodePrimitive['idUser']
-    index: number
-  }): Promise<void> {
-    const code = await this.codeRepository.findOne({
-      idUser,
-      index
-    })
-
-    if (code === null) {
-      throw new NotFoundException(Messages.error.NotFound(EntitiesName.CATEGORY))
-    }
-
-    await this.codeRepository.delete(code)
   }
 
   /* ---------- deleteAll ---------- */ // MARK: deleteAll

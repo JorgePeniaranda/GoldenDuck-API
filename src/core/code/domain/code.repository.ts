@@ -3,15 +3,6 @@ import { type CodePrimitive } from './code.primitive'
 
 export interface CategoryRepository {
   create: (data: Code) => Promise<Code>
-  findAll: ({ idUser }: { idUser: CodePrimitive['idUser'] }) => Promise<Code[]>
-  findOne: ({
-    idUser,
-    index
-  }: {
-    idUser: CodePrimitive['idUser']
-    index: number
-  }) => Promise<Code | null>
-  findByID: ({ id }: { id: CodePrimitive['id'] }) => Promise<Code | null>
-  delete: (data: Code) => Promise<void>
+  findLast: ({ idUser }: { idUser: CodePrimitive['idUser'] }) => Promise<Code | null>
   deleteAll: ({ idUser }: { idUser: CodePrimitive['idUser'] }) => Promise<void>
 }

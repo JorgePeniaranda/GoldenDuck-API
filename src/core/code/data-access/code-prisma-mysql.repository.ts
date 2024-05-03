@@ -20,63 +20,22 @@ export class CodeRepositoryPrismaMySQL implements CategoryRepository {
     return new Code(code)
   }
 
-  /* ---------- findAll ---------- */ // MARK: findAll
-  public async findAll ({ idUser }: { idUser: CodePrimitive['idUser'] }): Promise<Code[]> {
-    const codes = await this.prisma.code.findMany({
-      where: {
-        idUser,
-        expiredAt: {
-          gte: new Date()
-        }
-      }
-    })
-
-    return codes.map(code => new Code(code))
-  }
-
-  /* ---------- findOne ---------- */ // MARK: findOne
-  public async findOne ({
-    idUser,
-    index
-  }: {
-    idUser: CodePrimitive['idUser']
-    index: number
-  }): Promise<Code | null> {
+  /* ---------- findLast ---------- */ // MARK: findLast
+  public async findLast ({ idUser }: { idUser: CodePrimitive['idUser'] }): Promise<Code | null> {
     const code = await this.prisma.code.findMany({
       where: {
         idUser,
         expiredAt: {
           gte: new Date()
-        },
-        expired: false
+        }
       },
-      skip: index,
+      orderBy: {
+        createdAt: 'desc'
+      },
       take: 1
     })
 
     return code[0] !== undefined ? new Code(code[0]) : null
-  }
-
-  /* ---------- findOne ---------- */ // MARK: findOne
-  public async findByID ({ id }: { id: CodePrimitive['id'] }): Promise<Code | null> {
-    const code = await this.prisma.code.findUnique({
-      where: {
-        id
-      }
-    })
-
-    return code !== null ? new Code(code) : null
-  }
-
-  /* ---------- delete ---------- */ // MARK: delete
-  public async delete (data: Code): Promise<void> {
-    await this.prisma.code.update({
-      where: data.toJSON(),
-      data: {
-        expired: true,
-        expiredAt: new Date()
-      }
-    })
   }
 
   /* ---------- deleteAll ---------- */ // MARK: deleteAll

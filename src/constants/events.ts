@@ -17,6 +17,7 @@ export const EventsMap = {
   NOTIFICATION_CREATED: 'notification.created',
   NOTIFICATION_READED: 'notification.readed',
   SESSION_CREATED: 'session.created',
+  SEND_VALIDATON_CODE: 'send.validation-code',
   TRANSACTION_CREATED: 'transaction.created',
   TRANSACTION_REVERTED: 'transaction.reverted',
   USER_ACTIVATED: 'user.activated',

@@ -1,3 +1,5 @@
+import { type UserPrimitive } from '@/core/user/domain/user.primitive'
+import { JwtAuthGuard } from '@/guard/jwt.guard'
 import { applyDecorators, HttpCode, UseGuards, type Type } from '@nestjs/common'
 import {
   ApiBearerAuth,
@@ -10,8 +12,6 @@ import {
 } from '@nestjs/swagger'
 import { Public } from './public.decorator'
 import { Roles } from './roles.decorator'
-import { type UserPrimitive } from '@/core/user/domain/user.primitive'
-import { JwtAuthGuard } from '@/guard/jwt.guard'
 
 export const ENDPOINT_INFO = ({
   auth = true,
